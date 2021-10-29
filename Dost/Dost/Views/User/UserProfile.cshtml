@@ -26,7 +26,7 @@
                 <div class="col-xl-6 col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">PERSONAL DETAILS</h4>
+                            <h4 class="card-title">PERSONAL DETAILS <span class="text-danger">@TempData["UpdateProfile"]</span></h4>
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
@@ -76,7 +76,7 @@
 
 
                                                 @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(m => m.LastName)
+                                            
                                                 }
                                         </div>
                                     </div>
@@ -87,7 +87,7 @@
                                         <div class="mb-3">
                                             <label>Mobile Number <span class="text-danger">*</span></label>
                                             @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @disabled = "disabled" })
-                                            @Html.ValidationMessageFor(m => m.Mobile)
+                                          
                                         </div>
                                     </div>
 
@@ -95,7 +95,7 @@
                                         <div class="mb-3">
                                             <label>Email </label>
                                             @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(m => m.EmailId)
+                                          
                                         </div>
                                     </div>
                                 </div>
@@ -104,14 +104,14 @@
                                         <div class="mb-3">
                                             <label>Sponsor Id </label>
                                             @Html.TextBoxFor(m => m.SponsorId, new { @class = "form-control", @disabled = "disabled" })
-                                            @Html.ValidationMessageFor(m => m.SponsorId)
+                                           
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>Sponsor Name</label>
                                             @Html.TextBoxFor(m => m.SponsorName, new { @class = "form-control", @disabled = "disabled" })
-                                            @Html.ValidationMessageFor(m => m.SponsorName)
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -136,14 +136,14 @@
                                         <div class="mb-3">
                                             <label>IFSC</label>
                                             @Html.TextBoxFor(m => m.IFSC, new { @class = "form-control"})
-                                            @Html.ValidationMessageFor(m => m.IFSC)
+                                     
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>Bank Name</label>
                                             @Html.TextBoxFor(m => m.BankName, new { @class = "form-control"})
-                                            @Html.ValidationMessageFor(m => m.BankName)
+                                      
                                         </div>
                                     </div>
                                 </div>
@@ -152,14 +152,14 @@
                                         <div class="mb-3">
                                             <label>Branch Name</label>
                                             @Html.TextBoxFor(m => m.BankBranch, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(m => m.BankBranch)
+                                      
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>Account Number</label>
                                             @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(m => m.IFSC)
+                                          
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@
                                         <div class="mb-3">
                                             <label>Account Holder Name</label>
                                             @Html.TextBoxFor(m => m.AccountHolderName, new { @class = "form-control"})
-                                            @Html.ValidationMessageFor(m => m.AccountHolderName)
+                                        
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 form-group">
@@ -180,6 +180,7 @@
                                         </div>
                                     </div>
                                 </div>
+                           
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 text-center">
                                      
@@ -200,13 +201,14 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
+                                
                                 <div class="form-row">
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>Adhar Number </label>
                                             @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control"})
                                             @Html.DisplayFor(m => m.AdharStatus, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(m => m.AdharNumber)
+                                          
                                         </div>
                                     </div>
 
@@ -225,7 +227,7 @@
                                             <label>Pan Number</label>
                                             @Html.TextBoxFor(m => m.PanNumber, new { @class = "form-control"})
                                             @Html.DisplayFor(m => m.PanStatus, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(m => m.PanNumber)
+                                         
                                         </div>
                                     </div>
 
@@ -240,7 +242,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 text-center">
-                                        <button type="submit" class="btn btn-primary mb-2 px-5">UPDATE</button>
+                                        <input type="submit" id="btnKYCUpdate" class="btn btn-primary mb-2 px-5" name="btnKYCUpdate" value="Update" onclick="return editKYCDetails()" />
                                     </div>
                                 </div>
 
@@ -259,16 +261,16 @@
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>UPI Id</label>
-                                            @Html.TextBoxFor(m => m.AccountHolderName, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(m => m.AccountHolderName)
+                                            @Html.TextBoxFor(m => m.UPI, new { @class = "form-control" })
+                                            @Html.DisplayFor(m => m.UPIStatus, new { @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>Paytm</label>
-                                            @Html.TextBoxFor(m => m.AccountHolderName, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(m => m.AccountHolderName)
+                                            @Html.TextBoxFor(m => m.Paytm, new { @class = "form-control" })
+                                            @Html.DisplayFor(m => m.PaytmStatus, new { @class = "form-control" })
                                         </div>
                                     </div>
                                 </div>
@@ -276,26 +278,26 @@
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>PhonePe</label>
-                                            @Html.TextBoxFor(m => m.AccountHolderName, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(m => m.AccountHolderName)
+                                            @Html.TextBoxFor(m => m.PhonePe, new { @class = "form-control" })
+                                            @Html.DisplayFor(m => m.PhonePeStatus, new { @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>Google Pay</label>
-                                            @Html.TextBoxFor(m => m.AccountHolderName, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(m => m.AccountHolderName)
+                                            @Html.TextBoxFor(m => m.GooglePay, new { @class = "form-control" })
+                                            @Html.DisplayFor(m => m.GooglePayStatus, new { @class = "form-control" })
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 text-center">
-                                        <button type="submit" class="btn btn-primary mb-2 px-5">UPDATE</button>
+                                        <input type="submit" id="btnWalletUpdate" class="btn btn-primary mb-2 px-5" name="btnWalletUpdate" value="Update"/>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 text-center">
-                                        <button type="submit" class="btn btn-primary mb-2 px-5">ADD MORE</button>
-                                        <button type="button" class="btn btn-dark mb-2  mr-2" id="toastr-success-bottom-right">Bottom Right</button>
+                                        <button type="submit" class="btn btn-primary mb-2 px-5">add more</button>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -314,34 +316,6 @@
     }
 </style>
 
-@if (TempData["UpdateProfile"] != null)
-{
-    if (TempData["UpdateProfile"] == "Updated successfully..")
-    {
-        <script>
-            debugger
-            toastr.success("This Is Success Message", "Top Right", {
-                positionClass: "toast-top-right",
-                timeOut: 5e3,
-                closeButton: !0,
-                debug: !1,
-                newestOnTop: !0,
-                progressBar: !0,
-                preventDuplicates: !0,
-                onclick: null,
-                showDuration: "300",
-                hideDuration: "1000",
-                extendedTimeOut: "1000",
-                showEasing: "swing",
-                hideEasing: "linear",
-                showMethod: "fadeIn",
-                hideMethod: "fadeOut",
-                tapToDismiss: !1
-            })
-        </script>
-
-    }
-}
 <script>
     function editPersonal() {
         $(".errortext").removeClass("errortext");

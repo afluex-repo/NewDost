@@ -141,6 +141,7 @@ namespace Dost.Controllers
 
                 obj.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
                 obj.FirstName = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                obj.MiddleName = ds.Tables[0].Rows[0]["MiddleName"].ToString();
                 obj.LastName = ds.Tables[0].Rows[0]["LastName"].ToString();
                 obj.JoiningDate = ds.Tables[0].Rows[0]["JoiningDate"].ToString();
                 obj.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
@@ -154,6 +155,17 @@ namespace Dost.Controllers
                 obj.IFSC = ds.Tables[0].Rows[0]["IFSC"].ToString();
                 obj.ProfilePicture = ds.Tables[0].Rows[0]["ProfilePic"].ToString();
                 obj.Summary = ds.Tables[0].Rows[0]["Summary"].ToString();
+                obj.AccountHolderName= ds.Tables[0].Rows[0]["BankHolderName"].ToString();
+                obj.DocumentImage = ds.Tables[0].Rows[0]["DocumentImage"].ToString();
+                obj.UPIStatus = "Status : " + ds.Tables[0].Rows[0]["UPIStatus"].ToString();
+                obj.PaytmStatus = "Status : " + ds.Tables[0].Rows[0]["PaytmStatus"].ToString();
+                obj.PhonePeStatus = "Status : " + ds.Tables[0].Rows[0]["PhonePeStatus"].ToString();
+                obj.GooglePayStatus = "Status : " + ds.Tables[0].Rows[0]["GooglePayStatus"].ToString();
+                obj.UPI = ds.Tables[0].Rows[0]["UPI"].ToString();
+                obj.PhonePe = ds.Tables[0].Rows[0]["PhonePe"].ToString();
+                obj.Paytm = ds.Tables[0].Rows[0]["Paytm"].ToString();
+                obj.GooglePay = ds.Tables[0].Rows[0]["GooglePay"].ToString();
+
             }
             obj.Fk_UserId = Session["Pk_userId"].ToString();
             DataSet ds1 = obj.GetKYCDocuments();
@@ -165,8 +177,6 @@ namespace Dost.Controllers
                 obj.PanNumber = ds1.Tables[0].Rows[0]["PanNumber"].ToString();
                 obj.PanImage = ds1.Tables[0].Rows[0]["PanImage"].ToString();
                 obj.PanStatus = "Status : " + ds1.Tables[0].Rows[0]["PanStatus"].ToString();
-                obj.DocumentNumber = ds1.Tables[0].Rows[0]["DocumentNumber"].ToString();
-                obj.DocumentImage = ds1.Tables[0].Rows[0]["DocumentImage"].ToString();
                 obj.DocumentStatus = "Status : " + ds1.Tables[0].Rows[0]["DocumentStatus"].ToString();
                 obj.MemberAccNo = ds1.Tables[1].Rows[0]["MemberAccNo"].ToString();
                 obj.MemberBankName = ds1.Tables[1].Rows[0]["MemberBankName"].ToString();
@@ -179,7 +189,7 @@ namespace Dost.Controllers
         [HttpPost]
         [ActionName("UserProfile")]
         [OnAction(ButtonName = "btnUpdate")]
-        public ActionResult UpdateProfile( Profile obj)
+        public ActionResult UpdatePersonalInfo( Profile obj)
         {
             string FormName = "";
             string Controller = "";
@@ -212,9 +222,137 @@ namespace Dost.Controllers
             }
             return RedirectToAction(FormName, Controller);
         }
-        public ActionResult Toster()
+        [HttpPost]
+        [ActionName("UserProfile")]
+        [OnAction(ButtonName = "btnBankUpdate")]
+        public ActionResult UpdateBankDetails(HttpPostedFileBase postedCheque, Profile obj)
         {
-            return View();
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                if (postedCheque != null)
+                {
+                    obj.DocumentImage = "/images/ProfilePicture/" + Guid.NewGuid() + Path.GetExtension(postedCheque.FileName);
+                    postedCheque.SaveAs(Path.Combine(Server.MapPath(obj.DocumentImage)));
+                }
+                obj.PK_UserID = Session["Pk_userId"].ToString();
+                DataSet ds = obj.UpdateBankInfo();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["UpdateProfile"] = "Updated successfully..";
+                        FormName = "UserProfile";
+                        Controller = "User";
+                        //return View();
+                    }
+                    else
+                    {
+                        TempData["UpdateProfile"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "UserProfile";
+                        Controller = "User";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["UpdateProfile"] = ex.Message;
+                FormName = "UserProfile";
+                Controller = "User";
+            }
+            return RedirectToAction(FormName, Controller);
+        }
+        [HttpPost]
+        [ActionName("UserProfile")]
+        [OnAction(ButtonName = "btnKYCUpdate")]
+        public ActionResult KYCDocuments(IEnumerable<HttpPostedFileBase> postedAadhar, IEnumerable<HttpPostedFileBase> postedPan, Profile obj)
+        {
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                foreach (var file in postedAadhar)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+
+                        obj.AdharImage = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                        file.SaveAs(Path.Combine(Server.MapPath(obj.AdharImage)));
+                    }
+                }
+                foreach (var file in postedPan)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        obj.PanImage = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                        file.SaveAs(Path.Combine(Server.MapPath(obj.PanImage)));
+                    }
+                }
+           
+                obj.Fk_UserId = Session["Pk_userId"].ToString();
+
+                DataSet ds = obj.UploadKYCDocuments();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                      
+                        TempData["UpdateProfile"] = "Updated successfully..";
+                        FormName = "UserProfile";
+                        Controller = "User";
+                    }
+                    else
+                    {
+                        TempData["UpdateProfile"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "UserProfile";
+                        Controller = "User";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["UpdateProfile"] = ex.Message;
+                FormName = "UserProfile";
+                Controller = "User";
+            }
+            return RedirectToAction(FormName, Controller);
+        }
+        [HttpPost]
+        [ActionName("UserProfile")]
+        [OnAction(ButtonName = "btnWalletUpdate")]
+        public ActionResult UpdateWalletinfo(Profile obj)
+        {
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                obj.Fk_UserId = Session["Pk_userId"].ToString();
+                DataSet ds = obj.UpdateWalletDetails();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["UpdateProfile"] = "Updated successfully..";
+                        FormName = "UserProfile";
+                        Controller = "User";
+                        //return View();
+                    }
+                    else
+                    {
+                        TempData["UpdateProfile"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "UserProfile";
+                        Controller = "User";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["UpdateProfile"] = ex.Message;
+                FormName = "UserProfile";
+                Controller = "User";
+            }
+            return RedirectToAction(FormName, Controller);
         }
     }
 }

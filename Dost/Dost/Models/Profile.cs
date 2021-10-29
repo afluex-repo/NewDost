@@ -64,6 +64,18 @@ namespace Dost.Models
         public string IFSCCode { get; set; }
         public string MemberBankName { get; set; }
         public string MemberBranch { get; set; }
+        public string KYCNumber { get; set; }
+        public string KYCStatus { get; set; }
+        public string KYCAttachment { get; set; }
+
+        public string UPIStatus { get; set; }
+        public string Paytm { get; set; }
+        public string PaytmStatus { get; set; }
+        public string PhonePe { get; set; }
+        public string PhonePeStatus { get; set; }
+        public string GooglePay { get; set; }
+        public string GooglePayStatus { get; set; }
+
         #endregion
         public DataSet GetUserProfile()
         {
@@ -88,10 +100,45 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdatePersonalInfo", para);
             return ds;
         }
+        public DataSet UpdateBankInfo()
+        {
+            SqlParameter[] para = { new SqlParameter("@PK_UserID",PK_UserID ) ,
+                                      new SqlParameter("@IFSC", IFSC) ,
+                                       new SqlParameter("@BankName", BankName) ,
+                                      new SqlParameter("@BankBranch", BankBranch) ,
+                                      new SqlParameter("@AccountNumber", AccountNumber) ,
+                                      new SqlParameter("@AccountHolderName", AccountHolderName),
+                                      new SqlParameter("@DocumentImage",DocumentImage)
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("Updatebankdetails", para);
+            return ds;
+        }
         public DataSet GetKYCDocuments()
         {
             SqlParameter[] para = { new SqlParameter("@FK_UserID", Fk_UserId) };
             DataSet ds = DBHelper.ExecuteQuery("GetKYCDocuments", para);
+            return ds;
+        }
+        public DataSet UploadKYCDocuments()
+        {
+            SqlParameter[] para = { new SqlParameter("@FK_UserID",Fk_UserId ) ,
+                                      new SqlParameter("@AdharNumber", AdharNo) ,
+                                      new SqlParameter("@AdharImage", AdharImage) ,
+                                      new SqlParameter("@PanNumber", PanNumber),
+                                      new SqlParameter("@PanImage", PanImage)
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("UploadKYC", para);
+            return ds;
+        }
+        public DataSet UpdateWalletDetails()
+        {
+            SqlParameter[] para = { new SqlParameter("@FK_UserID",Fk_UserId ) ,
+                                      new SqlParameter("@UPI", UPI) ,
+                                       new SqlParameter("@Paytm", Paytm) ,
+                                      new SqlParameter("@PhonePe", PhonePe) ,
+                                      new SqlParameter("@GooglePay", GooglePay)
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateWalletDetails", para);
             return ds;
         }
     }

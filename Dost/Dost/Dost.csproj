@@ -3253,7 +3253,6 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\User\UserDashboard.cshtml" />
     <Content Include="Views\User\UserProfile.cshtml" />
-    <Content Include="Views\User\Toster.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3264,6 +3263,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\chat\" />
+    <Folder Include="KYCDocuments\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>
