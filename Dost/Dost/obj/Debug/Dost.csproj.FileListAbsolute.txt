@@ -105,3 +105,4 @@ D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
