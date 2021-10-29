@@ -2563,6 +2563,8 @@
     <Content Include="vendor\highlightjs\styles\xcode.css" />
     <Content Include="vendor\highlightjs\styles\xt256.css" />
     <Content Include="vendor\highlightjs\styles\zenburn.css" />
+    <Content Include="vendor\izitoast\css\iziToast.min.css" />
+    <Content Include="vendor\izitoast\js\iziToast.min.js" />
     <Content Include="vendor\jquery-asColorPicker\css\asColorPicker.min.css" />
     <Content Include="vendor\jquery-asColorPicker\images\alpha.png" />
     <Content Include="vendor\jquery-asColorPicker\images\hue.png" />
@@ -2717,7 +2719,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NFCController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WalletController.cs" />
     <Compile Include="Filters\SimpleAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2730,6 +2734,7 @@
     <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Wallet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -3253,6 +3258,10 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\User\UserDashboard.cshtml" />
     <Content Include="Views\User\UserProfile.cshtml" />
+    <Content Include="Views\User\Toster.cshtml" />
+    <Content Include="Views\NFC\ProfileUpdate.cshtml" />
+    <Content Include="Views\User\Wallet.cshtml" />
+    <Content Include="Views\Wallet\AddFund.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3263,7 +3272,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\chat\" />
-    <Folder Include="KYCDocuments\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>

@@ -35,14 +35,13 @@
                                         <div class="mb-3">
                                             <label>First Name <span class="text-danger">*</span></label>
                                             @if (Model.LastName != "")
-                                                {
+                                            {
                                                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @disabled = "disabled" })
-                                                }
-                                                else
-                                                {
-
+                                            }
+                                            else
+                                            {
                                                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                                                }
+                                            }
                                         </div>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 form-group">
@@ -50,13 +49,10 @@
                                             <label>Middle Name <span class="text-danger">*</span></label>
                                             @if (Model.MiddleName != "")
                                             {
-
-
                                                 @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", @disabled = "disabled" })
                                             }
                                             else
                                             {
-
                                                 @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
                                             }
                                         </div>
@@ -67,14 +63,11 @@
                                             <label>Last Name</label>
 
                                             @if (Model.LastName != "")
-                                                {
-
+                                            {
                                                 @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @disabled = "disabled" })
-                                                }
-                                                else
-                                                {
-
-
+                                            }
+                                            else
+                                            {
                                                 @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
                                             
                                                 }
@@ -174,7 +167,7 @@
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>Passbook / Cheque Image*</label>
-                                            <input type="file"  name="postedCheque" id="postedCheque" class="form-control" placeholder="PassBook Image">
+                                            <input type="file" name="postedCheque" id="postedCheque" class="form-control" placeholder="PassBook Image">
                                             <br />
                                             <img src="@Url.Content(Model.DocumentImage)" height="120" width="180" />
                                         </div>
@@ -183,7 +176,7 @@
                            
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 text-center">
-                                     
+
                                         <input type="submit" id="btnBankUpdate" class="btn btn-primary mb-2 px-5" name="btnBankUpdate" value="Update" onclick="return editBankDetails()" />
                                     </div>
                                 </div>
@@ -206,7 +199,7 @@
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>Adhar Number </label>
-                                            @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control"})
+                                            @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control" })
                                             @Html.DisplayFor(m => m.AdharStatus, new { @class = "form-control" })
                                           
                                         </div>
@@ -225,7 +218,7 @@
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>Pan Number</label>
-                                            @Html.TextBoxFor(m => m.PanNumber, new { @class = "form-control"})
+                                            @Html.TextBoxFor(m => m.PanNumber, new { @class = "form-control" })
                                             @Html.DisplayFor(m => m.PanStatus, new { @class = "form-control" })
                                          
                                         </div>
@@ -315,6 +308,38 @@
         background-color: #3B3363 !important;
     }
 </style>
+<script src="~/vendor/jquery/jquery.min.js"></script>
+@if (TempData["UpdateProfile"] != null)
+{
+    if (TempData["UpdateProfile"] == "Updated successfully..")
+    {
+        <script>
+            debugger
+            $(document).ready(function () {
+                toastr.success("Updated successfully", "", {
+                    timeOut: 500000000,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    positionClass: "toast-top-right",
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            }
+        )
+        </script>
+
+    }
+}
 
 <script>
     function editPersonal() {
@@ -374,4 +399,4 @@
 
         return true;
     }
-    </script>
+</script>

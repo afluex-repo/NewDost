@@ -1,0 +1,80 @@
+﻿@model Dost.Models.Wallet
+
+@{
+    ViewBag.Title = "AddFund";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">PERSONAL DETAILS</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <div class="form-row">
+                                <div class="col-xl-4 col-lg-4 form-group">
+                                    <div class="mb-3">
+                                        <label>First Name <span class="text-danger">*</span></label>
+                                      
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 form-group">
+                                    <div class="mb-3">
+                                        <label>Middle Name <span class="text-danger">*</span></label>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-lg-4 form-group">
+                                    <div class="mb-3">
+                                        <label>Last Name</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 form-group">
+                                    <div class="mb-3">
+                                        <label>Mobile Number <span class="text-danger">*</span></label>
+                                      
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 form-group">
+                                    <div class="mb-3">
+                                        <label>Email </label>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 form-group">
+                                    <div class="mb-3">
+                                        <label>Sponsor Id </label>
+                                       
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 form-group">
+                                    <div class="mb-3">
+                                        <label>Sponsor Name</label>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 text-center">
+                                    <input type="submit" id="btnUpdate" class="btn btn-primary mb-2 px-5" name="btnUpdate" value="Update" onclick="return editPersonal()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

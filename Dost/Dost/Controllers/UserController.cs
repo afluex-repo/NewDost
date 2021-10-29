@@ -354,5 +354,9 @@ namespace Dost.Controllers
             }
             return RedirectToAction(FormName, Controller);
         }
+        public ActionResult Wallet()
+        {
+            return View();
+        }
     }
 }
