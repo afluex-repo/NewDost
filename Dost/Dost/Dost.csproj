@@ -2733,6 +2733,7 @@
     <Compile Include="Models\Dashboard.cs" />
     <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\Home.cs" />
+    <Compile Include="Models\NFC.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Wallet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
