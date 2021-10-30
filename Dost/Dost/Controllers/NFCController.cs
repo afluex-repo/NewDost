@@ -25,7 +25,7 @@ namespace Dost.Controllers
             #endregion WebLink
             if (Session["LoginId"] == null)
             {
-                return RedirectToAction("login_new", "home");
+                return RedirectToAction("Login", "Home");
             }
 
             NFCProfileModel model = new NFCProfileModel();
@@ -56,6 +56,7 @@ namespace Dost.Controllers
                         model.PK_ProfileId = obj.PK_ProfileId;
                         model.Leg = obj.Leg;
                     }
+                    obj.CardImage = r["CardImage"].ToString();
                     obj.ProfileName = r["ProfileName"].ToString();
                     lstUerProfile.Add(obj);
                 }
@@ -71,7 +72,7 @@ namespace Dost.Controllers
             {
                 if (Session["Pk_userId"] == null)
                 {
-                    return RedirectToAction("login_new", "home");
+                    return RedirectToAction("Login", "home");
                 }
                 #region ddlgender
                 List<SelectListItem> ddlgender = Common.BindGender();
@@ -308,7 +309,7 @@ namespace Dost.Controllers
                                 if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                                 {
                                     model.Result = "Success";
-                                    model.Message = "Profile updated Successfully";
+                                    model.Message = "New Contact card save Successfully";
                                     model.PK_ProfileId = ds.Tables[0].Rows[0]["PK_ProfileId"].ToString();
                                 }
                                 else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
@@ -408,7 +409,7 @@ namespace Dost.Controllers
             NFCProfileModel model = new NFCProfileModel();
             if (Session["LoginId"] == null)
             {
-                return RedirectToAction("login_new", "home");
+                return RedirectToAction("Login", "home");
             }
             model.PK_UserId = Session["Pk_userId"].ToString();
             TempData["ReDesc"] = model.Code;
@@ -428,7 +429,7 @@ namespace Dost.Controllers
             NFCProfileModel model = new NFCProfileModel();
             if (Session["LoginId"] == null)
             {
-                return RedirectToAction("login_new", "home");
+                return RedirectToAction("Login", "home");
             }
             model.PK_UserId = Session["Pk_userId"].ToString();
             model.PK_ProfileId = ProfileId;
@@ -452,7 +453,7 @@ namespace Dost.Controllers
             NFCProfileModel model = new NFCProfileModel();
             if (Session["LoginId"] == null)
             {
-                return RedirectToAction("login_new", "home");
+                return RedirectToAction("Login", "home");
             }
             model.PK_UserId = Session["Pk_userId"].ToString();
             model.PK_ProfileId = PK_ProfileId;
@@ -467,6 +468,62 @@ namespace Dost.Controllers
             {
                 return Json("0", JsonRequestBehavior.AllowGet);
             }
+        }
+        public ActionResult GetProfileData(string Type, string PK_ProfileId)
+        {
+            NFCProfileModel model = new NFCProfileModel();
+            if (Session["LoginId"] == null)
+            {
+                return RedirectToAction("Login", "home");
+            }
+            model.PK_UserId = Session["Pk_userId"].ToString();
+            model.Type = Type;
+            if (PK_ProfileId == null)
+            {
+                model.PK_ProfileId = "0";
+            }
+            else
+            {
+                model.PK_ProfileId = PK_ProfileId;
+            }
+            TempData["ReDesc"] = model.Code;
+            DataSet ds = model.GetProfileDataForNFC();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                var LinesStatusList = JsonConvert.SerializeObject(ds.Tables[0]);
+                return Json(LinesStatusList, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult DeleteNFCProfileData(string Pk_NfcProfileId)
+        {
+            NFCProfileModel model = new NFCProfileModel();
+            if (Session["LoginId"] == null)
+            {
+                return RedirectToAction("login_new", "home");
+            }
+            model.PK_UserId = Session["Pk_userId"].ToString();
+            model.Pk_NfcProfileId = Convert.ToInt32(Pk_NfcProfileId);
+            DataSet ds = model.DeleteNFCProfileData();
+            if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+            {
+                model.Result = "Yes";
+                TempData["Update"] = "Success";
+            }
+            else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+            {
+                model.Result = "No";
+                TempData["Update"] = "Error";
+            }
+            else
+            {
+                model.Result = "No";
+                TempData["Update"] = "Error";
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }
