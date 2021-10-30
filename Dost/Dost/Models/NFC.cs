@@ -66,7 +66,7 @@ namespace Dost.Models
         public bool IsIncludedWeb { get; set; }
         public bool IsIncludedSocial { get; set; }
         public string ProfileType { get; set; }
-
+        public string CardImage { get; set; }
         public DataSet GetNFCProfileData()
         {
             SqlParameter[] para ={
