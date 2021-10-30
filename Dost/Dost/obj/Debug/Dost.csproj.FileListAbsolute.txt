@@ -51,7 +51,6 @@ D:\SachinMishraProject\repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
 D:\SachinMishraProject\repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 D:\SachinMishraProject\repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 D:\SachinMishraProject\repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
-D:\SachinMishraProject\repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\ApplicationInsights.config
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\roslyn\csc.exe
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -105,3 +104,4 @@ D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+D:\SachinMishraProject\repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache

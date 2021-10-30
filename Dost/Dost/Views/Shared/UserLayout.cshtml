@@ -24,9 +24,32 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
     <link rel="stylesheet" href="../vendor/chartist/css/chartist.min.css">
     <link href="../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="../vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link rel="stylesheet" href="../vendor/toastr/css/toastr.min.css">
     <link href="../css/style.css" rel="stylesheet">
+    <style>
+         [data-theme-version="dark"] .form-control {
+    background-color: transparent;
+    border-color: #dbd9e9;
+    color: #fff;
+}
+    [data-theme-version="dark"] .bootstrap-select .btn {
+    border-color: #f5f3fb !important;
+    background: #2C254A !important;
+}
+        input#fileupload {
+            background-color: transparent;
+            border-color: #dbd9e9;
+            color: #fff;
+            border: 1px solid #EEEEEE;
+            color: #6e6e6e;
+            height: 50px;
+            padding: 10px 20px;
+            border-radius: 0.35rem;
+            width:100%;
+    }
+    </style>
 </head>
 <body>
     <div id="preloader">
@@ -789,7 +812,7 @@
                         <ul aria-expanded="false">
                             <li><a href="/User/UserDashboard">Dashboard</a></li>
                             <li><a href="/User/UserProfile">Profile</a></li>
-                            <li><a href="wallet.html">Wallet</a></li>
+                            <li><a href="/Wallet/Wallet">Wallet</a></li>
                             <!-- <li><a href="tranasactions.html">Transactions</a></li>
                         <li><a href="coin-details.html">Coin Details</a></li>
                         <li><a href="portofolio.html">Portofolio</a></li>
@@ -892,6 +915,8 @@
     <script src="../vendor/owl-carousel/owl.carousel.js"></script>
     <script src="../vendor/toastr/js/toastr.min.js"></script>
     <script src="../js/plugins-init/toastr-init.js"></script>
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../js/plugins-init/datatables.init.js"></script>
     <script src="../js/custom.min.js"></script>
     <script src="../js/deznav-init.js"></script>
 

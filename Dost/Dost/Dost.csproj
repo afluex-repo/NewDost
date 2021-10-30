@@ -2712,6 +2712,7 @@
     <Content Include="vendor\toastr\css\toastr.min.css" />
     <Content Include="vendor\toastr\js\toastr.min.js" />
     <Content Include="vendor\wnumb\wNumb.js" />
+    <Content Include="Views\Wallet\AddFund.cshtml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -3260,8 +3261,8 @@
     <Content Include="Views\User\UserProfile.cshtml" />
     <Content Include="Views\User\Toster.cshtml" />
     <Content Include="Views\NFC\ProfileUpdate.cshtml" />
-    <Content Include="Views\User\Wallet.cshtml" />
-    <Content Include="Views\Wallet\AddFund.cshtml" />
+    <Content Include="Views\Wallet\Wallet.cshtml" />
+    <Content Include="Views\Wallet\Statement.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

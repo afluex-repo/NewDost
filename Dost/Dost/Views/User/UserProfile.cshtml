@@ -26,7 +26,7 @@
                 <div class="col-xl-6 col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">PERSONAL DETAILS <span class="text-danger">@TempData["UpdateProfile"]</span></h4>
+                            <h4 class="card-title">PERSONAL DETAILS </h4>
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
@@ -303,26 +303,23 @@
 
 }
 <style>
-    .errortext {
-        border: 1px solid red !important;
-        background-color: #3B3363 !important;
-    }
+   
 </style>
 <script src="~/vendor/jquery/jquery.min.js"></script>
 @if (TempData["UpdateProfile"] != null)
 {
-    if (TempData["UpdateProfile"] == "Updated successfully..")
+    if (TempData["Profile"] =="Yes")
     {
         <script>
-            debugger
+          
             $(document).ready(function () {
-                toastr.success("Updated successfully", "", {
-                    timeOut: 500000000,
+                toastr.success("@TempData["UpdateProfile"]", "Top Right", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
                     closeButton: !0,
                     debug: !1,
                     newestOnTop: !0,
                     progressBar: !0,
-                    positionClass: "toast-top-right",
                     preventDuplicates: !0,
                     onclick: null,
                     showDuration: "300",
@@ -337,7 +334,32 @@
             }
         )
         </script>
-
+    }
+    else
+    {
+        <script>
+            $(document).ready(function () {
+                toastr.error("@TempData["UpdateProfile"]", "Top Right", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            }
+        )
+        </script>
     }
 }
 
