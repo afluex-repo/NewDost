@@ -5,14 +5,38 @@ using System.Web;
 using System.Web.Mvc;
 using Dost.Models;
 using System.Data;
+using System.Net;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace Dost.Controllers
 {
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult UserDashboard()
+        public async Task<ActionResult> index()
         {
+            try
+            {
+                var bank = new BankDetails();
+                var IFSC = "PUNB0043100";
+                using (var client = new WebClient())
+                {
+                    using (var httpClient = new HttpClient())
+                    {
+                        using (var response = await httpClient.GetAsync($"https://ifsc.razorpay.com/{IFSC}"))
+                        {
+                            string apiResponse = await response.Content.ReadAsStringAsync();
+                            bank = JsonConvert.DeserializeObject<BankDetails>(apiResponse);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return View();
         }
         public ActionResult Login()
@@ -106,6 +130,37 @@ namespace Dost.Controllers
             }
             return RedirectToAction(obj.FormName, obj.ControllerName);
         }
-     
+        public async Task<ActionResult> GetBranchByIFSCAsync(string ifsc)
+        {
+            var bank = new BankDetails();
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    using (var response = await httpClient.GetAsync($"https://ifsc.razorpay.com/{ifsc}"))
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        bank = JsonConvert.DeserializeObject<BankDetails>(apiResponse);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.ToString()
+
+                });
+
+            }
+            return Json(new
+            {
+                success = true,
+                bank
+
+            });
+        }
+
     }
 }

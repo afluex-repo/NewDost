@@ -92,10 +92,242 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="swiper-container card-swiper">
-                                        <div class="swiper-wrapper" id="divbindProfile">
+                                        <div class="swiper-wrapper">
+                                          @if (Model != null)
+                                          {
+                                              if (Model.lst != null)
+                                              {
+                                                  int i = 1;
+                                                  foreach (var Item in Model.lst)
+                                                  {
+                                                    if (Item.ProfileType == "Contact Card")
+                                                    {
+                                                        <div class="swiper-slide">
+                                                            <div class="card-bx stacked card">
+                                                                    <img src="../images/card/card1.jpg" alt="">
+                                                                <div class="card-info">
+                                                                    <p class="mb-1 text-white fs-14">Profile Name</p>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h2 class="num-text text-white mb-5 font-w600">@Item.ProfileName</h2>
+                                                                        <div class="text-right" style="margin-top: -28px">
+                                                                            <span class="num-text text-white mb-5 font-w600"><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i></span>
+                                                                            <div class="mt-4 text-white">
+                                                                                <p><a href="#" class="text-white">Activate</a></p>
+                                                                                <p><a href="#ShowConctact('@i')" onclick="ShowConctact('@i');"  data-epensedetailsid='@Item.PK_ProfileId' class="text-white"><i class="fa fa-edit"></i>Edit</a></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="d-flex">
+                                                                        <div class="mb-2">
+                                                                   <button type="button" class="btn btn-secondary">Contact Card</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                       
+                                                            <div class="row Contact_@i" style="display:none" id="Contact_@i">
+                                                                <div class="col-xl-12 col-lg-12">
+                                                                    <div class="card">
+                                                                        <div class="card-header">
+                                                                            <h4 class="card-title">@Item.ProfileName</h4>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <div class="basic-form">
+                                                                                <form action="#">
+                                                                                    <div class="form-row">
+                                                                                        <div class="col-xl-6 col-lg-6 form-group ">
+                                                                                            <div class="text-center">
+                                                                                                <div class="text-center">
+                                                                                                    <div class="my-profile">
+                                                                                                        <img src="../images/profile/port.jpg" alt="" class="rounded" id="output">
+                                                                                                        <a class="file_active" onclick="getFile()" for="file"><i class="fa fa-pencil" aria-hidden="true"></i><input id="upfile" onchange="loadFile(event)" type="file" value="upload" style="display: none"></a>
+
+                                                                                                    </div>
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <label>First Name</label>
+                                                                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control FirstName_"+@i+"", @Placeholder = "First Name" })
+                                                                                            </div>
+                                                                                            <div class="mb-3">
+                                                                                                <label>Last Name</label>
+                                                                                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control LastName_" +@i+"", @Placeholder = "Last Name" })
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <label>Company</label>
+                                                                                                @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control CompanyName_"+@i+"", @Placeholder = "Company Name" })
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <label>Designation</label>
+                                                                                                @Html.TextBoxFor(m => m.Designation, new { @class = "form-control Designation_"+@i+"", @Placeholder = "Designation" })
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <div class="form-group">
+                                                                                                    <label>Gender</label>
+                                                                                                    @Html.DropDownListFor(m => m.Gender, new SelectList(ViewBag.ddlgender, "Value", "Text"), new { @class = "form-control default-select Gender_"+@i+"" })
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <label>Date of Birth</label>
+                                                                                                @Html.TextBoxFor(m => m.DOB, new { @class = "form-control DOB_"+@i+"", @Placeholder = "DOB",@readonly=true })
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <label>Mobile Number</label>
+                                                                                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control Mobile_"+@i+"", @Placeholder = "Mobile" })
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <div class="form-group">
+                                                                                                    <label>Emails</label>
+                                                                                                    @Html.DropDownListFor(m => m.Email, new SelectList(ViewBag.ddlEmail, "Value", "Text"), new { @class = "multi-select-placeholder js-states select2-hidden-accessible Email_" + @i+"", @multiple = "multiple" })
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <div class="form-group">
+                                                                                                    <label>Social Media</label>
+                                                                                                    @Html.DropDownListFor(m => m.SocialMedia, new SelectList(ViewBag.SocialMedia, "Value", "Text"), new { @class = "form-control default-select SocialMedia_"+@i+"", @multiple = "multiple" })
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <div class="form-group">
+                                                                                                    <label>Web/App Urls</label>
+                                                                                                    @Html.DropDownListFor(m => m.WebLink, new SelectList(ViewBag.WebLink, "Value", "Text"), new { @class = "form-control default-select WebLink_"+ @i + "", @multiple = "multiple" })
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-xl-12 col-lg-12 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <label>Notes</label>
+                                                                                                @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control Remarks_"+@i+"", @Placeholder = "Notes" })
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-xl-12 col-lg-12 text-center">
+                                                                                            <input class="btn btn-success mb-2 px-5" type="submit" value="UPDATE" onclick="return SaveBusinessContact('@i')" id="btnBusinessContact" name="btnBusinessContact" data-profile="@Item.PK_ProfileId" />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                      
+                                                      }
+                                                      else
+                                                      {
+                                                        <div class="swiper-slide">
+                                                            <div class="card-bx stacked card">
+                                                                <img src="../images/card/card4.jpg" alt="">
+                                                                <div class="card-info">
+                                                                    <p class="mb-1 text-white fs-14">Profile Name</p>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h2 class="num-text text-white mb-5 font-w600">@Item.ProfileName</h2>
+                                                                        <div class="text-right" style="margin-top: -28px">
+                                                                            <!-- <div class="num-text text-white mb-3 font-w600" style="border: 2px solid white; border-radius: 8px; width: 50px; height: 50px;"></div> -->
+                                                                            <span class="num-text text-white mb-5 font-w600"><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i></span>
+                                                                            <div class="mt-4 text-white">
+                                                                                <p><a href="#"  class="text-white">Activate</a></p>
+                                                                                <p><a href="#Redirect('@i')" onclick="Redirect('@i');" class="text-white"><i class="fa fa-edit"></i> Edit</a></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="d-flex">
+                                                                        <div class="mb-2">
+                                                                                <button type="button" class="btn btn-success">Redirection</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row Redirect_@i" style="display:none" id="Redirect_@i">
+                                                            <div class="col-xl-12 col-lg-12">
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <h4 class="card-title">Social</h4>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <div class="basic-form">
+                                                                            <form action="#">
+                                                                                <div class="row">
+                                                                                    <div class="col-xl-12 col-lg-12 col-md-12 text-center">
+                                                                                        <div class="input-group mb-3">
+                                                                                            <div class="input-group-prepend">
+                                                                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select URL</button>
+                                                                                                <div class="dropdown-menu">
+                                                                                                    <a class="dropdown-item" href="#">HTTP</a>
+                                                                                                    <a class="dropdown-item" href="#">HTTPS</a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                           @Html.TextBoxFor(m => m.WebLink, new { @class = "form-control WebLink_" + @i + "", @Placeholder = "WebLink" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row mt-5 ">
+                                                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-center">
+                                                                                        <input class="btn btn-success mb-2 px-5" type="submit" value="UPDATE" id="btnRedirct" name="btnRedirct" />
+                                                                                    </div>
+                                                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-center ">
+                                                                                        <button type="submit" class="btn btn-danger mb-2 px-5">REMOVE</button>
+                                                                                    </div>
+                                                                                    <!-- <a class="btn-link text-success mr-5" href="javascript:void(0);">Update</a>
+                                                                                                <a class="btn-link text-danger mr-3" href="javascript:void(0);">Remove</a> -->
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      }
+
+                                                      i = i + 1;
+                                                  }
+                                              }
+                                          }  
                                         </div>
                                         <!-- Add Scroll Bar -->
-                                        <div class="swiper-scrollbar"></div>
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -334,7 +566,7 @@
                                 <div class="card-body">
                                     <div class="text-center">
                                         <div class="my-profile">
-                                            <img src="../images/profile/port.jpg" alt="" class="rounded">
+                                            <img src="../../images/profile/port.jpg" alt="" class="rounded">
                                             <a href="javascript:void(0);"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                         </div>
                                         <h4 class="mt-3 font-w600 text-black mb-0 name-text">URL :</h4>
@@ -415,9 +647,9 @@
     $('input[name="ProfileType"]').on('change', function () {
         $('input[name="ProfileType"]').not(this).prop('checked', false);
     });
-    $("#addBtn").click(function () {
-        $("#hdfProfile").val('');
-    })
+    //$("#addBtn").click(function () {
+    //    $("#hdfProfile").val('');
+    //})
     $("#btnProfileAdd").click(function () {
         debugger;
         if (window.FormData !== undefined) {
@@ -435,7 +667,7 @@
                     $("#Flag").val('');
                     if (data.Result == "Success") {
                         toastr.success(data.Message, "", {
-                            timeOut: 500000000,
+                            timeOut: 5e3,
                             closeButton: !0,
                             debug: !1,
                             newestOnTop: !0,
@@ -575,7 +807,7 @@
                 $("#Flag").val('');
                 if (data.Result == "Success") {
                     toastr.success(data.Message, "", {
-                        timeOut: 500000,
+                        timeOut: 5e3,
                         closeButton: !0,
                         debug: !1,
                         newestOnTop: !0,
@@ -602,7 +834,7 @@
                     GetProfileData("SocialMedia", "#tblSocialMedia");
                 }
                 toastr.error(data.Message, "", {
-                    timeOut: 500000,
+                    timeOut: 5e3,
                     closeButton: !0,
                     debug: !1,
                     newestOnTop: !0,
@@ -622,7 +854,7 @@
             },
             error: function () {
                 toastr.error("Error while inserting data", "", {
-                    timeOut: 500000,
+                    timeOut: 5e3,
                     closeButton: !0,
                     debug: !1,
                     newestOnTop: !0,
@@ -644,7 +876,7 @@
     }
 
     $("#divbindProfile").on("click", ".chkactive", function (e) {
-        if ($(this).prop("checked") == true) {
+     if ($(this).prop("checked") == true) {
             IsChecked = true;
         }
         else if ($(this).prop("checked") == false) {
@@ -814,4 +1046,84 @@
             return false;
         return true;
     }
+
+</script>
+<script>
+    function getFile() {
+        document.getElementById("upfile").click();
+    }
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    function ShowConctact(index) {
+        debugger
+        $('.Contact_' + index).toggle('show');
+        $('.FirstName_' + index + '').focus();
+    }
+    function Redirect(index) {
+        debugger
+        $('.Redirect_' + index).toggle('show');
+        $('.Redirect_' + index).focus();
+    }
+    function SaveBusinessContact(index) {
+        var isAllValid = true;
+        if ($('.FirstName_' + index + '').val() == '') {
+            $('.FirstName_' + index + '').addClass('errortext');
+            $('.FirstName_' + index + '').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('.CompanyName_' + index + '').val() == '') {
+            $('.CompanyName_' + index + '').addClass('errortext');
+            $('.CompanyName_' + index + '').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        var Emaillist = [];
+        var errorItemCount = 0;
+        debugger
+        $('select>.Email' + index + ' option:selected').each(function () {
+            idslist = Emaillist.push($(this).val()); + ',';
+        })
+        debugger
+        console.log(Emaillist)
+        if (Emaillist.length == 0) {
+            alert('At least 1 value required.');
+            isAllValid = false;
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+
+        if (isAllValid) {
+            var data = {
+                AddData: list,
+            }
+            debugger
+            var formData = new FormData();
+            formData.append("dataValue", list);
+            formData.append("CompanyName", $('#CompanyName').val());
+            $.ajax({
+                type: 'POST',
+                url: "SaveCompanyDetails",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.status) {
+                        list = [];
+                        $('#CompanyName').val('');
+                    }
+                    else {
+                        alert('Error');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+
+            });
+        }
+    };
 </script>

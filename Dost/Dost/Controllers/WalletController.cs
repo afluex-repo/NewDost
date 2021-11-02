@@ -1,11 +1,13 @@
 ﻿using BusinessLayer;
 using Dost.Filter;
 using Dost.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -54,7 +56,7 @@ namespace Dost.Controllers
                         ViewBag.FranchiseeBalance = dsBal.Tables[2].Rows[0]["Balance"].ToString();
 
                     }
-                    
+
                 }
             }
             catch (Exception)
@@ -170,7 +172,7 @@ namespace Dost.Controllers
         {
             try
             {
-              
+
                 obj.AddedBy = Session["Pk_UserId"].ToString();
                 DataSet ds = obj.SavePayoutRequest();
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
@@ -260,5 +262,34 @@ namespace Dost.Controllers
             }
             return View(objewallet);
         }
+
+        //public BankDetails GetBankDetails(string IFSC)
+        //{
+        //    try
+        //    {
+        //        using (var client = new WebClient())
+        //        {
+        //            BankDetails _bank = new BankDetails();
+        //            client.Headers.Add("DY-X-Authorization: 8fe69b30f07a07692796fbd751d625a7d0920d1c");
+        //            var result = client.DownloadString("https://ifsc.datayuge.com/api/v1/" + IFSC.Trim());
+        //            var BankResult = JsonConvert.DeserializeObject<BankDetails>(result);
+        //            _bank.bank = BankResult.bank;
+        //            _bank.IFSC = BankResult.IFSC;
+        //            _bank.MICR = BankResult.MICR;
+        //            _bank.branch = BankResult.branch;
+        //            _bank.Address = BankResult.Address;
+        //            _bank.Contact = BankResult.Contact;
+        //            _bank.City = BankResult.City;
+        //            _bank.District = BankResult.District;
+        //            _bank.State = BankResult.State;
+        //            return _bank;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
     }
 }
