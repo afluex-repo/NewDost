@@ -41,6 +41,7 @@ namespace Dost.Models
         public string FirstName { get; set; }
         public string ProfileName { get; set; }
         public string LastName { get; set; }
+        public string CompanyName { get; set; }
         public string Designation { get; set; }
         public string Summary { get; set; }
         public List<NFCProfileModel> lst { get; set; }
@@ -67,6 +68,7 @@ namespace Dost.Models
         public bool IsIncludedSocial { get; set; }
         public string ProfileType { get; set; }
         public string CardImage { get; set; }
+        public string Remarks { get; set; }
         public DataSet GetNFCProfileData()
         {
             SqlParameter[] para ={
@@ -83,7 +85,15 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetBusinessProfileById", para);
             return ds;
         }
-
+        public DataSet GetmailList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_UserId",PK_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetEmailList", para);
+            return ds;
+        }
         public DataSet InsertBusinessInfo()
         {
             SqlParameter[] para ={

@@ -201,7 +201,8 @@ namespace Dost.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["UpdateProfile"] = "Updated successfully..";
+                        TempData["UpdateProfile"] = "Personal Details Updated successfully..";
+                        TempData["Profile"] = "Yes";
                         FormName = "UserProfile";
                         Controller = "User";
                         //return View();
@@ -242,7 +243,8 @@ namespace Dost.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["UpdateProfile"] = "Updated successfully..";
+                        TempData["UpdateProfile"] = "Bank Details Updated successfully..";
+                        TempData["Profile"] = "Yes";
                         FormName = "UserProfile";
                         Controller = "User";
                         //return View();
@@ -298,7 +300,8 @@ namespace Dost.Controllers
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
                       
-                        TempData["UpdateProfile"] = "Updated successfully..";
+                        TempData["UpdateProfile"] = "Kyc upload successfully..";
+                        TempData["Profile"] = "Yes";
                         FormName = "UserProfile";
                         Controller = "User";
                     }
@@ -333,7 +336,8 @@ namespace Dost.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["UpdateProfile"] = "Updated successfully..";
+                        TempData["UpdateProfile"] = "Wallet details  updated successfully..";
+                        TempData["Profile"] = "Yes";
                         FormName = "UserProfile";
                         Controller = "User";
                         //return View();
@@ -354,9 +358,7 @@ namespace Dost.Controllers
             }
             return RedirectToAction(FormName, Controller);
         }
-        public ActionResult Wallet()
-        {
-            return View();
-        }
+  
+
     }
 }
