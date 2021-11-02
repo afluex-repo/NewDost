@@ -326,6 +326,196 @@
                                               }
                                           }  
                                         </div>
+                                        <div class="swiper-wrapper" id="divbindProfile">
+
+                                        </div>
+                                        <div class="row" id="divEditContactCard" style="display:none">
+                                            <div class="col-xl-12 col-lg-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h4 class="card-title" id="lblProfileName"></h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="basic-form">
+                                                            <form action="#">
+                                                                <div class="form-row">
+                                                                    <div class="col-xl-6 col-lg-6 form-group ">
+                                                                        <div class="text-center">
+                                                                            <div class="my-profile">
+                                                                                <img src="" alt="" class="rounded" id="ProfileImage">
+                                                                                <a href="javascript:void(0);"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- <div class="text-center">
+                                                                              <a class="btn btn-outline-primary btn-rounded mt-3 px-5" href="javascript:void(0)">Edit</a>
+                                                                        </div> -->
+
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-lg-6 form-group">
+                                                                        <div class="mb-3">
+                                                                            <label>First Name</label>
+                                                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "First Name" })
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label>Last Name</label>
+                                                                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Last Name" })
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-lg-6 form-group">
+                                                                        <div class="mb-3">
+                                                                            <label>Company</label>
+                                                                            @Html.TextBoxFor(m => m.BusinessName, new { @class = "form-control", @placeholder = "Company Name" })
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-lg-6 form-group">
+                                                                        <div class="mb-3">
+                                                                            <label>Designation</label>
+                                                                            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control", @placeholder = "Company Name" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-lg-6 form-group">
+                                                                        <div class="mb-3">
+                                                                            <div class="form-group">
+                                                                                <label>Gender</label>
+                                                                                <select class="form-control default-select" id="sel1" name="Gender">
+                                                                                    <option>Select One</option>
+                                                                                    <option>Male</option>
+                                                                                    <option>Female</option>
+                                                                                    <option>Others</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-xl-6 col-lg-6 form-group">
+                                                                        <div class="mb-3">
+                                                                            <label>Date of Birth</label>
+                                                                            @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @placeholder = "dd/mm/yyyy", @id = "mdate" })
+                                                                            @*<input type="text" class="form-control" placeholder="2017-06-04" id="mdate">*@
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-lg-6 form-group">
+                                                                        <div class="mb-3">
+                                                                            <label>Mobile Number</label>
+                                                                            @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Mobile Number" })
+                                                                            @*<input type="text" class="form-control" placeholder="Mobile Number">*@
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-xl-6 col-lg-6 form-group">
+                                                                        <div class="mb-3">
+                                                                            <div class="form-group">
+                                                                                <label>Emails</label>
+                                                                                <select class="form-control default-select" id="sel1">
+                                                                                    <option></option>
+                                                                                    <option>1</option>
+                                                                                    <option>2</option>
+                                                                                    <option>3</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-lg-6 form-group">
+                                                                        <div class="mb-3">
+                                                                            <div class="form-group">
+                                                                                <label>Social Media</label>
+                                                                                <select class="form-control default-select" id="sel1">
+                                                                                    <option>Select One</option>
+                                                                                    <option>1</option>
+                                                                                    <option>2</option>
+                                                                                    <option>3</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-xl-6 col-lg-6 form-group">
+                                                                        <div class="mb-3">
+                                                                            <div class="form-group">
+                                                                                <label>Web/App Urls</label>
+                                                                                <select class="form-control default-select" id="sel1">
+                                                                                    <option>URLS</option>
+                                                                                    <option>1</option>
+                                                                                    <option>2</option>
+                                                                                    <option>3</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-12 col-lg-12 form-group">
+                                                                        <div class="mb-3">
+                                                                            <label>Notes</label>
+                                                                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @placeholder = "Notes" })
+                                                                            @*<input type="text" class="form-control" placeholder="Notes">*@
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-xl-12 col-lg-12 text-center">
+                                                                        <button type="submit" class="btn btn-primary mb-2 px-5">UPDATE</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" id="divEditRedirection" style="display:none">
+                                            <div class="col-xl-12 col-lg-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h4 class="card-title">Social</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="basic-form">
+                                                            <form action="#">
+                                                                <div class="row">
+                                                                    <div class="col-xl-12 col-lg-12 col-md-12 text-center">
+                                                                        <div class="input-group mb-3">
+                                                                            <div class="input-group-prepend">
+                                                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select URL</button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item" href="#">Emails</a>
+                                                                                    <a class="dropdown-item" href="#">Web Urls</a>
+                                                                                    <a class="dropdown-item" href="#">App Urls</a>
+                                                                                    <a class="dropdown-item" href="#">Social Media</a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <input type="text" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mt-5 ">
+                                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-center">
+                                                                        <button type="submit" class="btn btn-success mb-2 px-5">UPDATE</button>
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-center ">
+                                                                        <button type="submit" class="btn btn-danger mb-2 px-5">REMOVE</button>
+                                                                    </div>
+                                                                    <!-- <a class="btn-link text-success mr-5" href="javascript:void(0);">Update</a>
+                                            <a class="btn-link text-danger mr-3" href="javascript:void(0);">Remove</a> -->
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- Add Scroll Bar -->
                                       
                                     </div>
@@ -647,6 +837,15 @@
     $('input[name="ProfileType"]').on('change', function () {
         $('input[name="ProfileType"]').not(this).prop('checked', false);
     });
+    $("#addBtn").click(function () {
+        $("#hdfProfile").val('');
+    })
+    function OpenDivProfile(ProfileId) {
+        debugger;
+        $("#divBindProfile").html('');
+        $("#divProfile").show();
+        $("#hdfProfile").val(ProfileId);
+    }
     //$("#addBtn").click(function () {
     //    $("#hdfProfile").val('');
     //})
@@ -791,7 +990,7 @@
                     else {
                         cl = "btn-secondary";
                     }
-                    $("#divbindProfile").append('<div class="swiper-slide"><div class="card-bx stacked card"><img src=' + obj[i].CardImage + ' alt=""><div class="card-info"><p class="mb-1 text-white fs-14">' + obj[i].ProfileName + '</p><div class="d-flex justify-content-between"><h2 class="num-text text-white mb-5 font-w600">' + obj[i].Name + '</h2><div class="text-center"><span class="num-text text-white mb-5 font-w600"></span><div class="mt-4 text-white"><input type="checkbox" class="chkactive" value=' + obj[i].PK_ProfileId + ' ' + obj[i].IsChecked + '/><p>Activate</p><p><a href="" class="text-white"><i class="fa fa-edit"></i> Edit</a></p></div></div></div><div class="d-flex"><div class="mb-2"><button type="button" class="btn ' + cl + '" onclick="GetBusinessProfile(' + obj[i].PK_ProfileId + ');">' + obj[i].ProfileType + '</button></div></div></div></div></div>')
+                    $("#divbindProfile").append('<div class="swiper-slide"><div class="card-bx stacked card"><img src=' + obj[i].CardImage + ' alt=""><div class="card-info"><p class="mb-1 text-white fs-14">' + obj[i].ProfileName + '</p><div class="d-flex justify-content-between"><h2 class="num-text text-white mb-5 font-w600">' + obj[i].Name + '</h2><div class="text-center"><span class="num-text text-white mb-5 font-w600"></span><div class="mt-4 text-white"><input type="checkbox" class="chkactive" value=' + obj[i].PK_ProfileId + ' ' + obj[i].IsChecked + '/><p>Activate</p><p><a href="javascript:void(0)" class="text-white" onclick="GetBusinessProfile(' + obj[i].PK_ProfileId + ');"><i class="fa fa-edit"></i> Edit</a></p></div></div></div><div class="d-flex"><div class="mb-2"><button type="button" class="btn ' + cl + '" onclick="GetBusinessProfile(' + obj[i].PK_ProfileId + ');">' + obj[i].ProfileType + '</button></div></div></div></div></div>')
                 }
             }
         });
@@ -946,6 +1145,9 @@
         });
     });
     window.GetBusinessProfile = function (Id) {
+        debugger;
+        
+        $("#hdfProfile").val(Id);
         $.ajax({
             type: "GET",
             dataType: "JSON",
@@ -953,22 +1155,39 @@
             url: '@Url.Action("GetBusinessProfile", "nfc")',
             data: { PK_ProfileId: Id },
             success: function (data) {
+                var cl = "";
+                $("#divbindProfile").html('');
                 if (data != null) {
                     var obj = jQuery.parseJSON(data);
                     if (obj[0].PK_ProfileId != null) {
                         $("#MyProfileImage").attr("src", obj[0].ProfilePic);
                         if (obj[0].ProfileType == "Redirection") {
+                            cl = "btn-success";
                             $("#divRedirection").show();
                             $("#divContactCard").hide();
+                            $("#divEditContactCard").hide();
+                            $("#divEditRedirection").show();
                             $("#spUrl").text(obj[0].ProfileUrl);
+                            $("#divbindProfile").append('<div class="swiper-slide"><div class="card-bx stacked card"><img src=' + obj[0].CardImage + ' alt=""><div class="card-info"><p class="mb-1 text-white fs-14">' + obj[0].ProfileName + '</p><div class="d-flex justify-content-between"><h2 class="num-text text-white mb-5 font-w600">' + obj[0].Name + '</h2><div class="text-center"><span class="num-text text-white mb-5 font-w600"></span><div class="mt-4 text-white"><input type="checkbox" class="chkactive" value=' + obj[0].PK_ProfileId + ' ' + obj[0].IsChecked + '/><p>Activate</p><p><a href="javascript:void(0)" class="text-white" onclick="GetBusinessProfile(' + obj[0].PK_ProfileId + ');"><i class="fa fa-edit"></i> Edit</a></p></div></div></div><div class="d-flex"><div class="mb-2"><button type="button" class="btn ' + cl + '" onclick="GetBusinessProfile(' + obj[0].PK_ProfileId + ');">' + obj[0].ProfileType + '</button></div></div></div></div></div>');
                         }
                         else {
                             $("#divContactCard").show();
+                            $("#divEditRedirection").hide();
+                            $("#divEditContactCard").show();
                             $("#divRedirection").hide();
+                            cl = "btn-secondary";
+                            $("#divbindProfile").append('<div class="swiper-slide"><div class="card-bx stacked card"><img src=' + obj[0].CardImage + ' alt=""><div class="card-info"><p class="mb-1 text-white fs-14">' + obj[0].ProfileName + '</p><div class="d-flex justify-content-between"><h2 class="num-text text-white mb-5 font-w600">' + obj[0].Name + '</h2><div class="text-center"><span class="num-text text-white mb-5 font-w600"></span><div class="mt-4 text-white"><input type="checkbox" class="chkactive" value=' + obj[0].PK_ProfileId + ' ' + obj[0].IsChecked + '/><p>Activate</p><p><a href="javascript:void(0)" class="text-white" onclick="GetBusinessProfile(' + obj[0].PK_ProfileId + ');"><i class="fa fa-edit"></i> Edit</a></p></div></div></div><div class="d-flex"><div class="mb-2"><button type="button" class="btn ' + cl + '" onclick="GetBusinessProfile(' + obj[0].PK_ProfileId + ');">' + obj[0].ProfileType + '</button></div></div></div></div></div>');
                             $("#lblName").text(obj[0].FirstName);
                             $("#joiningDate").text(obj[0].CreatedDate)
                             $("#hdfProfile").val(obj[0].PK_ProfileId);
                             $("#spDesignation").text(obj[0].Designation);
+                            $("#ProfileImage").attr("src", obj[0].ProfilePic);
+                            $("#FirstName").val(obj[0].FirstName);
+                            $("#LastName").val(obj[0].LastName);
+                            $("#Mobile").val(obj[0].Mobile);
+                            $("#Description").val(obj[0].Description);
+                            $("#Designation").val(obj[0].Designation);
+                            $("#BusinessName").val(obj[0].BusinessName);
                         }
                     }
                 }
