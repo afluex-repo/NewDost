@@ -36,6 +36,10 @@ namespace Dost.Models
         public string ToDate { get; set; }
         public string Fk_PlanId { get; set; }
         public List<Wallet> lstewalletledger { get; set; }
+        public string Pk_RequestId { get;  set; }
+        public string Status { get;  set; }
+        public List<Wallet> WalletRequestList { get;  set; }
+        public List<Dashboard> lstuser { get; set; }
         #endregion
         public DataSet GetDigiWalletBalance()
         {
@@ -113,6 +117,46 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetEwalletLedger", para);
             return ds;
         }
+        #region WalletRequest
+        public DataSet ApproveEwalletRequest()
+        {
+            SqlParameter[] para = {
+
+                                       new SqlParameter("@AddedBy", AddedBy),
+                                        new SqlParameter("@Pk_RequestId", Pk_RequestId),
+                                         new SqlParameter("@Status", Status)
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("ApproveDeclineEwalletRequest", para);
+            return ds;
+        }
+        public DataSet ApproveWithdrawlwalletRequest()
+        {
+            SqlParameter[] para = {
+
+                                       new SqlParameter("@AddedBy", AddedBy),
+                                        new SqlParameter("@Pk_RequestId", Pk_RequestId),
+                                         new SqlParameter("@Status", Status)
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("ApproveDeclineWithdrawlRequest", para);
+            return ds;
+        }
+        public DataSet ApproveFranchiseewalletRequest()
+        {
+            SqlParameter[] para = {
+
+                                       new SqlParameter("@AddedBy", AddedBy),
+                                        new SqlParameter("@Pk_RequestId", Pk_RequestId),
+                                         new SqlParameter("@Status", Status)
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("ApproveDeclineFranchiseewalletRequest", para);
+            return ds;
+        }
+        public DataSet GetWithdrawlWalletRequest()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetWithdrawlWalletRequest");
+            return ds;
+        }
+        #endregion
     }
 
 }

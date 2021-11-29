@@ -17,7 +17,7 @@ namespace Dost.Models
         public string Fk_SponsorId1 { get; set; }
         public string ReferBy { get; set; }
         public string Result { get; set; }
-        //public string Pincode { get; set; }
+        public string Pincode { get; set; }
         public string DisplayName { get; set; }
         public string AddedOn { get; set; }
         public string Leg1 { get; set; }
@@ -37,9 +37,9 @@ namespace Dost.Models
             string DateString = "";
             DateTime Dt;
 
-            string[] DatePart = (InputDate).Split(new string[] { "-", @"/" }, StringSplitOptions.None);
+            string[] DatePart = (InputDate).Split(new string[] { "-", @"/Login" }, StringSplitOptions.None);
 
-            if (InputFormat == "dd-MMM-yyyy" || InputFormat == "dd/MMM/yyyy" || InputFormat == "dd/MM/yyyy" || InputFormat == "dd-MM-yyyy" || InputFormat == "DD/MM/YYYY" || InputFormat == "dd/mm/yyyy")
+            if (InputFormat == "dd-MMM-yyyy" || InputFormat == "dd/LoginMMM/Loginyyyy" || InputFormat == "dd/LoginMM/Loginyyyy" || InputFormat == "dd-MM-yyyy" || InputFormat == "DD/LoginMM/LoginYYYY" || InputFormat == "dd/Loginmm/Loginyyyy")
             {
                 string Day = DatePart[0];
                 string Month = DatePart[1];
@@ -48,9 +48,9 @@ namespace Dost.Models
                 if (Month.Length > 2)
                     DateString = InputDate;
                 else
-                    DateString = Month + "/" + Day + "/" + Year;
+                    DateString = Month + "/Login" + Day + "/Login" + Year;
             }
-            else if (InputFormat == "MM/dd/yyyy" || InputFormat == "MM-dd-yyyy")
+            else if (InputFormat == "MM/Logindd/Loginyyyy" || InputFormat == "MM-dd-yyyy")
             {
                 DateString = InputDate;
             }
@@ -61,8 +61,8 @@ namespace Dost.Models
 
             try
             {
-                //Dt = DateTime.Parse(DateString);
-                //return Dt.ToString("MM/dd/yyyy");
+                Dt = DateTime.Parse(DateString);
+                Dt.ToString("MM/dd/yyyy");
                 return DateString;
             }
             catch
@@ -73,7 +73,7 @@ namespace Dost.Models
         }
         public DataSet GetStateCity()
         {
-            SqlParameter[] para = { new SqlParameter("@Pincode", PinCode) };
+            SqlParameter[] para = { new SqlParameter("@Pincode", Pincode) };
             DataSet ds = DBHelper.ExecuteQuery("GetStateCity", para);
             return ds;
         }
@@ -265,7 +265,7 @@ namespace Dost.Models
         public static List<SelectListItem> BindPasswordType()
         {
             List<SelectListItem> PasswordType = new List<SelectListItem>();
-            PasswordType.Add(new SelectListItem { Text = "Select", Value = "0" });
+            //PasswordType.Add(new SelectListItem { Text = "Select", Value = "0" });
             PasswordType.Add(new SelectListItem { Text = "Profile Password", Value = "P" });
             //PasswordType.Add(new SelectListItem { Text = "Transaction Password", Value = "T" });
 
@@ -320,9 +320,9 @@ namespace Dost.Models
         public static List<SelectListItem> BindRealation()
         {
             List<SelectListItem> PaymentMode = new List<SelectListItem>();
-            PaymentMode.Add(new SelectListItem { Text = "S/O", Value = "S/O" });
-            PaymentMode.Add(new SelectListItem { Text = "D/O", Value = "D/O" });
-            PaymentMode.Add(new SelectListItem { Text = "W/O", Value = "W/O" });
+            PaymentMode.Add(new SelectListItem { Text = "S/LoginO", Value = "S/LoginO" });
+            PaymentMode.Add(new SelectListItem { Text = "D/LoginO", Value = "D/LoginO" });
+            PaymentMode.Add(new SelectListItem { Text = "W/LoginO", Value = "W/LoginO" });
 
             return PaymentMode;
         }
@@ -349,25 +349,25 @@ namespace Dost.Models
         {
             List<SelectListItem> SocialMedia = new List<SelectListItem>();
             SocialMedia.Add(new SelectListItem { Text = "Select", Value = "0" });
-            SocialMedia.Add(new SelectListItem { Text = "Facebook", Value = "https://www.facebook.com/" });
-            SocialMedia.Add(new SelectListItem { Text = "Instagram", Value = "https://www.instagram.com/" });
-            SocialMedia.Add(new SelectListItem { Text = "Twitter", Value = "https://twitter.com/" });
-            SocialMedia.Add(new SelectListItem { Text = "LinkedIn", Value = "https://www.linkedin.com/in/" });
-            SocialMedia.Add(new SelectListItem { Text = "YouTube", Value = "https://m.youtube.com/channel/" });
+            SocialMedia.Add(new SelectListItem { Text = "Facebook", Value = "https:/Login/Loginwww.facebook.com/Login" });
+            SocialMedia.Add(new SelectListItem { Text = "Instagram", Value = "https:/Login/Loginwww.instagram.com/Login" });
+            SocialMedia.Add(new SelectListItem { Text = "Twitter", Value = "https:/Login/Logintwitter.com/Login" });
+            SocialMedia.Add(new SelectListItem { Text = "LinkedIn", Value = "https:/Login/Loginwww.linkedin.com/Loginin/Login" });
+            SocialMedia.Add(new SelectListItem { Text = "YouTube", Value = "https:/Login/Loginm.youtube.com/Loginchannel/Login" });
             return SocialMedia;
         }
         public static List<SelectListItem> BindWebLink()
         {
             List<SelectListItem> BindWebLink = new List<SelectListItem>();
             BindWebLink.Add(new SelectListItem { Text = "Select", Value = "0" });
-            BindWebLink.Add(new SelectListItem { Text = "HTTP", Value = "http://" });
-            BindWebLink.Add(new SelectListItem { Text = "HTTPs", Value = "https://" });
+            BindWebLink.Add(new SelectListItem { Text = "HTTP", Value = "http:" });
+            BindWebLink.Add(new SelectListItem { Text = "HTTPs", Value = "https:" });
             return BindWebLink;
         }
 
         public string Fk_UserId { get; set; }
         public string Address { get; set; }
-        public string PinCode { get; set; }
+        //public string PinCode { get; set; }
 
         public string City { get; set; }
 
@@ -423,7 +423,7 @@ namespace Dost.Models
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
     }

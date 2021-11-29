@@ -1,0 +1,211 @@
+﻿@model Dost.Models.Master
+
+@{
+    ViewBag.Title = "PurchaseandOrder";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Master
+                </a>
+            </li>
+            <li class="active">
+                Purchase & Orders
+            </li>
+
+        </ol>
+
+
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("PurchaseandOrder", "Admin", FormMethod.Post, new { @id = "form1", name = "form1" }))
+{
+    <span style="color: red">
+        @TempData["Msg"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Purchase & Orders
+
+
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>User Code </label>
+                                @Html.TextBoxFor(m => m.UserCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Login ID </label>
+                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>From Date</label>
+                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>To Date</label>
+                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="Status" id="Status" class="form-control">
+                                    <option value="">Select</option>
+                                    <option value="Paid">Paid</option>
+                                    <option value="Unpaid">Unpaid</option>
+                                    <option value="Free/Gift">Free/Gift</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <br />
+                                <input type="submit" id="btnSearch" class="btn btn-success pull-left" name="Search" value="Search" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12 table-responsive">
+                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Name</th>
+                                        <th>User Code</th>
+                                        <th>Mobile</th>
+                                        <th>Activation Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lst != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var item in Model.lst)
+                                            {
+                                                <tr>
+                                                    <td>@i</td>
+                                                    <td>@item.DisplayName</td>
+                                                    <td>@item.UserCode</td>
+                                                    <td>@item.LoginId</td>
+                                                    <td>@item.ActivationDate</td>
+
+                                                    @if (item.Status == "Paid")
+                                                    {
+                                                        <td>
+                                                            Paid
+                                                        </td>
+                                                    }
+                                                    else if (item.Status == "Unpaid")
+                                                    {
+                                                        <td>
+                                                            Unpaid
+                                                        </td>
+                                                    }
+                                                    else if (item.Status == "Free/Gift")
+                                                    {
+                                                        <td>
+                                                            Free/Gift
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td></td>
+                                                    }
+                                                    <td>
+                                                        @if (item.Status == "Paid")
+                                                        {
+                                                            <a href="/Admin/UpdateInvoiceStatus?InvoiceNo=@item.InvoiceNo&Status=Unpaid" class="btn btn-danger" onclick="return confirm('Are you sure to update status as unpaid?');">
+                                                                Unpaid
+                                                            </a>
+                                                            <a href="/Admin/UpdateInvoiceStatus?InvoiceNo=@item.InvoiceNo&Status=Free" class="btn btn-primary" onclick="return confirm('Are you sure to update status as Free/Gift?');">
+                                                                Free/Gift
+                                                            </a>
+                                                        }
+                                                        else if (item.Status == "Unpaid")
+                                                        {
+                                                            <a href="/Admin/UpdateInvoiceStatus?InvoiceNo=@item.InvoiceNo&Status=Paid" class="btn btn-success" onclick="return confirm('Are you sure to update status as paid?');">
+                                                                Paid
+                                                            </a>
+                                                            <a href="/Admin/UpdateInvoiceStatus?InvoiceNo=@item.InvoiceNo&Status=Free" class="btn btn-primary" onclick="return confirm('Are you sure to update status as Free/Gift?');">
+                                                                Free/Gift
+                                                            </a>
+                                                        }
+                                                        else if (item.Status == "Free/Gift")
+                                                        {
+                                                            <a href="/Admin/UpdateInvoiceStatus?InvoiceNo=@item.InvoiceNo&Status=Paid" class="btn btn-success" onclick="return confirm('Are you sure to update status as paid?');">
+                                                                Paid
+                                                            </a>
+                                                            <a href="/Admin/UpdateInvoiceStatus?InvoiceNo=@item.InvoiceNo&Status=Unpaid" class="btn btn-danger" onclick="return confirm('Are you sure to update status as unpaid?');">
+                                                                Unpaid
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="/Admin/UpdateInvoiceStatus?InvoiceNo=@item.InvoiceNo&Status=Paid" class="btn btn-success" onclick="return confirm('Are you sure to update status as paid?');">
+                                                                Paid
+                                                            </a>
+                                                            <a href="/Admin/UpdateInvoiceStatus?InvoiceNo=@item.InvoiceNo&Status=Unpaid" class="btn btn-danger" onclick="return confirm('Are you sure to update status as unpaid?');">
+                                                                Unpaid
+                                                            </a>
+                                                            <a href="/Admin/UpdateInvoiceStatus?InvoiceNo=@item.InvoiceNo&Status=Free" class="btn btn-primary" onclick="return confirm('Are you sure to update status as Free/Gift?');">
+                                                                Free/Gift
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+<script src="../../vendor/jquery/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+</script>

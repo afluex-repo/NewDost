@@ -11,12 +11,12 @@ namespace Dost
         {
             // Web API configuration and services
 
-            // Web API routes
+             //Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/Login{controller}/Login{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

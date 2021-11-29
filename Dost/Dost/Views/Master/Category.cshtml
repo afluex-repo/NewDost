@@ -1,0 +1,143 @@
+﻿@modeldost.Models.clsCategory
+
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+
+    .successtext {
+        border: 1px solid green !important;
+        background-color: #fff0f0 !important;
+    }
+
+    .mb-4 {
+        margin-bottom: 6rem !important;
+    }
+
+    .mb1-4 {
+        margin-bottom: 6rem !important;
+    }
+
+    .dashcolo {
+        background-color: #f5f2f2 !important;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Master
+                </a>
+            </li>
+            <li class="active">
+                Add Sub Category
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("Category", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <span style="color: red">
+        @TempData["Subscription"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Add Sub Category
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4 mb1-4">
+                                <label class="col-sm-2 col-form-label">Name <span style="color: red">*</span></label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.Name, new { @placeholder = "Name", @class = "form-control" })
+                                    @Html.HiddenFor(m => m.Pk_SubCategoryId)
+                                    @*@Html.HiddenFor(m => m.SubscriptionId)*@
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-md-6">
+                                    <input type="submit" id="Btnsubmit" class="btn btn-success" name="Event" value="Submit" onclick="return validate();">
+                                    <a class="btn btn-primary" href="/Master/CategoryList">Back To List</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Image Icon<span style="color: red">*</span></label>
+                                <div class="col-sm-10">
+
+                                    <img src="@TempData["Image"]" id="MyProfileImage" name="MyProfileImage" height="100" width="100" />
+                                    <input type="file" name="fileUploaderControl" id="fileUploaderControl">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#fileUploaderControl").change(function () {
+            var file = document.getElementById("fileUploaderControl").files[0];
+            var readImg = new FileReader();
+            readImg.readAsDataURL(file);
+            readImg.onload = function (e) {
+                $('#MyProfileImage').attr('src', e.target.result).fadeIn();
+            }
+        });
+
+        $("#Btnsubmit").click(function () {
+
+            var Name = $("#Name").val();
+            if (Name == "") {
+                $("#Name").addClass('errortext');
+                $('#Name').focus();
+                return false;
+            }
+            else {
+                $("#Name").addClass('successtext');
+                $('#Name').focus();
+            }
+
+        });
+
+        $("#Validity").keypress(function (e) {
+            //if not numeric, then it don't let you type
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+    });
+</script>
+
+@if (TempData["SubscriptionId"] != null)
+{
+    <script>
+        $(documrnt).ready(function () {
+
+            $("#tbldata").hide();
+        });
+    </script>
+}

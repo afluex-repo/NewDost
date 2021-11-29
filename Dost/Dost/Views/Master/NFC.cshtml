@@ -1,0 +1,416 @@
+﻿@model Dost.Models.Master
+
+@{
+    ViewBag.Title = "NFC";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Master
+                </a>
+            </li>
+            <li class="active">
+                NFC
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("NFC", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <span style="color: red">
+        @TempData["NFCMsg"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    NFC
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Type <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.NFCType, new { @placeholder = "Type", @class = "form-control" })
+                                    @Html.HiddenFor(m => m.PK_NFcId)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Price <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.ProductPrice, new { @class = "form-control", @placeholder = "Price ", @onkeypress = "return isNumberKey(event)", @onchange = "getPrice(this);" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Offer Price <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.OfferPrice, new { @placeholder = "Offer Price", @class = "form-control", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Discount <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Discount, new { @class = "form-control", @required = "required"})
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Delivery and Handling Charges <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.DeliveryCharge, new { @class = "form-control", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Catalyst BV</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Catalyst, new { @placeholder = "Catalyst", @class = "form-control",@onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Blaze BV</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Blaze, new { @class = "form-control",@placeholder= "Blaze",@onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Maverick BV </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Maverick, new { @placeholder = "Maverick BV", @class = "form-control", @onkeypress = "return isNumberKey(event)"  })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Symphony BV</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Symphony, new { @class = "form-control",@placeholder = "Symphony BV",@onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Phoenix BV </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Phoenix, new { @placeholder = "Phoenix BV", @class = "form-control", @onkeypress = "return isNumberKey(event)"  })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Referral BV <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.ReferralPercent, new { @class = "form-control", @placeholder = "Referral BV", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Select Offer</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.OfferId, new SelectList(ViewBag.Offer, "Value", "Text"), "--Select--", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Select Category</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.Fk_CategoryId, new SelectList(ViewBag.Category, "Value", "Text"), new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Image</label>
+                                <div class="col-sm-8">
+                                    <input type="file" name="postedFile" id="Image" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Distributor Commission <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.DistributorCommission, new { @class = "form-control", @placeholder = "Distributor Commission", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Sponsor Commission <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.SponsorCommission, new { @class = "form-control", @placeholder = "Sponsor Commission", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">IGST <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.IGST, new { @class = "form-control", @placeholder = "IGST", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">CGST <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.CGST, new { @class = "form-control", @placeholder = "CGST", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">SGST <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.SGST, new { @class = "form-control", @placeholder = "SGST", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Brand </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Brand, new { @class = "form-control", @placeholder = "Brand" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Quantity <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @placeholder = "Quantity", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Description <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextAreaFor(m => m.Description, new { @placeholder = "Description", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="submit" id="btnSave" class="btn btn-success" name="btnSave" value="Save" onclick="return validate();" />
+                            <a class="btn btn-primary" href="/Master/NFCList">Back To List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+<script>
+    var id = $("#PK_NFcId").val();
+    if (id != null && id != 0) {
+        $("#btnSave").val("Update");
+    }
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+    function getPrice() {
+        debugger;
+        var price = $('#ProductPrice').val();
+        $("#OfferPrice").val(price);
+    }
+    
+    function validate() {
+        debugger
+            var NFCType = $("#NFCType").val();
+            var ProductPrice = $("#ProductPrice").val();
+            var Description = $("#Description").val();
+            var IGST = $("#IGST").val();
+            var CGST = $("#CGST").val();
+            var SGST = $("#SGST").val();
+            var OfferPrice = $("#OfferPrice").val();
+            var Discount = $("#Discount").val();
+            var DeliveryCharge = $("#DeliveryCharge").val();
+            var BinaryPercentage = $("#BinaryPercent").val();
+            var ReferralPercentage = $("#ReferralPercent").val();
+            var Description = $("#Description").val();
+            if (NFCType == "") {
+                $("#NFCType").addClass('errortext');
+                $('#NFCType').focus();
+                return false;
+            }
+            else {
+                $("#NFCType").addClass('successtext');
+                $('#NFCType').focus();
+            }
+            if (ProductPrice == "") {
+                $("#ProductPrice").addClass('errortext');
+                $('#ProductPrice').focus();
+                return false;
+            }
+            else {
+                $("#ProductPrice").addClass('successtext');
+                $('#ProductPrice').focus();
+            }
+            if (OfferPrice == "") {
+                $("#OfferPrice").addClass('errortext');
+                $('#OfferPrice').focus();
+                return false;
+            }
+            else {
+                $("#OfferPrice").addClass('successtext');
+                $('#OfferPrice').focus();
+            }
+            if (Discount == "") {
+                $("#Discount").addClass('errortext');
+                $('#Discount').focus();
+                return false;
+            }
+            else {
+                $("#Discount").addClass('successtext');
+                $('#Discount').focus();
+            }
+            if (DeliveryCharge == "") {
+                $("#DeliveryCharge").addClass('errortext');
+                $('#DeliveryCharge').focus();
+                return false;
+            }
+            else {
+                $("#DeliveryCharge").addClass('successtext');
+                $('#DeliveryCharge').focus();
+            }
+            if (BinaryPercentage == "") {
+                $("#BinaryPercent").addClass('errortext');
+                $('#BinaryPercent').focus();
+                return false;
+            }
+            else {
+                $("#BinaryPercent").addClass('successtext');
+                $('#BinaryPercent').focus();
+            }
+            if (ReferralPercentage == "") {
+                $("#ReferralPercent").addClass('errortext');
+                $('#ReferralPercent').focus();
+                return false;
+            }
+            else {
+                $("#ReferralPercent").addClass('successtext');
+                $('#ReferralPercent').focus();
+            }
+            if ($('#DistributorCommission').val() == '') {
+                $("#DistributorCommission").addClass('errortext');
+                $('#DistributorCommission').focus();
+                return false;
+            }
+            else
+            {
+                $("#DistributorCommission").addClass('successtext');
+                $('#DistributorCommission').focus();
+            }
+            if ($('#SponsorCommission').val() == '') {
+                $("#SponsorCommission").addClass('errortext');
+                $('#SponsorCommission').focus();
+                return false;
+            }
+            else
+            {
+                $("#SponsorCommission").addClass('successtext');
+                $('#SponsorCommission').focus();
+            }
+            if (IGST == "") {
+                $("#IGST").addClass('errortext');
+                $('#IGST').focus();
+                return false;
+            }
+            else {
+                $("#IGST").addClass('successtext');
+                $('#IGST').focus();
+            }
+            if (CGST == "") {
+                $("#CGST").addClass('errortext');
+                $('#CGST').focus();
+                return false;
+            }
+            else {
+                $("#CGST").addClass('successtext');
+                $('#CGST').focus();
+            }
+            if (SGST == "") {
+                $("#SGST").addClass('errortext');
+                $('#SGST').focus();
+                return false;
+            }
+            else {
+                $("#SGST").addClass('successtext');
+                $('#SGST').focus();
+            }
+            if (Quantity == "") {
+                $("#Quantity").addClass('errortext');
+                $('#Quantity').focus();
+                return false;
+            }
+            else {
+                $("#Quantity").addClass('successtext');
+                $('#Quantity').focus();
+            }
+            if (Description == "") {
+                $("#Description").addClass('errortext');
+                $('#Description').focus();
+                return false;
+            }
+            else {
+                $("#Description").addClass('successtext');
+                $('#Description').focus();
+            }
+    };
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

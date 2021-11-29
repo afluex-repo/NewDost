@@ -1,0 +1,374 @@
+﻿@model Dost.Models.Shop
+
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+    @using (Html.BeginForm("CheckOut", "Shop", FormMethod.Post, new { @id = "form1" }))
+    {
+    <div class="content-body">
+        <div class="container-fluid">
+            <!-- Add Project -->
+
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Hi, welcome back!</h4>
+                        <p class="mb-0">&nbsp;</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Shop</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Checkout</a></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4 order-lg-2 mb-4">
+                                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="text-muted">Cart</span>
+                                        <span class="badge badge-primary badge-pill">@ViewBag.TotalItem<input type="hidden" value="@ViewBag.TotalItem" name="noofitems"/></span>
+                                    </h4>
+                                    <h6 class="d-flex justify-content-between align-items-center mb-3">Available Wallet Balance:<span style="color:red">@ViewBag.WalletBalance</span><input name="walletbalance" type="hidden" id="spanDwallet" value="@ViewBag.WalletBalance"/><a class="text-white badge badge-primary badge-pill" target="_blank" href="@Url.Action("Wallet","Wallet")" style="display:none" id="aDwalletAddfund">Add Fund</a></h6>
+                                    <ul class="list-group mb-3">
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstproduct != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.lstproduct)
+                                                {
+                                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                                        <div>
+                                                            <input type="hidden" id="NoofItem_@i" name="NoofItem_@i" value="@Item.NoOfSeats" />
+                                                            <h6 class="my-0">@Item.ProductName </h6><small class="text-muted">(@Item.NoOfSeats * @Item.OfferPrice)</small>
+                                                            <input type="hidden" id="ProductName_@i" name="ProductName_@i" value="@Item.ProductName"/>
+                                                            
+                                                        </div>
+                                                        <span class="text-muted">₹ @Item.TotalPrice</span>
+                                                        <input type="hidden" id="TotalPrice_@i" name="TotalPrice_@i" value="@Item.TotalPrice" />
+                                                        <input type="hidden" id="PK_EventId_@i" name="PK_EventId_@i" value="@Item.PK_EventId" />
+                                                    </li>
+
+                                                    i = i + 1;
+                                                }
+                                                <input type="hidden" id="hdrows" name="hdrows" value="@i" />
+                                            }
+                                        }
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <h6>GST</h6>
+                                            <span><input name="totalGST" type="hidden" id="totalGST" value="@ViewBag.GST"/><strong>₹ @ViewBag.GST</strong></span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span>Total BV (₹)</span>
+                                            <span><input name="totalBV" type="hidden" id="totalBV" value="@ViewBag.TotalReferalBV" /><strong>₹ @ViewBag.TotalReferalBV</strong></span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between active">
+                                            <div class="text-white">
+                                                <h6 class="my-0 text-white">Promo code</h6>
+                                                <small>XXXXXXXXXXX</small>
+                                            </div>
+                                            <span class="text-white">-₹ 0.00</span>
+                                        </li>
+                                        
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span>Total (₹)</span>
+
+                                            <span id="spantotal"><input name="totalprice" type="hidden" id="totalprice" value="@ViewBag.TotalPrice"/><strong>₹ 0.00</strong></span>
+                                        </li>
+                                    </ul>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Promo code">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-primary">Redeem</button>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-lg-8 order-lg-1">
+                                    <h4 class="mb-3">Billing address</h4>
+                                
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="firstName">First name</label>
+                                                @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "", @class = "form-control" })
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="lastName">Last name</label>
+                                                @Html.TextBoxFor(m => m.LastName, new { @placeholder = "", @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="username">Username</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">@@</span>
+                                                </div>
+                                                @Html.TextBoxFor(m => m.UserName, new { @placeholder = "", @class = "form-control",@readonly=true })
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="email">
+                                                Email <span class="text-muted">(Optional)</span>
+                                            </label>
+                                            @Html.TextBoxFor(m => m.Email, new { @placeholder = "you@example.com", @class = "form-control" })
+                                            </div>
+                                   
+
+                                        <div class="mb-3">
+                                            <label for="address">Address</label>
+                                            @Html.TextAreaFor(m => m.Address, new { @placeholder = "1234 Main St", @class = "form-control" })
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 mb-3">
+                                                <label for="zip">Pin Code</label>
+                                                @Html.TextBoxFor(m => m.Pincode, new { @onchange = "return getStateCity();", @class = "form-control", @onkeypress = "return isNumberKey(event);", @maxlength = "6" })
+                                            </div>
+                                            <div class="col-md-5 mb-3">
+                                                <label for="country">City</label>
+                                                @Html.TextBoxFor(m => m.City, new { @placeholder = "City Name", @class = "form-control",@readonly = "readonly" })
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="state">State</label>
+                                                @Html.TextBoxFor(m => m.State, new { @placeholder = "State Name", @class = "form-control", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                        @*<hr class="mb-4">*@
+                                        @*<div class="custom-control custom-checkbox mb-2">
+                                            <input type="checkbox" class="custom-control-input" id="same-address">
+                                            <label class="custom-control-label" for="same-address">
+                                                Shipping address
+                                                is
+                                                the same as
+                                                my billing address
+                                            </label>
+                                        </div>*@
+                                        @*<div class="custom-control custom-checkbox mb-2">
+                                            <input type="checkbox" class="custom-control-input" id="save-info">
+                                            <label class="custom-control-label" for="save-info">
+                                                Save this
+                                                information
+                                                for next
+                                                time
+                                            </label>
+                                        </div>*@
+                                        @*<hr class="mb-4">
+
+                                        <h4 class="mb-3">Payment</h4>
+
+                                        <div class="d-block my-3">
+                                            <div class="custom-control custom-radio mb-2">
+                                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="">
+                                                <label class="custom-control-label" for="credit">Credit card</label>
+                                            </div>
+                                            <div class="custom-control custom-radio mb-2">
+                                                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input">
+                                                <label class="custom-control-label" for="debit">Debit card</label>
+                                            </div>
+                                            <div class="custom-control custom-radio mb-2">
+                                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input">
+                                                <label class="custom-control-label" for="paypal">Paypal</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="cc-name">Name on card</label>
+                                                <input type="text" class="form-control" id="cc-name" placeholder="" >
+                                                <small class="text-muted">Full name as displayed on card</small>
+                                                <div class="invalid-feedback">
+                                                    Name on card is required
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="cc-number">Credit card number</label>
+                                                <input type="text" class="form-control" id="cc-number" placeholder="" >
+                                                <div class="invalid-feedback">
+                                                    Credit card number is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 mb-3">
+                                                <label for="cc-expiration">Expiration</label>
+                                                <input type="text" class="form-control" id="cc-expiration" placeholder="" >
+                                                <div class="invalid-feedback">
+                                                    Expiration date required
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="cc-expiration">CVV</label>
+                                                <input type="text" class="form-control" id="cc-cvv" placeholder="" >
+                                                <div class="invalid-feedback">
+                                                    Security code required
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                        <hr class="mb-4">
+                                    <input class="btn btn-primary btn-lg btn-block" type="submit" onclick="return validate();" value="Continue to checkout" id="btnSave" name="btnSave" />
+                              
+                                      
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+    </div>
+}
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        debugger
+        var Gst = $('#totalGST').val();
+        var walletbalance = $('#spanDwallet').val();
+        var totalprice = $("#totalprice").val();
+        var totalbv = $("#totalBV").val();
+        var PayableAmount = parseInt(Gst) + parseInt(totalprice) + parseInt(totalbv);
+        $('#spantotal').text(PayableAmount.toFixed(2));
+        if ((PayableAmount) > walletbalance) {
+            $('#aDwalletAddfund').show();
+            $('#btnSave').addClass('disabled');
+        }
+        else {
+            //show add fund link in case of insufficient fund
+            $('#aDwalletAddfund').hide();
+        }
+
+    });
+    function validate() {
+        debugger
+        var walletbalance = $('#spanDwallet').val();
+        var wallet = (walletbalance).toFixed(2);
+        var totalprice = $("#spantotal").text();
+
+        if ((totalprice) > (walletbalance)) {
+            $('#aDwalletAddfund').show();
+            $('#aDwalletAddfund').focus();
+            $(document).ready(function () {
+                toastr.error("Insufficiant Balance please add balance in your wallet", "error", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            })
+        }
+        else {
+          
+            $('#aDwalletAddfund').hide();
+        }
+        $(".errortext").removeClass("errortext");
+        if ($('#FirstName').val() == '') {
+            $("#FirstName").addClass('errortext');
+            $('#FirstName').focus();
+            return false;
+        }
+        if ($('#UserName').val() == '') {
+            $("#UserName").addClass('errortext');
+            $('#UserName').focus();
+            return false;
+        }
+        if ($('#Email').val() == '') {
+            $("#Email").addClass('errortext');
+            $('#Email').focus();
+            return false;
+        }
+        if ($('#Address').val() == '') {
+            $("#Address").addClass('errortext');
+            $('#Address').focus();
+            return false;
+        }
+        if ($('#PinCode').val() == '') {
+            $("#PinCode").addClass('errortext');
+            $('#PinCode').focus();
+            return false;
+        }
+      
+    }
+    function getStateCity() {
+        var pincode = $('#Pincode').val();
+        $.ajax({
+            url: 'GetStateCity', type: 'post', dataType: 'json',
+            data: { 'Pincode': pincode },
+            success: function (data) {
+              
+                if (data.Result == "yes") {
+                    $("#State").val(data.State);
+                    $("#City").val(data.City);
+                    $("#State").removeClass('errortext');
+                    $("#City").removeClass('errortext');
+                    $("#Pincode").removeClass('errortext');
+                }
+                else if (data.Result == "no") {
+                    $("#State").val('');
+                    $("#City").val('');
+                    $("#State").addClass('errortext');
+                    $("#City").addClass('errortext');
+                    $("#Pincode").addClass('errortext');
+                    $('#Pincode').focus();
+                    $('#Pincode').val('');
+                    $(document).ready(function () {
+                        toastr.error("Enter Valid Pin Code", "Error", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    })
+                    return false;
+                    //alert("Enter Valid Pin Code")
+                }
+            }
+
+        });
+    }
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #3b3363 !important;
+    }
+</style>

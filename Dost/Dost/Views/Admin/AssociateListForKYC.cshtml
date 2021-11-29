@@ -1,0 +1,135 @@
+﻿@model Dost.Models.Reports
+@{
+    ViewBag.Title = "AssociateListForKYC";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Accounts
+                </a>
+            </li>
+            <li class="active">
+                Approve KYC
+            </li>
+
+        </ol>
+
+
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("ApproveKYC", "Admin", FormMethod.Post, new { @id = "form1", name = "formKYC" }))
+{
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Approve Payout Request
+
+
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 table-responsive">
+                            @*<div class="row">
+
+                                <div class="col-lg-3">
+                                    Login Id
+                                    @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-3">
+                                    Name
+                                    @Html.DropDownListFor(m => m.Status, new SelectList(ViewBag.ddlKYCStatus, "Value", "Text"), new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-3">
+                                    <input class="btn btn-success" type="submit" value="Search" name="Search" id="btnSearch" />
+                                </div>
+                            </div>*@
+
+                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th> Login Id</th>
+                                        <th>Name</th>
+                                        <th hidden="hidden">Document Number</th>
+                                        <th>Account No</th>
+                                        <th>IFSC Code</th>
+                                        <th>Adhar card</th>
+                                        <th>Adhar Card No</th>
+
+                                        <th>Pancard Image</th>
+                                        <th>Pancard No</th>
+                                        <th>Passbook Image</th>
+                                        <th hidden="hidden">Passbook No</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstassociate != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.lstassociate)
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.LoginId</td>
+                                                    <td>@Item.Name</td>
+                                                    <td hidden="hidden">@Item.DocumentNumber</td>
+                                                    <td>@Item.MemberAccNo</td>
+                                                    <td>@Item.IFSCCode</td>
+                                                    <td>
+                                                        <a href="@Item.AdharImage" target="_blank"><img src="@Item.AdharImage" height="120" width="180" /></a>
+                                                    </td>
+                                                    <td>@Item.AdharCardNo</td>
+
+                                                    <td>
+                                                        <a href="@Item.PancardImage" target="_blank"><img src="@Item.PancardImage" height="120" width="180" /></a>
+                                                    </td>
+                                                    <td>@Item.Pancard</td>
+                                                    <td>
+                                                        <a href="@Item.PassportImage" target="_blank"><img src="@Item.PassportImage" height="120" width="180" /></a>
+                                                    </td>
+                                                    <td hidden="hidden">@Item.passportNo</td>
+
+                                                    <td>@Item.Status</td>
+                                                    <td>
+                                                        @*@Html.ActionLink("Approve","ApproveKYC","Admin",new{@Item.PK_DocumentID,@Item.DocumentType})*@
+                                                        <a href="/Admin/ApproveKYC?Id=@Item.PK_DocumentID&&DocumentType=@Item.DocumentType&&LoginID=@Item.LoginId" runat="server" class="btn btn-success pull-right" name="btnUpdate">Approve</a>&nbsp;&nbsp;
+                                                        <a href="/Admin/RejectKYC?Id=@Item.PK_DocumentID&&DocumentType=@Item.DocumentType&&LoginID=@Item.LoginId" class="btn btn-danger pull-right" name="btnUpdate">Reject</a>
+                                                    </td>
+                                                </tr>
+
+                                                i++;
+                                            }
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <!-- partial -->
+    </div>
+        <!-- main-panel ends -->
+
+}
