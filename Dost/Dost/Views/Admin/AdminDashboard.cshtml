@@ -1,0 +1,327 @@
+﻿@model Dost.Models.Dashboard
+@{
+    ViewBag.Title = "AdminDashBoard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Home
+                </a>
+            </li>
+            <li class="active">
+                Dashboard
+            </li>
+
+        </ol>
+
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row space12">
+            <ul class="mini-stats col-sm-12">
+                <li class="col-sm-3">
+
+                    <div class="values">
+                        <strong>@ViewBag.TotalUsers</strong> Total Associates
+                    </div>
+                </li>
+                <li class="col-sm-3">
+
+                    <div class="values">
+                        <strong>@ViewBag.ActiveUsers</strong> Active Users
+                    </div>
+                </li>
+                @*<li class="col-sm-3">
+
+                    <div class="values">
+                        <strong>@ViewBag.InactiveUsers</strong> Inactive Users
+                    </div>
+                </li>*@
+                <li class="col-sm-3">
+
+                    <div class="values">
+                        <strong>@ViewBag.BlockedUsers</strong> Blocked Users
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Associate Details
+
+
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="divusers"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <!-- /.panel -->
+    </div>
+
+    <div class="col-lg-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Payout Status
+
+
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="divpayout"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <!-- /.panel -->
+    </div>
+
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Business Details
+
+
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="divinvestment"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <!-- /.panel -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Joining Details
+              </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="divjoining"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <!-- /.panel -->
+    </div>
+</div>
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(bindusers);
+
+    function bindusers() {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '/Admin/GetUserDetails',
+            data: JSON.stringify(),
+            success:
+            function (response) {
+                var datare = response;
+                var data = new google.visualization.DataTable();
+
+                data.addColumn('string', 'Status');
+                data.addColumn('number', 'Total');
+                for (var i = 0; i < datare.length; i++) {
+                    data.addRow([datare[i].Status, parseInt(datare[i].Total)]);
+                }
+
+                var chart = new google.visualization.PieChart(document.getElementById('divusers'));
+                var options = {
+                    pieSliceText: 'value-and-percentage',
+                    format: 'decimal',
+                    is3D: true,
+                    legend: { position: 'bottom' },
+                    animation: {
+                        startup: true,
+                        duration: 1000,
+                        easing: 'out',
+                    }, chartArea: { width: "100%", height: "80%" }
+                };
+
+                chart.draw(data, options);
+
+
+
+
+            },
+            error: function () {
+            }
+        });
+    }
+
+</script>
+
+
+<script type="text/javascript">
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(bindrecharegedetails);
+
+    function bindrecharegedetails() {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '/Admin/GetPayoutStatus',
+            data: JSON.stringify(),
+            success:
+            function (response) {
+                var datare = response;
+                var data = new google.visualization.DataTable();
+
+                data.addColumn('string', 'Status');
+                data.addColumn('number', 'Total');
+                for (var i = 0; i < datare.length; i++) {
+                    data.addRow([datare[i].Status, parseInt(datare[i].Total)]);
+                }
+
+                var chart = new google.visualization.PieChart(document.getElementById('divpayout'));
+                var options = {
+                    pieSliceText: 'value-and-percentage',
+                    format: 'decimal',
+                    is3D: true,
+                    legend: { position: 'bottom' },
+                    animation: {
+                        startup: true,
+                        duration: 1000,
+                        easing: 'out',
+                    }, chartArea: { width: "100%", height: "80%" }
+                };
+
+                chart.draw(data, options);
+
+
+
+
+            },
+            error: function () {
+            }
+        });
+    }
+
+</script>
+
+
+<script type="text/javascript">
+
+        google.charts.load("current", { packages: ["imagebarchart"] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                url: '/Admin/GetInvestmentDetails',
+                data: JSON.stringify(),
+                success:
+                function (response) {
+                    var datare = response;
+                    var data = new google.visualization.DataTable();
+
+                    data.addColumn('string', 'Month');
+                    data.addColumn('number', 'Investment');
+                    for (var i = 0; i < datare.length; i++) {
+                        data.addRow([datare[i].Month, parseInt(datare[i].Amount)]);
+                    }
+
+                    var chart = new google.visualization.ImageBarChart(document.getElementById('divinvestment'));
+                    var options = {
+                        pieSliceText: 'value-and-percentage',
+                        format: 'decimal',
+                        is3D: true,
+                        legend: { position: 'bottom' },
+                        animation: {
+                            startup: true,
+                            duration: 1000,
+                            easing: 'out',
+                        }, chartArea: { width: "100%", height: "80%" }
+                    };
+                    chart.draw(data, options);
+                },
+                error: function () {
+                }
+            });
+        }
+
+</script>
+
+
+<script type="text/javascript">
+
+        google.charts.load("current", { packages: ["imagebarchart"] });
+        google.charts.setOnLoadCallback(joiningdata);
+
+        function joiningdata() {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                url: '/Admin/GetJoiningDeatils',
+                data: JSON.stringify(),
+                success:
+                function (response) {
+                    var datare = response;
+                    var data = new google.visualization.DataTable();
+
+                    data.addColumn('string', 'Month');
+                    data.addColumn('number', 'Total Users');
+                    for (var i = 0; i < datare.length; i++) {
+                        data.addRow([datare[i].Month, parseInt(datare[i].Total)]);
+                    }
+
+                    var chart = new google.visualization.ImageBarChart(document.getElementById('divjoining'));
+                    var options = {
+                        pieSliceText: 'value-and-percentage',
+                        format: 'decimal',
+                        is3D: true,
+                        legend: { position: 'bottom' },
+                        animation: {
+                            startup: true,
+                            duration: 1000,
+                            easing: 'out',
+                        }, chartArea: { width: "100%", height: "80%" }
+                    };
+
+                    chart.draw(data, options);
+
+
+
+
+                },
+                error: function () {
+                }
+            });
+        }
+
+</script>

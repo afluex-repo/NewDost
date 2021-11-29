@@ -9,7 +9,6 @@ namespace Dost.Controllers
 {
     public class BaseController : Controller
     {
-        // GET: Base
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             // code involving this.Session // edited to simplify

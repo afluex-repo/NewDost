@@ -1,0 +1,231 @@
+﻿@model Dost.Models.Password
+
+@{
+    ViewBag.Title = "ValidateOTP";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+@using (Html.BeginForm("ValidateOTP", "User", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Hi, welcome back!</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a href="/User/SetTransactionPassword">User/Validate Password</a></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <span style="color:red;display:none" id="tst">@TempData["ForgetPassword"]</span>
+                            <h4 class="card-title">Validate Password</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 form-group">
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>OTP</strong></label>
+                                        @Html.TextBoxFor(m => m.OTP, new { @class = "form-control", @placeholder = "OTP", @required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 form-group">
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>Password</strong></label>
+                                        @Html.TextBoxFor(m => m.NewPassword, new { @class = "form-control", @placeholder = "New Password", @required = "required", @type = "Password" })
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 form-group">
+                                    <div class="form-group">
+                                        <label></label>
+                                        <label class="mb-1"><strong>Confirm Password</strong></label>
+                                        @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm Password", @required = "required", @type = "Password" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-xl-4 col-lg-4 form-group">
+                                    <div class="form-group">
+                                        <input class="btn btn-primary btn-block" type="submit" value="Set Password" name="btnsubmit" id="btnSubmit" onclick="return validateConfPassword();">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #3b3363 !important;
+    }
+</style>
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script type="text/javascript">
+    $(window).on('load', function () {
+        debugger
+        var status = $('#status');
+        var preloader = $('#preloader');
+        var body = $('body');
+        status.fadeOut();
+        preloader.delay(0).fadeOut('fast');
+        body.delay(0).css({ 'overflow': 'visible' });
+        debugger
+        var res = $("#tst").text();
+        if (res != "" && res != null) {
+            if (res != null) {
+                if (res == "Transaction Password set successfully.") {
+                    $(document).ready(function () {
+                        toastr.success("@TempData["ForgetPassword"]", "success", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                    )
+                    //alert(res);
+                }
+                else if (res == "OTP is sent to your mobile no.") {
+                    $(document).ready(function () {
+                        toastr.success("@TempData["ForgetPassword"]", "success", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                  )
+                }
+                else {
+                    $(document).ready(function () {
+                        toastr.error("@TempData["ForgetPassword"]", "error", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+)
+                }
+            }
+        }
+    })
+</script>
+<script>
+
+    function validateConfPassword() {
+        debugger
+        var password = $('#NewPassword').val();
+        var ConfirmPassword = $('#ConfirmPassword').val();
+        if (password != ConfirmPassword) {
+            $(document).ready(function () {
+                toastr.error("Password and Confirm Password are different", "Top Right", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            }
+)
+            //alert("Password and Confirm Password are different");
+            $('#NewPassword').val('');
+            $('#ConfirmPassword').val('');
+            return false;
+        }
+    }
+    $("#btnSubmit").click(function () {
+        debugger;
+        $(".errortext").removeClass("errortext");
+        if ($('#OTP').val() == '') {
+            $("#OTP").addClass('errortext');
+            $('#OTP').focus();
+            return false;
+        }
+        if ($('#NewPassword').val() == '') {
+            $("#NewPassword").addClass('errortext');
+            $('#NewPassword').focus();
+            return false;
+        }
+        if ($('#ConfirmPassword').val() == '') {
+            $("#ConfirmPassword").addClass('errortext');
+            $('#ConfirmPassword').focus();
+            return false;
+        }
+        var status = $('#status');
+        var preloader = $('#preloader');
+        var body = $('body');
+        status.fadeIn();
+        preloader.delay(0).fadeIn('fast');
+        body.delay(0).css({ 'overflow': 'visible' });
+    })
+</script>
+}
+<script>
+    function validate() {
+        if ($('#Mobile').val() == '') {
+            $("#Mobile").addClass('errortext');
+            $('#Mobile').focus();
+            return false;
+        }
+
+    }
+</script>

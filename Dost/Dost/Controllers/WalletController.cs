@@ -58,6 +58,27 @@ namespace Dost.Controllers
                     }
 
                 }
+                #region Walletledger
+                List<Wallet> lst = new List<Wallet>();
+                Dashboard model = new Dashboard();
+                model.Fk_UserId = Session["Pk_UserId"].ToString();
+                DataSet dsledger = model.EwalletLedger();
+                if (dsledger.Tables != null && dsledger.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dsledger.Tables[0].Rows)
+                    {
+                        Wallet Objload = new Wallet();
+                        Objload.Narration = dr["Narration"].ToString();
+                        Objload.DrAmount = dr["DrAMount"].ToString();
+                        Objload.CrAmount = dr["CrAmount"].ToString();
+                        Objload.AddedOn = dr["CurrentDate"].ToString();
+                        Objload.EwalletBalance = dr["Balance"].ToString();
+
+                        lst.Add(Objload);
+                    }
+                    obj.lstewalletledger = lst;
+                }
+                #endregion
             }
             catch (Exception)
             {

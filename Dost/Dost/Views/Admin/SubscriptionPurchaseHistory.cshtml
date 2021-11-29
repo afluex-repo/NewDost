@@ -1,0 +1,106 @@
+﻿@model Dost.Models.Reports
+@{
+    ViewBag.Title = "SubscriptionPurchaseHistory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Reports
+                </a>
+            </li>
+            <li class="active">
+                Subscription Purchase History
+            </li>
+
+        </ol>
+
+
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("SubscriptionPurchaseHistory", "Admin", FormMethod.Post, new { @id = "form1" }))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Subscription Purchase History
+
+
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-md-12 table-responsive">
+                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Name</th>
+                                        <th>Mobile No</th>
+                                        <th>Email</th>
+                                        <th>Subscription</th>
+                                        <th>Offer Name</th>
+                                        <th>Coupon Code</th>
+                                        <th>Plan</th>
+                                        <th>Validity in Months</th>
+                                        <th>No. Of Seats</th>
+                                        <th>Buy Date</th>
+                                        <th>Price</th>
+                                        <th>Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.NfcList != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.NfcList)
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.Name</td>
+                                                    <td>@Item.MobileNo</td>
+                                                    <td>@Item.Email</td>
+                                                    <td>@Item.EventName</td>
+                                                    <td>@Item.Offername</td>
+                                                    <td>@Item.CouponCode</td>
+                                                    <td>@Item.PlanName</td>
+                                                    <td>@Item.Validity</td>
+                                                    <td>@Item.NoOfSeats</td>
+                                                    <td>@Item.BuyDate</td>
+                                                    <td>@Item.EventPrice</td>
+                                                    <td>@Item.TotalPrice</td>
+                                                </tr>
+                                                i++;
+                                            }
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+
+}
+
+
+
+
