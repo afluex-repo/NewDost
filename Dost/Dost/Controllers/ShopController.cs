@@ -156,16 +156,17 @@ namespace Dost.Controllers
                         model.Brand = dr["Brand"].ToString();
                         model.TotalPrice = dr["TotalPrice"].ToString();
                         model.PK_EventId = dr["Pk_Eventid"].ToString();
-                        model.DeliverCharge = dr["DeliveryCharges"].ToString();
+                        //model.DeliverCharge = dr["DeliveryCharges"].ToString();
                         model.IGST = dr["IGST"].ToString();
                         lstproduct.Add(model);
                     }
-                    obj.lstproduct = lstproduct;
-                   ViewBag.TotalItem = dsUser.Tables[1].Rows[0]["TotalItem"].ToString();
-                    ViewBag.TotalReferalBV = double.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
+                     obj.lstproduct = lstproduct;
+                     ViewBag.TotalItem = dsUser.Tables[1].Rows[0]["TotalItem"].ToString();
+                     ViewBag.TotalReferalBV = double.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
                     ViewBag.TotalPrice = double.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString()).ToString("");
                     ViewBag.GST = double.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2");
-                    obj.UserName = Session["LoginId"].ToString();
+                    ViewBag.DeliveryCharge= dsUser.Tables[0].Rows[0]["DeliveryCharges"].ToString();
+                    obj.UserName = Session["LoginId"].ToString(); 
                 }
                 return View(obj);
             }
