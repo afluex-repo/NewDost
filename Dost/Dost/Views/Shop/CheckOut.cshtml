@@ -4,7 +4,11 @@
     ViewBag.Title = "CheckOut";
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
-
+<style>
+    a:hover {
+    color: #ed0e0e;
+}
+</style>
     @using (Html.BeginForm("CheckOut", "Shop", FormMethod.Post, new { @id = "form1" }))
     {
     <div class="content-body">
@@ -47,11 +51,22 @@
                                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                                                         <div>
                                                             <input type="hidden" id="NoofItem_@i" name="NoofItem_@i" value="@Item.NoOfSeats" />
-                                                            <h6 class="my-0">@Item.ProductName </h6><small class="text-muted">(@Item.NoOfSeats * @Item.OfferPrice)</small>
+                                                            <h6 class="my-0">@Item.ProductName </h6>
+                                                            <small class="text-muted">
+                                                                (@Item.NoOfSeats * @Item.OfferPrice)
+                                                            </small>
                                                             <input type="hidden" id="ProductName_@i" name="ProductName_@i" value="@Item.ProductName"/>
                                                             
                                                         </div>
-                                                        <span class="text-muted">₹ @Item.TotalPrice</span>
+                                                        <span class="text-muted">
+                                                            ₹ @Item.TotalPrice 
+                                                            @*<a href="#" style="color: #fb0808;">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                                </svg>
+                                                            </a>*@
+                                                        </span>
                                                         <input type="hidden" id="TotalPrice_@i" name="TotalPrice_@i" value="@Item.TotalPrice" />
                                                         <input type="hidden" id="PK_EventId_@i" name="PK_EventId_@i" value="@Item.PK_EventId" />
                                                     </li>
@@ -66,7 +81,11 @@
                                             <span><input name="totalGST" type="hidden" id="totalGST" value="@ViewBag.GST"/><strong>₹ @ViewBag.GST</strong></span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between">
-                                            <span>Total BV (₹)</span>
+                                            <h6>Delivery Charge</h6>
+                                            <span><input name="DeliveryCharge" type="hidden" id="DeliveryCharge" value="@ViewBag.DeliveryCharge" /><strong>₹ @ViewBag.DeliveryCharge</strong></span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <h6>Total BV (₹)</h6>
                                             <span><input name="totalBV" type="hidden" id="totalBV" value="@ViewBag.TotalReferalBV" /><strong>₹ @ViewBag.TotalReferalBV</strong></span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between active">
@@ -233,7 +252,8 @@
         var walletbalance = $('#spanDwallet').val();
         var totalprice = $("#totalprice").val();
         var totalbv = $("#totalBV").val();
-        var PayableAmount = parseInt(Gst) + parseInt(totalprice) + parseInt(totalbv);
+        var DeliveryCharge = $("#DeliveryCharge").val();
+        var PayableAmount = parseInt(Gst) + parseInt(totalprice) + parseInt(totalbv) + parseInt(DeliveryCharge);
         $('#spantotal').text(PayableAmount.toFixed(2));
         if ((PayableAmount) > walletbalance) {
             $('#aDwalletAddfund').show();
