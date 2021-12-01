@@ -92,7 +92,11 @@ span.text-muted.sign.remove {
                                             <span><input name="totalGST" type="hidden" id="totalGST" value="@ViewBag.GST"/><strong>₹ @ViewBag.GST</strong></span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between">
-                                            <span>Total BV (₹)</span>
+                                            <h6>Delivery Charge</h6>
+                                            <span><input name="DeliveryCharge" type="hidden" id="DeliveryCharge" value="@ViewBag.DeliveryCharge" /><strong>₹ @ViewBag.DeliveryCharge</strong></span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <h6>Total BV (₹)</h6>
                                             <span><input name="totalBV" type="hidden" id="totalBV" value="@ViewBag.TotalReferalBV" /><strong>₹ @ViewBag.TotalReferalBV</strong></span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between active">
@@ -259,7 +263,8 @@ span.text-muted.sign.remove {
         var walletbalance = $('#spanDwallet').val();
         var totalprice = $("#totalprice").val();
         var totalbv = $("#totalBV").val();
-        var PayableAmount = parseInt(Gst) + parseInt(totalprice) + parseInt(totalbv);
+        var DeliveryCharge = $("#DeliveryCharge").val();
+        var PayableAmount = parseInt(Gst) + parseInt(totalprice) + parseInt(totalbv) + parseInt(DeliveryCharge);
         $('#spantotal').text(PayableAmount.toFixed(2));
         if ((PayableAmount) > walletbalance) {
             $('#aDwalletAddfund').show();
