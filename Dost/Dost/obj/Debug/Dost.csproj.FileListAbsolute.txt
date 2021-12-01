@@ -209,6 +209,5 @@ D:\reena Pro\Repository\NewDost\Dost\Dost\bin\Newtonsoft.Json.xml
 D:\reena Pro\Repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.xml
 D:\reena Pro\Repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
 D:\reena Pro\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
-D:\reena Pro\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 D:\reena Pro\Repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 D:\reena Pro\Repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb

@@ -146,6 +146,23 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("SaveChecOutItem", para);
             return ds;
         }
+
+
+        public DataSet DeleteCardlist()
+        {
+            SqlParameter[] para =
+            {
+                 new SqlParameter("@FK_UserId",Fk_UserId),
+                new SqlParameter("@FK_EventId",PK_EventId)
+               
+               
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SP_Deleteitem", para);
+            return ds;
+        }
+
+
+
     }
     public class AddressBook
     {

@@ -264,6 +264,43 @@ namespace Dost.Controllers
             }
         }
         #endregion
+        #region
+        public ActionResult Deletebookinglist(string PK_EventId)
+        {
+            //string FormName = "";
+            //string Controller = "";
+                 Shop model = new Shop();
+            try
+            {
 
+              
+                model.Fk_UserId = Session["Pk_userId"].ToString();
+                model.PK_EventId = PK_EventId;
+               // model.AddedBy = Session["Pk_AdminId"].ToString();
+
+                DataSet ds = model.DeleteCardlist();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        TempData["shop"] = "Product Removed successfully !";
+                    }
+                    else
+                    {
+                        TempData["shop"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["shop"] = ex.Message;
+            }
+            //FormName = "CheckOut";
+            //Controller = "Shop";
+
+            return RedirectToAction("CheckOut", "Shop");
+
+        }
+        #endregion
     }
 }
