@@ -67,7 +67,8 @@ span.text-muted.sign.remove {
                                                         <div>
                                                             <input type="hidden" id="NoofItem_@i" name="NoofItem_@i" value="@Item.NoOfSeats" />
                                                             <h6 class="">@Item.ProductName </h6>
-                                                            <small class="text-muted sign plus" onclick="increment()">+</small><span class="text-muted quantity">@Item.NoOfSeats</span><small class="text-muted sign minus">-</small>
+                                                            <small class="text-muted sign plus" onclick="increment()">+</small>
+                                                            @*<span class="text-muted quantity">@Item.NoOfSeats</span>*@<input name="number" id="number" type=number min=1 max=10 class="text-muted quantity" readonly="true" style="width:40px; text-align:center"/><small class="text-muted sign minus" onclick="decrement()" >-</small>
                                                             <input type="hidden" id="ProductName_@i" name="ProductName_@i" value="@Item.ProductName" />
                                                         </div>
                                                         <div>
@@ -439,10 +440,10 @@ span.text-muted.sign.remove {
 
 
     function increment() {
-        document.getElementById('NoofItem').stepUp();
+        document.getElementById('number').stepUp();
     }
     function decrement() {
-        document.getElementById('NoofItem').stepDown();
+        document.getElementById('number').stepDown();
     }
 </script>
 <style>
