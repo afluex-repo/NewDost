@@ -5,28 +5,30 @@
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 <style type="text/css">
-		small.text-muted.sign {
-    font-size: 18px;
-    font-weight: 600;
-    padding: 0px 12px;
-    border: 1px solid;
-    cursor: pointer;
-}
-span.text-muted.quantity {
-    margin: 10px;
-}
-span.text-muted.sign.remove {
-	font-size: 18px;
-    font-weight: 600; 	
-    cursor: pointer;
-}
-	</style>
-    @using (Html.BeginForm("CheckOut", "Shop", FormMethod.Post, new { @id = "form1" }))
-    {
+    small.text-muted.sign {
+        font-size: 18px;
+        font-weight: 600;
+        padding: 0px 12px;
+        border: 1px solid;
+        cursor: pointer;
+    }
+
+    span.text-muted.quantity {
+        margin: 10px;
+    }
+
+    span.text-muted.sign.remove {
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+</style>
+@using (Html.BeginForm("CheckOut", "Shop", FormMethod.Post, new { @id = "form1" }))
+{
     <div class="content-body">
         <div class="container-fluid">
             <!-- Add Project -->
-           
+
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
@@ -50,34 +52,34 @@ span.text-muted.sign.remove {
                                 <div class="col-lg-4 order-lg-2 mb-4">
                                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                                         <span class="text-muted">Cart</span>
-                                        <span class="badge badge-primary badge-pill">@ViewBag.TotalItem<input type="hidden" value="@ViewBag.TotalItem" name="noofitems"/></span>
+                                        <span class="badge badge-primary badge-pill">@ViewBag.TotalItem<input type="hidden" value="@ViewBag.TotalItem" name="noofitems" id="noof_Items" /><input name="total_price" type="hidden" id="total_price" value="@ViewBag.TotalPrice" /></span>
                                     </h4>
-                                    <h6 class="d-flex justify-content-between align-items-center mb-3">Available Wallet Balance:<span style="color:red">@ViewBag.WalletBalance</span><input name="walletbalance" type="hidden" id="spanDwallet" value="@ViewBag.WalletBalance"/><a class="text-white badge badge-primary badge-pill" target="_blank" href="@Url.Action("Wallet","Wallet")" style="display:none" id="aDwalletAddfund">Add Fund</a></h6>
+                                    <h6 class="d-flex justify-content-between align-items-center mb-3">Available Wallet Balance:<span style="color:red">@ViewBag.WalletBalance</span><input name="walletbalance" type="hidden" id="spanDwallet" value="@ViewBag.WalletBalance" /><a class="text-white badge badge-primary badge-pill" target="_blank" href="@Url.Action("Wallet","Wallet")" style="display:none" id="aDwalletAddfund">Add Fund</a></h6>
                                     <ul class="list-group mb-3">
 
-                                      @if (Model != null)
+                                        @if (Model != null)
                                         {
                                             if (Model.lstproduct != null)
                                             {
                                                 int i = 1;
                                                 foreach (var Item in Model.lstproduct)
                                                 {
-                                                   
                                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                                                         <div>
                                                             <input type="hidden" id="NoofItem_@i" name="NoofItem_@i" value="@Item.NoOfSeats" />
                                                             <h6 class="">@Item.ProductName </h6>
-                                                            <small class="text-muted sign plus" onclick="increment()">+</small><span class="text-muted quantity">@Item.NoOfSeats</span><small class="text-muted sign minus">-</small>
+                                                            <small class="text-muted sign plus" onclick="increment(@Item.PK_EventId,@Item.OfferPrice,@i)">+</small><span class="text-muted quantity" id="spNoofItems_@i">@Item.NoOfSeats</span><small class="text-muted sign minus" onclick="decrement(@Item.PK_EventId,@Item.OfferPrice,@i)">-</small>
                                                             <input type="hidden" id="ProductName_@i" name="ProductName_@i" value="@Item.ProductName" />
+                                                            <input type="hidden" id="EventPrice_@i" value="@Item.OfferPrice" />
                                                         </div>
                                                         <div>
-                                                            <span class="text-muted">₹ @Item.TotalPrice<br></span>
+                                                            <span class="text-muted" id="spTotalPrice_@i">₹ @Item.TotalPrice<br></span>
                                                             @*<p><a href="" class="text-muted sign remove">@*<span class="text-muted sign remove"><i class="fa fa-trash"></i></a>@*</span></p>*@
-                                                    <p><a href="/Shop/Deletebookinglist?PK_EventId=@Item.PK_EventId" class="text-muted sign remove"> <i class="fa fa-trash"></i></a></p>
-                                                                <input type="hidden" id="TotalPrice_@i" name="TotalPrice_@i" value="@Item.TotalPrice" />
-                                                                <input type="hidden" id="PK_EventId" name="PK_EventId" value="@Model.PK_EventId" />
+                                                            <p><a href="/Shop/Deletebookinglist?PK_EventId=@Item.PK_EventId" class="text-muted sign remove"> <i class="fa fa-trash"></i></a></p>
+                                                            <input type="hidden" id="TotalPrice_@i" name="TotalPrice_@i" value="@Item.TotalPrice" />
+                                                            <input type="hidden" id="PK_EventId_@i" name="PK_EventId_@i" value="@Model.PK_EventId" />
                                                             <input type="hidden" id="Fk_UserId" name="Fk_UserId" value="@Model.Fk_UserId" />
-                                                              
+
                                                         </div>
                                                     </li>
 
@@ -89,7 +91,7 @@ span.text-muted.sign.remove {
 
                                         <li class="list-group-item d-flex justify-content-between">
                                             <h6>GST</h6>
-                                            <span><input name="totalGST" type="hidden" id="totalGST" value="@ViewBag.GST"/><strong>₹ @ViewBag.GST</strong></span>
+                                            <span><input name="totalGST" type="hidden" id="totalGST" value="@ViewBag.GST" /><strong>₹ @ViewBag.GST</strong></span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between">
                                             <h6>Delivery Charge</h6>
@@ -106,11 +108,11 @@ span.text-muted.sign.remove {
                                             </div>
                                             <span class="text-white">-₹ 0.00</span>
                                         </li>
-                                        
+
                                         <li class="list-group-item d-flex justify-content-between">
                                             <span>Total (₹)</span>
 
-                                            <span id="spantotal"><input name="totalprice" type="hidden" id="totalprice" value="@ViewBag.TotalPrice"/><strong>₹ 0.00</strong></span>
+                                            <span id="spantotal"><input name="totalprice" type="hidden" id="totalprice" value="@ViewBag.TotalPrice" /><strong>₹ 0.00</strong></span>
                                         </li>
                                     </ul>
                                     <div class="input-group">
@@ -119,60 +121,60 @@ span.text-muted.sign.remove {
                                             <button type="submit" class="btn btn-primary">Redeem</button>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                                 <div class="col-lg-8 order-lg-1">
                                     <h4 class="mb-3">Billing address</h4>
-                                
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="firstName">First name</label>
-                                                @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "", @class = "form-control" })
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="lastName">Last name</label>
-                                                @Html.TextBoxFor(m => m.LastName, new { @placeholder = "", @class = "form-control" })
-                                            </div>
-                                        </div>
 
-                                        <div class="mb-3">
-                                            <label for="username">Username</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">@@</span>
-                                                </div>
-                                                @Html.TextBoxFor(m => m.UserName, new { @placeholder = "", @class = "form-control",@readonly=true })
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="firstName">First name</label>
+                                            @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "", @class = "form-control" })
                                         </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="lastName">Last name</label>
+                                            @Html.TextBoxFor(m => m.LastName, new { @placeholder = "", @class = "form-control" })
+                                        </div>
+                                    </div>
 
-                                        <div class="mb-3">
-                                            <label for="email">
-                                                Email <span class="text-muted">(Optional)</span>
-                                            </label>
-                                            @Html.TextBoxFor(m => m.Email, new { @placeholder = "you@example.com", @class = "form-control" })
+                                    <div class="mb-3">
+                                        <label for="username">Username</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">@@</span>
                                             </div>
-                                   
+                                            @Html.TextBoxFor(m => m.UserName, new { @placeholder = "", @class = "form-control", @readonly = true })
+                                        </div>
+                                    </div>
 
-                                        <div class="mb-3">
-                                            <label for="address">Address</label>
-                                            @Html.TextAreaFor(m => m.Address, new { @placeholder = "1234 Main St", @class = "form-control" })
+                                    <div class="mb-3">
+                                        <label for="email">
+                                            Email <span class="text-muted">(Optional)</span>
+                                        </label>
+                                        @Html.TextBoxFor(m => m.Email, new { @placeholder = "you@example.com", @class = "form-control" })
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="address">Address</label>
+                                        @Html.TextAreaFor(m => m.Address, new { @placeholder = "1234 Main St", @class = "form-control" })
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 mb-3">
+                                            <label for="zip">Pin Code</label>
+                                            @Html.TextBoxFor(m => m.Pincode, new { @onchange = "return getStateCity();", @class = "form-control", @onkeypress = "return isNumberKey(event);", @maxlength = "6" })
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-3 mb-3">
-                                                <label for="zip">Pin Code</label>
-                                                @Html.TextBoxFor(m => m.Pincode, new { @onchange = "return getStateCity();", @class = "form-control", @onkeypress = "return isNumberKey(event);", @maxlength = "6" })
-                                            </div>
-                                            <div class="col-md-5 mb-3">
-                                                <label for="country">City</label>
-                                                @Html.TextBoxFor(m => m.City, new { @placeholder = "City Name", @class = "form-control",@readonly = "readonly" })
-                                            </div>
-                                            <div class="col-md-4 mb-3">
-                                                <label for="state">State</label>
-                                                @Html.TextBoxFor(m => m.State, new { @placeholder = "State Name", @class = "form-control", @readonly = "readonly" })
-                                            </div>
+                                        <div class="col-md-5 mb-3">
+                                            <label for="country">City</label>
+                                            @Html.TextBoxFor(m => m.City, new { @placeholder = "City Name", @class = "form-control", @readonly = "readonly" })
                                         </div>
-                                        @*<hr class="mb-4">*@
-                                        @*<div class="custom-control custom-checkbox mb-2">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="state">State</label>
+                                            @Html.TextBoxFor(m => m.State, new { @placeholder = "State Name", @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                    @*<hr class="mb-4">*@
+                                    @*<div class="custom-control custom-checkbox mb-2">
                                             <input type="checkbox" class="custom-control-input" id="same-address">
                                             <label class="custom-control-label" for="same-address">
                                                 Shipping address
@@ -181,7 +183,7 @@ span.text-muted.sign.remove {
                                                 my billing address
                                             </label>
                                         </div>*@
-                                        @*<div class="custom-control custom-checkbox mb-2">
+                                    @*<div class="custom-control custom-checkbox mb-2">
                                             <input type="checkbox" class="custom-control-input" id="save-info">
                                             <label class="custom-control-label" for="save-info">
                                                 Save this
@@ -190,7 +192,7 @@ span.text-muted.sign.remove {
                                                 time
                                             </label>
                                         </div>*@
-                                        @*<hr class="mb-4">
+                                    @*<hr class="mb-4">
 
                                         <h4 class="mb-3">Payment</h4>
 
@@ -241,18 +243,18 @@ span.text-muted.sign.remove {
                                                 </div>
                                             </div>
                                         </div>*@
-                                        <hr class="mb-4">
-                                    <input class="btn btn-primary btn-lg btn-block" type="submit" onclick="return validate();" value="Continue to checkout" id="btnSave" name="btnSave" />
-                              
-                                      
-                                  </div>
+                                    <hr class="mb-4">
+                                    <input class="btn btn-primary btn-lg btn-block" type="submit" onclick="return validate();" value="Continue to checkout" id="btnSave" name="btnSave" disabled="disabled" />
+
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-       
+        </div>
+
     </div>
 }
 <script src="~/vendor/jquery/jquery.min.js"></script>
@@ -268,7 +270,7 @@ span.text-muted.sign.remove {
         $('#spantotal').text(PayableAmount.toFixed(2));
         if ((PayableAmount) > walletbalance) {
             $('#aDwalletAddfund').show();
-            $('#btnSave').addClass('disabled');
+            $('#btnSave').attr("disabled", "disabled");
         }
         else {
             //show add fund link in case of insufficient fund
@@ -279,35 +281,34 @@ span.text-muted.sign.remove {
     function validate() {
         debugger
         var walletbalance = $('#spanDwallet').val();
-        var wallet = (walletbalance).toFixed(2);
+        //var wallet = (walletbalance).toFixed(2);
         var totalprice = $("#spantotal").text();
 
-        if ((totalprice) > (walletbalance)) {
+        if (parseFloat(totalprice) > parseFloat(walletbalance)) {
             $('#aDwalletAddfund').show();
             $('#aDwalletAddfund').focus();
-            $(document).ready(function () {
-                toastr.error("Insufficiant Balance please add balance in your wallet", "error", {
-                    positionClass: "toast-top-right",
-                    timeOut: 5e3,
-                    closeButton: !0,
-                    debug: !1,
-                    newestOnTop: !0,
-                    progressBar: !0,
-                    preventDuplicates: !0,
-                    onclick: null,
-                    showDuration: "300",
-                    hideDuration: "1000",
-                    extendedTimeOut: "1000",
-                    showEasing: "swing",
-                    hideEasing: "linear",
-                    showMethod: "fadeIn",
-                    hideMethod: "fadeOut",
-                    tapToDismiss: !1
-                })
+            toastr.error("Insufficiant Balance please add balance in your wallet", "error", {
+                positionClass: "toast-top-right",
+                timeOut: 5e3,
+                closeButton: !0,
+                debug: !1,
+                newestOnTop: !0,
+                progressBar: !0,
+                preventDuplicates: !0,
+                onclick: null,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: !1
             })
+            return false;
         }
         else {
-          
+
             $('#aDwalletAddfund').hide();
         }
         $(".errortext").removeClass("errortext");
@@ -336,7 +337,7 @@ span.text-muted.sign.remove {
             $('#PinCode').focus();
             return false;
         }
-      
+
     }
     function getStateCity() {
         var pincode = $('#Pincode').val();
@@ -344,7 +345,7 @@ span.text-muted.sign.remove {
             url: 'GetStateCity', type: 'post', dataType: 'json',
             data: { 'Pincode': pincode },
             success: function (data) {
-              
+
                 if (data.Result == "yes") {
                     $("#State").val(data.State);
                     $("#City").val(data.City);
@@ -386,9 +387,10 @@ span.text-muted.sign.remove {
             }
 
         });
+        $("#btnSave").removeAttr("disabled");
     }
 
-  
+
     @*function removelist(PK_EventId, Fk_UserId)
     {
         debugger
@@ -438,11 +440,68 @@ span.text-muted.sign.remove {
     }
 
 
-    function increment() {
-        document.getElementById('NoofItem').stepUp();
+    function increment(EventId, Price, Index) {
+        debugger;
+        var spNoofItems = "#spNoofItems_" + Index;
+        var spTotalPrice = "#spTotalPrice_" + Index;
+        var OverAllPrice = $("#total_price").val();
+        var NoofItems = "#NoofItem_" + Index;
+        var PriceId = "#TotalPrice_" + Index;
+        var Price2 = $(PriceId).val();
+        var Count = $(NoofItems).val();
+        if (Count >= 1) {
+            var TotalItems = parseFloat(Count) + 1;
+            var TotalPrice = parseFloat(Price) + parseFloat(Price2);
+            var val = $("#spantotal").text();
+            var P = parseFloat(val) + parseFloat(Price);
+            $("#total_price").val(P);
+            $("#spantotal").text(P);
+            $(spNoofItems).text(TotalItems);
+            $(NoofItems).val(TotalItems);
+            $(spTotalPrice).text("₹ " + TotalPrice);
+            $(PriceId).val(TotalPrice);
+        }
+        $.ajax({
+            url: 'UpdateItems', type: 'post', dataType: 'json',
+            data: { 'EventId': EventId, 'NoOfItems': TotalItems },
+            success: function (data) {
+
+            }
+        });
     }
-    function decrement() {
-        document.getElementById('NoofItem').stepDown();
+    function decrement(EventId, Price, Index) {
+        debugger;
+        var spNoofItems = "#spNoofItems_" + Index;
+        var spTotalPrice = "#spTotalPrice_" + Index;
+        var NoofItems = "#NoofItem_" + Index;
+        var PriceId = "#TotalPrice_" + Index;
+        var OverAllPrice = $("#total_price").val();
+        var Price2 = $(PriceId).val();
+        var Count = $(NoofItems).val();
+        if (Count > 1) {
+            var TotalItems = parseFloat(Count) - 1;
+            var TotalPrice = parseFloat(Price2) - parseFloat(Price);
+            var val = $("#spantotal").text();
+            var P = parseFloat(val) - parseFloat(Price);
+            $("#total_price").val(P);
+            $("#spantotal").text(P);
+            $(spNoofItems).text(TotalItems);
+            $(NoofItems).val(TotalItems);
+            $(spTotalPrice).text("₹ " + TotalPrice);
+            $(PriceId).val(TotalPrice);
+        }
+        $.ajax({
+            url: 'UpdateItems', type: 'post', dataType: 'json',
+            data: { 'EventId': EventId, 'NoOfItems': TotalItems },
+            success: function (data) {
+
+            }
+        });
+        //var NoofItems = "#NoofItem_" + Index;
+        //var Count = $(NoofItems).val();
+        //var TotalItems = parseFloat(Count) - 1;
+        //$("#spNoofItems").text(TotalItems);
+        //$(NoofItems).val(TotalItems);
     }
 </script>
 <style>

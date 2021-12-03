@@ -205,7 +205,7 @@ namespace Dost.Controllers
 
                 obj1.dtproductitem = dt;
                 obj1.WalletBalance = Request["walletbalance"].ToString();
-                obj1.TotalPrice = Request["totalprice"].ToString();
+                obj1.TotalPrice = Request["total_price"].ToString();
                 obj1.NoOfSeats = Request["noofitems"].ToString();
                 obj1.AddedBy = Session["Pk_userId"].ToString();
                 obj1.BV= Request["totalBV"].ToString();
@@ -232,6 +232,30 @@ namespace Dost.Controllers
             Controller = "Shop";
 
             return RedirectToAction(FormName, Controller);
+        }
+        public ActionResult UpdateItems(string EventId,string NoOfItems)
+        {
+            try
+            {
+                Shop model = new Shop();
+                model.PK_EventId = EventId;
+                model.Fk_UserId = Session["Pk_userId"].ToString();
+                model.NumberOfItems = NoOfItems;
+                DataSet ds = model.UpdateItems();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    model.Result = "yes";
+                }
+                else
+                {
+                    model.Result = "no";
+                }  
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
         }
         #endregion
         #region pincode
