@@ -21,7 +21,7 @@ namespace Dost.Models
         public string EventName { get; set; }
         public List<Dashboard> lst { get; set; }
     
-        public string Leg { get; set; }
+         //public string Leg { get; set; }
       
         //
         public int? Pk_DistributorId { get; set; }
@@ -37,7 +37,8 @@ namespace Dost.Models
         public string Mobile { get; set; }
         public string Website { get; set; }
         public string AboutCompany { get; set; }
-
+        public List<Wallet> lstewalletledger { get; set; }
+        public List<Dashboard> lstuser { get; set; }
         public string IsDeleted { get; set; }
         public string UpdatedOn { get; set; }
         public int DeletedBy { get; set; }
@@ -61,10 +62,24 @@ namespace Dost.Models
         #endregion
 
         #region Dashboard
+        public DataSet userlist()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetUserforTransaction");
+            return ds;
+        }
         public DataSet GetAssociateDashboard()
         {
             SqlParameter[] para = { new SqlParameter("@Fk_UserId", Fk_UserId), };
             DataSet ds = DBHelper.ExecuteQuery("GetDashBoardDetailsForAssociate", para);
+            return ds;
+        }
+        public DataSet EwalletLedger()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@Fk_UserId", Fk_UserId),
+                                     
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("GetEwalletLedgerDashboard", para);
             return ds;
         }
         public DashboardResponse GetAllMessages()

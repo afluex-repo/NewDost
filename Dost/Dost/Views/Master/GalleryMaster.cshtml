@@ -1,0 +1,136 @@
+﻿@model Dost.Models.Master
+
+@{
+    ViewBag.Title = "GalleryMaster";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("GalleryMaster", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+
+    <div class="row">
+        <div class="col-sm-12">
+
+            <ol class="breadcrumb">
+                <li>
+                    <i class="clip-home-3"></i>
+                    <a href="#">
+                        Master
+                    </a>
+                </li>
+                <li class="active">
+                    Gallery Master
+                </li>
+
+            </ol>
+
+
+        </div>
+    </div>
+    <br />
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Gallery Master
+                </div>
+                <div class="panel-body">
+                    <div class="row" style="margin-left:10px;">
+                        <div class="col-md-12" style="margin-left:10px;">
+                            <div class="card" style="margin-left:10px;">
+                                <div class="card-header">
+
+                                    <p style="color: red">
+                                        @TempData["GalleryMaster"]
+                                    </p>
+                                    <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
+                                </div>
+                                <div class="card-block" style="margin-left:10px;">
+
+                                    <div class="form-group row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @*<img src="@Model.ProfilePicture" height="190" width="250" />*@
+                                                Image <span style="color: red">*</span>
+                                                <input type="file" name="postedFile" id="Image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <br />
+
+                                                <input class="btn btn-success pull-left" style="margin-right:5px;" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnSave" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#Image').val() == '') {
+            $("#Image").addClass('errortext');
+            $('#Image').focus();
+            alert("Please select Project image..!");
+            return false;
+        }
+        return true;
+    }
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+
+
+</script>
+
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+
+
+
+

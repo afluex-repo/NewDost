@@ -10,31 +10,6 @@ namespace BusinessLayer
 {
     public class BLMail
     {
-        //public static void SendMail(string UserName, string MailBody, string Subject, string MailId)
-        //{
-        //    MailMessage message = new MailMessage();
-        //    SmtpClient smtp = new SmtpClient();
-        //    string str = string.Empty;
-        //    string MailText = string.Empty;
-        //    message.From = new MailAddress("info@afluex.com");
-        //    using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/index.html")))
-        //    {
-        //        MailText = reader.ReadToEnd();
-        //    }
-        //    MailText = MailText.Replace("[UserName]", UserName);
-        //    MailText = MailText.Replace("[MailBody]", MailBody);
-        //    message.Subject = Subject;
-        //    message.IsBodyHtml = true; //to make message body as html  
-        //    message.Body = MailText;
-        //    smtp.Port = 465;
-        //    smtp.Host = "smtp.hostinger.com"; //for gmail host  
-        //    smtp.UseDefaultCredentials = false;
-        //    smtp.Credentials = new NetworkCredential("info@afluex.com", "afluex@9919");
-        //    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-        //    smtp.EnableSsl = true;
-        //    message.To.Add(new MailAddress(MailId));
-        //    smtp.Send(message);
-        //}
         public static void SendNFCActivationMail(string UserName, string MailBody, string Subject, string MailId)
         {
             MailMessage message = new MailMessage();

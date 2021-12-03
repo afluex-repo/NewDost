@@ -1,0 +1,213 @@
+﻿@model Dost.Models.Wallet
+
+@{
+    ViewBag.Title = "AdvancePayment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">Admin</a>
+            </li>
+            <li class="active">
+                Advance Payment
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+
+@using (Html.BeginForm("AdvancePayment", "Admin", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Advance Payment
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    @if (TempData["Advance"] != null)
+                    {
+                        <div class="@TempData["Class"]">
+                            @TempData["Advance"]
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Login ID</label><span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @placeholder = "Login Id", @onchange = "getname();" })
+                                <span id="spName"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Amount</label><span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Description</label>
+                                @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @placeholder = "Description" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Payment Mode</label><span style="color: red">*</span>
+                                @Html.DropDownListFor(m => m.PaymentMode, new SelectList(ViewBag.ddlpaymentmode, "Value", "Text"), new { @class = "form-control", @onchange = "return getpaymentdetails();" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3" id="bankname" style="display: none">
+                            Bank Name <span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @placeholder = "Bank Name" })
+                        </div>
+                        <div class="col-md-3" id="chequeno" style="display: none">
+                            Transaction No <span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.TransactionNo, new { @class = "form-control", @placeholder = "Transaction No" })
+                        </div>
+                        <div class="col-md-3" id="chequdate" style="display: none">
+                            Transaction Date <span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.TransactionDate, new { @class = "form-control", @placeholder = "Transaction Date" })
+                        </div>
+                        <div class="col-md-3" id="bankbranch" style="display: none">
+                            Branch <span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.BankBranch, new { @class = "form-control", @placeholder = "Bank Branch" })
+                            <br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input class="btn btn-success pull-right" onclick="return validateform()" type="submit" value="Save Payment" name="btnSavePayment" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="../../vendor/jquery/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+    $('#TransactionDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+    });
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+
+        if ($('#LoginId').val() == '') {
+            $("#LoginId").addClass('errortext');
+            $('#LoginId').focus();
+            return false;
+        }
+        if ($('#Amount').val() == '') {
+            $("#Amount").addClass('errortext');
+            $('#Amount').focus();
+            return false;
+        }
+        if ($('#Amount').val() == '0') {
+            $("#Amount").addClass('errortext');
+            $('#Amount').focus();
+            return false;
+        }
+        if ($('#PaymentMode').val() != 'Cash') {
+            if ($('#BankName').val() == '') {
+                $("#BankName").addClass('errortext');
+                $('#BankName').focus();
+                return false;
+            }
+            if ($('#TransactionNo').val() == '') {
+                $("#TransactionNo").addClass('errortext');
+                $('#TransactionNo').focus();
+                return false;
+            }
+            if ($('#TransactionDate').val() == '') {
+                $("#TransactionDate").addClass('errortext');
+                $('#TransactionDate').focus();
+                return false;
+            }
+            if ($('#BankBranch').val() == '') {
+                $("#BankBranch").addClass('errortext');
+                $('#BankBranch').focus();
+                return false;
+            }
+        }
+        else {
+            $('#TransactionNo').val('');
+            $('#BankName').val('');
+            $('#TransactionDate').val('');
+            $('#BankBranch').val('');
+        }
+        return true;
+
+    }
+
+    function getpaymentdetails() {
+        var paymentmode = ($("#PaymentMode option:selected").text());
+        if (paymentmode != "Cash") {
+            bankname.style.display = "block";
+            chequeno.style.display = "block";
+            chequdate.style.display = "block";
+            bankbranch.style.display = "block";
+        }
+        else {
+            bankname.style.display = "none";
+            chequeno.style.display = "none";
+            chequdate.style.display = "none";
+            bankbranch.style.display = "none";
+        }
+    }
+
+    function getname() {
+        $.ajax({
+            url: "/Admin/GetMemberName",
+            Type: "Get",
+            DataType: "JSON",
+            data: { LoginId: $('#LoginId').val() },
+            success: function (data) {
+                if (data.Result == "Yes") {
+                    //$('#Name').html(data.DisplayName);
+                    document.getElementById('spName').innerHTML = data.DisplayName;
+                }
+                else {
+                    alert('Invalid Login ID');
+                    $('#LoginId').val('');
+                    document.getElementById('spName').innerHTML = '';
+                }
+            }
+
+        });
+
+    }
+
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+

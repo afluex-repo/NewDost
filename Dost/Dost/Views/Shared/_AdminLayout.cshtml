@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<title>@ViewBag.Title</title>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+
+    <!-- start: META -->
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="Responsive Admin Template build with Twitter Bootstrap and jQuery" name="description" />
+    <meta content="Dreamcrusher" name="author" />
+
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Raleway:400,100,200,300,500,600,700,800,900/" />
+    <link type="text/css" rel="stylesheet" href="../../AssociatePanelcss/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link type="text/css" rel="stylesheet" href="../../AssociatePanelcss/bower_components/font-awesome/css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="../../AssociatePanelcss/assets/fonts/clip-font.min.css" />
+    <link type="text/css" rel="stylesheet" href="../../AssociatePanelcss/bower_components/iCheck/skins/all.css" />
+    <link type="text/css" rel="stylesheet" href="../../AssociatePanelcss/bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+    <link type="text/css" rel="stylesheet" href="../../AssociatePanelcss/bower_components/sweetalert/dist/sweetalert.css" />
+    <link type="text/css" rel="stylesheet" href="../../AssociatePanelcss/assets/css/main.min.css" />
+    <link type="text/css" rel="stylesheet" href="../../AssociatePanelcss/assets/css/main-responsive.min.css" />
+    <link type="text/css" rel="stylesheet" media="print" href="../../AssociatePanelcss/assets/css/print.min.css" />
+    <link type="text/css" rel="stylesheet" id="skin_color" href="../../AssociatePanelcss/assets/css/theme/light.min.css" />
+    <link href="../../AssociatePanelcss/bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="../../WebsiteCss/images/fevicon.png" />
+    <link href="../../AdminPanelCss/Datatablecss/css/amchart/export.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <style>
+        .dataTables_wrapper {
+            padding-top: 10px;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        user agent stylesheet div {
+            display: block;
+        }
+
+        .card {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: .25rem;
+        }
+
+        .dt-buttons {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding-top: 5px;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        user agent stylesheet div {
+            display: block;
+        }
+
+        .card {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: .25rem;
+        }
+
+        .dt-buttons .dt-button {
+            background: #1976d2 none repeat scroll 0 0;
+            border-radius: 4px;
+            color: black;
+            margin-right: 3px;
+            padding: 5px 15px;
+        }
+
+        a {
+            color: #0c0c0c;
+            text-decoration: none;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        user agent stylesheet a:-webkit-any-link {
+            color: -webkit-link;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .dataTables_filter {
+            float: right;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        user agent stylesheet div {
+            display: block;
+        }
+
+        .dataTables_info, .dataTables_length {
+            display: inline-block;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        user agent stylesheet div {
+            display: block;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+            background: transparent none repeat scroll 0 0;
+            border: 1px solid rgba(120,130,140,.13);
+            box-shadow: none;
+            color: #67757c;
+            cursor: default;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            border: 1px solid rgba(120,130,140,.13);
+            box-sizing: border-box;
+            color: #67757c;
+            cursor: pointer;
+            display: inline-block;
+            min-width: 1.5em;
+            padding: .5em 1em;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        a {
+            color: #0c0c0c;
+            text-decoration: none;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        .dataTables_wrapper .dataTables_paginate {
+            float: right;
+            padding-top: .25em;
+            text-align: right;
+        }
+
+        .dt-buttons {
+            margin-left: 0px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <!-- start: TOP NAVIGATION CONTAINER -->
+        <div class="container">
+            <div class="navbar-header">
+                <!-- start: RESPONSIVE MENU TOGGLER -->
+                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                    <span class="clip-list-2"></span>
+                </button>
+                <!-- end: RESPONSIVE MENU TOGGLER -->
+                <!-- start: LOGO -->
+                <a class="navbar-brand" href="/User/AssociateDashBoard">
+                    Dost @*Pvt. Ltd.*@
+                </a>
+                <!-- end: LOGO -->
+            </div>
+            <div class="navbar-tools">
+                <!-- start: TOP NAVIGATION MENU -->
+                <ul class="nav navbar-right">
+
+
+                    <li class="dropdown current-user">
+                        <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
+                            <img src="~/images/logos/dost.png" class="circle-img" alt="" style="height:30px;width:39px">
+                            <span class="username">@Session["FullName"]</span>
+                            <i class="clip-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+
+
+                            <li>
+                                <a href="/Home/AdminLogin">
+                                    <i class="clip-exit"></i> &nbsp;Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="sb-toggle" href="#"><i class="fa fa-outdent"></i></a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="main-container">
+        @{
+            Html.RenderAction("Menu", "Home", new { area = "" });
+        }
+        <!-- start: PAGE -->
+        <div class="main-content">
+
+
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- end: PAGE -->
+    </div>
+
+    <div class="footer clearfix">
+        <div class="footer-inner">
+            <script>
+                document.write(new Date().getFullYear())
+            </script>
+        </div>
+        <div class="footer-items">
+            <span class="go-top"><i class="clip-chevron-up"></i></span>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../AssociatePanelcss/bower_components/jquery/dist/jquery.min.js"></script>
+    <!--<![endif]-->
+    <script type="text/javascript" src="../../AssociatePanelcss/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../../AssociatePanelcss/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../AssociatePanelcss/bower_components/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="../../AssociatePanelcss/bower_components/blockUI/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="../../AssociatePanelcss/bower_components/iCheck/icheck.min.js"></script>
+    <script type="text/javascript" src="../../AssociatePanelcss/bower_components/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js"></script>
+    <script type="text/javascript" src="../../AssociatePanelcss/bower_components/jquery.cookie/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../AssociatePanelcss/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../AssociatePanelcss/assets/js/min/main.min.js"></script>
+    <!-- end: MAIN JAVASCRIPTS -->
+    <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+    <script src="../../AssociatePanelcss/bower_components/Flot/jquery.flot.js"></script>
+    <script src="../../AssociatePanelcss/bower_components/Flot/jquery.flot.pie.js"></script>
+    <script src="../../AssociatePanelcss/bower_components/Flot/jquery.flot.resize.js"></script>
+    <script src="../../AssociatePanelcss/assets/plugin/jquery.sparkline.min.js"></script>
+    <script src="../../AssociatePanelcss/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+    <script src="../../AssociatePanelcss/bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+    <script src="../../AssociatePanelcss/bower_components/moment/min/moment.min.js"></script>
+    <script src="../../AssociatePanelcss/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="../../AssociatePanelcss/assets/js/min/index.min.js"></script>
+
+    <script src="./../Datatablecss/datatables/datatables.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script src="./../Datatablecss/datatables/datatables-init.js"></script>
+   
+    <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+    <script>
+        jQuery(document).ready(function () {
+            Main.init();
+            Index.init();
+        });
+    </script>
+</body>
+
+</html>
+
+
+

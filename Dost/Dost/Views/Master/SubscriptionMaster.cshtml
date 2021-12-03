@@ -1,0 +1,466 @@
+﻿@model Dost.Models.clsSubscription
+
+@{
+    ViewBag.Title = "SubscriptionMaster";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+
+    .successtext {
+        border: 1px solid green !important;
+        background-color: #fff0f0 !important;
+    }
+
+    .mb-4 {
+        margin-bottom: 6rem !important;
+    }
+
+    .mb1-4 {
+        margin-bottom: 6rem !important;
+    }
+
+    .dashcolo {
+        background-color: #f5f2f2 !important;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Master
+                </a>
+            </li>
+            <li class="active">
+                Add Subscription
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("SubscriptionMaster", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <span style="color: red">
+        @TempData["Subscription"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Add Subscription & Plans
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4 mb1-4">
+                                <label class="col-sm-4 col-form-label">Subscription <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.EventName, new { @placeholder = "Name", @class = "form-control" })
+                                    @Html.HiddenFor(m => m.PK_EventId)
+                                    @Html.HiddenFor(m => m.SubscriptionId)
+                                    @Html.HiddenFor(m => m.Pk_PlanId)
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group mb-4">
+                                <label class="col-sm-4 col-form-label">Plan Price<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.PlanName, new { @placeholder = "Plan Price", @class = "form-control", @onchange = "getPrice(this);" })
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group mb-4">
+                                <label class="col-sm-4 col-form-label">Offer Price<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.OfferPrice, new { @placeholder = "Offer Price", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group mb-4">
+                                <label class="col-sm-4 col-form-label">Discount<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Discount, new { @class = "form-control", @Value = "0" })
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group mb-4">
+                                <label class="col-sm-4 col-form-label">Delivery and Handling Charges<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.DeliveryCharge, new { @class = "form-control", @Value = "0" })
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group mb-4">
+                                <label class="col-sm-4 col-form-label">Distributor Commission<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.DistributorCommission, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group mb-4">
+                                <label class="col-sm-4 col-form-label">Validity (In months)<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Validity, new { @class = "form-control", @maxlength = "3" })
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group mb-4">
+                                <label class="col-sm-4 col-form-label">Description<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextAreaFor(m => m.EventDescription, new { @placeholder = "Fill Description here", @class = "form-control" })
+                                </div>
+                            </div>
+                            <br />
+                            <div>
+                                <div class="col-md-6">
+                                    <input type="submit" id="Btnsubmit" class="btn btn-success" name="Event" value="Submit" onclick="return validate();">
+                                    <a class="btn btn-primary" href="/Master/SubscriptionList">Back To List</a>
+
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Image </label>
+                                <div class="col-sm-8">
+                                    @if (TempData["Image"] != null && TempData["Image"] != "")
+                                    {
+                                        <img src="@TempData["Image"]" id="MyProfileImage" name="MyProfileImage" height="100" width="100" />
+                                    }
+
+                                    <input type="file" name="fileUploaderControl" id="fileUploaderControl">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Select Category</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.SubCategoryId, new SelectList(ViewBag.SubCategory, "Value", "Text"), new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">IGST<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.IGST, new { @placeholder = "IGST", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">CGST<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.CGST, new { @placeholder = "CGST", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">SGST<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.SGST, new { @placeholder = "SGST", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Binary BV <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.BinaryPercentage, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Referral BV <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.ReferralPercentage, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Sponsor Commission<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.SponsorCommission, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="hdflst" value="@Model.lst" />
+                        <div class="col-lg-12" style="display:none" id="divgrid">
+                            <div class="dashcolo">
+                                <div class="col-md-12 table-responsive dashcolo">
+                                    <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" style="width:2000px">
+                                        <thead>
+                                            <tr>
+                                                <th>S No.</th>
+                                                <th>Plan Price</th>
+                                                <th>Validity (In Months)</th>
+                                                <th>Binary BV</th>
+                                                <th>Referral BV</th>
+                                                <th>IGST</th>
+                                                <th>CGST</th>
+                                                <th>SGST</th>
+                                                <th>Offer Price</th>
+                                                <th>Discount</th>
+                                                <th>Delivery Charges</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null)
+                                            {
+                                                if (Model.lst != null)
+                                                {
+                                                    int i = 1;
+                                                    foreach (var Item in Model.lst)
+                                                    {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td><a href="#">@Item.PlanName</a></td>
+                                                <td>@Item.Validity</td>
+                                                <td>@Item.BinaryPercentage</td>
+                                                <td>@Item.ReferralPercentage</td>
+                                                <td>@Item.IGST</td>
+                                                <td>@Item.CGST</td>
+                                                <td>@Item.SGST</td>
+                                                <td>@Item.OfferPrice</td>
+                                                <td>@Item.Discount</td>
+                                                <td>@Item.DeliveryCharge</td>
+                                                <td>
+                                                    <a href="/Master/DeletePlanSubscription?id=@Item.Pk_PlanId" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Plan?');" name="btnDelete">Delete</a>
+                                                    <a href="#" class="btn btn-primary btn-sm" name="btnEdit" onclick="EditPlan(@Item.Pk_PlanId);">Edit</a>
+                                                </td>
+                                            </tr>
+                                                        i++;
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#fileUploaderControl").change(function () {
+            var file = document.getElementById("fileUploaderControl").files[0];
+            var readImg = new FileReader();
+            readImg.readAsDataURL(file);
+            readImg.onload = function (e) {
+                $('#MyProfileImage').attr('src', e.target.result).fadeIn();
+            }
+        });
+
+        $("#Btnsubmit").click(function () {
+            var PK_EventId = $("#PK_EventId").val();
+            if (PK_EventId == "") {
+                var EventName = $("#EventName").val();
+                var PlanName = $("#PlanName").val();
+                var Validity = $("#Validity").val();
+                var OfferPrice = $("#OfferPrice").val();
+                var Discount = $("#Discount").val();
+                var IGST = $("#IGST").val();
+                var CGST = $("#CGST").val();
+                var SGST = $("#SGST").val();
+                var BinaryPercentage = $("#BinaryPercentage").val();
+                var ReferralPercentage = $("#ReferralPercentage").val();
+                var DeliveryCharge = $("#DeliveryCharge").val();
+                var Description = $("#EventDescription").val();
+                if (EventName == "") {
+                    $("#EventName").addClass('errortext');
+                    $('#EventName').focus();
+                    return false;
+                }
+                else {
+                    $("#EventName").addClass('successtext');
+                    $('#EventName').focus();
+                }
+                if (PlanName == "") {
+                    $("#PlanName").addClass('errortext');
+                    $('#PlanName').focus();
+                    return false;
+                }
+                else {
+                    $("#PlanName").addClass('successtext');
+                    $('#PlanName').focus();
+                }
+                if (Validity == "") {
+                    $("#Validity").addClass('errortext');
+                    $('#Validity').focus();
+                    return false;
+                }
+                else {
+                    $("#Validity").addClass('successtext');
+                    $('#Validity').focus();
+                }
+                if (OfferPrice == "") {
+                    $("#OfferPrice").addClass('errortext');
+                    $('#OfferPrice').focus();
+                    return false;
+                }
+                else {
+                    $("#OfferPrice").addClass('successtext');
+                    $('#OfferPrice').focus();
+                }
+                if (Discount == "") {
+                    $("#Discount").addClass('errortext');
+                    $('#Discount').focus();
+                    return false;
+                }
+                else {
+                    $("#Discount").addClass('successtext');
+                    $('#Discount').focus();
+                }
+                if (DeliveryCharge == "") {
+                    $("#DeliveryCharge").addClass('errortext');
+                    $('#DeliveryCharge').focus();
+                    return false;
+                }
+                else {
+                    $("#DeliveryCharge").addClass('successtext');
+                    $('#DeliveryCharge').focus();
+                }
+                if (IGST == "") {
+                    $("#IGST").addClass('errortext');
+                    $('#IGST').focus();
+                    return false;
+                }
+                else {
+                    $("#IGST").addClass('successtext');
+                    $('#IGST').focus();
+                }
+                if (CGST == "") {
+                    $("#CGST").addClass('errortext');
+                    $('#CGST').focus();
+                    return false;
+                }
+                else {
+                    $("#CGST").addClass('successtext');
+                    $('#CGST').focus();
+                }
+                if (SGST == "") {
+                    $("#SGST").addClass('errortext');
+                    $('#SGST').focus();
+                    return false;
+                }
+                else {
+                    $("#SGST").addClass('successtext');
+                    $('#SGST').focus();
+                }
+                if (BinaryPercentage == "") {
+                    $("#BinaryPercentage").addClass('errortext');
+                    $('#BinaryPercentage').focus();
+                    return false;
+                }
+                else {
+                    $("#BinaryPercentage").addClass('successtext');
+                    $('#BinaryPercentage').focus();
+                }
+                if (ReferralPercentage == "") {
+                    $("#ReferralPercentage").addClass('errortext');
+                    $('#ReferralPercentage').focus();
+                    return false;
+                }
+                else {
+                    $("#ReferralPercentage").addClass('successtext');
+                    $('#ReferralPercentage').focus();
+                }
+                if ($('#DistributorCommission').val() == '') {
+                    $("#DistributorCommission").addClass('errortext');
+                    $('#DistributorCommission').focus();
+                    return false;
+                }
+                else {
+                    $("#DistributorCommission").addClass('successtext');
+                    $('#DistributorCommission').focus();
+                }
+                if ($('#SponsorCommission').val() == '') {
+                    $("#SponsorCommission").addClass('errortext');
+                    $('#SponsorCommission').focus();
+                    return false;
+                }
+                else {
+                    $("#SponsorCommission").addClass('successtext');
+                    $('#SponsorCommission').focus();
+                }
+                if (Description == "") {
+                    $("#EventDescription").addClass('errortext');
+                    $('#EventDescription').focus();
+                    return false;
+                }
+                else {
+                    $("#EventDescription").addClass('successtext');
+                    $('#EventDescription').focus();
+                }
+            }
+        });
+
+        $("#Validity").keypress(function (e) {
+            //if not numeric, then it don't let you type
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+
+    });
+    debugger;
+    if ($("#hdflst").val() != null && $("#hdflst").val() != "") {
+        $("#divgrid").show();
+    }
+    else {
+        $("#divgrid").hide();
+    }
+    function getPrice() {
+        debugger;
+        var price = $('#PlanName').val();
+        $("#OfferPrice").val(price);
+    }
+    function EditPlan(PlanId) {
+        debugger;
+        var EventId = $("#PK_EventId").val();
+        $.ajax({
+            url: '/Master/GetPlanDetails',
+            type: 'GET',
+            dataType: 'JSON',
+            data: { 'PlanId': PlanId, 'EventId': EventId },
+            success: function (response) {
+                debugger
+                if (response != null) {
+                    $('#PlanName').val(response.PlanName);
+                    $("#Validity").val(response.Validity)
+                    $('#OfferPrice').val(response.OfferPrice);
+                    $('#Discount').val(response.Discount);
+                    $('#BinaryPercentage').val(response.BinaryPercentage);
+                    $('#ReferralPercentage').val(response.ReferralPercentage);
+                    $('#IGST').val(response.IGST);
+                    $('#CGST').val(response.CGST);
+                    $('#SGST').val(response.SGST);
+                    $('#DeliveryCharge').val(response.DeliveryCharge);
+                    $("#Pk_PlanId").val(response.PlanId);
+                    $('#DistributorCommission').val(response.DistributorCommission);
+                    $("#SponsorCommission").val(response.SponsorCommission)
+                }
+                else {
+                    alert(response.Result);
+                }
+            }
+        })
+    }
+</script>
+
+@if (TempData["SubscriptionId"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $("#tbldata").hide();
+        });
+    </script>
+}

@@ -141,5 +141,13 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateWalletDetails", para);
             return ds;
         }
+        public DataSet UpdateProfilePic()
+        {
+            SqlParameter[] para = { new SqlParameter("@PK_UserID",PK_UserID ) ,
+                                      new SqlParameter("@ProfilePic", ProfilePicture)
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateProfilePic", para);
+            return ds;
+        }
     }
 }

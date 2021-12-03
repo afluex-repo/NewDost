@@ -7,6 +7,7 @@ using Dost.Models;
 using System.Data;
 using System.IO;
 using Dost.Filter;
+using BusinessLayer;
 
 namespace Dost.Controllers
 {
@@ -59,7 +60,7 @@ namespace Dost.Controllers
                 ViewBag.JoiningDate = ds.Tables[3].Rows[0]["JoiningDate"].ToString();
                 model.SponserId = ds.Tables[3].Rows[0]["SponsorId"].ToString();
                 model.SponsorName = ds.Tables[3].Rows[0]["SponsorName"].ToString();
-                model.Leg = ds.Tables[3].Rows[0]["Leg"].ToString();
+                //model.Leg = ds.Tables[3].Rows[0]["Leg"].ToString();
                 model.Fk_SponsorId1 = ds.Tables[3].Rows[0]["FK_SponsorId"].ToString();
                 Session["SponserId"] = ds.Tables[3].Rows[0]["SponsorId"].ToString();
                 Session["SponsorId"] = ds.Tables[3].Rows[0]["SponsorId"].ToString();
@@ -126,6 +127,43 @@ namespace Dost.Controllers
                 model.lstinvestment = lstinvestment;
             }
             #endregion Investment
+            #region Walletledger
+            List<Wallet> lst = new List<Wallet>();
+            obj.Fk_UserId = Session["Pk_UserId"].ToString();
+            DataSet dsledger = obj.EwalletLedger();
+            if (dsledger.Tables != null && dsledger.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in dsledger.Tables[0].Rows)
+                {
+                    Wallet Objload = new Wallet();
+                    Objload.Narration = dr["Narration"].ToString();
+                    Objload.DrAmount = dr["DrAMount"].ToString();
+                    Objload.CrAmount = dr["CrAmount"].ToString();
+                    Objload.AddedOn = dr["CurrentDate"].ToString();
+                    Objload.EwalletBalance = dr["Balance"].ToString();
+
+                    lst.Add(Objload);
+                }
+                model.lstewalletledger = lst;
+            }
+            #endregion
+            #region Walletledger
+            List<Dashboard> lstuser = new List<Dashboard>();
+            obj.Fk_UserId = Session["Pk_UserId"].ToString();
+            DataSet dsUser = obj.userlist();
+            if (dsUser.Tables != null && dsUser.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in dsUser.Tables[0].Rows)
+                {
+                    Dashboard model1 = new Dashboard();
+                    model1.DisplayName = dr["Name"].ToString();
+                    model1.ProfilePic = dr["Profile"].ToString();
+                    model1.Mobile = dr["LoginId"].ToString();
+                    lstuser.Add(model1);
+                }
+                model.lstuser = lstuser;
+            }
+            #endregion
             return View(model);
         }
         public ActionResult UserProfile()
@@ -201,7 +239,8 @@ namespace Dost.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["UpdateProfile"] = "Updated successfully..";
+                        TempData["UpdateProfile"] = "Personal Details Updated successfully..";
+                        TempData["Profile"] = "Yes";
                         FormName = "UserProfile";
                         Controller = "User";
                         //return View();
@@ -242,7 +281,8 @@ namespace Dost.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["UpdateProfile"] = "Updated successfully..";
+                        TempData["UpdateProfile"] = "Bank Details Updated successfully..";
+                        TempData["Profile"] = "Yes";
                         FormName = "UserProfile";
                         Controller = "User";
                         //return View();
@@ -298,7 +338,8 @@ namespace Dost.Controllers
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
                       
-                        TempData["UpdateProfile"] = "Updated successfully..";
+                        TempData["UpdateProfile"] = "Kyc upload successfully..";
+                        TempData["Profile"] = "Yes";
                         FormName = "UserProfile";
                         Controller = "User";
                     }
@@ -333,7 +374,8 @@ namespace Dost.Controllers
                 {
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
-                        TempData["UpdateProfile"] = "Updated successfully..";
+                        TempData["UpdateProfile"] = "Wallet details  updated successfully..";
+                        TempData["Profile"] = "Yes";
                         FormName = "UserProfile";
                         Controller = "User";
                         //return View();
@@ -354,9 +396,273 @@ namespace Dost.Controllers
             }
             return RedirectToAction(FormName, Controller);
         }
-        public ActionResult Wallet()
+        public ActionResult SetTransactionPassword()
         {
+            Password model = new Password();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult SetTransactionPassword(Password model)
+        {
+            try
+            {
+                Utility util = new Utility();
+                model.Fk_UserId = Session["Pk_userId"].ToString();
+                DataSet ds = model.GetMobilenumber();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    model.Name = ds.Tables[0].Rows[0]["Name"].ToString();
+                    //var Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                    model.Fk_UserId = ds.Tables[0].Rows[0]["Pk_Userid"].ToString();
+                    model.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                    model.OTP = util.GenerateAlphanumeric(6);
+                 
+                    string Message = "Dear " + model.Name + " Your 6 digit OTP to create/forget/change transactional PIN is " + model.OTP + ". DOST INC";
+                    DataSet ds1 = model.GenerateOTPFORPassword();
+                    if (ds1 != null && ds1.Tables.Count > 0)
+                    {
+                        if (ds1.Tables[0].Rows.Count > 0 && ds1.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            Session["MobileNo"] = model.Mobile;
+                            Session["UserId"] = model.Fk_UserId;
+                            try
+                            {
+                                string msg = BLSMS.sendSMSUpdated(Message, model.Mobile);
+                            }
+                            catch (Exception ex)
+                            {
+                              TempData["ForgetPassword"] = ex.Message;
+                            }
+                            //Send Mail
+                            try
+                            {
+                                string Subject = "Forgot Password";
+                                string message = "Please Find OTP to create your password.<br>" + model.OTP + "<br><br>For any issue please reach us through email or through DOST helpline.";
+                                BLMail.SendVerificationMail(model.Name, message, Subject, model.Email);
+                            }
+                            catch (Exception ex)
+                            {
+                                //TempData["ForgetPassword"] = ex.Message;
+                            }
+                            TempData["ForgetPassword"] = "OTP is sent to your mobile no.";
+                            return RedirectToAction("ValidateOTP", "User");
+                        }
+                    }
+                }
+                else
+                {
+                    TempData["ForgetPassword"] = "Error Occurred";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                TempData["ForgetPassword"] = ex.Message;
+            }
+            return View(model);
+        }
+   
+        public ActionResult ValidateOTP()
+        {
+            Password model = new Password();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ValidateOTP(Password model)
+        {
+            try
+            {
+                model.Mobile = Session["MobileNo"].ToString();
+                model.Fk_UserId = Session["UserId"].ToString();
+                DataSet ds = model.ValidateOTP();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["MSG"].ToString() == "1")
+                        {
+                            model.NewPassword = Crypto.Encrypt(model.NewPassword);
+                            DataSet ds1 = model.ResetPassword();
+                            if (ds1 != null && ds1.Tables.Count > 0)
+                            {
+                                if (ds1.Tables[0].Rows.Count > 0)
+                                {
+                                    if (ds1.Tables[0].Rows[0]["MSG"].ToString() == "1")
+                                    {
+                                        TempData["ForgetPassword"] = "Transaction Password reset successfully.";
+                                        return RedirectToAction("Validate", "User");
+                                    }
+                                    else if (ds1.Tables[0].Rows[0]["MSG"].ToString() == "2")
+                                    {
+                                        TempData["ForgetPassword"] = ds1.Tables[0].Rows[0]["Message"].ToString();
+                                    }
+                                    else
+                                    {
+                                        TempData["ForgetPassword"] = "Error occured";
+                                    }
+                                }
+                                else
+                                {
+                                    TempData["ForgetPassword"] = "Not Reset";
+                                }
+                            }
+                            else
+                            {
+                                TempData["ForgetPassword"] = "Not Reset";
+                            }
+                        }
+                        else
+                        {
+                            TempData["ForgetPassword"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        TempData["ForgetPassword"] = "Incorrect OTP. Please Re-enter";
+                    }
+
+                }
+                else
+                {
+                    TempData["ForgetPassword"] = "OTP not matched";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ForgetPassword"] = ex.Message;
+            }
+            return View(model);
+        }
+        [HttpPost]
+        [ActionName("UserDashboard")]
+        [OnAction(ButtonName = "btnTransfer")]
+        public ActionResult TransferEwallet(Dashboard model)
+        {
+            try
+            {
+                Wallet obj = new Wallet();
+                obj.MobileNo = model.Mobile;
+                obj.TransferAmount = model.Amount;
+                obj.AddedBy = Session["Pk_UserId"].ToString();
+                DataSet ds = obj.TransferEwalletToEwallet();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["MSG"].ToString() == "1")
+                    {
+                        obj.ReceiverMobile = ds.Tables[0].Rows[0]["ToMobileNo"].ToString();
+                        obj.SenderMobile = ds.Tables[0].Rows[0]["FromMobileNo"].ToString();
+                        obj.ReceiverName = ds.Tables[0].Rows[0]["ToName"].ToString();
+                        obj.SenderName = ds.Tables[0].Rows[0]["FromName"].ToString();
+                        obj.SenderEmail = ds.Tables[0].Rows[0]["FromEmail"].ToString();
+                        obj.ReceiverEmail = ds.Tables[0].Rows[0]["ToEmail"].ToString();
+                        TempData["Ewallet"] = "wallet fund transfered successfully.";
+                        TempData["Wallet"] = "Yes";
+                        try
+                        {
+                            string str = "Rs. " + obj.Amount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
+                            string str2 = "You have received Rs. " + obj.Amount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
+                            BLSMS.sendSMSUpdated(str, obj.SenderMobile);
+                            BLSMS.sendSMSUpdated(str2, obj.ReceiverMobile);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                        try
+                        {
+                            string Subject1 = "Wallet Transfer";
+                            string Subject2 = "Fund Received";
+                            string MailBody1 = "INR " + obj.Amount + " has been successfully transferred from your DOST wallet to user " + obj.ReceiverName + ".<br><br>For any issue please reach us through email or through DOST helpline.";
+                            string MailBody2 = "INR " + obj.Amount + " has been successfully credited into your DOST wallet from the user " + obj.SenderName + "<br><br>For any issue please reach us through email or through DOST helpline.";
+                            BLMail.SendTransactionMail(obj.SenderName, MailBody1, Subject1, obj.SenderEmail);
+                            BLMail.SendTransactionMail(obj.ReceiverName, MailBody2, Subject2, obj.ReceiverEmail);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        TempData["Ewallet"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Ewallet"] = ex.Message;
+
+            }
+            return RedirectToAction("UserDashboard", "User");
+
+        }
+        public JsonResult UpdateProfilePic(string UserId)
+        {
+            Profile obj = new Profile();
+            bool msg = false;
+            if (Request.Files.Count > 0)
+            {
+                HttpFileCollectionBase files = Request.Files;
+                HttpPostedFileBase file = files[0];
+
+                string fileName = file.FileName;
+                obj.PK_UserID = UserId;
+                obj.ProfilePicture = "/images/ProfilePicture/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                file.SaveAs(Path.Combine(Server.MapPath(obj.ProfilePicture)));
+                DataSet ds = obj.UpdateProfilePic();
+
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        msg = true;
+                        Session["ProfilePic"] = obj.ProfilePicture;
+                    }
+                    else
+                    {
+                        msg = false;
+                    }
+                }
+            }
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ChangePassword()
+        {
+            List<SelectListItem> ddlPasswordType = Common.BindPasswordType();
+            ViewBag.ddlPasswordType = ddlPasswordType;
             return View();
+        }
+
+        [HttpPost]
+        [ActionName("ChangePassword")]
+        [OnAction(ButtonName = "btnUpdate")]
+        public ActionResult UpdatePassword(Password obj)
+        {
+            try
+            {
+                List<SelectListItem> ddlPasswordType = Common.BindPasswordType();
+                ViewBag.ddlPasswordType = ddlPasswordType;
+                obj.UpdatedBy = Session["Pk_userId"].ToString();
+                obj.OldPassword = Crypto.Encrypt(obj.OldPassword);
+                obj.NewPassword = Crypto.Encrypt(obj.NewPassword);
+                DataSet ds = obj.UpdatePassword();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ChangePassword"] = "Password updated successfully..";
+                    }
+                    else
+                    {
+                        TempData["ChangePasswordError"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ChangePasswordError"] = ex.Message;
+            }
+            return View(obj);
         }
     }
 }
