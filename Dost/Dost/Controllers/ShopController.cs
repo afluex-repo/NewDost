@@ -332,7 +332,7 @@ namespace Dost.Controllers
             //FormName = "CheckOut";
             //Controller = "Shop";
 
-            return RedirectToAction("CheckOut", "Shop");
+            return RedirectToAction("product", "Shop");
 
         }
         #endregion

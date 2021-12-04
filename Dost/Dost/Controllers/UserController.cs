@@ -193,7 +193,7 @@ namespace Dost.Controllers
                 obj.IFSC = ds.Tables[0].Rows[0]["IFSC"].ToString();
                 obj.ProfilePicture = ds.Tables[0].Rows[0]["ProfilePic"].ToString();
                 obj.Summary = ds.Tables[0].Rows[0]["Summary"].ToString();
-                obj.AccountHolderName= ds.Tables[0].Rows[0]["BankHolderName"].ToString();
+                obj.AccountHolderName = ds.Tables[0].Rows[0]["BankHolderName"].ToString();
                 obj.DocumentImage = ds.Tables[0].Rows[0]["DocumentImage"].ToString();
                 obj.UPIStatus = "Status : " + ds.Tables[0].Rows[0]["UPIStatus"].ToString();
                 obj.PaytmStatus = "Status : " + ds.Tables[0].Rows[0]["PaytmStatus"].ToString();
@@ -222,7 +222,26 @@ namespace Dost.Controllers
                 obj.MemberBranch = ds1.Tables[1].Rows[0]["MemberBranch"].ToString();
 
             }
-            return View(obj);
+            //obj.Fk_UserId = Session["Pk_userId"].ToString();
+            //DataSet dt2 = obj.GetCardDetail();
+            //if (dt2.Tables[0].Rows.Count > 0 && dt2.Tables[0].Rows[0]["Msg"].ToString() == "1")
+            //{
+            //    obj.FirstName = dt2.Tables[0].Rows[0]["FirstName"].ToString();
+            //    obj.Gender = dt2.Tables[0].Rows[0]["Gender"].ToString();
+            //    obj.Mobile = dt2.Tables[0].Rows[0]["Mobile"].ToString();
+            //    obj.Email = dt2.Tables[0].Rows[0]["Email"].ToString();
+            //    obj.FatherName = dt2.Tables[0].Rows[0]["FatherName"].ToString();
+            //    obj.Address = dt2.Tables[0].Rows[0]["Address"].ToString();
+            //    obj.PinCode = dt2.Tables[0].Rows[0]["PinCode"].ToString();
+
+            //    obj.DOB = dt2.Tables[0].Rows[0]["DOB"].ToString();
+            //    obj.NameH = dt2.Tables[0].Rows[0]["NameH"].ToString();
+            //    obj.FatherNameH = dt2.Tables[0].Rows[0]["FatherNameH"].ToString();
+            //    obj.AddressH = dt2.Tables[0].Rows[0]["AddressH"].ToString();
+            //}
+
+
+           return View(obj);
         }
         [HttpPost]
         [ActionName("UserProfile")]
@@ -664,5 +683,148 @@ namespace Dost.Controllers
             }
             return View(obj);
         }
+
+        #region Get CardDetails user profile
+        public ActionResult GetCarrdDetails(string Fk_UserId)
+        {
+            Profile obj = new Profile();
+            obj.Fk_UserId = Session["Pk_userId"].ToString();
+            DataSet dt2 = obj.GetCardDetail();
+           if (dt2.Tables[0].Rows.Count > 0 && dt2.Tables[0].Rows[0]["Msg"].ToString() == "1")
+            {
+                obj.FirstName = dt2.Tables[0].Rows[0]["FirstName"].ToString();
+                obj.Gender = dt2.Tables[0].Rows[0]["Gender"].ToString();
+                obj.Mobile = dt2.Tables[0].Rows[0]["Mobile"].ToString();
+                obj.Email = dt2.Tables[0].Rows[0]["Email"].ToString();
+                obj.FatherName = dt2.Tables[0].Rows[0]["FatherName"].ToString();
+                obj.Address = dt2.Tables[0].Rows[0]["Address"].ToString();
+                obj.Pincode = dt2.Tables[0].Rows[0]["Pincode"].ToString();
+
+                obj.DOB = dt2.Tables[0].Rows[0]["DOB"].ToString();
+                obj.NameH = dt2.Tables[0].Rows[0]["NameH"].ToString();
+                obj.FatherNameH = dt2.Tables[0].Rows[0]["FatherNameH"].ToString();
+                obj.AddressH = dt2.Tables[0].Rows[0]["AddressH"].ToString();
+                obj.CardNumber = dt2.Tables[0].Rows[0]["CardNumber"].ToString();
+                obj.Result = "Yes";
+            }
+            else { obj.Result = "No"; }
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region update CardDetails user profile
+
+        [HttpPost]
+        [ActionName("UserProfile")]
+        [OnAction(ButtonName = "btnRegistration")]
+        public  ActionResult Updatecarduserprofile(Profile obj)
+        {
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                obj.PK_UserID = Session["Pk_userId"].ToString();
+                DataSet ds = obj.Updatecarduserprofile();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["UpdateProfile"] = "Personal Details Updated successfully..";
+                        TempData["Profile"] = "Yes";
+                        FormName = "UserProfile";
+                        Controller = "User";
+                        //return View();
+                    }
+                    else
+                    {
+                        TempData["UpdateProfile"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "UserProfile";
+                        Controller = "User";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["UpdateProfile"] = ex.Message;
+                FormName = "UserProfile";
+                Controller = "User";
+            }
+            return RedirectToAction(FormName, Controller);
+        }
+        #endregion
+
+
+
+
+        #region Get PanCard user profile
+        public ActionResult GetPanDetails(string Fk_UserId)
+        {
+            Profile obj = new Profile();
+            obj.Fk_UserId = Session["Pk_userId"].ToString();
+            DataSet dt3 = obj.GetCardPanDetail();
+            if (dt3.Tables[0].Rows.Count > 0 && dt3.Tables[0].Rows[0]["Msg"].ToString() == "1")
+            {
+                obj.FirstName = dt3.Tables[0].Rows[0]["FirstName"].ToString();
+                obj.Gender = dt3.Tables[0].Rows[0]["Gender"].ToString();
+                obj.Mobile = dt3.Tables[0].Rows[0]["Mobile"].ToString();
+                obj.Email = dt3.Tables[0].Rows[0]["Email"].ToString();
+                obj.FatherName = dt3.Tables[0].Rows[0]["FatherName"].ToString();
+                obj.Address = dt3.Tables[0].Rows[0]["Address"].ToString();
+                obj.Pincode = dt3.Tables[0].Rows[0]["Pincode"].ToString();
+
+                obj.DOB = dt3.Tables[0].Rows[0]["DOB"].ToString();
+                obj.NameH = dt3.Tables[0].Rows[0]["NameH"].ToString();
+                obj.FatherNameH = dt3.Tables[0].Rows[0]["FatherNameH"].ToString();
+                obj.AddressH = dt3.Tables[0].Rows[0]["AddressH"].ToString();
+                obj.PanNumber = dt3.Tables[0].Rows[0]["CardNumber"].ToString();
+               // obj.PanNumber = dt3.Tables[0].Rows[0]["PanNumber"].ToString();
+                obj.Result = "Yes";
+            }
+            else { obj.Result = "No"; }
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+
+        #region update pan card userprofile
+        [HttpPost]
+        [ActionName("UserProfile")]
+        [OnAction(ButtonName = "btnpanupdate")]
+        public ActionResult UpdatePancarduserprofile(Profile obj)
+        {
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                obj.PK_UserID = Session["Pk_userId"].ToString();
+                DataSet ds1 = obj.UpdatePan_carduserprofile();
+                if (ds1 != null && ds1.Tables.Count > 0)
+                {
+                    if (ds1.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["UpdateProfile"] = "Pan Details Updated successfully..";
+                        TempData["Profile"] = "Yes";
+                        FormName = "UserProfile";
+                        Controller = "User";
+                        //return View();
+                    }
+                    else
+                    {
+                        TempData["UpdateProfile"] = ds1.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        FormName = "UserProfile";
+                        Controller = "User";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["UpdateProfile"] = ex.Message;
+                FormName = "UserProfile";
+                Controller = "User";
+            }
+            return RedirectToAction(FormName, Controller);
+        }
+        #endregion
+
     }
 }

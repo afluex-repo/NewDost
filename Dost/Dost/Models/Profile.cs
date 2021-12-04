@@ -75,7 +75,21 @@ namespace Dost.Models
         public string PhonePeStatus { get; set; }
         public string GooglePay { get; set; }
         public string GooglePayStatus { get; set; }
+        #region create new key (RJ)
 
+         public string Email { get; set; }
+          public string FatherName { get; set; }
+      // public string PinCode { get; set; }
+        public String  DOB { get; set; }
+        public string Address { get; set; }
+        public string NameH { get; set; }
+        public string FatherNameH { get; set; }
+        public string AddressH { get; set; }
+        public string CardNumber { get; set; }
+        public string DOB_ID { get; set; }
+        public string First_NM { get; set; }
+        public string Pan_Number { get; set; }
+        #endregion
         #endregion
         public DataSet GetUserProfile()
         {
@@ -149,5 +163,66 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateProfilePic", para);
             return ds;
         }
+
+        public DataSet GetCardDetail()
+        {
+            SqlParameter[] para = { new SqlParameter("@FK_UserId",Fk_UserId),
+           /* // new SqlParameter("@FK_CardTypeId", "1")*/ };
+            DataSet ds = DBHelper.ExecuteQuery("SP_GetCardDetail", para);
+            return ds;
+        }
+
+        #region update card userprofile
+        public DataSet Updatecarduserprofile()
+        {
+            SqlParameter[] para ={  
+                                      new SqlParameter("@FirstName", FirstName) ,
+                                       new SqlParameter("@FatherName", FatherName) ,
+                                      new SqlParameter("@DOB",DOB) ,
+                                      new SqlParameter("@Gender", Gender) ,
+                                      new SqlParameter("@Mobile", Mobile),
+                                        new SqlParameter("@Email", Email) ,
+                                        new SqlParameter("@Pincode", Pincode),
+                                       new SqlParameter("@Address", Address) ,
+                                      new SqlParameter("@NameH", NameH) ,
+                                     // new SqlParameter("@FatherNameH", FatherNameH) ,
+                                      new SqlParameter("@AddressH", AddressH),
+                                      new SqlParameter("@FatherNameH", FatherNameH) ,
+                                      new SqlParameter("@FK_UserId", Fk_UserId ),
+                                      new SqlParameter("@CardNumber", CardNumber)
+                                      
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("SP_UpdateCardDetail", para);
+            return ds;
+        }
+
+        #endregion
+
+        #region pancard update
+        public DataSet GetCardPanDetail()
+        {
+            SqlParameter[] para = { new SqlParameter("@FK_UserId",Fk_UserId),
+           /* // new SqlParameter("@FK_CardTypeId", "1")*/ };
+            DataSet ds = DBHelper.ExecuteQuery("SP_GetPANDetail", para);
+            return ds;
+        }
+        #endregion
+
+
+        #region update pancard userprofile
+        public DataSet UpdatePan_carduserprofile()
+        {
+            SqlParameter[] para ={
+                                      new SqlParameter("@FirstName",First_NM) ,
+                                      new SqlParameter("@DOB",DOB_ID) ,
+                                      new SqlParameter("@FK_UserId",Fk_UserId ),
+                                      new SqlParameter("@CardNumber",Pan_Number)
+
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("SP_Update_PanCardDetail", para);
+            return ds;
+        }
+
+        #endregion
     }
 }

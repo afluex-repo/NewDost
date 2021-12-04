@@ -61,6 +61,7 @@ namespace Dost.Controllers
                 #region Walletledger
                 List<Wallet> lst = new List<Wallet>();
                 Dashboard model = new Dashboard();
+
                 model.Fk_UserId = Session["Pk_UserId"].ToString();
                 DataSet dsledger = model.EwalletLedger();
                 if (dsledger.Tables != null && dsledger.Tables[0].Rows.Count > 0)
