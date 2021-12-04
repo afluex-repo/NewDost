@@ -44,7 +44,7 @@
                                     <div class="card-bx stacked card">
                                         <img src="/images/card/card1.jpg" alt="">
                                         <div class="card-info">
-                                            <p class="mb-1 text-white fs-14">Main Wallet</p>
+                                            <p class="mb-1 text-white fs-14">Dost Wallet</p>
                                             <div class="d-flex justify-content-between">
                                                 <h2 class="num-text text-white mb-5 font-w600">₹ @ViewBag.DigiWalletBalance</h2>
                                                 <div class="text-center" style="border: 1px solid #ffffff; border-radius: 50%; padding: 10px; background-color:#fffefe54; width: 60px; height: 60px">
@@ -54,7 +54,7 @@
 
                                             <div class="d-flex">
                                                 <div class="mr-6 text-white">
-                                                    <p class="fs-12 mb-1 op6">Activation Date</p>
+                                                    <p class="fs-12 mb-1 op6">Last Activation Date</p>
                                                     <span>@ViewBag.ActivationDate</span>
                                                 </div>
                                                 <div class="mr-4 text-white">
@@ -124,9 +124,9 @@
                                                     <div class="mb-4 nav-item">
                                                         <h4><a href="#AddFund" data-toggle="tab" class="text-black nav-link show active"><span class="badge badge-sm badge-primary fs-18" style="padding: 5px 12px"><i class="fa fa-inr text-white" aria-hidden="true"></i> </span> Add Fund</a></h4>
                                                     </div>
-                                                    <div class="mb-4">
-                                                        <h4><a data-toggle="tab" href="#TransferFund" class="text-black nav-link"><span class="badge badge-sm badge-info fs-18"><i class="fa fa-exchange" aria-hidden="true"></i> </span> Transfer</a></h4>
-                                                    </div>
+                                                    @*<div class="mb-4">
+                                                        <h4><a data-toggle="tab" href="#TransferFund" class="text-black nav-link" ><span class="badge badge-sm badge-info fs-18"><i class="fa fa-exchange" aria-hidden="true"></i> </span> Transfer</a></h4>
+                                                    </div>*@
                                                     <div class="mb-4">
                                                         <h4><a data-toggle="tab" href="#WithDrawl" class="text-black nav-link"><span class="badge badge-sm badge-secondary fs-18"><i class="fa fa-credit-card" aria-hidden="true"></i> </span> Withdraw</a></h4>
                                                     </div>
@@ -292,9 +292,10 @@
                                                                                                 @Html.TextBoxFor(m => m.WithDrawAmount, new { @class = "form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="col-xl-6 col-lg-6 text-right">
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
                                                                                             <div class="mb-3">
-                                                                                                <input class="btn btn-primary mb-2 px-5" onclick="return validateformwithdraw()" type="submit" value="Withdrawl Request" id="btnWithdraw" name="btnWithdraw" />
+                                                                                                <label class="mb-1 text-white fs-14">&nbsp;<span class="text-danger"></span></label>
+                                                                                                <input class="btn btn-primary mb-2 px-5" onclick="return validateformwithdraw()" type="submit" value="Withdrawl Request" id="btnWithdraw" name="btnWithdraw" style="margin-left:-26px" />
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -358,10 +359,10 @@
                                         <h4 class="fs-20 text-black">Wallet Activity</h4>
                                         @*<p class="mb-0 fs-13">Lorem ipsum dolor sit amet, consectetur</p>*@
                                     </div>
-                                    @*<div class="card-action card-tabs mb-3 style-1">
+                                   <div class="card-action card-tabs mb-3 style-1">
                                         <ul class="nav nav-tabs" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#monthly" role="tab">
+                                                <a class="nav-link active" data-toggle="tab" href="#" role="tab">
                                                     Monthly
                                                 </a>
                                             </li>
@@ -376,7 +377,7 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>*@
+                                    </div>
                                 </div>
                                 <div class="card-body tab-content p-0">
                                     <div class="tab-pane active show fade" id="monthly">

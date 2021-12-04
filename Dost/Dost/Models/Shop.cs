@@ -160,7 +160,17 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("SP_Deleteitem", para);
             return ds;
         }
-
+        public DataSet UpdateItems()
+        {
+            SqlParameter[] para =
+                {
+                new SqlParameter("@TotalItem",NumberOfItems ),
+                 new SqlParameter("@FK_UserId",Fk_UserId ),
+                 new SqlParameter("@FK_EventId",PK_EventId )
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SP_updateitem", para);
+            return ds;
+        }
 
 
     }

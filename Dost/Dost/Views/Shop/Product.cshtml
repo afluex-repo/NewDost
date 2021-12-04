@@ -96,3 +96,60 @@
         </div>
     </div>
 }
+<script src="~/vendor/jquery/jquery.min.js"></script>
+@if (TempData["product"] != null)
+{
+    if (TempData["product"] == "check out successfully !")
+    {
+        <script>
+
+            $(document).ready(function () {
+                toastr.success("@TempData["product"]", "", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            }
+        )
+        </script>
+    }
+    else
+    {
+        <script>
+            $(document).ready(function () {
+                toastr.error("@TempData["product"]", "", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            }
+        )
+        </script>
+    }
+}
