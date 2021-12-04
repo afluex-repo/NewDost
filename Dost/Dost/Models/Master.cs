@@ -261,5 +261,17 @@ namespace Dost.Models
             return ds;
         }
         #endregion
+        public DataSet GetRunningEvents()
+        {
+
+            DataSet ds = DBHelper.ExecuteQuery("GetRunningEvents");
+            return ds;
+        }
+        public DataSet GetUpcomingEvents()
+        {
+
+            DataSet ds = DBHelper.ExecuteQuery("GetUpcomingEvents");
+            return ds;
+        }
     }
 }

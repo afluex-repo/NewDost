@@ -52,7 +52,7 @@
                                 <div class="col-lg-4 order-lg-2 mb-4">
                                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                                         <span class="text-muted">Cart</span>
-                                        <span class="badge badge-primary badge-pill">@ViewBag.TotalItem<input type="hidden" value="@ViewBag.TotalItem" name="noofitems" id="noof_Items" /><input name="total_price" type="hidden" id="total_price" value="@ViewBag.TotalPrice" /></span>
+                                        <span class="badge badge-primary badge-pill" id="sp_TotalItems">@ViewBag.TotalItem<input type="hidden" value="@ViewBag.TotalItem" name="noofitems" id="noof_Items" /><input name="total_price" type="hidden" id="total_price" value="@ViewBag.TotalPrice" /></span><input name="totalamount" type="hidden" id="TotalAmount" value="@ViewBag.TotalAmount" />
                                     </h4>
                                     <h6 class="d-flex justify-content-between align-items-center mb-3">Available Wallet Balance:<span style="color:red">@ViewBag.WalletBalance</span><input name="walletbalance" type="hidden" id="spanDwallet" value="@ViewBag.WalletBalance" /><a class="text-white badge badge-primary badge-pill" target="_blank" href="@Url.Action("Wallet","Wallet")" style="display:none" id="aDwalletAddfund">Add Fund</a></h6>
                                     <ul class="list-group mb-3">
@@ -90,16 +90,19 @@
                                         }
 
                                         <li class="list-group-item d-flex justify-content-between">
-                                            <h6>GST</h6>
-                                            <span><input name="totalGST" type="hidden" id="totalGST" value="@ViewBag.GST" /><strong>₹ @ViewBag.GST</strong></span>
+                                            <h6>GST (₹)</h6>
+                                            <input name="totalGST" type="hidden" id="totalGST" value="@ViewBag.GST" />
+                                            <strong><span id="sp_totalGST"> @ViewBag.GST</span></strong>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between">
-                                            <h6>Delivery Charge</h6>
-                                            <span><input name="DeliveryCharge" type="hidden" id="DeliveryCharge" value="@ViewBag.DeliveryCharge" /><strong>₹ @ViewBag.DeliveryCharge</strong></span>
+                                            <h6>Delivery Charge (₹)</h6>
+                                            <input name="DeliveryCharge" type="hidden" id="DeliveryCharge" value="@ViewBag.DeliveryCharge" />
+                                            <strong><span id="sp_DeliveryCharge"> @ViewBag.DeliveryCharge</span></strong>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between">
                                             <h6>Total BV (₹)</h6>
-                                            <span><input name="totalBV" type="hidden" id="totalBV" value="@ViewBag.TotalReferalBV" /><strong>₹ @ViewBag.TotalReferalBV</strong></span>
+                                            <input name="totalBV" type="hidden" id="totalBV" value="@ViewBag.TotalReferalBV" />
+                                            <strong><span id="sp_totalBV"> @ViewBag.TotalReferalBV</span></strong>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between active">
                                             <div class="text-white">
@@ -112,7 +115,7 @@
                                         <li class="list-group-item d-flex justify-content-between">
                                             <span>Total (₹)</span>
 
-                                            <span id="spantotal"><input name="totalprice" type="hidden" id="totalprice" value="@ViewBag.TotalPrice" /><strong>₹ 0.00</strong></span>
+                                            <input name="totalprice" type="hidden" id="totalprice" value="@ViewBag.TotalPrice" /><strong><span id="spantotal">₹ @ViewBag.TotalAmount</span></strong>
                                         </li>
                                     </ul>
                                     <div class="input-group">
@@ -267,7 +270,7 @@
         var totalbv = $("#totalBV").val();
         var DeliveryCharge = $("#DeliveryCharge").val();
         var PayableAmount = parseInt(Gst) + parseInt(totalprice) + parseInt(totalbv) + parseInt(DeliveryCharge);
-        $('#spantotal').text(PayableAmount.toFixed(2));
+        //$('#spantotal').text(PayableAmount.toFixed(2));
         if ((PayableAmount) > walletbalance) {
             $('#aDwalletAddfund').show();
             $('#btnSave').attr("disabled", "disabled");
@@ -455,7 +458,6 @@
             var val = $("#spantotal").text();
             var P = parseFloat(val) + parseFloat(Price);
             $("#total_price").val(P);
-            $("#spantotal").text(P);
             $(spNoofItems).text(TotalItems);
             $(NoofItems).val(TotalItems);
             $(spTotalPrice).text("₹ " + TotalPrice);
@@ -465,7 +467,13 @@
             url: 'UpdateItems', type: 'post', dataType: 'json',
             data: { 'EventId': EventId, 'NoOfItems': TotalItems },
             success: function (data) {
-
+                debugger;
+                $("#sp_TotalItems").text(data.Total);
+                $("#sp_totalGST").text(data.IGST);
+                $("#sp_DeliveryCharge").text(data.DeliveryCharge);
+                $("#sp_totalBV").text(data.BV);
+                $("#totalamount").val(data.TotalPrice);
+                $("#spantotal").text(data.TotalPrice);
             }
         });
     }
@@ -484,7 +492,6 @@
             var val = $("#spantotal").text();
             var P = parseFloat(val) - parseFloat(Price);
             $("#total_price").val(P);
-            $("#spantotal").text(P);
             $(spNoofItems).text(TotalItems);
             $(NoofItems).val(TotalItems);
             $(spTotalPrice).text("₹ " + TotalPrice);
@@ -494,7 +501,12 @@
             url: 'UpdateItems', type: 'post', dataType: 'json',
             data: { 'EventId': EventId, 'NoOfItems': TotalItems },
             success: function (data) {
-
+                debugger;
+                $("#sp_TotalItems").text(data.Total);
+                $("#sp_totalGST").text(data.IGST);
+                $("#sp_DeliveryCharge").text(data.DeliveryCharge);
+                $("#sp_totalBV").text(data.BV);
+                $("#spantotal").text(data.TotalPrice);
             }
         });
         //var NoofItems = "#NoofItem_" + Index;

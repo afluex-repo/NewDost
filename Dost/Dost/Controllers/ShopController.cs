@@ -160,13 +160,14 @@ namespace Dost.Controllers
                         model.IGST = dr["IGST"].ToString();
                         lstproduct.Add(model);
                     }
-                     obj.lstproduct = lstproduct;
-                     ViewBag.TotalItem = dsUser.Tables[1].Rows[0]["TotalItem"].ToString();
-                     ViewBag.TotalReferalBV = double.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
+                    obj.lstproduct = lstproduct;
+                    ViewBag.TotalItem = dsUser.Tables[1].Rows[0]["TotalItem"].ToString();
+                    ViewBag.TotalReferalBV = double.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
                     ViewBag.TotalPrice = double.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString()).ToString("");
                     ViewBag.GST = double.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2");
-                    ViewBag.DeliveryCharge= dsUser.Tables[0].Rows[0]["DeliveryCharges"].ToString();
-                    obj.UserName = Session["LoginId"].ToString(); 
+                    ViewBag.DeliveryCharge = dsUser.Tables[0].Rows[0]["DeliveryCharges"].ToString();
+                    ViewBag.TotalAmount = (decimal.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()) + decimal.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()) + Convert.ToDecimal(dsUser.Tables[0].Rows[0]["DeliveryCharges"]) + decimal.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString())).ToString();
+                    obj.UserName = Session["LoginId"].ToString();
                 }
                 return View(obj);
             }
@@ -205,10 +206,10 @@ namespace Dost.Controllers
 
                 obj1.dtproductitem = dt;
                 obj1.WalletBalance = Request["walletbalance"].ToString();
-                obj1.TotalPrice = Request["total_price"].ToString();
+                obj1.TotalPrice = Request["totalamount"].ToString();
                 obj1.NoOfSeats = Request["noofitems"].ToString();
                 obj1.AddedBy = Session["Pk_userId"].ToString();
-                obj1.BV= Request["totalBV"].ToString();
+                obj1.BV = Request["totalBV"].ToString();
                 obj1.DeliveryCharge = Request["totalBV"].ToString();
                 obj1.Gst = Request["totalBV"].ToString();
                 DataSet ds = obj1.SaveEventDetails();
@@ -233,7 +234,7 @@ namespace Dost.Controllers
 
             return RedirectToAction(FormName, Controller);
         }
-        public ActionResult UpdateItems(string EventId,string NoOfItems)
+        public ActionResult UpdateItems(string EventId, string NoOfItems)
         {
             try
             {
@@ -245,11 +246,20 @@ namespace Dost.Controllers
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
                     model.Result = "yes";
+                    DataSet ds1 = model.AddToCartList();
+                    if (ds1!= null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+                    {
+                        model.BV = double.Parse(ds1.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
+                        model.IGST = double.Parse(ds1.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2");
+                        model.DeliveryCharge = ds1.Tables[0].Rows[0]["DeliveryCharges"].ToString();
+                        model.Total = ds1.Tables[1].Rows[0]["TotalItem"].ToString();
+                        model.TotalPrice = (decimal.Parse(ds1.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()) + decimal.Parse(ds1.Tables[0].Compute("sum(IGST)", "").ToString())+Convert.ToDecimal(ds1.Tables[0].Rows[0]["DeliveryCharges"]) + decimal.Parse(ds1.Tables[0].Compute("sum(TotalPrice)", "").ToString())).ToString();
+                    }
                 }
                 else
                 {
                     model.Result = "no";
-                }  
+                }
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -293,14 +303,14 @@ namespace Dost.Controllers
         {
             //string FormName = "";
             //string Controller = "";
-                 Shop model = new Shop();
+            Shop model = new Shop();
             try
             {
 
-              
+
                 model.Fk_UserId = Session["Pk_userId"].ToString();
                 model.PK_EventId = PK_EventId;
-               // model.AddedBy = Session["Pk_AdminId"].ToString();
+                // model.AddedBy = Session["Pk_AdminId"].ToString();
 
                 DataSet ds = model.DeleteCardlist();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)

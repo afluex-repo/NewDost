@@ -3024,6 +3024,7 @@
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WalletController.cs" />
+    <Compile Include="Controllers\WebAPIController.cs" />
     <Compile Include="Filters\SimpleAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -3041,9 +3042,11 @@
     <Compile Include="Models\NFC.cs" />
     <Compile Include="Models\Password.cs" />
     <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\Utility.cs" />
     <Compile Include="Models\Wallet.cs" />
+    <Compile Include="Models\WebAPIModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
