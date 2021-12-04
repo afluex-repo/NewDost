@@ -166,6 +166,7 @@ namespace Dost.Controllers
                     ViewBag.TotalPrice = double.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString()).ToString("");
                     ViewBag.GST = double.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2");
                     ViewBag.DeliveryCharge= dsUser.Tables[0].Rows[0]["DeliveryCharges"].ToString();
+
                     obj.UserName = Session["LoginId"].ToString(); 
                 }
                 return View(obj);
@@ -322,7 +323,7 @@ namespace Dost.Controllers
             //FormName = "CheckOut";
             //Controller = "Shop";
 
-            return RedirectToAction("CheckOut", "Shop");
+            return RedirectToAction("product", "Shop");
 
         }
         #endregion
