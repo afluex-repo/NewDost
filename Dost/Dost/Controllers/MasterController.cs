@@ -188,7 +188,7 @@ namespace Dost.Controllers
                     obj.EventImage = r["EventImage"].ToString();
                     obj.BinaryPercent = r["BinaryPercentage"].ToString();
                     obj.ReferralPercent = r["ReferralPercentage"].ToString();
-                    obj.Catalyst= r["Catalyst"].ToString();
+                    obj.Catalyst = r["Catalyst"].ToString();
                     obj.Blaze = r["Blaze"].ToString();
                     obj.Maverick = r["Maverick"].ToString();
                     obj.Maverick = r["Maverick"].ToString();
@@ -749,19 +749,19 @@ namespace Dost.Controllers
                     }
                 }
 
-                  model.dtImage = dtImage;
-                  DataSet ds = model.SaveProductImage();
-                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                model.dtImage = dtImage;
+                DataSet ds = model.SaveProductImage();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
-                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                        {
-                            TempData["ProductImage"] = "Product Image Saved Successfully";
-                        }
-                        else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                        {
-                            TempData["ProductImage"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                        }
+                        TempData["ProductImage"] = "Product Image Saved Successfully";
                     }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["ProductImage"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -844,5 +844,112 @@ namespace Dost.Controllers
             return RedirectToAction(FormName, Controller);
         }
         #endregion
+
+        public ActionResult CouponMaster()
+        {
+            #region Bind Coupon Type
+            Master model = new Master();
+            int count = 0;
+            List<SelectListItem> ddlCouponType = new List<SelectListItem>();
+            DataSet ds1 = model.GetCouponTypeDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlCouponType.Add(new SelectListItem { Value = "0", Text = "Select" });
+                    }
+                    ddlCouponType.Add(new SelectListItem { Value = r["PK_CouponTypeId"].ToString(), Text = r["CouponType"].ToString() });
+                    count = count + 1;
+                }
+                ViewBag.ddlCouponType = ddlCouponType;
+            }
+            #endregion
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [OnAction(ButtonName = "btnCoupon")]
+        [ActionName("CouponMaster")]
+        public ActionResult CouponMaster(Master model)
+        {
+            try
+            {
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.SaveCoupon();
+
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        TempData["Coupon"] = "Coupon  saved successfully";
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["Coupon"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Coupon"] = ex.Message;
+            }
+            return RedirectToAction("CouponMaster", "Master");
+        }
+
+        public ActionResult CouponList()
+        {
+            Master model = new Master(); 
+            List<Master> lstCoupon = new List<Master>();
+            DataSet ds = model.SelectCouponList();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Master obj = new Master();
+                    obj.PK_CouponId = r["PK_CouponId"].ToString();
+                    obj.CouponType = r["CouponType"].ToString();
+                    obj.Coupon = r["Coupon"].ToString();
+                    obj.Price = r["Price"].ToString();
+                    obj.ValidityDate = r["ValidityDate"].ToString();
+                    obj.RangeFrom =r["RangeFrom"].ToString();
+                    obj.RangeTo = r["RangeTo"].ToString();
+                    obj.CouponCode = r["CouponCode"].ToString();
+                    lstCoupon.Add(obj);
+                }
+                model.lstCoupon = lstCoupon;
+            }
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [ActionName("CouponList")]
+        public ActionResult CouponList(Master model)
+        {
+            List<Master> lstCoupon = new List<Master>();
+            DataSet ds = model.SelectCouponList();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Master obj = new Master();
+                    obj.PK_CouponId = r["PK_CouponId"].ToString();
+                    obj.CouponType = r["CouponType"].ToString();
+                    obj.Coupon = r["Coupon"].ToString();
+                    obj.Price = r["Price"].ToString();
+                    obj.ValidityDate = r["ValidityDate"].ToString();
+                    obj.RangeFrom = r["RangeFrom"].ToString();
+                    obj.RangeTo = r["RangeTo"].ToString();
+                    obj.CouponCode = r["CouponCode"].ToString();
+                    lstCoupon.Add(obj);
+                }
+                model.lstCoupon = lstCoupon;
+            }
+            return View(model);
+        }
+
     }
 }
