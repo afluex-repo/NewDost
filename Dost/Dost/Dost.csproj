@@ -3623,6 +3623,8 @@
     <Content Include="Views\EmployeeRegistration\EmployeeDetails.cshtml" />
     <Content Include="Views\EmployeeRegistration\EmployeeRegistration.cshtml" />
     <Content Include="Views\Master\ProductImage.cshtml" />
+    <Content Include="Views\Master\CouponMaster.cshtml" />
+    <Content Include="Views\Master\CouponList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
