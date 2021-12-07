@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Dost.Models
 {
-    public class Master
+    public class Master:Common
     {
      public DataTable dtImage { get; set; }
 
@@ -310,17 +310,57 @@ namespace Dost.Models
             return ds;
         }
 
+        public DataSet UpdateCoupon()
+        {
+            SqlParameter[] para =
+           {   
+             new SqlParameter("@CouponId",PK_CouponId),
+             new SqlParameter("@Fk_CouponTypeId",Pk_CouponTypeId),
+             new SqlParameter("@Coupon",Coupon),
+             new SqlParameter("@Price",Price),
+             new SqlParameter("@ValidityDate",ValidityDate),
+             new SqlParameter("@RangeFrom",RangeFrom),
+             new SqlParameter("@RangeTo",RangeTo),
+             new SqlParameter("@CouponCode",CouponCode),
+             new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateCoupon", para);
+            return ds;
+        }
+
+
+
         public DataSet SelectCouponList()
         {
             SqlParameter[] para =
            {
-                new SqlParameter("@CouponCode",CouponCode),
-        
+                new SqlParameter("@CouponId",PK_CouponId),
+                 new SqlParameter("@CouponCode",CouponCode),
+                  new SqlParameter("@CouponType",CouponType),
+                   new SqlParameter("@Coupon",Coupon),
+                    new SqlParameter("@Price",Price),
+                     new SqlParameter("@ValidityDate",ValidityDate),
+                      new SqlParameter("@RangeFrom",RangeFrom),
+                       new SqlParameter("@RangeTo",RangeTo)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetCouponDetailsNew", para);
             return ds;
         }
+
+        public DataSet DeleteCoupon()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@CouponID",PK_CouponId),
+                 new SqlParameter("@DeletedBy",AddedBy),
+
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteCoupon", para);
+            return ds;
+        }
+
         
+
 
     }
 }

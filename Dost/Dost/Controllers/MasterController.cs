@@ -845,10 +845,28 @@ namespace Dost.Controllers
         }
         #endregion
 
-        public ActionResult CouponMaster()
+        public ActionResult CouponMaster( string Id)
         {
-            #region Bind Coupon Type
             Master model = new Master();
+            if(Id!=null)
+            {
+                model.PK_CouponId = Id;
+                DataSet ds = model.SelectCouponList();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    model.PK_CouponId = ds.Tables[0].Rows[0]["PK_CouponId"].ToString();
+                    model.Pk_CouponTypeId = ds.Tables[0].Rows[0]["FK_CouponTypeId"].ToString();
+                    model.Coupon = ds.Tables[0].Rows[0]["Coupon"].ToString();
+                    model.Price = ds.Tables[0].Rows[0]["Price"].ToString();
+                    model.ValidityDate = ds.Tables[0].Rows[0]["ValidityDate"].ToString();
+                    model.RangeFrom = ds.Tables[0].Rows[0]["RangeFrom"].ToString();
+                    model.RangeTo = ds.Tables[0].Rows[0]["RangeTo"].ToString();
+                    model.CouponCode = ds.Tables[0].Rows[0]["CouponCode"].ToString();
+                }
+
+            }
+          
+            #region Bind Coupon Type
             int count = 0;
             List<SelectListItem> ddlCouponType = new List<SelectListItem>();
             DataSet ds1 = model.GetCouponTypeDetails();
@@ -877,20 +895,43 @@ namespace Dost.Controllers
         {
             try
             {
-                model.AddedBy = Session["Pk_AdminId"].ToString();
-                DataSet ds = model.SaveCoupon();
-
-                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                if (model.PK_CouponId==null)
                 {
-                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    model.AddedBy = Session["Pk_AdminId"].ToString();
+                    model.ValidityDate = string.IsNullOrEmpty(model.ValidityDate) ? null : Common.ConvertToSystemDate(model.ValidityDate, "dd/MM/yyyy");                  
+                    DataSet ds = model.SaveCoupon();
+
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
                     {
-                        TempData["Coupon"] = "Coupon  saved successfully";
-                    }
-                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                    {
-                        TempData["Coupon"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            TempData["Coupon"] = "Coupon  saved successfully";
+                        }
+                        else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                        {
+                            TempData["Coupon"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
                     }
                 }
+                else {
+
+                    model.AddedBy = Session["Pk_AdminId"].ToString();
+                    model.ValidityDate = string.IsNullOrEmpty(model.ValidityDate) ? null : Common.ConvertToSystemDate(model.ValidityDate, "dd/MM/yyyy");
+                    DataSet ds = model.UpdateCoupon();
+
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            TempData["Coupon"] = "Coupon  update successfully";
+                        }
+                        else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                        {
+                            TempData["Coupon"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+
+                }   
             }
             catch (Exception ex)
             {
@@ -901,27 +942,27 @@ namespace Dost.Controllers
 
         public ActionResult CouponList()
         {
-            Master model = new Master(); 
-            List<Master> lstCoupon = new List<Master>();
-            DataSet ds = model.SelectCouponList();
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow r in ds.Tables[0].Rows)
-                {
-                    Master obj = new Master();
-                    obj.PK_CouponId = r["PK_CouponId"].ToString();
-                    obj.CouponType = r["CouponType"].ToString();
-                    obj.Coupon = r["Coupon"].ToString();
-                    obj.Price = r["Price"].ToString();
-                    obj.ValidityDate = r["ValidityDate"].ToString();
-                    obj.RangeFrom =r["RangeFrom"].ToString();
-                    obj.RangeTo = r["RangeTo"].ToString();
-                    obj.CouponCode = r["CouponCode"].ToString();
-                    lstCoupon.Add(obj);
-                }
-                model.lstCoupon = lstCoupon;
-            }
-            return View(model);
+            //Master model = new Master(); 
+            //List<Master> lstCoupon = new List<Master>();
+            //DataSet ds = model.SelectCouponList();
+            //if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            //{
+            //    foreach (DataRow r in ds.Tables[0].Rows)
+            //    {
+            //        Master obj = new Master();
+            //        obj.PK_CouponId = r["PK_CouponId"].ToString();
+            //        obj.CouponType = r["CouponType"].ToString();
+            //        obj.Coupon = r["Coupon"].ToString();
+            //        obj.Price = r["Price"].ToString();
+            //        obj.ValidityDate = r["ValidityDate"].ToString();
+            //        obj.RangeFrom =r["RangeFrom"].ToString();
+            //        obj.RangeTo = r["RangeTo"].ToString();
+            //        obj.CouponCode = r["CouponCode"].ToString();
+            //        lstCoupon.Add(obj);
+            //    }
+            //    model.lstCoupon = lstCoupon;
+            //}
+            return View();
         }
 
 
@@ -950,6 +991,36 @@ namespace Dost.Controllers
             }
             return View(model);
         }
+
+        
+ 
+        public ActionResult DeleteCoupon(string Id)
+        {
+            try
+            {
+                Master model = new Master();
+                model.PK_CouponId = Id;
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.DeleteCoupon();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        TempData["Coupon"] = "Coupon deleted successfully";
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["Coupon"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Coupon"] = ex.Message;
+            }
+            return RedirectToAction("CouponList", "Master");
+        }
+
 
     }
 }
