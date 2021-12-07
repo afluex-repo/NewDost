@@ -4,26 +4,26 @@
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 <style>
-        a:hover, a:focus, a.active {
-            /* text-decoration: none; */
-            color: #6d697a;
-            background-color: #6647bf;
-            /* border: 2
+    a:hover, a:focus, a.active {
+        /* text-decoration: none; */
+        color: #6d697a;
+        background-color: #6647bf;
+        /* border: 2
     px
      solid; */
-        }
+    }
 
-        [data-theme-version="dark"] .form-control {
-            background-color: transparent;
-            border-color: #dbd9e9;
-            color: #fff;
-        }
+    [data-theme-version="dark"] .form-control {
+        background-color: transparent;
+        border-color: #dbd9e9;
+        color: #fff;
+    }
 
-        [data-theme-version="dark"] .nav-tabs .nav-link:hover, [data-theme-version="dark"] .nav-tabs .nav-link.active {
-            color: #fff;
-            background: #6647bf;
-            border-color: #462d8f;
-        }
+    [data-theme-version="dark"] .nav-tabs .nav-link:hover, [data-theme-version="dark"] .nav-tabs .nav-link.active {
+        color: #fff;
+        background: #6647bf;
+        border-color: #462d8f;
+    }
 </style>
 @using (Html.BeginForm("Wallet", "Wallet", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
 {
@@ -125,8 +125,8 @@
                                                         <h4><a href="#AddFund" data-toggle="tab" class="text-black nav-link show active"><span class="badge badge-sm badge-primary fs-18" style="padding: 5px 12px"><i class="fa fa-inr text-white" aria-hidden="true"></i> </span> Add Fund</a></h4>
                                                     </div>
                                                     @*<div class="mb-4">
-                                                        <h4><a data-toggle="tab" href="#TransferFund" class="text-black nav-link" ><span class="badge badge-sm badge-info fs-18"><i class="fa fa-exchange" aria-hidden="true"></i> </span> Transfer</a></h4>
-                                                    </div>*@
+                                                            <h4><a data-toggle="tab" href="#TransferFund" class="text-black nav-link" ><span class="badge badge-sm badge-info fs-18"><i class="fa fa-exchange" aria-hidden="true"></i> </span> Transfer</a></h4>
+                                                        </div>*@
                                                     <div class="mb-4">
                                                         <h4><a data-toggle="tab" href="#WithDrawl" class="text-black nav-link"><span class="badge badge-sm badge-secondary fs-18"><i class="fa fa-credit-card" aria-hidden="true"></i> </span> Withdraw</a></h4>
                                                     </div>
@@ -316,34 +316,34 @@
                                             </div>
                                         </div>
                                         @*<div class="col-xl-6 col-lg-12 col-xxl-12 mb-lg-0 mb-3">
-                                            <p>Monthly Limits</p>
-                                            <div class="row">
-                                                <div class="col-sm-4 mb-sm-0 mb-4 text-center">
-                                                    <div class="d-inline-block position-relative donut-chart-sale mb-3">
-                                                        <span class="donut1" data-peity='{ "fill": ["rgb(255, 104, 38)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>5/8</span>
-                                                        <small>66%</small>
+                                                <p>Monthly Limits</p>
+                                                <div class="row">
+                                                    <div class="col-sm-4 mb-sm-0 mb-4 text-center">
+                                                        <div class="d-inline-block position-relative donut-chart-sale mb-3">
+                                                            <span class="donut1" data-peity='{ "fill": ["rgb(255, 104, 38)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>5/8</span>
+                                                            <small>66%</small>
+                                                        </div>
+                                                        <h5 class="fs-18 text-black">Withdraw Limit</h5>
+                                                        <span>$10,000</span>
                                                     </div>
-                                                    <h5 class="fs-18 text-black">Withdraw Limit</h5>
-                                                    <span>$10,000</span>
-                                                </div>
-                                                <div class="col-sm-4 mb-sm-0 mb-4 text-center">
-                                                    <div class="d-inline-block position-relative donut-chart-sale mb-3">
-                                                        <span class="donut1" data-peity='{ "fill": ["rgb(29, 198, 36)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>4/9</span>
-                                                        <small>31%</small>
+                                                    <div class="col-sm-4 mb-sm-0 mb-4 text-center">
+                                                        <div class="d-inline-block position-relative donut-chart-sale mb-3">
+                                                            <span class="donut1" data-peity='{ "fill": ["rgb(29, 198, 36)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>4/9</span>
+                                                            <small>31%</small>
+                                                        </div>
+                                                        <h5 class="fs-18 text-black">Transfer Limit</h5>
+                                                        <span>$500</span>
                                                     </div>
-                                                    <h5 class="fs-18 text-black">Transfer Limit</h5>
-                                                    <span>$500</span>
-                                                </div>
-                                                <div class="col-sm-4 text-center">
-                                                    <div class="d-inline-block position-relative donut-chart-sale mb-3">
-                                                        <span class="donut1" data-peity='{ "fill": ["rgb(158, 158, 158)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>2/8</span>
-                                                        <small>7%</small>
+                                                    <div class="col-sm-4 text-center">
+                                                        <div class="d-inline-block position-relative donut-chart-sale mb-3">
+                                                            <span class="donut1" data-peity='{ "fill": ["rgb(158, 158, 158)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>2/8</span>
+                                                            <small>7%</small>
+                                                        </div>
+                                                        <h5 class="fs-18 text-black">Wallet Limit</h5>
+                                                        <span>$100</span>
                                                     </div>
-                                                    <h5 class="fs-18 text-black">Wallet Limit</h5>
-                                                    <span>$100</span>
                                                 </div>
-                                            </div>
-                                        </div>*@
+                                            </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -359,20 +359,21 @@
                                         <h4 class="fs-20 text-black">Wallet Activity</h4>
                                         @*<p class="mb-0 fs-13">Lorem ipsum dolor sit amet, consectetur</p>*@
                                     </div>
-                                   <div class="card-action card-tabs mb-3 style-1">
+                                    <input type="hidden" id="Fk_UserId" name="Fk_UserId" value="@Model.Fk_UserId" class="form-control" />
+                                    <div class="card-action card-tabs mb-3 style-1">
                                         <ul class="nav nav-tabs" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#" role="tab">
+                                                <a class="nav-link active" href="javascript:void(0)" onclick="return getcFillterDate('Monthly');" id="TypeDate">
                                                     Monthly
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#Weekly" role="tab">
+                                                <a class="nav-link" href="javascript:void(0)" onclick="return getcFillterDate('Weekly');" id="TypeDate">
                                                     Weekly
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#Today" role="tab">
+                                                <a class="nav-link" href="javascript:void(0)" onclick="return getcFillterDate('Today');" id="TypeDate">
                                                     Today
                                                 </a>
                                             </li>
@@ -382,7 +383,7 @@
                                 <div class="card-body tab-content p-0">
                                     <div class="tab-pane active show fade" id="monthly">
                                         <div class="table-responsive">
-                                            <table class="table shadow-hover card-table border-no tbl-btn short-one">
+                                            <table class="table shadow-hover card-table border-no tbl-btn short-one" id="table1">
 
                                                 <tbody>
                                                     @if (Model != null)
@@ -448,7 +449,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="card-footer border-0 p-0 caret">
                                     <a href="/Wallet/Statement" class="btn-link mt-1"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
@@ -822,5 +823,48 @@
         }
         return true;
 
+    }
+
+    function getcFillterDate(TypeDate) {
+        debugger
+        $.ajax({
+            url: '/Wallet/ApplyFiterForWalletActivity',
+            type: "GET",
+            dataType: "JSON",
+            data: { TypeDate: TypeDate },
+            success: function (data) {
+                debugger;
+                $("#table1").html('');
+                if (data.Result == "Yes") {
+                  
+                    if (data.lstewalletledger != null) {
+                        for (var i = 0 ; i < data.lstewalletledger.length; i++) {
+                            debugger;
+                            if (data.lstewalletledger[i].DrAmount == '0')
+                            {
+                                $("#table1").append("<tr><td><span><svg width='50' height='50' viewBox='0 0 63 63' fill='none' xmlns='http://www.w3.org/2000/svg'><rect width='63' height='63' rx='14' fill='#71B945' /><path d='M40.6186 32.7207L40.6186 32.7207L40.6353 39.6289C40.6354 39.6328 40.6354 39.6363 40.6353 39.6396M40.6186 32.7207L40.1353 39.6341L40.6353 39.635C40.6353 39.6481 40.6347 39.6583 40.6345 39.6627L40.6344 39.6642C40.6346 39.6609 40.6351 39.652 40.6353 39.6407C40.6353 39.6403 40.6353 39.64 40.6353 39.6396M40.6186 32.7207C40.6167 31.9268 39.9717 31.2847 39.1777 31.2866C38.3838 31.2885 37.7417 31.9336 37.7436 32.7275L37.7436 32.7275L37.7519 36.1563M40.6186 32.7207L37.7519 36.1563M40.6353 39.6396C40.6329 40.4282 39.9931 41.0705 39.2017 41.0726C39.2 41.0726 39.1983 41.0727 39.1965 41.0727L39.1944 41.0727L39.1773 41.0726L32.2834 41.056L32.2846 40.556L32.2834 41.056C31.4897 41.054 30.8474 40.4091 30.8494 39.615C30.8513 38.8211 31.4964 38.179 32.2903 38.1809L32.2903 38.1809L35.719 38.1892L22.5364 25.0066C21.975 24.4452 21.975 23.5351 22.5364 22.9737C23.0978 22.4123 24.0079 22.4123 24.5693 22.9737L37.7519 36.1563M40.6353 39.6396C40.6353 39.6376 40.6353 39.6356 40.6353 39.6336L37.7519 36.1563M39.1964 41.0726C39.1957 41.0726 39.1951 41.0726 39.1944 41.0726L39.1964 41.0726Z' fill='white' stroke='white' /></svg></span></td><td class='wspace-no'><span class='font-w600 text-black'>&nbsp;</span></td><td><span class='font-w600 text-black'>" + data.lstewalletledger[i].CrAmount + "</span></td><td><span class='font-w600 text-black'>" + data.lstewalletledger[i].DrAmount + "</span></td> <td><span class='text-black'>" + data.lstewalletledger[i].AddedOn + "</span></td><td><span class='float-right' href='javascript:void(0);'>" + data.lstewalletledger[i].Narration + "</span></td></tr>");
+                            }
+                            else {
+                                $("#table1").append("<tr><td><span><svg width='50' height='50' viewBox='0 0 63 63' fill='none' xmlns='http://www.w3.org/2000/svg'><rect width='63' height='63' rx='14' fill='#FF5757' /><path d='M22.1318 30.9043L22.1318 30.9043L22.1151 23.9961C22.1151 23.9922 22.1151 23.9887 22.1152 23.9854M22.1318 30.9043L22.6152 23.9909L22.1152 23.99C22.1152 23.9769 22.1157 23.9667 22.116 23.9623L22.1161 23.9608C22.1159 23.9641 22.1154 23.973 22.1152 23.9843C22.1152 23.9847 22.1152 23.985 22.1152 23.9854M22.1318 30.9043C22.1338 31.6982 22.7788 32.3403 23.5728 32.3384C24.3667 32.3365 25.0088 31.6914 25.0069 30.8975L25.0069 30.8975L24.9986 27.4687M22.1318 30.9043L24.9986 27.4687M22.1152 23.9854C22.1176 23.1968 22.7574 22.5545 23.5488 22.5524C23.5504 22.5524 23.5522 22.5523 23.554 22.5523L23.5561 22.5523L23.5732 22.5524L30.4671 22.569L30.4658 23.069L30.4671 22.569C31.2608 22.571 31.903 23.2159 31.9011 24.01C31.8992 24.8039 31.2541 25.446 30.4602 25.4441L30.4602 25.4441L27.0315 25.4358L40.2141 38.6184C40.7755 39.1798 40.7755 40.0899 40.2141 40.6513C39.6527 41.2127 38.7426 41.2127 38.1812 40.6513L24.9986 27.4687M22.1152 23.9854C22.1152 23.9874 22.1152 23.9894 22.1152 23.9914L24.9986 27.4687M23.5541 22.5524C23.5547 22.5524 23.5554 22.5524 23.5561 22.5524L23.5541 22.5524Z' fill='white' stroke='white' /></svg></span></td><td class='wspace-no'><span class='font-w600 text-black'>&nbsp;</span></td><td><span class='font-w600 text-black'>" + data.lstewalletledger[i].CrAmount + "</span></td><td><span class='font-w600 text-black'>" + data.lstewalletledger[i].DrAmount + "</span></td> <td><span class='text-black'>" + data.lstewalletledger[i].AddedOn + "</span></td><td><span class='float-right' href='javascript:void(0);'>" + data.lstewalletledger[i].Narration + "</span></td></tr>");
+                            }
+
+                        }
+                    }
+                }
+               
+                alert("No Record Found");
+                //else {
+                //    $("#First_NM").val('');
+                //    $("#Pan_Card").val('');
+                //    $("#DOB_Dt").val('');
+                //    $("#Pan_Card").addClass('errortext');
+
+                //    alert(data.Result);
+
+                //}
+
+
+            }
+        });
     }
 </script>

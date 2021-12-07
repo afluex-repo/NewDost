@@ -264,4 +264,3 @@ E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
