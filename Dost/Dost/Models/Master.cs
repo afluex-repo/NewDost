@@ -4,10 +4,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Dost.Models
 {
-    public class Master
+    public class Master:Common
     {
      public DataTable dtImage { get; set; }
 
@@ -55,6 +56,17 @@ namespace Dost.Models
         public string Fk_ProductId { get; set; }
         public string Product { get; set; }
         public string Pk_ProductImageId { get; set; }
+
+        public List<SelectListItem> ddlCouponType { get; set; }
+        public string PK_CouponId { get; set; }
+        public string CouponType { get; set; }
+        public string Pk_CouponTypeId { get; set; }
+        public string Coupon { get; set; }
+        public string Price { get; set; }
+        public string ValidityDate { get; set; }
+        public string RangeFrom { get; set; }
+        public string RangeTo { get; set; }
+        public List<Master> lstCoupon { get; set; }
 
         public DataSet categorylist()
         {
@@ -261,5 +273,94 @@ namespace Dost.Models
             return ds;
         }
         #endregion
+        public DataSet GetRunningEvents()
+        {
+
+            DataSet ds = DBHelper.ExecuteQuery("GetRunningEvents");
+            return ds;
+        }
+        public DataSet GetUpcomingEvents()
+        {
+
+            DataSet ds = DBHelper.ExecuteQuery("GetUpcomingEvents");
+            return ds;
+        }
+
+        public DataSet GetCouponTypeDetails()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetCouponTypeDetails");
+            return ds;
+        }
+
+
+        public DataSet SaveCoupon()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@Fk_CouponTypeId",Pk_CouponTypeId),
+             new SqlParameter("@Coupon",Coupon),
+             new SqlParameter("@Price",Price),
+             new SqlParameter("@ValidityDate",ValidityDate),
+             new SqlParameter("@RangeFrom",RangeFrom),
+             new SqlParameter("@RangeTo",RangeTo),
+             new SqlParameter("@CouponCode",CouponCode),
+             new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveCoupon", para);
+            return ds;
+        }
+
+        public DataSet UpdateCoupon()
+        {
+            SqlParameter[] para =
+           {   
+             new SqlParameter("@CouponId",PK_CouponId),
+             new SqlParameter("@Fk_CouponTypeId",Pk_CouponTypeId),
+             new SqlParameter("@Coupon",Coupon),
+             new SqlParameter("@Price",Price),
+             new SqlParameter("@ValidityDate",ValidityDate),
+             new SqlParameter("@RangeFrom",RangeFrom),
+             new SqlParameter("@RangeTo",RangeTo),
+             new SqlParameter("@CouponCode",CouponCode),
+             new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateCoupon", para);
+            return ds;
+        }
+
+
+
+        public DataSet SelectCouponList()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@CouponId",PK_CouponId),
+                 new SqlParameter("@CouponCode",CouponCode),
+                  new SqlParameter("@CouponType",CouponType),
+                   new SqlParameter("@Coupon",Coupon),
+                    new SqlParameter("@Price",Price),
+                     new SqlParameter("@ValidityDate",ValidityDate),
+                      new SqlParameter("@RangeFrom",RangeFrom),
+                       new SqlParameter("@RangeTo",RangeTo)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetCouponDetailsNew", para);
+            return ds;
+        }
+
+        public DataSet DeleteCoupon()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@CouponID",PK_CouponId),
+                 new SqlParameter("@DeletedBy",AddedBy),
+
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteCoupon", para);
+            return ds;
+        }
+
+        
+
+
     }
 }
