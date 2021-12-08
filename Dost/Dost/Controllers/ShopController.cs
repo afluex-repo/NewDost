@@ -40,7 +40,7 @@ namespace Dost.Controllers
         }
         public ActionResult ProductDescription(string EventId)
         {
-
+            List<Shop> lst = new List<Shop>();
             Shop obj = new Shop();
             if (EventId != "")
             {
@@ -63,7 +63,14 @@ namespace Dost.Controllers
                     obj.PK_EventId = ds.Tables[0].Rows[0]["Pk_EventId"].ToString();
                     ViewBag.TotalItem = ds.Tables[1].Rows[0]["TotalItem"].ToString();
                 }
-
+                foreach (DataRow r in ds.Tables[2].Rows)
+                {
+                    Shop model = new Shop();
+                    model.EventImage =r["ProductImage"].ToString();
+                    model.ImageId = Common.ConvertDigitToWords(Convert.ToInt32(r["Pk_ProductImageId"]));
+                    lst.Add(model);
+                }
+                obj.lstproduct = lst;
             }
             return View(obj);
         }
@@ -200,7 +207,7 @@ namespace Dost.Controllers
                 dt.Columns.Add("ProductAmount", typeof(string));
                 dt.Columns.Add("NoofItems", typeof(string));
                 dt.Columns.Add("Pk_EventId", typeof(string));
-                
+
                 string hdrows = Request["hdRows"].ToString();
                 for (int i = 1; i <= int.Parse(hdrows) - 1; i++)
                 {

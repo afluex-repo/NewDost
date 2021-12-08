@@ -23,7 +23,6 @@ D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Web.Infrastructure.dll
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Newtonsoft.Json.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Helpers.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.dll
@@ -264,6 +263,57 @@ E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebH
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Swashbuckle.Core.dll
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\WebActivatorEx.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
+E:\Repository\NewDost\Dost\Dost\bin\ApplicationInsights.config
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\csc.exe
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\System.Collections.Immutable.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\System.Reflection.Metadata.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\vbc.exe
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe.config
+E:\Repository\NewDost\Dost\Dost\bin\Dost.dll.config
+E:\Repository\NewDost\Dost\Dost\bin\Dost.dll
+E:\Repository\NewDost\Dost\Dost\bin\Dost.pdb
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.Agent.Intercept.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.Web.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.Web.Infrastructure.dll
+E:\Repository\NewDost\Dost\Dost\bin\Newtonsoft.Json.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Helpers.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Http.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Mvc.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Razor.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.xml
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.Web.xml
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.xml
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.xml
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Razor.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Helpers.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Mvc.xml
+E:\Repository\NewDost\Dost\Dost\bin\Newtonsoft.Json.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
+E:\Repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
+E:\Repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb

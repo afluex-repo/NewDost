@@ -36,21 +36,18 @@ namespace Dost.Models
         {
             string DateString = "";
             DateTime Dt;
-
-            string[] DatePart = (InputDate).Split(new string[] { "-", @"/Login" }, StringSplitOptions.None);
-
-            if (InputFormat == "dd-MMM-yyyy" || InputFormat == "dd/LoginMMM/Loginyyyy" || InputFormat == "dd/LoginMM/Loginyyyy" || InputFormat == "dd-MM-yyyy" || InputFormat == "DD/LoginMM/LoginYYYY" || InputFormat == "dd/Loginmm/Loginyyyy")
+            string[] DatePart = (InputDate).Split(new string[] { "-", @"/" }, StringSplitOptions.None);
+            if (InputFormat == "dd-MMM-yyyy" || InputFormat == "dd/MMM/yyyy" || InputFormat == "dd/MM/yyyy" || InputFormat == "dd-MM-yyyy" || InputFormat == "DD/MM/YYYY" || InputFormat == "dd/mm/yyyy")
             {
                 string Day = DatePart[0];
                 string Month = DatePart[1];
                 string Year = DatePart[2];
-
                 if (Month.Length > 2)
                     DateString = InputDate;
                 else
-                    DateString = Month + "/Login" + Day + "/Login" + Year;
+                    DateString = Month + "/" + Day + "/" + Year;
             }
-            else if (InputFormat == "MM/Logindd/Loginyyyy" || InputFormat == "MM-dd-yyyy")
+            else if (InputFormat == "MM/dd/yyyy" || InputFormat == "MM-dd-yyyy")
             {
                 DateString = InputDate;
             }
@@ -58,18 +55,64 @@ namespace Dost.Models
             {
                 throw new Exception("Invalid Date");
             }
-
             try
             {
-                Dt = DateTime.Parse(DateString);
-                Dt.ToString("MM/dd/yyyy");
+                //Dt = DateTime.Parse(DateString);
+                //return Dt.ToString("MM/dd/yyyy");
                 return DateString;
             }
             catch
             {
                 throw new Exception("Invalid Date");
             }
+        }
+        public static string ConvertDigitToWords(int number)
+        {
+            if (number == 0)
+                return "zero";
 
+            if (number < 0)
+                return "minus " + ConvertDigitToWords(Math.Abs(number));
+
+            string words = "";
+
+            if ((number / 1000000) > 0)
+            {
+                words += ConvertDigitToWords(number / 1000000) + " million ";
+                number %= 1000000;
+            }
+
+            if ((number / 1000) > 0)
+            {
+                words += ConvertDigitToWords(number / 1000) + " thousand ";
+                number %= 1000;
+            }
+
+            if ((number / 100) > 0)
+            {
+                words += ConvertDigitToWords(number / 100) + " hundred ";
+                number %= 100;
+            }
+
+            if (number > 0)
+            {
+                if (words != "")
+                    words += "and ";
+
+                var unitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+                var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+                if (number < 20)
+                    words += unitsMap[number];
+                else
+                {
+                    words += tensMap[number / 10];
+                    if ((number % 10) > 0)
+                        words += "-" + unitsMap[number % 10];
+                }
+            }
+
+            return words;
         }
         public DataSet GetStateCity()
         {
@@ -123,7 +166,7 @@ namespace Dost.Models
         public DataSet GetMemberDetails()
         {
             SqlParameter[] para = {
-                                      new SqlParameter("@LoginId", ReferBy),
+                                      new SqlParameter("@Id", ReferBy),
 
                                   };
             DataSet ds = DBHelper.ExecuteQuery("GetMemberName", para);
@@ -138,7 +181,7 @@ namespace Dost.Models
         public DataSet GetMemberDetailsByMobile()
         {
             SqlParameter[] para = {
-                                      new SqlParameter("@LoginId", ReferBy),
+                                      new SqlParameter("@Id", ReferBy),
 
                                   };
             DataSet ds = DBHelper.ExecuteQuery("GetMemberNameByMobileNo", para);
@@ -148,7 +191,7 @@ namespace Dost.Models
         public DataSet GetMemberDetailsForFEwallet()
         {
             SqlParameter[] para = {
-                                      new SqlParameter("@LoginId", ReferBy),
+                                      new SqlParameter("@Id", ReferBy),
 
                                   };
             DataSet ds = DBHelper.ExecuteQuery("GetMemberNameforFEwallet", para);
@@ -158,7 +201,7 @@ namespace Dost.Models
         public DataSet GetSponsor()
         {
             SqlParameter[] para = {
-                                      new SqlParameter("@LoginId", ReferBy),
+                                      new SqlParameter("@Id", ReferBy),
 
                                   };
             DataSet ds = DBHelper.ExecuteQuery("GetSponsor", para);
@@ -177,13 +220,13 @@ namespace Dost.Models
         }
         public DataSet GetMemberDetailsForSale()
         {
-            SqlParameter[] para = { new SqlParameter("@LoginId", ReferBy), };
+            SqlParameter[] para = { new SqlParameter("@Id", ReferBy), };
             DataSet ds = DBHelper.ExecuteQuery("GetMemberNameForSale", para);
             return ds;
         }
         public DataSet GetMemberDetailsForFranchiseSale()
         {
-            SqlParameter[] para = { new SqlParameter("@LoginId", ReferBy), };
+            SqlParameter[] para = { new SqlParameter("@Id", ReferBy), };
             DataSet ds = DBHelper.ExecuteQuery("GetMemberDetailsForFranchiseSale", para);
             return ds;
         }
@@ -320,9 +363,9 @@ namespace Dost.Models
         public static List<SelectListItem> BindRealation()
         {
             List<SelectListItem> PaymentMode = new List<SelectListItem>();
-            PaymentMode.Add(new SelectListItem { Text = "S/LoginO", Value = "S/LoginO" });
-            PaymentMode.Add(new SelectListItem { Text = "D/LoginO", Value = "D/LoginO" });
-            PaymentMode.Add(new SelectListItem { Text = "W/LoginO", Value = "W/LoginO" });
+            PaymentMode.Add(new SelectListItem { Text = "S/O", Value = "S/O" });
+            PaymentMode.Add(new SelectListItem { Text = "D/O", Value = "D/O" });
+            PaymentMode.Add(new SelectListItem { Text = "W/O", Value = "W/O" });
 
             return PaymentMode;
         }
@@ -349,11 +392,11 @@ namespace Dost.Models
         {
             List<SelectListItem> SocialMedia = new List<SelectListItem>();
             SocialMedia.Add(new SelectListItem { Text = "Select", Value = "0" });
-            SocialMedia.Add(new SelectListItem { Text = "Facebook", Value = "https:/Login/Loginwww.facebook.com/Login" });
-            SocialMedia.Add(new SelectListItem { Text = "Instagram", Value = "https:/Login/Loginwww.instagram.com/Login" });
-            SocialMedia.Add(new SelectListItem { Text = "Twitter", Value = "https:/Login/Logintwitter.com/Login" });
-            SocialMedia.Add(new SelectListItem { Text = "LinkedIn", Value = "https:/Login/Loginwww.linkedin.com/Loginin/Login" });
-            SocialMedia.Add(new SelectListItem { Text = "YouTube", Value = "https:/Login/Loginm.youtube.com/Loginchannel/Login" });
+            SocialMedia.Add(new SelectListItem { Text = "Facebook", Value = "https://www.facebook.com/" });
+            SocialMedia.Add(new SelectListItem { Text = "Instagram", Value = "https://www.instagram.com/" });
+            SocialMedia.Add(new SelectListItem { Text = "Twitter", Value = "https://twitter.com/" });
+            SocialMedia.Add(new SelectListItem { Text = "LinkedIn", Value = "https://www.linkedin.com/in/" });
+            SocialMedia.Add(new SelectListItem { Text = "YouTube", Value = "https://m.youtube.com/channel/" });
             return SocialMedia;
         }
         public static List<SelectListItem> BindWebLink()
@@ -388,7 +431,7 @@ namespace Dost.Models
         public DataSet GetLegDetails()
         {
             SqlParameter[] para = {
-                                      new SqlParameter("@LoginId", ReferBy),
+                                      new SqlParameter("@Id", ReferBy),
                                         new SqlParameter("@Leg", Leg1),
 
                                   };
@@ -451,5 +494,5 @@ namespace Dost.Models
         public static string EmailID = "support@dreamcrushers.in";
     }
 
-  
+
 }

@@ -59,6 +59,7 @@ namespace Dost.Models
         public string CouponCode { get; set; }
         public string CouponName { get; set; }
         public string Message { get; set; }
+        public string ImageId { get; set; }
         #endregion
         public DataSet productlist()
         {

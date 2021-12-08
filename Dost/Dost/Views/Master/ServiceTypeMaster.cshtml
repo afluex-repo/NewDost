@@ -1,0 +1,221 @@
+﻿@model Dost.Models.Master
+
+@{
+    ViewBag.Title = "ServiceTypeMaster";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+
+    .successtext {
+        border: 1px solid green !important;
+        background-color: #fff0f0 !important;
+    }
+
+    .mb-4 {
+        margin-bottom: 6rem !important;
+    }
+
+    .mb1-4 {
+        margin-bottom: 6rem !important;
+    }
+
+    .dashcolo {
+        background-color: #f5f2f2 !important;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Master
+                </a>
+            </li>
+            <li class="active">
+                Service Type Master
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("ServiceTypeMaster", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <span style="color: red">
+        @TempData["ServiceTypeMaster"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Service Type Master
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-form-label">Service Type<span style="color: red">*</span></label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.MainServiceType, new { @class = "form-control", @placeholder = "Service Type" })
+                                        @Html.HiddenFor(m => m.Pk_MainServiceTypeId, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-form-label">Priority <span style="color: red">*</span></label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.Preority, new { @class = "form-control", @placeholder = "Priority", @maxLength = "3", @onkeypress = "return isNumberKey(event);" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-form-label">Input Type <span style="color: red">*</span></label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(m => m.InputType, new { @class = "form-control", @placeholder = "Input Type" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <input class="btn btn-success btn-sm" onclick="return validateform()" type="submit" value="Save" id="btnSave" name="Save" />
+                                    <a href="#" class="btn btn-success btn-sm" onclick="return updateServiceType()" id="btnUpdate" style="display: none">Update</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-12 table-responsive">
+                            <table class="display nowrap table table-hover table-striped table-bordered dataTable no-footer" id="example23">
+                                <thead>
+                                    <tr>
+                                        <th style="font-size: 10px;" text-align:center">Sr No.</th>
+                                        <th style="font-size: 10px;" text-align:center">Main Service Type</th>
+                                        <th style="font-size: 10px; text-align:center">Priority</th>
+                                        <th style="font-size: 10px; text-align:center">Input Type</th>
+                                        <th style="font-size: 10px; text-align:center">Status</th>
+                                        <th style="font-size: 10px; text-align:center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.ListServiceTypeMaster != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.ListServiceTypeMaster)
+                                            {
+                                                <tr class="text-left">
+
+                                                    <td>
+                                                        @i
+                                                    </td>
+                                                    <td> @Item.MainServiceType</td>
+                                                    <td> @Item.Preority</td>
+                                                    <td> @Item.InputType</td>
+                                                    @if (Item.IsDeleted == "False")
+                                                    {
+                                                        <td style="font-size: 10px; text-align:center">
+                                                            <a href="/Master/ServiceInActive?Pk_MainServiceTypeId=@Item.Pk_MainServiceTypeId" style="align-content:center" class="btn btn-sm btn-danger">InActive</a>
+                                                        </td>
+                                                    }
+
+                                                    else
+                                                    {
+                                                        <td style="font-size: 10px; text-align:center">
+                                                            <a href="/Master/ServiceActive?Pk_MainServiceTypeId=@Item.Pk_MainServiceTypeId" style="align-content:center" class="btn btn-sm btn-success">Active</a>
+
+                                                        </td>
+                                                    }
+                                                    <td style="font-size: 10px; text-align:center">
+                                                        <a href="#" class="btn btn-primary btn-sm" onclick="editServiceType('@Item.Pk_MainServiceTypeId','@Item.MainServiceType','@Item.Preority')">Edit</a>
+                                                    </td>
+
+                                                </tr>
+                                                i++;
+                                            }
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 49 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function updateServiceType() {
+        $(".errortext").removeClass("errortext");
+        if ($('#MainServiceType').val() == '') {
+            $("#MainServiceType").addClass('errortext');
+            $('#MainServiceType').focus();
+            return false;
+        }
+
+        if ($('#Preority').val() == '') {
+            $("#Preority").addClass('errortext');
+            $('#Preority').focus();
+            return false;
+        }
+
+        $.ajax({
+            url: "/Master/UpdateServiceTypeMaster",
+            Type: "Get",
+            DataType: "JSON",
+            data: { Pk_MainServiceTypeId: $("#Pk_MainServiceTypeId").val(), MainServiceType: $("#MainServiceType").val(), Preority: $("#Preority").val() },
+            success: function (data) {
+                alert(data.Result);
+                window.location.href = '@Url.Action("ServiceTypeMaster", "Master")';
+            }
+
+        });
+    }
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#MainServiceType').val() == '') {
+            $("#MainServiceType").addClass('errortext');
+            $('#MainServiceType').focus();
+            return false;
+        }
+        if ($('#Preority').val() == '') {
+            $("#Preority").addClass('errortext');
+            $('#Preority').focus();
+            return false;
+        }
+        return true;
+    }
+
+    function editServiceType(Pk_MainServiceTypeId, MainServiceType, Preority) {
+        $('#Pk_MainServiceTypeId').val(Pk_MainServiceTypeId);
+        $('#MainServiceType').val(MainServiceType);
+        $('#Preority').val(Preority);
+        $('#btnSave').hide();
+        $('#btnUpdate').show();
+    }
+</script>
