@@ -263,6 +263,8 @@ E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+<<<<<<< HEAD
+=======
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\Repository\NewDost\Dost\Dost\bin\ApplicationInsights.config
@@ -318,3 +320,4 @@ E:\Repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
 E:\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 E:\Repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\Repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+>>>>>>> 2d35fe7ecae5ce25dfd76c784d172c98af295749
