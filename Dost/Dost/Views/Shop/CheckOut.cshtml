@@ -104,24 +104,39 @@
                                             <input name="totalBV" type="hidden" id="totalBV" value="@ViewBag.TotalReferalBV" />
                                             <strong><span id="sp_totalBV"> @ViewBag.TotalReferalBV</span></strong>
                                         </li>
-                                        <li class="list-group-item d-flex justify-content-between active">
+                                        <li class="list-group-item d-flex justify-content-between">
                                             <div class="text-white">
-                                                <h6 class="my-0 text-white">Promo code</h6>
-                                                <small>XXXXXXXXXXX</small>
+                                                <a href="javascript:void(0)" class="text-white">Apply Coupons</a>
                                             </div>
-                                            <span class="text-white">-₹ 0.00</span>
                                         </li>
 
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstcoupon != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.lstcoupon)
+                                                {
+                                                    <li class="list-group-item d-flex justify-content-between active">
+                                                        <div class="text-white">
+                                                            <h6 class="my-0 text-white">@Item.CouponName</h6>
+                                                            <small>@Item.CouponCode</small>
+                                                        </div>
+                                                        <span class="text-white">₹ @Item.TotalPrice</span>
+                                                    </li>
+                                                }
+                                            }
+                                        }
                                         <li class="list-group-item d-flex justify-content-between">
                                             <span>Total (₹)</span>
 
-                                            <input name="totalprice" type="hidden" id="totalprice" value="@ViewBag.TotalPrice" /><strong><span id="spantotal">₹ @ViewBag.TotalAmount</span></strong>
+                                            <input name="totalprice" type="hidden" id="totalprice" value="@ViewBag.TotalPrice" /><strong><span id="spantotal">@ViewBag.TotalAmount</span></strong>
                                         </li>
                                     </ul>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Promo code">
+                                        <input type="text" class="form-control" placeholder="Coupon code" id="txtCouponCode">
                                         <div class="input-group-append">
-                                            <button type="submit" class="btn btn-primary">Redeem</button>
+                                            <button type="button" class="btn btn-primary" id="btnSubmit">Redeem</button>
                                         </div>
                                     </div>
 
@@ -472,7 +487,7 @@
                 $("#sp_totalGST").text(data.IGST);
                 $("#sp_DeliveryCharge").text(data.DeliveryCharge);
                 $("#sp_totalBV").text(data.BV);
-                $("#totalamount").val(data.TotalPrice);
+                $("#TotalAmount").val(data.TotalPrice);
                 $("#spantotal").text(data.TotalPrice);
             }
         });
@@ -506,6 +521,7 @@
                 $("#sp_totalGST").text(data.IGST);
                 $("#sp_DeliveryCharge").text(data.DeliveryCharge);
                 $("#sp_totalBV").text(data.BV);
+                $("#TotalAmount").val(data.TotalPrice);
                 $("#spantotal").text(data.TotalPrice);
             }
         });
@@ -515,6 +531,44 @@
         //$("#spNoofItems").text(TotalItems);
         //$(NoofItems).val(TotalItems);
     }
+    $("#btnSubmit").click(function () {
+        debugger;
+        var TotalAmount = $("#spantotal").text();
+        var CouponCode = $("#txtCouponCode").val();
+        $.ajax({
+            url: 'ApplyCoupon', type: 'post', dataType: 'json',
+            data: { 'CouponCode': CouponCode, 'TotalPrice': TotalAmount },
+            success: function (data) {
+                debugger;
+                if (data.Result == "yes") {
+                    var Price = parseFloat(TotalAmount) - parseFloat(data.TotalPrice);
+                    $("#spantotal").text(Price);
+                    $("#TotalAmount").val(Price);
+                }
+                else if (data.Result == "no") {
+                    toastr.warning(data.Message, "", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    })
+
+                }
+            }
+        })
+    })
 </script>
 <style>
     .errortext {

@@ -37,33 +37,63 @@
                                         <div role="tabpanel" class="tab-pane fade show active" id="first">
                                             <img class="img-fluid" src="@Model.EventImage" alt="">
                                         </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="second">
-                                            <img class="img-fluid" src="@Model.EventImage" alt="">
-                                        </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="third">
-                                            <img class="img-fluid" src="@Model.EventImage" alt="">
-                                        </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="for">
-                                            <img class="img-fluid" src="@Model.EventImage" alt="">
-                                        </div>
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstproduct != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.lstproduct)
+                                                {
+                                                    <div role="tabpanel" class="tab-pane fade" id="@Item.ImageId">
+                                                        <img class="img-fluid" src="@Item.EventImage" alt="" style="height:552px;width:484px">
+                                                    </div>
+                                                    i++;
+                                                }
+                                            }
+                                        }
+                                        @*<div role="tabpanel" class="tab-pane fade" id="second">
+                                                <img class="img-fluid" src="@Model.EventImage" alt="">
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="third">
+                                                <img class="img-fluid" src="@Model.EventImage" alt="">
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="for">
+                                                <img class="img-fluid" src="@Model.EventImage" alt="">
+                                            </div>*@
                                     </div>
                                     <div class="tab-slide-content new-arrival-product mb-4 mb-xl-0">
                                         <!-- Nav tabs -->
                                         <ul class="nav slide-item-list mt-3" role="tablist">
                                             <li role="presentation" class="show">
-                                                <a href="#first" role="tab" data-toggle="tab">
-                                                    <img class="img-fluid" src="@Model.EventImage" alt="" width="50">
-                                                </a>
+                                                <a href="#first" role="tab" data-toggle="tab"><img class="img-fluid" src="@Model.EventImage" alt="" width="50"></a>
                                             </li>
-                                            <li role="presentation">
-                                                <a href="#second" role="tab" data-toggle="tab"><img class="img-fluid" src="@Model.EventImage" alt="" width="50"></a>
-                                            </li>
-                                            <li role="presentation">
-                                                <a href="#third" role="tab" data-toggle="tab"><img class="img-fluid" src="@Model.EventImage" alt="" width="50"></a>
-                                            </li>
-                                            <li role="presentation">
-                                                <a href="#for" role="tab" data-toggle="tab"><img class="img-fluid" src="@Model.EventImage" alt="" width="50"></a>
-                                            </li>
+                                            @if (Model != null)
+                                            {
+                                                if (Model.lstproduct != null)
+                                                {
+                                                    int i = 1;
+                                                    foreach (var Item in Model.lstproduct)
+                                                    {
+                                                        <li role="presentation">
+                                                            <a href="#@Item.ImageId" role="tab" data-toggle="tab">
+                                                                <img class="img-fluid" src="@Item.EventImage" alt="" style="height:125px;width:109px">
+                                                            </a>
+                                                        </li>
+                                                        i++;
+                                                    }
+                                                }
+                                            }
+
+
+                                            @*<li role="presentation">
+                                                    <a href="#second" role="tab" data-toggle="tab"><img class="img-fluid" src="@Model.EventImage" alt="" width="50"></a>
+                                                </li>
+                                                <li role="presentation">
+                                                    <a href="#third" role="tab" data-toggle="tab"><img class="img-fluid" src="@Model.EventImage" alt="" width="50"></a>
+                                                </li>
+                                                <li role="presentation">
+                                                    <a href="#for" role="tab" data-toggle="tab"><img class="img-fluid" src="@Model.EventImage" alt="" width="50"></a>
+                                                </li>*@
                                         </ul>
                                     </div>
                                 </div>
@@ -107,19 +137,19 @@
                                             <p>Product code: <span class="item">@Model.ProductCode</span> </p>
                                             <p>Brand: <span class="item">@Model.Brand</span></p>
                                             <p>
-                                                    Product tags:&nbsp;&nbsp;
-                                                    <span class="badge badge-success light">bags</span>
-                                                    <span class="badge badge-success light">clothes</span>
-                                                    <span class="badge badge-success light">shoes</span>
-                                                    <span class="badge badge-success light">dresses</span>
-                                                </p>
+                                                Product tags:&nbsp;&nbsp;
+                                                <span class="badge badge-success light">bags</span>
+                                                <span class="badge badge-success light">clothes</span>
+                                                <span class="badge badge-success light">shoes</span>
+                                                <span class="badge badge-success light">dresses</span>
+                                            </p>
                                             <p class="text-content">
                                                 @Model.EventDescription
                                             </p>
                                             <div class="col-2 px-0">
                                                 <input type="number" name=NumberOfItems id="NumberOfItems" min="1" class="form-control input-btn input-number" value="1" onchange="return TotalCalPrice()">
                                             </div>
-                                           
+
                                             <div class="shopping-cart mt-3">
                                                 <a onclick="return change();" href="#" class="btn btn-primary btn-lg" data-id="@Model.PK_EventId" id="btn_Add">
                                                     <i class="fa fa-shopping-basket mr-2"></i>Add
@@ -202,7 +232,7 @@
                 $('#NumberOfItems').removeAttr('disabled');
             }
         }
-     
+
     });
 
 
@@ -229,7 +259,7 @@
                     hideMethod: "fadeOut",
                     tapToDismiss: !1
                 })
-               
+
             }
              )
             $("#NumberOfItems").focus();

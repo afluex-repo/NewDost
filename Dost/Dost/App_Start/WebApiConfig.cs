@@ -16,8 +16,8 @@ namespace Dost
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/Login{controller}/Login{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{action}/{id}",
+                defaults: new { controller = "WebAPI", id = RouteParameter.Optional }
             );
         }
     }

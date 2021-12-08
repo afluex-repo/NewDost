@@ -68,6 +68,23 @@ namespace Dost.Models
         public string RangeTo { get; set; }
         public List<Master> lstCoupon { get; set; }
 
+        public string MainServiceType { get; set; }
+        public string Preority { get; set; }
+        public string InputType { get; set; }
+        public string DeletedDate { get; set; }
+        public string Pk_MainServiceTypeId { get; set; }
+        public List<Master> ListServiceTypeMaster { get; set; }
+        public string Pk_ServiceId { get; set; }
+        public string Fk_MainServiceTypeId { get; set; }
+        public string Service { get; set; }
+        public string Category { get; set; }
+        public string ServiceIcon { get; set; }
+        public string ServiceUrl { get; set; }
+        public string IsActive { get; set; }
+        public string IsActiveDeactiveDate { get; set; }
+        public List<Master> ListServiceMaster { get; set; }
+        public string IsDeleted { get;  set; }
+
         public DataSet categorylist()
         {
             DataSet ds = DBHelper.ExecuteQuery("CategoryList");
@@ -359,7 +376,143 @@ namespace Dost.Models
             return ds;
         }
 
-        
+        #region Servicetypemaster
+        public DataSet ServiceTypeMasterList()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_MainServiceTypeId",Pk_MainServiceTypeId),
+                                              new SqlParameter("@MainServiceType",MainServiceType)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ServiceTypeMasterList", para);
+            return ds;
+
+        }
+
+        public DataSet ServiceInActive()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_MainServiceTypeId",Pk_MainServiceTypeId),
+                                              new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ServiceInActive", para);
+            return ds;
+
+        }
+
+        public DataSet ServiceActive()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_MainServiceTypeId",Pk_MainServiceTypeId),
+                                              new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ServiceActive", para);
+            return ds;
+
+        }
+
+
+        public DataSet SavingServiceTypeMaster()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@MainServiceType",MainServiceType),
+                new SqlParameter("@Preority",Preority),
+                new SqlParameter("@InputType",InputType),
+                new SqlParameter("@AddedBy",AddedBy),
+
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveServiceTypeMaster", para);
+            return ds;
+        }
+
+        public DataSet UpdateServiceTypeMaster()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_MainServiceTypeId",Pk_MainServiceTypeId),
+                                          new SqlParameter("@MainServiceType",MainServiceType),
+                                            new SqlParameter("@Preority",Preority),
+                                           new SqlParameter("@UpdatedBy",UpdatedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateServiceTypeMaster", para);
+            return ds;
+
+        }
+        public DataSet ServiceMasterList()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_ServiceId",Pk_ServiceId),
+                                              new SqlParameter("@Service",Service),
+                                               new SqlParameter("@Category",Category),
+                                               new SqlParameter("@ServiceUrl",ServiceUrl),
+                                                   new SqlParameter("@ServiceIcon",ServiceIcon)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ServiceMaster", para);
+            return ds;
+
+        }
+
+        public DataSet InActive()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_ServiceId",Pk_ServiceId),
+                                              new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("InActiveServiceMaster", para);
+            return ds;
+
+        }
+
+        public DataSet Active()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_ServiceId",Pk_ServiceId),
+                                              new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ActiveServiceMaster", para);
+            return ds;
+
+        }
+
+
+        public DataSet SavingServiceMaster()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_MainServiceTypeId",Fk_MainServiceTypeId),
+                new SqlParameter("@Category",Category),
+                new SqlParameter("@ServiceIcon",ServiceIcon),
+                 new SqlParameter("@ServiceUrl",ServiceUrl),
+                   new SqlParameter("@Service",Service),
+                   new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveServiceMaster", para);
+            return ds;
+        }
+
+        public DataSet UpdateServiceMaster()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_ServiceId",Pk_ServiceId),
+                                          new SqlParameter("@Fk_MainServiceTypeId",Fk_MainServiceTypeId),
+                                           new SqlParameter("@Service",Service),
+                                           new SqlParameter("@Category",Category),
+                                           new SqlParameter("@ServiceIcon",ServiceIcon),
+                                              new SqlParameter("@ServiceUrl",ServiceUrl),
+                                           new SqlParameter("@UpdatedBy",UpdatedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateServiceMaster", para);
+            return ds;
+
+        }
+        #endregion
 
 
     }

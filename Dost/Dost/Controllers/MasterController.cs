@@ -744,7 +744,7 @@ namespace Dost.Controllers
                     if (file != null && file.ContentLength > 0)
                     {
                         model.EventImage = "/images/ProductImage/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
-                        file.SaveAs(Path.Combine(Server.MapPath(model.BannerImage)));
+                        file.SaveAs(Path.Combine(Server.MapPath(model.EventImage)));
                         dtImage.Rows.Add(model.EventImage);
                     }
                 }
@@ -1020,7 +1020,383 @@ namespace Dost.Controllers
             }
             return RedirectToAction("CouponList", "Master");
         }
+        #region ServiceTypeMaster
+        public ActionResult ServiceTypeMaster(Master model)
+        {
+            List<Master> lst = new List<Master>();
+            DataSet ds = model.ServiceTypeMasterList();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Master obj = new Master();
+                    obj.Pk_MainServiceTypeId = r["Pk_MainServiceTypeId"].ToString();
+                    obj.MainServiceType = r["MainServiceType"].ToString();
+                    obj.Preority = r["Preority"].ToString();
+                    obj.InputType = r["InputType"].ToString();
+                    obj.IsDeleted = r["IsDeleted"].ToString();
+                    obj.DeletedDate = r["DeletedDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.ListServiceTypeMaster = lst;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("ServiceTypeMaster")]
+        [OnAction(ButtonName = "Save")]
+        public ActionResult SaveServiceTypeMaster(Master model)
+
+        {
+
+            try
+            {
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.SavingServiceTypeMaster();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ServiceTypeMaster"] = "Saved Successfully";
 
 
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["ServiceTypeMaster"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ServiceTypeMaster"] = ex.Message;
+            }
+
+            return RedirectToAction("ServiceTypeMaster");
+        }
+
+        public ActionResult ServiceInActive(string Pk_MainServiceTypeId)
+        {
+            Master model = new Master();
+            model.Pk_MainServiceTypeId = Pk_MainServiceTypeId;
+            try
+            {
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.ServiceInActive();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ServiceTypeMaster"] = "Service InActive Successfully";
+
+
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["ServiceTypeMaster"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ServiceTypeMaster"] = ex.Message;
+            }
+
+            return RedirectToAction("ServiceTypeMaster");
+        }
+
+        public ActionResult ServiceActive(string Pk_MainServiceTypeId)
+        {
+            Master model = new Master();
+            model.Pk_MainServiceTypeId = Pk_MainServiceTypeId;
+            try
+            {
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.ServiceActive();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ServiceTypeMaster"] = "Service Active Successfully";
+
+
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["ServiceTypeMaster"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ServiceTypeMaster"] = ex.Message;
+            }
+
+            return RedirectToAction("ServiceTypeMaster");
+        }
+
+        public ActionResult UpdateServiceTypeMaster(string Pk_MainServiceTypeId, string MainServiceType, string Preority)
+        {
+            Master model = new Master();
+            try
+            {
+                model.MainServiceType = MainServiceType;
+                model.Pk_MainServiceTypeId = Pk_MainServiceTypeId;
+                model.Preority = Preority;
+                model.UpdatedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.UpdateServiceTypeMaster();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        model.Result = "Updated Successfully";
+                    }
+                    else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
+                    {
+                        model.Result = ds.Tables[0].Rows[0]["ERROR"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                model.Result = ex.Message;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region Service
+        public ActionResult ServiceMaster(Master model)
+        {
+            #region Bind SeviceTyoe
+            Master obj1 = new Master();
+
+            int count = 0;
+            List<SelectListItem> ddlServiceType = new List<SelectListItem>();
+            DataSet ds1 = obj1.ServiceTypeMasterList();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlServiceType.Add(new SelectListItem { Value = "0", Text = "Select Sevice Type Master" });
+                    }
+                    ddlServiceType.Add(new SelectListItem { Value = r["Pk_MainServiceTypeId"].ToString(), Text = r["MainServiceType"].ToString() });
+                    count = count + 1;
+                }
+                ViewBag.ddlServiceType = ddlServiceType;
+            }
+            #endregion
+
+
+            List<Master> lst = new List<Master>();
+            DataSet ds = model.ServiceMasterList();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Master obj = new Master();
+                    obj.Pk_ServiceId = r["Pk_ServiceId"].ToString();
+                    obj.Fk_MainServiceTypeId = r["Fk_MainServiceTypeId"].ToString();
+                    obj.ServiceIcon = r["ServiceIcon"].ToString();
+                    obj.Service = r["Service"].ToString();
+                    obj.ServiceUrl = r["ServiceUrl"].ToString();
+                    obj.Category = r["Category"].ToString();
+                    obj.IsActive = r["IsActive"].ToString();
+                    obj.MainServiceType = r["MainServiceType"].ToString();
+                    obj.IsActiveDeactiveDate = r["IsActiveDeactiveDate"].ToString();
+                    lst.Add(obj);
+                }
+                model.ListServiceMaster = lst;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("ServiceMaster")]
+        [OnAction(ButtonName = "Save")]
+        public ActionResult SaveServiceMaster(Master model, IEnumerable<HttpPostedFileBase> postedFile3)
+
+        {
+            #region Bind SeviceTyoe
+            Master obj1 = new Master();
+
+            int count = 0;
+            List<SelectListItem> ddlServiceType = new List<SelectListItem>();
+            DataSet ds1 = obj1.ServiceTypeMasterList();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlServiceType.Add(new SelectListItem { Value = "0", Text = "Select Sevice Type Master" });
+                    }
+                    ddlServiceType.Add(new SelectListItem { Value = r["Pk_MainServiceTypeId"].ToString(), Text = r["MainServiceType"].ToString() });
+                    count = count + 1;
+                }
+                ViewBag.ddlServiceType = ddlServiceType;
+            }
+            #endregion
+
+            try
+            {
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+
+                foreach (var file in postedFile3)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+
+                        model.ServiceIcon = "/ServiceIcon/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                        file.SaveAs(Path.Combine(Server.MapPath(model.ServiceIcon)));
+                    }
+                }
+
+
+                DataSet ds = model.SavingServiceMaster();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ServiceMaster"] = "Saved Successfully";
+
+
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["ServiceMaster"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ServiceMaster"] = ex.Message;
+            }
+
+            return RedirectToAction("ServiceMaster");
+        }
+
+        public ActionResult InActive(string Pk_ServiceId)
+        {
+            Master model = new Master();
+            model.Pk_ServiceId = Pk_ServiceId;
+            try
+            {
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.InActive();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ServiceMaster"] = "Service InActive Successfully";
+
+
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["ServiceMaster"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ServiceMaster"] = ex.Message;
+            }
+
+            return RedirectToAction("ServiceMaster");
+        }
+
+        public ActionResult Active(string Pk_ServiceId)
+        {
+            Master model = new Master();
+            model.Pk_ServiceId = Pk_ServiceId;
+            try
+            {
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.Active();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ServiceMaster"] = "Service Active Successfully";
+
+
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["ServiceMaster"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ServiceMaster"] = ex.Message;
+            }
+
+            return RedirectToAction("ServiceMaster");
+        }
+
+        [HttpPost]
+        [OnAction(ButtonName = "btnUpdate")]
+        [ActionName("ServiceMaster")]
+        public ActionResult UpdateServiceMaster(Master model, IEnumerable<HttpPostedFileBase> postedFile3)
+        {
+            #region Bind SeviceTyoe
+            Master obj1 = new Master();
+
+            int count = 0;
+            List<SelectListItem> ddlServiceType = new List<SelectListItem>();
+            DataSet ds1 = obj1.ServiceTypeMasterList();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlServiceType.Add(new SelectListItem { Value = "0", Text = "Select Sevice Type Master" });
+                    }
+                    ddlServiceType.Add(new SelectListItem { Value = r["Pk_MainServiceTypeId"].ToString(), Text = r["MainServiceType"].ToString() });
+                    count = count + 1;
+                }
+                ViewBag.ddlServiceType = ddlServiceType;
+            }
+            #endregion
+
+
+            try
+            {
+
+                model.UpdatedBy = Session["Pk_AdminId"].ToString();
+                foreach (var file in postedFile3)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+
+                        model.ServiceIcon = "/ServiceIcon/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                        file.SaveAs(Path.Combine(Server.MapPath(model.ServiceIcon)));
+                    }
+                }
+                DataSet ds = model.UpdateServiceMaster();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        TempData["ServiceMaster"] = "Updated Successfully";
+                    }
+                    else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
+                    {
+                        TempData["ServiceMaster"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ServiceMaster"] = ex.Message;
+            }
+            return RedirectToAction("ServiceMaster");
+        }
+        #endregion
     }
 }

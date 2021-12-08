@@ -40,7 +40,7 @@ namespace Dost.Controllers
                 {
                     if (dsBal.Tables[0].Rows.Count > 0)
                     {
-                        ViewBag.DigiWalletBalance = dsBal.Tables[0].Rows[0]["Balance"].ToString();
+                        ViewBag.DigiWalletBalance = string.Format("{0:0.00}", dsBal.Tables[0].Rows[0]["Balance"]);
                         obj.EwalletBalance = dsBal.Tables[0].Rows[0]["Balance"].ToString();
                         ViewBag.ActivationDate = dsBal.Tables[0].Rows[0]["JoiningDate"].ToString();
                         ViewBag.CardHolderName = dsBal.Tables[0].Rows[0]["BankHolderName"].ToString();
