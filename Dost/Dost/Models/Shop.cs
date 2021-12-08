@@ -11,6 +11,7 @@ namespace Dost.Models
     {
         public DataTable dtproductitem { get; set; }
         public List<Shop> lstproduct { get; set; }
+        public List<Shop> lstcoupon { get; set; }
         #region property
         public string Quantity { get; set; }
         public string Total { get; set; }
@@ -55,6 +56,9 @@ namespace Dost.Models
         public string Gst { get; set; }
         public List<AddressBook> lstAddressBook { get; set; }
         public string City { get; set; }
+        public string CouponCode { get; set; }
+        public string CouponName { get; set; }
+        public string Message { get; set; }
         #endregion
         public DataSet productlist()
         {
@@ -171,7 +175,16 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("SP_updateitem", para);
             return ds;
         }
-
+        public DataSet ApplyCoupon()
+        {
+            SqlParameter[] para =
+                {
+                new SqlParameter("@CouponCode", CouponCode),
+                 new SqlParameter("@TotalPrice",TotalPrice )
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ApplyCoupon", para);
+            return ds;
+        }
 
     }
     public class AddressBook

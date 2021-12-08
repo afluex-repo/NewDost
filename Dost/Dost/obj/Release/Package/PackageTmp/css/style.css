@@ -45582,7 +45582,10 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
             }
 
 /*# sourceMappingURL=style.css.map */
- .errortext {
-        border: 1px solid red !important;
-        background-color: #3B3363 !important;
-    }
+.errortext {
+    border: 1px solid red !important;
+    background-color: #3B3363 !important;
+}
+a:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {
+    color: #6418C3;
+}

@@ -744,7 +744,7 @@ namespace Dost.Controllers
                     if (file != null && file.ContentLength > 0)
                     {
                         model.EventImage = "/images/ProductImage/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
-                        file.SaveAs(Path.Combine(Server.MapPath(model.BannerImage)));
+                        file.SaveAs(Path.Combine(Server.MapPath(model.EventImage)));
                         dtImage.Rows.Add(model.EventImage);
                     }
                 }

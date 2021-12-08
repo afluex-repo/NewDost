@@ -4,24 +4,26 @@
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 <style>
- a:hover, a:focus, a.active {
-    /* text-decoration: none; */
-    color: #6d697a;
-    background-color: #6647bf;
-    /* border: 2
-px
- solid; */
-}   
- [data-theme-version="dark"] .form-control {
-    background-color: transparent;
-    border-color: #dbd9e9;
-    color: #fff;
-}
- [data-theme-version="dark"] .nav-tabs .nav-link:hover, [data-theme-version="dark"] .nav-tabs .nav-link.active {
-    color: #fff;
-    background: #6647bf;
-    border-color: #462d8f;
-}
+        a:hover, a:focus, a.active {
+            /* text-decoration: none; */
+            color: #6d697a;
+            background-color: #6647bf;
+            /* border: 2
+    px
+     solid; */
+        }
+
+        [data-theme-version="dark"] .form-control {
+            background-color: transparent;
+            border-color: #dbd9e9;
+            color: #fff;
+        }
+
+        [data-theme-version="dark"] .nav-tabs .nav-link:hover, [data-theme-version="dark"] .nav-tabs .nav-link.active {
+            color: #fff;
+            background: #6647bf;
+            border-color: #462d8f;
+        }
 </style>
 @using (Html.BeginForm("Wallet", "Wallet", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
 {
@@ -42,7 +44,7 @@ px
                                     <div class="card-bx stacked card">
                                         <img src="/images/card/card1.jpg" alt="">
                                         <div class="card-info">
-                                            <p class="mb-1 text-white fs-14">Main Wallet</p>
+                                            <p class="mb-1 text-white fs-14">Dost Wallet</p>
                                             <div class="d-flex justify-content-between">
                                                 <h2 class="num-text text-white mb-5 font-w600">₹ @ViewBag.DigiWalletBalance</h2>
                                                 <div class="text-center" style="border: 1px solid #ffffff; border-radius: 50%; padding: 10px; background-color:#fffefe54; width: 60px; height: 60px">
@@ -52,7 +54,7 @@ px
 
                                             <div class="d-flex">
                                                 <div class="mr-6 text-white">
-                                                    <p class="fs-12 mb-1 op6">Activation Date</p>
+                                                    <p class="fs-12 mb-1 op6">Last Activation Date</p>
                                                     <span>@ViewBag.ActivationDate</span>
                                                 </div>
                                                 <div class="mr-4 text-white">
@@ -120,16 +122,16 @@ px
                                             <div class="row">
                                                 <div class="col-sm-3 nav nav-tabs">
                                                     <div class="mb-4 nav-item">
-                                                        <h4><a href="#AddFund"  data-toggle="tab" class="text-black nav-link show active"><span class="badge badge-sm badge-primary fs-18" style="padding: 5px 12px"><i class="fa fa-inr text-white" aria-hidden="true"></i> </span> Add Fund</a></h4>
+                                                        <h4><a href="#AddFund" data-toggle="tab" class="text-black nav-link show active"><span class="badge badge-sm badge-primary fs-18" style="padding: 5px 12px"><i class="fa fa-inr text-white" aria-hidden="true"></i> </span> Add Fund</a></h4>
+                                                    </div>
+                                                    @*<div class="mb-4">
+                                                        <h4><a data-toggle="tab" href="#TransferFund" class="text-black nav-link" ><span class="badge badge-sm badge-info fs-18"><i class="fa fa-exchange" aria-hidden="true"></i> </span> Transfer</a></h4>
+                                                    </div>*@
+                                                    <div class="mb-4">
+                                                        <h4><a data-toggle="tab" href="#WithDrawl" class="text-black nav-link"><span class="badge badge-sm badge-secondary fs-18"><i class="fa fa-credit-card" aria-hidden="true"></i> </span> Withdraw</a></h4>
                                                     </div>
                                                     <div class="mb-4">
-                                                        <h4><a data-toggle="tab" href="#TransferFund" class="text-black nav-link"><span class="badge badge-sm badge-info fs-18"><i class="fa fa-exchange" aria-hidden="true"></i> </span> Transfer</a></h4>
-                                                    </div>
-                                                    <div class="mb-4">
-                                                        <h4><a data-toggle="tab" href="#WithDrawl"  class="text-black nav-link"><span class="badge badge-sm badge-secondary fs-18"><i class="fa fa-credit-card" aria-hidden="true"></i> </span> Withdraw</a></h4>
-                                                    </div>
-                                                    <div class="mb-4">
-                                                        <h4><a href="/Wallet/Statement" class="nav-link"><span class="badge badge-sm badge-secondary fs-18"><i class="fa fa-credit-card" aria-hidden="true"></i> </span> Statement</a></h4>
+                                                        <h4><a target="_blank" href="/Wallet/Statement" class="nav-link"><span class="badge badge-sm badge-danger fs-18"><i class="fa fa-tasks" aria-hidden="true"></i> </span> Statement</a></h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-9">
@@ -290,9 +292,10 @@ px
                                                                                                 @Html.TextBoxFor(m => m.WithDrawAmount, new { @class = "form-control", @Placeholder = "Amount", @onkeypress = "return isNumberKey(event);" })
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="col-xl-6 col-lg-6 text-right">
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
                                                                                             <div class="mb-3">
-                                                                                                <input class="btn btn-primary mb-2 px-5" onclick="return validateformwithdraw()" type="submit" value="Withdrawl Request" id="btnWithdraw" name="btnWithdraw" />
+                                                                                                <label class="mb-1 text-white fs-14">&nbsp;<span class="text-danger"></span></label>
+                                                                                                <input class="btn btn-primary mb-2 px-5" onclick="return validateformwithdraw()" type="submit" value="Withdrawl Request" id="btnWithdraw" name="btnWithdraw" style="margin-left:-26px" />
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -307,12 +310,12 @@ px
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
-                                        <div class="col-xl-6 col-lg-12 col-xxl-12 mb-lg-0 mb-3">
+                                        @*<div class="col-xl-6 col-lg-12 col-xxl-12 mb-lg-0 mb-3">
                                             <p>Monthly Limits</p>
                                             <div class="row">
                                                 <div class="col-sm-4 mb-sm-0 mb-4 text-center">
@@ -340,7 +343,7 @@ px
                                                     <span>$100</span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -354,12 +357,12 @@ px
                                 <div class="card-header pb-2 d-block d-sm-flex flex-wrap border-0">
                                     <div class="mb-3">
                                         <h4 class="fs-20 text-black">Wallet Activity</h4>
-                                        <p class="mb-0 fs-13">Lorem ipsum dolor sit amet, consectetur</p>
+                                        @*<p class="mb-0 fs-13">Lorem ipsum dolor sit amet, consectetur</p>*@
                                     </div>
-                                    <div class="card-action card-tabs mb-3 style-1">
+                                   <div class="card-action card-tabs mb-3 style-1">
                                         <ul class="nav nav-tabs" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#monthly" role="tab">
+                                                <a class="nav-link active" data-toggle="tab" href="#" role="tab">
                                                     Monthly
                                                 </a>
                                             </li>
@@ -380,420 +383,75 @@ px
                                     <div class="tab-pane active show fade" id="monthly">
                                         <div class="table-responsive">
                                             <table class="table shadow-hover card-table border-no tbl-btn short-one">
+
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Topup</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$5,553</span>
-                                                        </td>
-                                                        <td><a class="btn-link text-success float-right" href="javascript:void(0);">Completed</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M37.2692 38.9908L37.2692 38.9908L32.3961 43.8874C32.3934 43.8902 32.3909 43.8927 32.3885 43.895M37.2692 38.9908L32.0389 43.5375L32.3918 43.8917C32.3825 43.9009 32.3749 43.9078 32.3716 43.9107L32.3705 43.9117C32.373 43.9095 32.3796 43.9036 32.3877 43.8957C32.388 43.8955 32.3883 43.8952 32.3885 43.895M37.2692 38.9908C37.8291 38.4281 37.827 37.5179 37.2643 36.9578C36.7016 36.3978 35.7914 36.3999 35.2314 36.9626L35.2313 36.9627L32.8127 39.393M37.2692 38.9908L32.8127 39.393M32.3885 43.895C31.8292 44.4509 30.9226 44.4526 30.3615 43.8946C30.3603 43.8934 30.3591 43.8922 30.3578 43.8909L30.3563 43.8894L30.3442 43.8773L25.4813 38.9908L25.8357 38.6381L25.4813 38.9908C24.9215 38.4282 24.9234 37.518 25.4862 36.9578C26.049 36.3978 26.9591 36.4 27.5191 36.9627L27.5192 36.9627L29.9377 39.393L29.9377 20.75C29.9377 19.9561 30.5813 19.3125 31.3752 19.3125C32.1692 19.3125 32.8127 19.9561 32.8127 20.75L32.8127 39.393M32.3885 43.895C32.39 43.8935 32.3914 43.8921 32.3928 43.8907L32.8127 39.393M30.3577 43.8908C30.3573 43.8903 30.3568 43.8899 30.3564 43.8894L30.3577 43.8908Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Withdraw</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$5,553</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-dark float-right" href="javascript:void(0);">Pending</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M37.2692 38.9908L37.2692 38.9908L32.3961 43.8874C32.3934 43.8902 32.3909 43.8927 32.3885 43.895M37.2692 38.9908L32.0389 43.5375L32.3918 43.8917C32.3825 43.9009 32.3749 43.9078 32.3716 43.9107L32.3705 43.9117C32.373 43.9095 32.3796 43.9036 32.3877 43.8957C32.388 43.8955 32.3883 43.8952 32.3885 43.895M37.2692 38.9908C37.8291 38.4281 37.827 37.5179 37.2643 36.9578C36.7016 36.3978 35.7914 36.3999 35.2314 36.9626L35.2313 36.9627L32.8127 39.393M37.2692 38.9908L32.8127 39.393M32.3885 43.895C31.8292 44.4509 30.9226 44.4526 30.3615 43.8946C30.3603 43.8934 30.3591 43.8922 30.3578 43.8909L30.3563 43.8894L30.3442 43.8773L25.4813 38.9908L25.8357 38.6381L25.4813 38.9908C24.9215 38.4282 24.9234 37.518 25.4862 36.9578C26.049 36.3978 26.9591 36.4 27.5191 36.9627L27.5192 36.9627L29.9377 39.393L29.9377 20.75C29.9377 19.9561 30.5813 19.3125 31.3752 19.3125C32.1692 19.3125 32.8127 19.9561 32.8127 20.75L32.8127 39.393M32.3885 43.895C32.39 43.8935 32.3914 43.8921 32.3928 43.8907L32.8127 39.393M30.3577 43.8908C30.3573 43.8903 30.3568 43.8899 30.3564 43.8894L30.3577 43.8908Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Wihtdraw</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">-$912</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link  text-danger float-right" href="javascript:void(0);">Canceled</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Topup</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$7,762</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-success float-right" href="javascript:void(0);">Completed</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Topup</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$5,553</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-success float-right" href="javascript:void(0);">Completed</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M37.2692 38.9908L37.2692 38.9908L32.3961 43.8874C32.3934 43.8902 32.3909 43.8927 32.3885 43.895M37.2692 38.9908L32.0389 43.5375L32.3918 43.8917C32.3825 43.9009 32.3749 43.9078 32.3716 43.9107L32.3705 43.9117C32.373 43.9095 32.3796 43.9036 32.3877 43.8957C32.388 43.8955 32.3883 43.8952 32.3885 43.895M37.2692 38.9908C37.8291 38.4281 37.827 37.5179 37.2643 36.9578C36.7016 36.3978 35.7914 36.3999 35.2314 36.9626L35.2313 36.9627L32.8127 39.393M37.2692 38.9908L32.8127 39.393M32.3885 43.895C31.8292 44.4509 30.9226 44.4526 30.3615 43.8946C30.3603 43.8934 30.3591 43.8922 30.3578 43.8909L30.3563 43.8894L30.3442 43.8773L25.4813 38.9908L25.8357 38.6381L25.4813 38.9908C24.9215 38.4282 24.9234 37.518 25.4862 36.9578C26.049 36.3978 26.9591 36.4 27.5191 36.9627L27.5192 36.9627L29.9377 39.393L29.9377 20.75C29.9377 19.9561 30.5813 19.3125 31.3752 19.3125C32.1692 19.3125 32.8127 19.9561 32.8127 20.75L32.8127 39.393M32.3885 43.895C32.39 43.8935 32.3914 43.8921 32.3928 43.8907L32.8127 39.393M30.3577 43.8908C30.3573 43.8903 30.3568 43.8899 30.3564 43.8894L30.3577 43.8908Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Withdraw</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">-$912</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-danger float-right" href="javascript:void(0);">Canceled</a>
-                                                        </td>
-                                                    </tr>
+                                                    @if (Model != null)
+                                                    {
+                                                        if (Model.lstewalletledger != null)
+                                                        {
+                                                            int i = 1;
+                                                            foreach (var Item in Model.lstewalletledger)
+                                                            {
+                                                                <tr>
+                                                                    @if (Item.DrAmount == "0")
+
+                                                                    {
+                                                                        <td>
+                                                                            <span>
+                                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect width="63" height="63" rx="14" fill="#71B945" />
+                                                                                    <path d="M40.6186 32.7207L40.6186 32.7207L40.6353 39.6289C40.6354 39.6328 40.6354 39.6363 40.6353 39.6396M40.6186 32.7207L40.1353 39.6341L40.6353 39.635C40.6353 39.6481 40.6347 39.6583 40.6345 39.6627L40.6344 39.6642C40.6346 39.6609 40.6351 39.652 40.6353 39.6407C40.6353 39.6403 40.6353 39.64 40.6353 39.6396M40.6186 32.7207C40.6167 31.9268 39.9717 31.2847 39.1777 31.2866C38.3838 31.2885 37.7417 31.9336 37.7436 32.7275L37.7436 32.7275L37.7519 36.1563M40.6186 32.7207L37.7519 36.1563M40.6353 39.6396C40.6329 40.4282 39.9931 41.0705 39.2017 41.0726C39.2 41.0726 39.1983 41.0727 39.1965 41.0727L39.1944 41.0727L39.1773 41.0726L32.2834 41.056L32.2846 40.556L32.2834 41.056C31.4897 41.054 30.8474 40.4091 30.8494 39.615C30.8513 38.8211 31.4964 38.179 32.2903 38.1809L32.2903 38.1809L35.719 38.1892L22.5364 25.0066C21.975 24.4452 21.975 23.5351 22.5364 22.9737C23.0978 22.4123 24.0079 22.4123 24.5693 22.9737L37.7519 36.1563M40.6353 39.6396C40.6353 39.6376 40.6353 39.6356 40.6353 39.6336L37.7519 36.1563M39.1964 41.0726C39.1957 41.0726 39.1951 41.0726 39.1944 41.0726L39.1964 41.0726Z" fill="white" stroke="white" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            <span>
+                                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect width="63" height="63" rx="14" fill="#FF5757" />
+                                                                                    <path d="M22.1318 30.9043L22.1318 30.9043L22.1151 23.9961C22.1151 23.9922 22.1151 23.9887 22.1152 23.9854M22.1318 30.9043L22.6152 23.9909L22.1152 23.99C22.1152 23.9769 22.1157 23.9667 22.116 23.9623L22.1161 23.9608C22.1159 23.9641 22.1154 23.973 22.1152 23.9843C22.1152 23.9847 22.1152 23.985 22.1152 23.9854M22.1318 30.9043C22.1338 31.6982 22.7788 32.3403 23.5728 32.3384C24.3667 32.3365 25.0088 31.6914 25.0069 30.8975L25.0069 30.8975L24.9986 27.4687M22.1318 30.9043L24.9986 27.4687M22.1152 23.9854C22.1176 23.1968 22.7574 22.5545 23.5488 22.5524C23.5504 22.5524 23.5522 22.5523 23.554 22.5523L23.5561 22.5523L23.5732 22.5524L30.4671 22.569L30.4658 23.069L30.4671 22.569C31.2608 22.571 31.903 23.2159 31.9011 24.01C31.8992 24.8039 31.2541 25.446 30.4602 25.4441L30.4602 25.4441L27.0315 25.4358L40.2141 38.6184C40.7755 39.1798 40.7755 40.0899 40.2141 40.6513C39.6527 41.2127 38.7426 41.2127 38.1812 40.6513L24.9986 27.4687M22.1152 23.9854C22.1152 23.9874 22.1152 23.9894 22.1152 23.9914L24.9986 27.4687M23.5541 22.5524C23.5547 22.5524 23.5554 22.5524 23.5561 22.5524L23.5541 22.5524Z" fill="white" stroke="white" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </td>
+                                                                    }
+                                                                    <td class="wspace-no">
+                                                                        <span class="font-w600 text-black">&nbsp;</span>
+                                                                    </td>
+                                                                    @if (Item.DrAmount == "0")
+                                                                    {
+                                                                        <td>
+                                                                            <span class="font-w600 text-black">₹  @Item.CrAmount</span>
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            <span class="font-w600 text-black">₹  @Item.DrAmount</span>
+                                                                        </td>
+                                                                    }
+                                                                    <td>
+                                                                        <span class="text-black">@Item.AddedOn</span>
+                                                                    </td>
+                                                                    <td><span class="float-right" href="javascript:void(0);">@Item.Narration</span></td>
+                                                                </tr>
+
+
+                                                            }
+                                                            i = i + 1;
+                                                        }
+                                                    }
+
+
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="Weekly">
-                                        <div class="table-responsive">
-                                            <table class="table shadow-hover card-table border-no tbl-btn short-one">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Topup</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$5,553</span>
-                                                        </td>
-                                                        <td><a class="btn-link text-success float-right" href="javascript:void(0);">Completed</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M37.2692 38.9908L37.2692 38.9908L32.3961 43.8874C32.3934 43.8902 32.3909 43.8927 32.3885 43.895M37.2692 38.9908L32.0389 43.5375L32.3918 43.8917C32.3825 43.9009 32.3749 43.9078 32.3716 43.9107L32.3705 43.9117C32.373 43.9095 32.3796 43.9036 32.3877 43.8957C32.388 43.8955 32.3883 43.8952 32.3885 43.895M37.2692 38.9908C37.8291 38.4281 37.827 37.5179 37.2643 36.9578C36.7016 36.3978 35.7914 36.3999 35.2314 36.9626L35.2313 36.9627L32.8127 39.393M37.2692 38.9908L32.8127 39.393M32.3885 43.895C31.8292 44.4509 30.9226 44.4526 30.3615 43.8946C30.3603 43.8934 30.3591 43.8922 30.3578 43.8909L30.3563 43.8894L30.3442 43.8773L25.4813 38.9908L25.8357 38.6381L25.4813 38.9908C24.9215 38.4282 24.9234 37.518 25.4862 36.9578C26.049 36.3978 26.9591 36.4 27.5191 36.9627L27.5192 36.9627L29.9377 39.393L29.9377 20.75C29.9377 19.9561 30.5813 19.3125 31.3752 19.3125C32.1692 19.3125 32.8127 19.9561 32.8127 20.75L32.8127 39.393M32.3885 43.895C32.39 43.8935 32.3914 43.8921 32.3928 43.8907L32.8127 39.393M30.3577 43.8908C30.3573 43.8903 30.3568 43.8899 30.3564 43.8894L30.3577 43.8908Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Withdraw</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$5,553</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-dark float-right" href="javascript:void(0);">Pending</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M37.2692 38.9908L37.2692 38.9908L32.3961 43.8874C32.3934 43.8902 32.3909 43.8927 32.3885 43.895M37.2692 38.9908L32.0389 43.5375L32.3918 43.8917C32.3825 43.9009 32.3749 43.9078 32.3716 43.9107L32.3705 43.9117C32.373 43.9095 32.3796 43.9036 32.3877 43.8957C32.388 43.8955 32.3883 43.8952 32.3885 43.895M37.2692 38.9908C37.8291 38.4281 37.827 37.5179 37.2643 36.9578C36.7016 36.3978 35.7914 36.3999 35.2314 36.9626L35.2313 36.9627L32.8127 39.393M37.2692 38.9908L32.8127 39.393M32.3885 43.895C31.8292 44.4509 30.9226 44.4526 30.3615 43.8946C30.3603 43.8934 30.3591 43.8922 30.3578 43.8909L30.3563 43.8894L30.3442 43.8773L25.4813 38.9908L25.8357 38.6381L25.4813 38.9908C24.9215 38.4282 24.9234 37.518 25.4862 36.9578C26.049 36.3978 26.9591 36.4 27.5191 36.9627L27.5192 36.9627L29.9377 39.393L29.9377 20.75C29.9377 19.9561 30.5813 19.3125 31.3752 19.3125C32.1692 19.3125 32.8127 19.9561 32.8127 20.75L32.8127 39.393M32.3885 43.895C32.39 43.8935 32.3914 43.8921 32.3928 43.8907L32.8127 39.393M30.3577 43.8908C30.3573 43.8903 30.3568 43.8899 30.3564 43.8894L30.3577 43.8908Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Wihtdraw</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">-$912</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link  text-danger float-right" href="javascript:void(0);">Canceled</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Topup</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$7,762</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-success float-right" href="javascript:void(0);">Completed</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Topup</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$5,553</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-success float-right" href="javascript:void(0);">Completed</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M37.2692 38.9908L37.2692 38.9908L32.3961 43.8874C32.3934 43.8902 32.3909 43.8927 32.3885 43.895M37.2692 38.9908L32.0389 43.5375L32.3918 43.8917C32.3825 43.9009 32.3749 43.9078 32.3716 43.9107L32.3705 43.9117C32.373 43.9095 32.3796 43.9036 32.3877 43.8957C32.388 43.8955 32.3883 43.8952 32.3885 43.895M37.2692 38.9908C37.8291 38.4281 37.827 37.5179 37.2643 36.9578C36.7016 36.3978 35.7914 36.3999 35.2314 36.9626L35.2313 36.9627L32.8127 39.393M37.2692 38.9908L32.8127 39.393M32.3885 43.895C31.8292 44.4509 30.9226 44.4526 30.3615 43.8946C30.3603 43.8934 30.3591 43.8922 30.3578 43.8909L30.3563 43.8894L30.3442 43.8773L25.4813 38.9908L25.8357 38.6381L25.4813 38.9908C24.9215 38.4282 24.9234 37.518 25.4862 36.9578C26.049 36.3978 26.9591 36.4 27.5191 36.9627L27.5192 36.9627L29.9377 39.393L29.9377 20.75C29.9377 19.9561 30.5813 19.3125 31.3752 19.3125C32.1692 19.3125 32.8127 19.9561 32.8127 20.75L32.8127 39.393M32.3885 43.895C32.39 43.8935 32.3914 43.8921 32.3928 43.8907L32.8127 39.393M30.3577 43.8908C30.3573 43.8903 30.3568 43.8899 30.3564 43.8894L30.3577 43.8908Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Withdraw</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">-$912</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-danger float-right" href="javascript:void(0);">Canceled</a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="Today">
-                                        <div class="table-responsive">
-                                            <table class="table shadow-hover card-table border-no tbl-btn short-one">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Topup</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$5,553</span>
-                                                        </td>
-                                                        <td><a class="btn-link text-success float-right" href="javascript:void(0);">Completed</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M37.2692 38.9908L37.2692 38.9908L32.3961 43.8874C32.3934 43.8902 32.3909 43.8927 32.3885 43.895M37.2692 38.9908L32.0389 43.5375L32.3918 43.8917C32.3825 43.9009 32.3749 43.9078 32.3716 43.9107L32.3705 43.9117C32.373 43.9095 32.3796 43.9036 32.3877 43.8957C32.388 43.8955 32.3883 43.8952 32.3885 43.895M37.2692 38.9908C37.8291 38.4281 37.827 37.5179 37.2643 36.9578C36.7016 36.3978 35.7914 36.3999 35.2314 36.9626L35.2313 36.9627L32.8127 39.393M37.2692 38.9908L32.8127 39.393M32.3885 43.895C31.8292 44.4509 30.9226 44.4526 30.3615 43.8946C30.3603 43.8934 30.3591 43.8922 30.3578 43.8909L30.3563 43.8894L30.3442 43.8773L25.4813 38.9908L25.8357 38.6381L25.4813 38.9908C24.9215 38.4282 24.9234 37.518 25.4862 36.9578C26.049 36.3978 26.9591 36.4 27.5191 36.9627L27.5192 36.9627L29.9377 39.393L29.9377 20.75C29.9377 19.9561 30.5813 19.3125 31.3752 19.3125C32.1692 19.3125 32.8127 19.9561 32.8127 20.75L32.8127 39.393M32.3885 43.895C32.39 43.8935 32.3914 43.8921 32.3928 43.8907L32.8127 39.393M30.3577 43.8908C30.3573 43.8903 30.3568 43.8899 30.3564 43.8894L30.3577 43.8908Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Withdraw</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$5,553</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-dark float-right" href="javascript:void(0);">Pending</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M37.2692 38.9908L37.2692 38.9908L32.3961 43.8874C32.3934 43.8902 32.3909 43.8927 32.3885 43.895M37.2692 38.9908L32.0389 43.5375L32.3918 43.8917C32.3825 43.9009 32.3749 43.9078 32.3716 43.9107L32.3705 43.9117C32.373 43.9095 32.3796 43.9036 32.3877 43.8957C32.388 43.8955 32.3883 43.8952 32.3885 43.895M37.2692 38.9908C37.8291 38.4281 37.827 37.5179 37.2643 36.9578C36.7016 36.3978 35.7914 36.3999 35.2314 36.9626L35.2313 36.9627L32.8127 39.393M37.2692 38.9908L32.8127 39.393M32.3885 43.895C31.8292 44.4509 30.9226 44.4526 30.3615 43.8946C30.3603 43.8934 30.3591 43.8922 30.3578 43.8909L30.3563 43.8894L30.3442 43.8773L25.4813 38.9908L25.8357 38.6381L25.4813 38.9908C24.9215 38.4282 24.9234 37.518 25.4862 36.9578C26.049 36.3978 26.9591 36.4 27.5191 36.9627L27.5192 36.9627L29.9377 39.393L29.9377 20.75C29.9377 19.9561 30.5813 19.3125 31.3752 19.3125C32.1692 19.3125 32.8127 19.9561 32.8127 20.75L32.8127 39.393M32.3885 43.895C32.39 43.8935 32.3914 43.8921 32.3928 43.8907L32.8127 39.393M30.3577 43.8908C30.3573 43.8903 30.3568 43.8899 30.3564 43.8894L30.3577 43.8908Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Wihtdraw</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">-$912</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link  text-danger float-right" href="javascript:void(0);">Canceled</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Topup</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$7,762</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-success float-right" href="javascript:void(0);">Completed</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Topup</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">+$5,553</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-success float-right" href="javascript:void(0);">Completed</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span>
-                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
-                                                                    <path d="M37.2692 38.9908L37.2692 38.9908L32.3961 43.8874C32.3934 43.8902 32.3909 43.8927 32.3885 43.895M37.2692 38.9908L32.0389 43.5375L32.3918 43.8917C32.3825 43.9009 32.3749 43.9078 32.3716 43.9107L32.3705 43.9117C32.373 43.9095 32.3796 43.9036 32.3877 43.8957C32.388 43.8955 32.3883 43.8952 32.3885 43.895M37.2692 38.9908C37.8291 38.4281 37.827 37.5179 37.2643 36.9578C36.7016 36.3978 35.7914 36.3999 35.2314 36.9626L35.2313 36.9627L32.8127 39.393M37.2692 38.9908L32.8127 39.393M32.3885 43.895C31.8292 44.4509 30.9226 44.4526 30.3615 43.8946C30.3603 43.8934 30.3591 43.8922 30.3578 43.8909L30.3563 43.8894L30.3442 43.8773L25.4813 38.9908L25.8357 38.6381L25.4813 38.9908C24.9215 38.4282 24.9234 37.518 25.4862 36.9578C26.049 36.3978 26.9591 36.4 27.5191 36.9627L27.5192 36.9627L29.9377 39.393L29.9377 20.75C29.9377 19.9561 30.5813 19.3125 31.3752 19.3125C32.1692 19.3125 32.8127 19.9561 32.8127 20.75L32.8127 39.393M32.3885 43.895C32.39 43.8935 32.3914 43.8921 32.3928 43.8907L32.8127 39.393M30.3577 43.8908C30.3573 43.8903 30.3568 43.8899 30.3564 43.8894L30.3577 43.8908Z" fill="white" stroke="white" />
-                                                                </svg>
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">Withdraw</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-black">06:24:45 AM</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="font-w600 text-black">-$912</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-link text-danger float-right" href="javascript:void(0);">Canceled</a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="card-footer border-0 p-0 caret">
-                                    <a href="coin-details.html" class="btn-link mt-1"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                    <a href="/Wallet/Statement" class="btn-link mt-1"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -1145,6 +803,7 @@ px
         });
     }
     function validateformwithdraw() {
+        debugger
         $(".errortext").removeClass("errortext");
         if ($('#PayoutBalance').val() == '') {
             $("#PayoutBalance").addClass('errortext');

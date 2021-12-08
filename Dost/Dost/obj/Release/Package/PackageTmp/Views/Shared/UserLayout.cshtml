@@ -21,15 +21,22 @@
     <meta name="format-detection" content="telephone=no">
     <title>Dost</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/dfavicon.png">
     <link rel="stylesheet" href="../vendor/chartist/css/chartist.min.css">
     <link href="../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="../vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="../vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="../vendor/select2/css/select2.min.css">
+    <link href="../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../vendor/toastr/css/toastr.min.css">
     <link href="../css/style.css" rel="stylesheet">
     <style>
          [data-theme-version="dark"] .form-control {
+    background-color: transparent;
+    border-color: #dbd9e9;
+    color: #fff;
+}
+           .multi-select-placeholder js-states select2-hidden-accessible {
     background-color: transparent;
     border-color: #dbd9e9;
     color: #fff;
@@ -746,7 +753,7 @@
                                     }
                                     else
                                     {
-                                        <img src="~/user1.png" alt=""  width="20">
+                                        <img src="~/images/noimage.jpg" alt=""  width="20">
                                     }
                                    
                                     <div class="header-info">
@@ -764,7 +771,7 @@
                                         <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" class="text-success" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-                                    <a href="./page-login.html" class="dropdown-item ai-icon">
+                                    <a href="/home/login" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -791,13 +798,13 @@
                     <div class="image-bx">
                       @if (Session["ProfilePic"] != null && Session["ProfilePic"].ToString() != "")
                       {
-                        <img src="@Session["ProfilePic"]" alt="" width="20">
+                        <img src="@Session["ProfilePic"]" alt="" width="20" id="output">
                       }
                       else
                       {
-                        <img src="~/user1.png" alt="" width="20">
+                        <img src="~/images/noimage.jpg" alt="" width="20" id="output">
                       }
-                        <a href="javascript:void(0);"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0);" onclick="getFile()"><i class="fa fa-cog" aria-hidden="true"></i><input id="files" onchange="loadFile(event)" type="file" value="upload" style="display: none"></a>
                     </div>
                     <h5 class="name"><span class="font-w400"></span> @Session["FullName"]</h5>
                     <p class="email">Referral Code : @Session["UserCode"]</p>
@@ -831,8 +838,19 @@
                             <li><a href='@Url.Action("ProfileUpdate","NFC")'>Set Action</a></li>
                         </ul>
                     </li>
-
-                    <li><a href="shop.html"><i class="fa fa-shopping-cart"></i><span class="nav-text">Shop</span></a></li>
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-ticket"></i>
+                            <span class="nav-text">Password</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href='@Url.Action("ChangePassword","User")'>Change Password</a></li>
+                        </ul>
+                        <ul aria-expanded="false">
+                            <li><a href='@Url.Action("SettransactionPassword","User")'>Set Transaction Password</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/shop/product"><i class="fa fa-shopping-cart"></i><span class="nav-text">Shop</span></a></li>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="fa fa-tasks"></i>
@@ -875,7 +893,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./page-register.html">Register</a></li>
-                            <li><a href="./page-login.html">Login</a></li>
+                            <li><a href="/home/login">Login</a></li>
                             <li>
                                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
                                 <ul aria-expanded="false">
@@ -904,21 +922,25 @@
         </div>
    </div>
   
-    <script src="../vendor/global/global.min.js"></script>
-    <script src="../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="../vendor/toastr/js/toastr.min.js"></script>
-    <script src="../js/plugins-init/toastr-init.js"></script>
-    <script src="../vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="../vendor/peity/jquery.peity.min.js"></script>
-    <script src="../vendor/apexchart/apexchart.js"></script>
-    <script src="../js/dashboard/dashboard-1.js"></script>
-    <script src="../vendor/owl-carousel/owl.carousel.js"></script>
-    <script src="../vendor/toastr/js/toastr.min.js"></script>
-    <script src="../js/plugins-init/toastr-init.js"></script>
-    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../js/plugins-init/datatables.init.js"></script>
-    <script src="../js/custom.min.js"></script>
-    <script src="../js/deznav-init.js"></script>
+    <script src="~/vendor/global/global.min.js"></script>
+    <script src="~/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/vendor/select2/js/select2.full.min.js"></script>
+    <script src="~/js/plugins-init/select2-init.js"></script>
+                
+    <script src="~/vendor/toastr/js/toastr.min.js"></script>
+    <script src="~/js/plugins-init/toastr-init.js"></script>
+    <script src="~/vendor/chart.js/Chart.bundle.min.js"></script>
+    <script src="~/vendor/peity/jquery.peity.min.js"></script>
+    <script src="~/vendor/apexchart/apexchart.js"></script>
+    <script src="~/js/dashboard/dashboard-1.js"></script>
+    <script src="~/vendor/owl-carousel/owl.carousel.js"></script>
+    <script src="~/vendor/toastr/js/toastr.min.js"></script>
+    <script src="~/js/plugins-init/toastr-init.js"></script>
+    <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/plugins-init/datatables.init.js"></script>
+    <script src="~/js/deznav-init.js"></script>
+    <script src="~/js/custom.min.js"></script>
+    @*<script src="../js/deznav-init.js"></script>*@
 
     @*<script src="../js/demo.js"></script>
     <script src="../js/styleSwitcher.js"></script>*@
@@ -938,6 +960,94 @@
 		$('#Month').text(monthNames[d.getMonth()]);
 		$('#Date').text(d.getDate());
 		$('#Year').text(d.getFullYear());
+    </script>
+    <script>
+    function getFile() {
+        document.getElementById("files").click();
+    }
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    </script>
+    <script>
+        $("#files").change(function () {
+            debugger;
+            var fileUpload = $("#files").get(0);
+            var files = fileUpload.files;
+            var formData = new FormData();
+            formData.append(files[0].name, files[0]);
+            var UserId= @Session["Pk_userId"];
+            formData.append("UserId", UserId)
+            var status = $('#status');
+            var preloader = $('#preloader');
+            var body = $('body');
+            status.fadeIn();
+            preloader.delay(0).fadeIn('fast');
+            body.delay(0).css({ 'overflow': 'visible' });
+            $.ajax({
+                url: "/User/UpdateProfilePic",
+                type: 'post',
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: formData,
+                success: function (data) {
+                    status.fadeOut();
+                    preloader.delay(0).fadeOut('fast');
+                    if (data == true) {
+                        $(document).ready(function () {
+                            toastr.success("Picture Uploaded succesfully ! ", "success", {
+                                positionClass: "toast-top-right",
+                                timeOut: 5e3,
+                                closeButton: !0,
+                                debug: !1,
+                                newestOnTop: !0,
+                                progressBar: !0,
+                                preventDuplicates: !0,
+                                onclick: null,
+                                showDuration: "300",
+                                hideDuration: "1000",
+                                extendedTimeOut: "1000",
+                                showEasing: "swing",
+                                hideEasing: "linear",
+                                showMethod: "fadeIn",
+                                hideMethod: "fadeOut",
+                                tapToDismiss: !1
+                            })
+                        }
+                       )
+                        //  alert("Picture Uploaded succesfully !");
+                        window.location.href= "/User/UserDashboard";
+                    }
+                    else {
+                        $(document).ready(function () {
+                            toastr.error("Not Uploaded. Kindly try after some times. !! ", "error", {
+                                positionClass: "toast-top-right",
+                                timeOut: 5e3,
+                                closeButton: !0,
+                                debug: !1,
+                                newestOnTop: !0,
+                                progressBar: !0,
+                                preventDuplicates: !0,
+                                onclick: null,
+                                showDuration: "300",
+                                hideDuration: "1000",
+                                extendedTimeOut: "1000",
+                                showEasing: "swing",
+                                hideEasing: "linear",
+                                showMethod: "fadeIn",
+                                hideMethod: "fadeOut",
+                                tapToDismiss: !1
+                            })
+                        }
+                      )
+                        //   alert("Not Uploaded. Kindly try after some times.");
+                    }
+                }
+            })
+        });
     </script>
 </body>
 </html>

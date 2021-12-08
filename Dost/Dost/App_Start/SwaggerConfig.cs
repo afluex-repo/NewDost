@@ -1,8 +1,10 @@
 using Dost;
+using Swashbuckle.Application;
 using System.Web;
 using System.Web.Http;
+using WebActivatorEx;
 
-[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
+[assembly: System.Web.PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
 namespace Dost
 {

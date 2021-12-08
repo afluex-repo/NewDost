@@ -1,0 +1,588 @@
+﻿@model Dost.Models.Home
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Zenix - Crypto Admin Dashboard" />
+    <meta property="og:title" content="Zenix - Crypto Admin Dashboard" />
+    <meta property="og:description" content="Zenix - Crypto Admin Dashboard" />
+    <meta property="og:image" content="social-image.png" />
+    <meta name="format-detection" content="telephone=no">
+    <title>Dost Admin Dashboard </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/dfavicon.png">
+    <link href="../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="../vendor/toastr/css/toastr.min.css">
+    <link rel="stylesheet" href="../vendor/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="../vendor/select2/css/select2.min.css">
+    <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body class="vh-100">
+    <div class="authincation h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-7">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+                                    <div class="text-center mb-3">
+                                        <img src="~/images/logos/dost.png" alt="" style="width: 150px">
+                                    </div>
+                                    <h4 class="text-center mb-4">Registration</h4>
+                                    @if (ViewBag.SponsorId != null && ViewBag.SponsorId != "")
+            {
+                                        <h5 style="color: #fff; font-size: 14px;">Congratulations! For joining us under sponsor code: @ViewBag.SponsorId</h5>
+
+                                        <input type="hidden" value="@ViewBag.SponsorId" id="SponsorId" name="SponsorId" />
+                                        <input type="hidden" value="@ViewBag.Leg" id="Leg" name="Leg" />
+                                    }
+                                    <form action="#">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1"><strong>First Name</strong></label>
+                                                    <input type="hidden" id="userType" value="@Session["UserType"]" />
+                                                    <input type="text" class="form-control" name="FirstName" id="txtFirstName" required="required" />
+                                                    <input type="hidden" value="@Session["NFCCode"]" id="nfcCode" name="nfccode" />
+                                                    <input type="hidden" value="@Session["NFCActivated"]" id="nfcActivated" name="nfcactivate" />
+                                                    <input type="hidden" value="@Session["LoginId"]" id="sloginId" name="sloginid" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1"><strong>Last Name</strong></label>
+                                                    <input type="text" class="form-control" name="LastName" id="txtLastName" required="required" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1"><strong>Email</strong></label>
+                                                    <input type="text" class="form-control" name="Email" id="txtEmail" required="required" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Gender</label>
+                                                    <select class="form-control default-select" id="Gender">
+                                                        <option value="M">Male</option>
+                                                        <option value="F">Female</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1"><strong>Password</strong></label>
+                                                    <input type="password" class="form-control" name="Password" id="txtPassword" required="required" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1"><strong>Confirm Password</strong></label>
+                                                    <input type="password" class="form-control" name="CPassword" id="txtCPassword" required="required" onblur="return validateConfPassword();" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row d-flex justify-content-between mb-2 px-2">
+                                            <div class="form-group">
+                                                <label class="mb-1"><strong>OTP</strong></label>
+                                                <input type="text" class="form-control" name="otp" id="txtotp" maxlength="6" />
+                                            </div>
+                                            <div class="form-group mt-4">
+                                                <a href="javascript:void(0)" style="color:white" class="disable-click" id="resendOTP" onclick="ResendOTP();">Not Received? <br />Resend OTP </a><span id="timer"></span>
+                                                <input type="hidden" value="@Session["S_OTPSentCounter"]" id="hdfCounter" />
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-primary btn-block" value="Sign up" onclick="return Registration()">
+                                          
+                                        </div>
+                                        <div class="new-account mt-3">
+                                            <div class="form-group">
+                                                <a href="#">Log In</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="../vendor/global/global.min.js"></script>
+    <script src="../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="../vendor/toastr/js/toastr.min.js"></script>
+    <script src="../js/plugins-init/toastr-init.js"></script>
+    <script src="../vendor/chart.js/Chart.bundle.min.js"></script>
+    <script src="../vendor/peity/jquery.peity.min.js"></script>
+    <script src="../vendor/apexchart/apexchart.js"></script>
+    <script src="../js/dashboard/dashboard-1.js"></script>
+    <script src="../vendor/owl-carousel/owl.carousel.js"></script>
+    <script src="../vendor/toastr/js/toastr.min.js"></script>
+    <script src="../js/plugins-init/toastr-init.js"></script>
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../js/plugins-init/datatables.init.js"></script>
+    <script src="../vendor/select2/js/select2.full.min.js"></script>
+    <script src="../js/plugins-init/select2-init.js"></script>
+    <script src="../js/custom.min.js"></script>
+    <script src="../js/deznav-init.js"></script>
+    <!-- <script src="js/styleSwitcher.js"></script> -->
+    <script>
+        jQuery(document).ready(function () {
+            setTimeout(function () {
+                dezSettingsOptions.version = 'dark';
+                new dezSettings(dezSettingsOptions);
+            })
+        });
+    </script>
+    <script>
+
+        var SponsorId = "";
+        if ($("#SponsorId").val() != null) {
+            SponsorId = String($("#SponsorId").val());
+        }
+        else {
+            SponsorId = "";
+        }
+
+        var Leg = "";
+        var l = "";
+        if ($("#Leg").val() != null) {
+            Leg = String($("#Leg").val());
+        }
+        var nfcCode = "";
+        if ($('#nfcCode').val() != null) {
+            nfcCode = $('#nfcCode').val();
+        };
+        var nfcActivated = $('#nfcActivated').val();
+        var sloginId = $('#sloginId').val();
+        function Registration() {
+            debugger;
+            var FirstName = $("#txtFirstName").val();
+            var LastName = $("#txtLastName").val();
+            var MobileNumber = $("#txtMobileNumber").val();
+            var Password = $("#txtPassword").val();
+            var CPassword = $("#txtCPassword").val();
+            var Gender = $("#Gender").val();
+            var OTP = $("#txtotp").val();
+            if (FirstName == "") {
+                $("#txtFirstName").addClass('errortext');
+                $("#divload").css({ 'display': 'none' });
+                $('#txtFirstName').focus();
+                return false;
+            }
+            else {
+                $("#txtFirstName").addClass('successtext');
+            }
+            if (LastName == "") {
+                $("#txtLastName").addClass('errortext');
+                $("#preloader").css({ 'display': 'none' });
+                $('#txtLastName').focus();
+                return false;
+            }
+            else {
+                $("#txtLastName").addClass('successtext');
+            }
+            if (MobileNumber == "") {
+                $("#txtMobileNumber").addClass('errortext');
+                $("#preloader").css({ 'display': 'none' });
+                $('#txtMobileNumber').focus();
+
+                return false;
+            }
+            else {
+                $("#txtMobileNumber").addClass('successtext');
+            }
+            if (Gender == "") {
+                $("#Gender").addClass('errortext');
+                $("#preloader").css({ 'display': 'none' });
+                $('#Gender').focus();
+
+                return false;
+            }
+            else {
+                $("#Gender").addClass('successtext');
+            }
+            if (Password == "") {
+                $("#txtPassword").addClass('errortext');
+                $("#preloader").css({ 'display': 'none' });
+                $('#txtPassword').focus();
+
+                return false;
+            }
+            else {
+                $("#txtPassword").addClass('successtext');
+            }
+            if (CPassword == "") {
+                $("#txtCPassword").addClass('errortext');
+                $("#preloader").css({ 'display': 'none' });
+                $('#txtCPassword').focus();
+
+                return false;
+            }
+            else {
+                $("#txtCPassword").addClass('successtext');
+            }
+            if (OTP == "") {
+                $("#txtotp").addClass('errortext');
+                $("#preloader").css({ 'display': 'none' });
+                $('#txtotp').focus();
+
+                return false;
+            }
+            else {
+                $("#txtotp").addClass('successtext');
+            }
+            var status = $('#status');
+            var preloader = $('#preloader');
+            var body = $('body');
+            status.fadeIn();
+            preloader.delay(0).fadeIn('fast');
+            body.delay(0).css({ 'overflow': 'visible' });
+            $.ajax({
+                url: '/Home/NewSaveSignup',
+                Type: "Get",
+                DataType: "JSON",
+                data: {
+                    FirstName: $("#txtFirstName").val(), LastName: $("#txtLastName").val(), Email: $("#txtEmail").val(), Gender: $("#Gender").val(), SponsorId: $("#SponsorId").val(), Leg: $("#Leg").val(), Password: $("#txtPassword").val(), OTP: $("#txtotp").val()
+                },
+                success: function (result) {
+                    debugger
+                    status.fadeOut();
+                    preloader.delay(0).fadeOut('fast');
+                    if (result.Response == "Success") {
+                        $(document).ready(function () {
+                            toastr.success("Registered successfully", "success", {
+                                positionClass: "toast-top-right",
+                                timeOut: 5e3,
+                                closeButton: !0,
+                                debug: !1,
+                                newestOnTop: !0,
+                                progressBar: !0,
+                                preventDuplicates: !0,
+                                onclick: null,
+                                showDuration: "300",
+                                hideDuration: "1000",
+                                extendedTimeOut: "1000",
+                                showEasing: "swing",
+                                hideEasing: "linear",
+                                showMethod: "fadeIn",
+                                hideMethod: "fadeOut",
+                                tapToDismiss: !1
+                            })
+                        })
+                        window.location.href = '@Url.Action("ConfirmationPage", "Home")';
+                        $("#txtFirstName").val('');
+                        $("#txtLastName").val('');
+                        $("#txtMobileNumber").val('');
+                        $("#txtpincode").val('');
+                        $('#staticBackdrop').modal('show');
+                    }
+                    else {
+                        $(document).ready(function () {
+                            toastr.error("Error while inserting data", "error", {
+                                positionClass: "toast-top-right",
+                                timeOut: 5e3,
+                                closeButton: !0,
+                                debug: !1,
+                                newestOnTop: !0,
+                                progressBar: !0,
+                                preventDuplicates: !0,
+                                onclick: null,
+                                showDuration: "300",
+                                hideDuration: "1000",
+                                extendedTimeOut: "1000",
+                                showEasing: "swing",
+                                hideEasing: "linear",
+                                showMethod: "fadeIn",
+                                hideMethod: "fadeOut",
+                                tapToDismiss: !1
+                            })
+                        })
+                        // alert(result.Response);
+                    }
+                },
+                error: function () {
+                    status.fadeOut();
+                    preloader.delay(0).fadeOut('fast');
+                    $(document).ready(function () {
+                        toastr.error("Error while inserting data", "Top Right", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    })
+                    // alert("Error while inserting data");
+                }
+            });
+        };
+        function validateConfPassword() {
+            var password = $('#txtPassword').val();
+            var ConfirmPassword = $('#txtCPassword').val();
+            if (password != ConfirmPassword) {
+                $(document).ready(function () {
+                    toastr.error("Password and Confirm Password are different", "Top Right", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    })})
+                $("#txtCPassword").addClass('errortext');
+                $("#txtCPassword").addClass('errortext');
+                $('#txtPassword').val('');
+                $('#txtCPassword').val('');
+                return false;
+            }
+        }
+        function getmobileno(obj) {
+            var status = $('#status');
+            var preloader = $('#preloader');
+            var body = $('body');
+            status.fadeIn();
+            preloader.delay(0).fadeIn('fast');
+            body.delay(0).css({ 'overflow': 'visible' });
+            $("#divload").css({ 'display': '' });
+            $(".errortext").removeClass("errortext");
+
+            $.ajax({
+                url: '/Home/GetMobileNo',
+                type: 'GET',
+                dataType: 'JSON',
+                data: { 'ReferBy': $(obj).val() },
+                success: function (response) {
+                    status.fadeOut();
+                    preloader.delay(0).fadeOut('fast');
+                    if (response.Result == "Yes") {
+                        $("#divload").css({ 'display': 'none' });
+                    }
+                    else {
+                        $(document).ready(function () {
+                            toastr.error("Error", "Top Right", {
+                                positionClass: "toast-top-right",
+                                timeOut: 5e3,
+                                closeButton: !0,
+                                debug: !1,
+                                newestOnTop: !0,
+                                progressBar: !0,
+                                preventDuplicates: !0,
+                                onclick: null,
+                                showDuration: "300",
+                                hideDuration: "1000",
+                                extendedTimeOut: "1000",
+                                showEasing: "swing",
+                                hideEasing: "linear",
+                                showMethod: "fadeIn",
+                                hideMethod: "fadeOut",
+                                tapToDismiss: !1
+                            })
+                        })
+                        //alert(response.Result);
+                        $("#divload").css({ 'display': 'none' });
+                        $("#txtMobileNumber").addClass('errortext');
+                        $('#txtMobileNumber').val('');
+                        $('#txtMobileNumber').focus();
+                    }
+                }
+            })
+        }
+        function isNumberKey(evt) {
+
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+              && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        let timerOn = true;
+        function timer(remaining) {
+            var m = Math.floor(remaining / 60);
+            var s = remaining % 60;
+
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+            document.getElementById('timer').innerHTML = m + ':' + s;
+            remaining -= 1;
+
+            if (remaining >= 0 && timerOn) {
+                setTimeout(function () {
+                    timer(remaining);
+                }, 1000);
+                return;
+            }
+
+            if (!timerOn) {
+                // Do validate stuff here
+                return;
+            }
+
+            // Do timeout stuff here
+            $("#resendOTP").removeClass("disable-click");
+            $('#timer').hide();
+
+        }
+        function ResendOTP() {
+            var status = $('#status');
+            var preloader = $('#preloader');
+            var body = $('body');
+            status.fadeIn();
+            preloader.delay(0).fadeIn('fast');
+            body.delay(0).css({ 'overflow': 'visible' });
+            $("#resendOTP").addClass("disable-click");
+            debugger;
+            var count = $("#hdfCounter").val();
+            if (Number(count) < 3) {
+                $.ajax({
+                    url: '/Home/ResendOTP',
+                    Type: "Get",
+                    DataType: "JSON",
+                    success: function (result) {
+                        status.fadeOut();
+                        preloader.delay(0).fadeOut('fast');
+                        if (result == "Success") {
+                            //   alert('OTP sent to your mobile number to complete the registration process.');
+                            $(document).ready(function () {
+                                toastr.success("OTP sent successfully", "Top Right", {
+                                    positionClass: "toast-top-right",
+                                    timeOut: 5e3,
+                                    closeButton: !0,
+                                    debug: !1,
+                                    newestOnTop: !0,
+                                    progressBar: !0,
+                                    preventDuplicates: !0,
+                                    onclick: null,
+                                    showDuration: "300",
+                                    hideDuration: "1000",
+                                    extendedTimeOut: "1000",
+                                    showEasing: "swing",
+                                    hideEasing: "linear",
+                                    showMethod: "fadeIn",
+                                    hideMethod: "fadeOut",
+                                    tapToDismiss: !1
+                                })
+                            })
+                            //alert('OTP sent successfully');
+                            $("#hdfCounter").val(Number(count) + 1)
+                            $('#timer').show();
+                            timer(120);
+                        }
+                        else {
+                            $(document).ready(function () {
+                                toastr.error("Something went wrong", "Top Right", {
+                                    positionClass: "toast-top-right",
+                                    timeOut: 5e3,
+                                    closeButton: !0,
+                                    debug: !1,
+                                    newestOnTop: !0,
+                                    progressBar: !0,
+                                    preventDuplicates: !0,
+                                    onclick: null,
+                                    showDuration: "300",
+                                    hideDuration: "1000",
+                                    extendedTimeOut: "1000",
+                                    showEasing: "swing",
+                                    hideEasing: "linear",
+                                    showMethod: "fadeIn",
+                                    hideMethod: "fadeOut",
+                                    tapToDismiss: !1
+                                })
+                            })
+                        }
+                    },
+                    error: function () {
+                        status.fadeOut();
+                        preloader.delay(0).fadeOut('fast');
+                        $(document).ready(function () {
+                            toastr.error("Something went wrong", "Top Right", {
+                                positionClass: "toast-top-right",
+                                timeOut: 5e3,
+                                closeButton: !0,
+                                debug: !1,
+                                newestOnTop: !0,
+                                progressBar: !0,
+                                preventDuplicates: !0,
+                                onclick: null,
+                                showDuration: "300",
+                                hideDuration: "1000",
+                                extendedTimeOut: "1000",
+                                showEasing: "swing",
+                                hideEasing: "linear",
+                                showMethod: "fadeIn",
+                                hideMethod: "fadeOut",
+                                tapToDismiss: !1
+                            })
+                        })
+                    }
+                });
+            }
+            else {
+                $("#resendOTP").hide();
+                $('#timer').hide();
+            }
+        }
+        timer(120);
+
+
+    </script>
+
+    <style>
+        .errortext {
+            border: 2px solid red !important;
+            background-color: #c18888 !important;
+        }
+    </style>
+</body>
+
+</html>

@@ -194,14 +194,14 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                
+
                                 <div class="form-row">
                                     <div class="col-xl-6 col-lg-6 form-group">
                                         <div class="mb-3">
                                             <label>Adhar Number </label>
                                             @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control" })
                                             @Html.DisplayFor(m => m.AdharStatus, new { @class = "form-control" })
-                                          
+
                                         </div>
                                     </div>
 
@@ -210,7 +210,143 @@
                                             <label>Adhar Image</label>
                                             <input type="file" name="postedAadhar" class="form-control" />
                                             <br />
-                                            <img src="@Url.Content(Model.AdharImage)" height="120" width="180" />
+                                            <img src="@Url.Content(Model.AdharImage)" height="120" width="180" data-toggle="modal" data-target="#AdharModalCenter" id="output_adhar" onclick="return getcarddetails()">
+                                            @*<img src="@Url.Content(Model.AdharImage)" height="120" width="180"  />*@
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal fade" id="AdharModalCenter">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Adhar Details</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body text-left">
+
+                                                    <div class="form-row ">
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>Full Name</label>
+                                                                <input type="hidden" id="Fk_UserId" name="Fk_UserId" value="@Model.Fk_UserId" class="form-control" placeholder="Full Namer" />
+                                                                <input type="text" id="First_Name" name="FirstName" class="form-control" placeholder="Full Name">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>Father Name</label>
+                                                                <input type="text" name="FatherName" id="Father_Name" class="form-control" placeholder="Full Name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>Year Of Birth</label>
+                                                                @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @Placeholder = "Year Of Birth", @readonly = "readonly", @id = "DOB_Date" })
+                                                                @*<input type="date" class="form-control" name="DOB" id="DOB_Date" placeholder="Year Of Birth">*@
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label class="mb-3">Gender</label><br>
+                                                                <label class="radio-inline mr-3">
+                                                                    <input type="radio" name="Gender" id="Gender_Name" value="Male"> Male
+                                                                </label>
+                                                                <label class="radio-inline mr-3">
+                                                                    <input type="radio" name="Gender" id="Gender_Name" value="Female"> Female
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row ">
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>Mobile</label>
+                                                                <input type="text" name="Mobile" class="form-control" placeholder="Mobile Number" id="Mobile_No" maxlength="10">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>Email</label>
+                                                                <input type="email" name="Email" class="form-control" placeholder="Email" id="Email_ID">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row ">
+
+
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>Address</label>
+                                                                <input type="text" name="Address" class="form-control" placeholder="Address" id="Address_Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>Pin Code</label>
+                                                                <input type="text" class="form-control" placeholder="Pin Code" name="Pincode" maxlength="6" id="Pin_code">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="form-row ">
+
+                                    </div>*@
+                                                    <div class="form-row ">
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>नाम</label>
+                                                                <input type="text" name="NameH" class="form-control" placeholder="नाम" id="Name_H">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>पिता का नाम</label>
+                                                                <input type="text" class="form-control" placeholder="पिता का नाम" name="FatherNameH" id="Father_NameH">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row ">
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>पता</label>
+                                                                <input type="text" class="form-control" placeholder="पता" name="AddressH" id="Address_H">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                            <div class="mb-1">
+                                                                <label>Adhar Number</label>
+                                                                <input type="text" class="form-control" placeholder="Card Number" name="CardNumber" id="Card_Number">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    @*<div class="col-md-6">
+                                        @if (Model.Fk_UserId == null)
+                                        {
+                                            <input class="btn btn-success pull-left" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnRegistration" />
+                                        }
+                                        else
+                                        {
+                                            @Html.HiddenFor(m => m.UserID, new { @Value = @Model.Fk_UserId })
+                                            <input class="btn btn-success pull-left" type="submit" onclick="return validateform();" value="Update" id="btnUpdate" name="btnUpdate" />
+                                        }
+                                        <a class="btn btn-info" href="/User/UserProfile">Back To List</a>
+                                    </div>*@
+                                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                    <input type="submit" class="btn btn-primary" name="btnRegistration" value="Save">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -220,7 +356,7 @@
                                             <label>Pan Number</label>
                                             @Html.TextBoxFor(m => m.PanNumber, new { @class = "form-control" })
                                             @Html.DisplayFor(m => m.PanStatus, new { @class = "form-control" })
-                                         
+
                                         </div>
                                     </div>
 
@@ -229,10 +365,63 @@
                                             <label>Pan Image</label>
                                             <input type="file" name="postedPan" class="form-control" />
                                             <br />
-                                            <img src="@Url.Content(Model.PanImage)" height="120" width="180" />
+                                            <img src="@Url.Content(Model.PanImage)" height="120" width="180" data-toggle="modal" data-target="#PanModalCenter" id="output_pan" onclick="return getcardpandetails()">
+                                            @*<img src="@Url.Content(Model.PanImage)" height="120" width="180" data-toggle="modal" data-target="#PanModalCenter" id="output_pan">*@
+                                            @*<img src="@Url.Content(Model.PanImage)" height="120" width="180" />*@
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="PanModalCenter">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">PAN Details</h5>
+                                                        <button type="button" class="close" data-dismiss="modal">
+                                                            <span>&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body text-left">
+
+                                                        <div class="form-row ">
+                                                            <div class="col-xl-6 col-lg-6 form-group">
+                                                                <div class="mb-1">
+                                                                    <label>PAN Number</label>
+                                                                    <input type="text" class="form-control" placeholder="PAN Number" name="Pan_Number" id="Pan_Card">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xl-6 col-lg-6 form-group">
+                                                                <div class="mb-1">
+                                                                    <label>Name</label>
+                                                                    <input type="hidden" id="Fk_UserId" name="Fk_UserId" value="@Model.Fk_UserId" class="form-control" placeholder="Full Namer" />
+                                                                    <input type="text" id="First_NM" name="First_NM" class="form-control" placeholder="Full Name">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col-xl-6 col-lg-6 form-group">
+                                                                <div class="mb-1">
+                                                                    <label>Year Of Birth</label>
+                                                                    <input type="text" class="form-control" placeholder="Date of Birth" id="DOB_Dt" readonly="True"  name="DOB_ID"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                        <input type="submit" class="btn btn-primary" name="btnpanupdate" value="Save"></input>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            @*</div>
+
+                        </div>
+
+
+                                </div>*@
+
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 text-center">
                                         <input type="submit" id="btnKYCUpdate" class="btn btn-primary mb-2 px-5" name="btnKYCUpdate" value="Update" onclick="return editKYCDetails()" />
@@ -421,4 +610,102 @@
 
         return true;
     }
+    //$('#DOB').datepicker({
+    //    dateFormat: 'dd/mm/yy',
+    //    changeYear: true,
+    //    changeMonth: true,
+    //    yearRange: "1900:2021"
+    //});
+    //$('#DOB').datepicker({
+    //    dateFormat: 'dd/mm/yy'
+    //});
+    function getcarddetails()
+    {
+        debugger
+        var Fk_UserId = $('#Fk_UserId').val();
+        $.ajax({
+            url: '/User/GetCarrdDetails',
+            type: "GET",
+            dataType: "JSON",
+            data: { FK_UserID: $("#Fk_UserId").val() },
+                success: function (data)
+                {
+                    debugger;
+                    if (data.Result == "Yes") {
+                        $("#First_Name").val(data.FirstName);
+                        $("#Gender_Name").val(data.Gender);
+                        $("#Mobile_No").val(data.Mobile);
+                        $("#Email_ID").val(data.Email);
+                        $("#Father_Name").val(data.FatherName);
+                        $("#Pin_code").val(data.Pincode);
+                        $("#Address_Name").val(data.Address);
+                        $("#DOB_Date").val(data.DOB);
+                        $("#Name_H").val(data.NameH);
+                        $("#Father_NameH").val(data.FatherNameH);
+                        $("#Address_H").val(data.AddressH);
+                        $("#Card_Number").val(data.CardNumber);
+                       
+                    }
+                    else {
+                        $("#First_Name").val('');
+                        $("#Gender").val('');
+                        $("#Email").val('');
+                        $("#Address").addClass('errortext');
+                        $('#NameH').focus();
+                        alert(data.Result);
+
+                    }
+
+
+                }
+        });
+    }
+
+    function getcardpandetails() {
+        debugger
+        var Fk_UserId = $('#Fk_UserId').val();
+        $.ajax({
+            url: '/User/GetPanDetails',
+            type: "GET",
+            dataType: "JSON",
+            data: { FK_UserID: $("#Fk_UserId").val() },
+            success: function (data) {
+                debugger;
+                if (data.Result == "Yes") {
+                    $("#First_NM").val(data.FirstName);
+                    $("#Pan_Card").val(data.PanNumber);
+                    $("#DOB_Dt").val(data.DOB);
+                  
+
+                }
+                else {
+                    $("#First_NM").val('');
+                    $("#Pan_Card").val('');
+                    $("#DOB_Dt").val('');
+                    $("#Pan_Card").addClass('errortext');
+                   
+                    alert(data.Result);
+
+                }
+
+
+            }
+        });
+    }
+
+</script>
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+
+
+    $('#DOB_Date').datepicker({
+        dateFormat: 'dd/mm/yy'
+        
+    });
+    $('#DOB_Dt').datepicker({
+        dateFormat: 'dd/mm/yy'
+
+    });
 </script>
