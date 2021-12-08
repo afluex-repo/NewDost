@@ -20,9 +20,10 @@ namespace Dost.Models
         public string EventType { get; set; }
         public string EventName { get; set; }
         public List<Dashboard> lst { get; set; }
-    
-         //public string Leg { get; set; }
-      
+        public string TypeDate { get; set; }
+
+        //public string Leg { get; set; }
+
         //
         public int? Pk_DistributorId { get; set; }
         public string YourName { get; set; }
@@ -71,6 +72,14 @@ namespace Dost.Models
         {
             SqlParameter[] para = { new SqlParameter("@Fk_UserId", Fk_UserId), };
             DataSet ds = DBHelper.ExecuteQuery("GetDashBoardDetailsForAssociate", para);
+            return ds;
+        }
+        public DataSet getdatetypefilter()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@Fk_UserId",Fk_UserId),
+                                      new SqlParameter("@Type",TypeDate) };
+            DataSet ds = DBHelper.ExecuteQuery("fldate", para);
             return ds;
         }
         public DataSet EwalletLedger()

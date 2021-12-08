@@ -56,6 +56,11 @@ namespace Dost.Models
         public string Gst { get; set; }
         public List<AddressBook> lstAddressBook { get; set; }
         public string City { get; set; }
+        #region
+      
+        public List<productimagelst> lstProductImage { get; set; }
+
+        #endregion
         public string CouponCode { get; set; }
         public string CouponName { get; set; }
         public string Message { get; set; }
@@ -69,6 +74,17 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetNFC",para);
             return ds;
         }
+
+        #region get multiple product image list
+        public DataSet productimagelist()
+        {
+            SqlParameter[] para = { new SqlParameter("@Fk_productid",PK_EventId )
+                  
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SP_GetProductimage", para);
+            return ds;
+        }
+        #endregion
         public DataSet AddToCard()
         {
             SqlParameter[] para = 
@@ -151,7 +167,7 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("SaveChecOutItem", para);
             return ds;
         }
-
+      
 
         public DataSet DeleteCardlist()
         {
@@ -202,4 +218,8 @@ namespace Dost.Models
         public string CompleteAddress { get; set; }
         public string IsRecentlyUsed { get; set; }
     }
-}
+    public class productimagelst
+    {
+        public string ProductImage { get; set; }
+    }
+    }

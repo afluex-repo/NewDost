@@ -826,5 +826,39 @@ namespace Dost.Controllers
         }
         #endregion
 
+
+
+        #region
+        public ActionResult ApplyFiterForWalletActivity(string TypeDate)
+        {
+            Dashboard model = new Dashboard();
+            List<Wallet> lst = new List<Wallet>();
+            model.Fk_UserId = Session["Pk_UserId"].ToString();
+            model.TypeDate = TypeDate;
+            DataSet dst = model.getdatetypefilter();
+            if (dst.Tables != null && dst.Tables[0].Rows.Count > 0)
+            {
+
+                foreach (DataRow dr in dst.Tables[0].Rows)
+                {
+                    Wallet Objload = new Wallet();
+                    Objload.Narration = dr["Narration"].ToString();
+                    Objload.DrAmount = dr["DrAMount"].ToString();
+                    Objload.CrAmount = dr["CrAmount"].ToString();
+                    Objload.AddedOn = dr["CurrentDate"].ToString();
+                    Objload.EwalletBalance = dr["Balance"].ToString();
+
+                    lst.Add(Objload);
+                    model.Result = "Yes";
+                }
+                model.lstewalletledger = lst;
+
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+
+        #endregion
+
     }
 }
