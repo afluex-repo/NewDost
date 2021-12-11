@@ -44,6 +44,7 @@ namespace Dost.Models
         public string SubMenuId { get;  set; }
         public string SubMenuName { get;  set; }
         public string UnderPlaceId { get;  set; }
+        public string Code { get;  set; }
         #endregion
         #region Login
         public DataSet Login()
@@ -184,6 +185,12 @@ namespace Dost.Models
             }
             return model;
 
+        }
+        public DataSet GetNFCAllotmentStatus()
+        {
+            SqlParameter[] para = { new SqlParameter("@Code", Code) };
+            DataSet ds = DBHelper.ExecuteQuery("GetNFCAllotmentStatus", para);
+            return ds;
         }
     }
     public class BankDetails

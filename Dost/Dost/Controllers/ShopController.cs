@@ -123,7 +123,7 @@ namespace Dost.Controllers
                 ViewBag.FWalletShow = false;
                 if (dsw != null && dsw.Tables.Count > 0 && dsw.Tables[0].Rows.Count > 0)
                 {
-                    ViewBag.WalletBalance = double.Parse(dsw.Tables[0].Rows[0][0].ToString()).ToString("");
+                    ViewBag.WalletBalance = string.Format("{0:0.00}", dsw.Tables[0].Rows[0][0]);
                 }
                 #endregion
 
