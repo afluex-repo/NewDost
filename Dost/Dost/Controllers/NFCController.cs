@@ -531,7 +531,7 @@ namespace Dost.Controllers
             {
                 List<Master> lst = new List<Master>();
                 model.Fk_MainServiceTypeId = "3";
-                string[] color = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D", "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
+                // string[] color = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D", "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
                 DataSet ds = model.GetService();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
@@ -539,7 +539,8 @@ namespace Dost.Controllers
                     foreach (DataRow r in ds.Tables[0].Rows)
                     {
                         Master obj = new Master();
-                        obj.Color = color[i];
+                        obj.Color = r["ColorCode"].ToString();
+                        obj.EncCode = r["ColorCode"].ToString();
                         obj.Pk_ServiceId = r["Pk_ServiceId"].ToString();
                         obj.Fk_MainServiceTypeId = r["Fk_MainServiceTypeId"].ToString();
                         obj.ServiceIcon = r["ServiceIcon"].ToString();
@@ -560,6 +561,27 @@ namespace Dost.Controllers
             }
             return View(model);
         }
-
+        public ActionResult SetActionDashboard()
+        {
+            Master model = new Master();
+            List<Master> lst = new List<Master>();
+            model.Fk_UserId = Session["Pk_userId"].ToString();
+            DataSet ds = model.GetActivatedNFC();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach(DataRow r in ds.Tables[0].Rows)
+                {
+                    Master obj = new Master();
+                    obj.Service = r["Service"].ToString();
+                    obj.Color = r["ColorCode"].ToString();
+                    obj.ServiceIcon = r["ServiceIcon"].ToString();
+                    obj.Pk_ServiceId = r["PK_ServiceId"].ToString();
+                    obj.PK_NFcId = Convert.ToInt32(r["PK_NFCId"]);
+                    lst.Add(obj);
+                }
+                model.lst = lst;
+            }
+            return View(model);
+        }
     }
 }

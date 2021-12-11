@@ -8,51 +8,51 @@ using System.Web.Mvc;
 
 namespace Dost.Models
 {
-    public class Master:Common
+    public class Master : Common
     {
-     public DataTable dtImage { get; set; }
+        public DataTable dtImage { get; set; }
 
-        public  List<Master> lstBanner { get; set; }
+        public List<Master> lstBanner { get; set; }
 
         public List<Master> lst { get; set; }
 
         public string AddedBy { get; set; }
-        public string BinaryPercent { get;  set; }
-        public string Blaze { get;  set; }
-        public string Brand { get;  set; }
-        public string Catalyst { get;  set; }
-        public string CGST {get;  set;}
-        public string DeliveryCharge {get; set;}
-        public string Description {get;  set;}
-        public string Discount {get;  set; }
-        public decimal DistributorCommission {get;  set;}
-        public string EventDescription { get;  set; }
-        public string EventImage {get;  set;}
-        public string EventName { get;  set; }
-        public string Fk_CategoryId { get;  set; }
-        public string IGST {get;  set;}
-        public string Maverick { get;  set; }
-        public string NFCType {get;  set;}
-        public int ? OfferId {get;  set;}
+        public string BinaryPercent { get; set; }
+        public string Blaze { get; set; }
+        public string Brand { get; set; }
+        public string Catalyst { get; set; }
+        public string CGST { get; set; }
+        public string DeliveryCharge { get; set; }
+        public string Description { get; set; }
+        public string Discount { get; set; }
+        public decimal DistributorCommission { get; set; }
+        public string EventDescription { get; set; }
+        public string EventImage { get; set; }
+        public string EventName { get; set; }
+        public string Fk_CategoryId { get; set; }
+        public string IGST { get; set; }
+        public string Maverick { get; set; }
+        public string NFCType { get; set; }
+        public int? OfferId { get; set; }
         public string OfferName { get; set; }
-        public string OfferPrice {get;  set;}
-        public string Phoenix { get;  set; }
-        public int ? PK_NFcId {get;  set;}
-        public string ProductPrice {get;  set;}
-        public string ReferralPercent {get;  set;}
-        public string SGST {get;  set;}
-        public decimal SponsorCommission {get;  set;}
-        public string SubCategoryId {get;  set;}
-        public string Symphony { get;  set;}
+        public string OfferPrice { get; set; }
+        public string Phoenix { get; set; }
+        public int? PK_NFcId { get; set; }
+        public string ProductPrice { get; set; }
+        public string ReferralPercent { get; set; }
+        public string SGST { get; set; }
+        public decimal SponsorCommission { get; set; }
+        public string SubCategoryId { get; set; }
+        public string Symphony { get; set; }
         public string Quantity { get; set; }
-        public string  OfferValidity { get;  set; }
-        public string CouponCode { get;  set; }
-        public string BannerImage { get;  set; }
-        public int ? BannerId { get;  set; }
-        public string BannerTitle { get;  set; }
-        public string Trailer { get;  set; }
-        public bool IsAddFav { get;  set; }
-        public string FavStatus { get;  set; }
+        public string OfferValidity { get; set; }
+        public string CouponCode { get; set; }
+        public string BannerImage { get; set; }
+        public int? BannerId { get; set; }
+        public string BannerTitle { get; set; }
+        public string Trailer { get; set; }
+        public bool IsAddFav { get; set; }
+        public string FavStatus { get; set; }
         public string Fk_ProductId { get; set; }
         public string Product { get; set; }
         public string Pk_ProductImageId { get; set; }
@@ -83,9 +83,9 @@ namespace Dost.Models
         public string IsActive { get; set; }
         public string IsActiveDeactiveDate { get; set; }
         public List<Master> ListServiceMaster { get; set; }
-        public string IsDeleted { get;  set; }
+        public string IsDeleted { get; set; }
         public string Color { get; set; }
-
+        public string EncCode { get; set; }
         public DataSet categorylist()
         {
             DataSet ds = DBHelper.ExecuteQuery("CategoryList");
@@ -331,7 +331,7 @@ namespace Dost.Models
         public DataSet UpdateCoupon()
         {
             SqlParameter[] para =
-           {   
+           {
              new SqlParameter("@CouponId",PK_CouponId),
              new SqlParameter("@Fk_CouponTypeId",Pk_CouponTypeId),
              new SqlParameter("@Coupon",Coupon),
@@ -520,6 +520,14 @@ namespace Dost.Models
                                           new SqlParameter("@Fk_MainServiceTypeId",Fk_MainServiceTypeId),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetService", para);
+            return ds;
+        }
+        public DataSet GetActivatedNFC()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@Fk_UserId", Fk_UserId)
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("GetActivatedNFC", para);
             return ds;
         }
         #endregion
