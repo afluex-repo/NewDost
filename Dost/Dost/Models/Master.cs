@@ -84,6 +84,7 @@ namespace Dost.Models
         public string IsActiveDeactiveDate { get; set; }
         public List<Master> ListServiceMaster { get; set; }
         public string IsDeleted { get;  set; }
+        public string Color { get; set; }
 
         public DataSet categorylist()
         {
@@ -511,6 +512,15 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateServiceMaster", para);
             return ds;
 
+        }
+        public DataSet GetService()
+        {
+            SqlParameter[] para =
+            {
+                                          new SqlParameter("@Fk_MainServiceTypeId",Fk_MainServiceTypeId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetService", para);
+            return ds;
         }
         #endregion
 

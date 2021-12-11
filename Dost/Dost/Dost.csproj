@@ -2374,6 +2374,7 @@
     <Content Include="images\logo.png" />
     <Content Include="images\logos\dost-logo.png" />
     <Content Include="images\logos\dost.png" />
+    <Content Include="images\nfc_logo.png" />
     <Content Include="images\noimage.jpg" />
     <Content Include="images\pattern\pattern1.png" />
     <Content Include="images\pattern\pattern2.png" />
@@ -2449,6 +2450,7 @@
     <Content Include="images\users\pic6.jpg" />
     <Content Include="images\users\pic7.jpg" />
     <Content Include="images\users\pic8.jpg" />
+    <Content Include="images\user_profile.png" />
     <Content Include="js\custom.js" />
     <Content Include="js\custom.min.js" />
     <Content Include="js\dashboard\chat.js" />
@@ -3040,6 +3042,7 @@
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\Master.cs" />
     <Compile Include="Models\NFC.cs" />
+    <Compile Include="Models\NFCModel.cs" />
     <Compile Include="Models\Password.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Reports.cs" />
@@ -3627,6 +3630,9 @@
     <Content Include="Views\Master\CouponList.cshtml" />
     <Content Include="Views\Master\ServiceMaster.cshtml" />
     <Content Include="Views\Master\ServiceTypeMaster.cshtml" />
+    <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\Home\NFCActivation.cshtml" />
+    <Content Include="Views\NFC\NFCDevice.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
