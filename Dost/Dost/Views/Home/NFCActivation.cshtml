@@ -40,15 +40,22 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <div class="text-center mb-3">
-                                        <img src="../images/logos/dost-logo.png" alt="" style="width:150px;">
 
-                                    </div>
                                     <h4 class="text-center mb-4">Dost NFC Zone Activation</h4>
+                                    <div class="text-center mb-3">
+                                        <img src="~/images/nfc_logo.png" alt="" style="width:100px;">
+                                    </div>
                                     <div class="form-group">
                                         <label class="mb-1"><strong>NFC Code * :</strong></label>
                                         @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @required = "required" })
                                     </div>
+                                    @if (ViewBag.IsAlloted == "true")
+                                    {
+                                        <div class="form-group">
+                                            <label>Coupon Code * : </label>
+                                            <input type="text" name="activationcode" required id="txtActivationCode" class="form-control" />
+                                        </div>
+                                    }
                                     <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox ml-1">
@@ -57,12 +64,13 @@
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <input type="submit" class="btn btn-primary btn-block" value="Sign In" onclick="return funSubmit();">
+                                        <input type="hidden" value="@ViewBag.IsAlloted" id="hdfAlloted" />
+                                        <input type="submit" class="btn btn-primary btn-block" value="Activate" onclick="return ActivateNow();">
 
                                     </div>
-                                    <div class="new-account mt-3">
-                                        <p>Don't have an account? <a class="text-primary" href="/Home/Signup">Sign up</a></p>
-                                    </div>
+                                    @*<div class="new-account mt-3">
+                                            <p>Don't have an account? <a class="text-primary" href="/Home/Signup">Sign up</a></p>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>
@@ -81,7 +89,7 @@
     <script src="../vendor/select2/js/select2.full.min.js"></script>
     <script src="../js/plugins-init/select2-init.js"></script>
 
-    <script src="../vendor/toastr/js/toastr.min.js"></script>   `1
+    <script src="../vendor/toastr/js/toastr.min.js"></script>
     <script src="../js/plugins-init/toastr-init.js"></script>
     <script src="../vendor/chart.js/Chart.bundle.min.js"></script>
     <script src="../vendor/peity/jquery.peity.min.js"></script>
@@ -114,9 +122,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
-        $(window).on('load', function (){
+        $(window).on('load', function () {
 
-            $("#preloader").css({ 'display': 'none'});
+            $("#preloader").css({ 'display': 'none' });
 
         })
         //})
@@ -142,75 +150,145 @@
         //}
 
         function ActivateNow() {
-           $("#preloader").css({ 'display': '' });
-            if ($('#txtNFCCode').val() == '') {
-                iziToast.warning({
-                    title: "Warning!",
-                    message: "NFC Code required.",
-                    position: "topRight",
-                });
-                //alert('NFC Code required.')
-                return false;
+            $("#preloader").css({ 'display': '' });
+            if ($('#Code').val() == '') {
+                toastr.warning("NFC Code required", "", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
             }
             debugger
+            ActivationCode = $("#txtActivationCode").val()
             if ($("#hdfAlloted").val() == "true") {
                 if ($('#txtActivationCode').val() == '') {
-                    iziToast.warning({
-                        title: "Warning!",
-                        message: "Coupon Code required",
-                        position: "topRight",
-                    });
-                    // alert('Coupon Code required.')
-                    return false;
+                    toastr.warning("Coupon Code required", "", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    })
                 }
-                ActivationCode = $("#txtActivationCode").val()
+
             }
             if ($("#hdfAlloted").val() == "false") {
                 ActivationCode = 'ManualPurchase';
                 if ($('#txtDistributorCode').val() == '') {
-                    iziToast.warning({
-                        title: "Warning!",
-                        message: "Distributor Code required.",
-                        position: "topRight",
-                    });
-                    //alert('Distributor Code required.')
-                    return false;
+                    toastr.warning("Distributor Code required.", "", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    })
                 }
             }
             $.ajax({
                 //url: '/Home/ActivateNFC?NFCCode=' + $("#txtNFCCode").val() + '&ActivationCode=' + ActivationCode + '&DistributorCode=' + $('#txtDistributorCode').val(),
-                url: '/Home/ActivateNFC?NFCCode=' + $("#txtNFCCode").val() + '&ActivationCode=' + ActivationCode,
+                url: '/Home/ActivateNFC?NFCCode=' + $("#Code").val() + '&ActivationCode=' + ActivationCode,
                 method: "POST",
                 success: function (result) {
                     debugger;
                     if (result == "NFC Code Activated successfully") {
                         debugger;
-                        iziToast.success({
-                            title: "",
-                            message: result,
-                            position: "topRight",
-                        });
-                        //alert(result);
-                        window.location.href = "/user/associatedashboard";
+                        toastr.success("NFC Code Activated successfully", "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                        window.location.href = "/user/userdashboard";
                     }
                     else {
                         $("#preloader").css({ 'display': 'none' });
-                        iziToast.error({
-                            title: "",
-                            message: result,
-                            position: "topRight",
-                        });
-                       // alert(result);
+                        toastr.error(result, "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                        // alert(result);
                     }
-                    $(".loading").show();
                 },
                 error: function () {
-                    iziToast.error({
-                        title: "",
-                        message: "Error while processing request",
-                        position: "topRight",
-                    });
-                    $(".loading").hide();
+                    toastr.error("Error while processing request", "", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    })
                     //alert("Error while processing request");
                 }
             });
@@ -219,4 +297,3 @@
 </body>
 
 </html>
-

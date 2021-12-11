@@ -3633,6 +3633,7 @@
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\NFCActivation.cshtml" />
     <Content Include="Views\NFC\NFCDevice.cshtml" />
+    <Content Include="Views\NFC\SetActionDashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1025,10 +1025,106 @@ namespace Dost.Controllers
                 }
                 return View();
             }
+            else if(Session["UserNFCCode"].ToString() != "")
+            {
+                return RedirectToAction("Profile", "home", new { @id = Session["UserNFCCode"].ToString() });
+            }
+            else
+            {
+                return RedirectToAction("Login", "home");
+            }
+        }
+        [HttpPost]
+        public ActionResult ActivateNFC(string NFCCode, string ActivationCode, string DistributorCode)
+        {
+            if (Session["LoginId"] == null)
+            {
+                return RedirectToAction("login_new", "home");
+            }
+            if (Session["LoginId"] != null)
+            {
+                //NFC Activation Method
+                if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "" && Session["NFCActivated"] != null && Session["NFCActivated"].ToString() == "false")
+                {
+                    NFCModel obj1 = new NFCModel();
+                    var desc = Crypto.DecryptNFC(Session["NFCCode"].ToString());
+                    obj1.Code = desc;
+                    if (obj1.Code != NFCCode)
+                    {
+                        return Json("Invalid NFC Code", JsonRequestBehavior.AllowGet);
+                    }
+
+                    obj1.LoginId = Session["LoginId"].ToString();
+                    DataSet ds1 = obj1.ActivateNFCCode(ActivationCode, DistributorCode);
+                    if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds1.Tables[0].Rows[0][0].ToString() == "0")
+                        {
+                            return Json(ds1.Tables[0].Rows[0]["ErrorMessage"].ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        if (ds1.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            obj1.Email = ds1.Tables[0].Rows[0]["Email"].ToString();
+                            //NFC Activated
+                            Session["NFCActivated"] = "true";
+                            if (Session["FullName"] != null)
+                            {
+                                try
+                                {
+                                    string msg = "Dear " + Session["FullName"].ToString() + " you have successfully activated your DOST Business Card, You can now start managing your Information on card " + Session["FullName"].ToString() + " Be Limitless. Team -DOST INC";
+                                    BLSMS.sendSMSUpdated(msg, obj1.LoginId);
+                                }
+                                catch (Exception ex)
+                                {
+
+                                }
+                                //send mail
+                                try
+                                {
+                                    string Subject = "DOST Card Activation";
+                                    string mail = "Welcome to the DOST network, your DOST business card is successfully activated now your business and personal profile is in your full control, share whatever you wish to, whoever you wish to & switch off any time.<br><br>Manage your profile <a href='https://dost.click/'>Click Here</a><br><br>For any issue please reach us through email or through DOST helpline.";
+                                    BLMail.SendNFCActivationMail(Session["FullName"].ToString(), mail, Subject, obj1.Email);
+                                }
+                                catch (Exception ex)
+                                {
+
+                                }
+                                return Json("NFC Code Activated successfully", JsonRequestBehavior.AllowGet);
+                            }
+                            else
+                            {
+                                return Json("Error occurred", JsonRequestBehavior.AllowGet);
+                            }
+                        }
+                        else if (ds1.Tables[0].Rows[0][0].ToString() == "5")
+                        {
+                            return Json("Invalid Activation Code", JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            //NFC Code Activation Error  
+                            return Json("NFC Code Activation Failed", JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    else
+                    {
+                        //NFC Code Activation Error
+                        return Json("NFC Code Activation Failed", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return Json("NFC Code Activation Failed", JsonRequestBehavior.AllowGet);
+                }
+                //End
+            }
             else
             {
                 return RedirectToAction("login_new", "home");
             }
+            //return RedirectToAction(FormName,Controller);
+            //return View();
         }
+
     }
 }
