@@ -7571,5 +7571,67 @@ namespace dost.Controllers
             }
         }
         #endregion
+        [HttpPost]
+        public HttpResponseMessage GetItemDetailsForCheckout(Balance model)
+        {
+            try
+            {
+                List<Shop> lstproduct = new List<Shop>();
+                DataSet ds = model.AddToCartList();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        Shop obj = new Shop();
+                        obj.ProductName = dr["EventName"].ToString();
+                        obj.OfferPrice = dr["OfferPrice"].ToString();
+                        //obj.BV = dr["TotalReferalBV"].ToString();
+                        obj.ProductCode = dr["productcode"].ToString();
+                        obj.EventDescription = dr["EventDescription"].ToString();
+                        obj.EventImage = dr["EventImage"].ToString();
+                        obj.NoOfSeats = dr["TotalItem"].ToString();
+                        obj.Brand = dr["Brand"].ToString();
+                        obj.TotalPrice = dr["TotalPrice"].ToString();
+                        obj.PK_EventId = dr["Pk_Eventid"].ToString();
+                        //obj.IGST = dr["IGST"].ToString();
+                        lstproduct.Add(obj);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK,
+                      new
+                      {
+                          StatusCode = HttpStatusCode.OK,
+                          Message = "Record Found",
+                          WalletBalance = Convert.ToDecimal(ds.Tables[2].Rows[0]["WalletMoney"]).ToString(),
+                          TotalItem = ds.Tables[1].Rows[0]["TotalItem"].ToString(),
+                          OrderId = ds.Tables[3].Rows[0]["OrderId"].ToString(),
+                          Discount = double.Parse(ds.Tables[0].Compute("sum(Discount)", "").ToString()).ToString("n2"),
+                          TotalReferalBV = double.Parse(ds.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2"),
+                          TotalPrice = double.Parse(ds.Tables[0].Compute("sum(TotalPrice)", "").ToString()).ToString("n2"),
+                          GST = double.Parse(ds.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2"),
+                          DeliveryCharge = ds.Tables[0].Rows[0]["DeliveryCharges"].ToString(),
+                          lstItems = lstproduct,
+                      });
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK,
+                        new
+                        {
+                            StatusCode = HttpStatusCode.InternalServerError,
+                            Message = "No Record Found"
+                        });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK,
+                   new
+                   {
+                       StatusCode = HttpStatusCode.InternalServerError,
+                       Message = "Error: " + ex.Message,
+
+                   });
+            }
+        }
     }
 }

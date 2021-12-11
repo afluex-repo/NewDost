@@ -11,6 +11,7 @@ namespace Dost.Models
     {
         public DataTable dtproductitem { get; set; }
         public List<Shop> lstproduct { get; set; }
+        public List<Shop> lstcoupon { get; set; }
         #region property
         public string Quantity { get; set; }
         public string Total { get; set; }
@@ -55,6 +56,15 @@ namespace Dost.Models
         public string Gst { get; set; }
         public List<AddressBook> lstAddressBook { get; set; }
         public string City { get; set; }
+        #region
+      
+        public List<productimagelst> lstProductImage { get; set; }
+
+        #endregion
+        public string CouponCode { get; set; }
+        public string CouponName { get; set; }
+        public string Message { get; set; }
+        public string ImageId { get; set; }
         #endregion
         public DataSet productlist()
         {
@@ -64,6 +74,17 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetNFC",para);
             return ds;
         }
+
+        #region get multiple product image list
+        public DataSet productimagelist()
+        {
+            SqlParameter[] para = { new SqlParameter("@Fk_productid",PK_EventId )
+                  
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SP_GetProductimage", para);
+            return ds;
+        }
+        #endregion
         public DataSet AddToCard()
         {
             SqlParameter[] para = 
@@ -146,7 +167,7 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("SaveChecOutItem", para);
             return ds;
         }
-
+      
 
         public DataSet DeleteCardlist()
         {
@@ -171,7 +192,16 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("SP_updateitem", para);
             return ds;
         }
-
+        public DataSet ApplyCoupon()
+        {
+            SqlParameter[] para =
+                {
+                new SqlParameter("@CouponCode", CouponCode),
+                 new SqlParameter("@TotalPrice",TotalPrice )
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ApplyCoupon", para);
+            return ds;
+        }
 
     }
     public class AddressBook
@@ -188,4 +218,8 @@ namespace Dost.Models
         public string CompleteAddress { get; set; }
         public string IsRecentlyUsed { get; set; }
     }
-}
+    public class productimagelst
+    {
+        public string ProductImage { get; set; }
+    }
+    }

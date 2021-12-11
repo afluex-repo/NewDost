@@ -8,51 +8,51 @@ using System.Web.Mvc;
 
 namespace Dost.Models
 {
-    public class Master:Common
+    public class Master : Common
     {
-     public DataTable dtImage { get; set; }
+        public DataTable dtImage { get; set; }
 
-        public  List<Master> lstBanner { get; set; }
+        public List<Master> lstBanner { get; set; }
 
         public List<Master> lst { get; set; }
 
         public string AddedBy { get; set; }
-        public string BinaryPercent { get;  set; }
-        public string Blaze { get;  set; }
-        public string Brand { get;  set; }
-        public string Catalyst { get;  set; }
-        public string CGST {get;  set;}
-        public string DeliveryCharge {get; set;}
-        public string Description {get;  set;}
-        public string Discount {get;  set; }
-        public decimal DistributorCommission {get;  set;}
-        public string EventDescription { get;  set; }
-        public string EventImage {get;  set;}
-        public string EventName { get;  set; }
-        public string Fk_CategoryId { get;  set; }
-        public string IGST {get;  set;}
-        public string Maverick { get;  set; }
-        public string NFCType {get;  set;}
-        public int ? OfferId {get;  set;}
+        public string BinaryPercent { get; set; }
+        public string Blaze { get; set; }
+        public string Brand { get; set; }
+        public string Catalyst { get; set; }
+        public string CGST { get; set; }
+        public string DeliveryCharge { get; set; }
+        public string Description { get; set; }
+        public string Discount { get; set; }
+        public decimal DistributorCommission { get; set; }
+        public string EventDescription { get; set; }
+        public string EventImage { get; set; }
+        public string EventName { get; set; }
+        public string Fk_CategoryId { get; set; }
+        public string IGST { get; set; }
+        public string Maverick { get; set; }
+        public string NFCType { get; set; }
+        public int? OfferId { get; set; }
         public string OfferName { get; set; }
-        public string OfferPrice {get;  set;}
-        public string Phoenix { get;  set; }
-        public int ? PK_NFcId {get;  set;}
-        public string ProductPrice {get;  set;}
-        public string ReferralPercent {get;  set;}
-        public string SGST {get;  set;}
-        public decimal SponsorCommission {get;  set;}
-        public string SubCategoryId {get;  set;}
-        public string Symphony { get;  set;}
+        public string OfferPrice { get; set; }
+        public string Phoenix { get; set; }
+        public int? PK_NFcId { get; set; }
+        public string ProductPrice { get; set; }
+        public string ReferralPercent { get; set; }
+        public string SGST { get; set; }
+        public decimal SponsorCommission { get; set; }
+        public string SubCategoryId { get; set; }
+        public string Symphony { get; set; }
         public string Quantity { get; set; }
-        public string  OfferValidity { get;  set; }
-        public string CouponCode { get;  set; }
-        public string BannerImage { get;  set; }
-        public int ? BannerId { get;  set; }
-        public string BannerTitle { get;  set; }
-        public string Trailer { get;  set; }
-        public bool IsAddFav { get;  set; }
-        public string FavStatus { get;  set; }
+        public string OfferValidity { get; set; }
+        public string CouponCode { get; set; }
+        public string BannerImage { get; set; }
+        public int? BannerId { get; set; }
+        public string BannerTitle { get; set; }
+        public string Trailer { get; set; }
+        public bool IsAddFav { get; set; }
+        public string FavStatus { get; set; }
         public string Fk_ProductId { get; set; }
         public string Product { get; set; }
         public string Pk_ProductImageId { get; set; }
@@ -72,6 +72,24 @@ namespace Dost.Models
         public List<Master> lstCouponType { get; set; }
         
 
+        public string MainServiceType { get; set; }
+        public string Preority { get; set; }
+        public string InputType { get; set; }
+        public string DeletedDate { get; set; }
+        public string Pk_MainServiceTypeId { get; set; }
+        public List<Master> ListServiceTypeMaster { get; set; }
+        public string Pk_ServiceId { get; set; }
+        public string Fk_MainServiceTypeId { get; set; }
+        public string Service { get; set; }
+        public string Category { get; set; }
+        public string ServiceIcon { get; set; }
+        public string ServiceUrl { get; set; }
+        public string IsActive { get; set; }
+        public string IsActiveDeactiveDate { get; set; }
+        public List<Master> ListServiceMaster { get; set; }
+        public string IsDeleted { get; set; }
+        public string Color { get; set; }
+        public string EncCode { get; set; }
         public DataSet categorylist()
         {
             DataSet ds = DBHelper.ExecuteQuery("CategoryList");
@@ -317,7 +335,7 @@ namespace Dost.Models
         public DataSet UpdateCoupon()
         {
             SqlParameter[] para =
-           {   
+           {
              new SqlParameter("@CouponId",PK_CouponId),
              new SqlParameter("@Fk_CouponTypeId",Pk_CouponTypeId),
              new SqlParameter("@Coupon",Coupon),
@@ -363,6 +381,7 @@ namespace Dost.Models
             return ds;
         }
 
+<<<<<<< HEAD
         public DataSet SaveCouponType()
         {
             SqlParameter[] para =
@@ -387,6 +406,162 @@ namespace Dost.Models
         }
 
         
+=======
+        #region Servicetypemaster
+        public DataSet ServiceTypeMasterList()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_MainServiceTypeId",Pk_MainServiceTypeId),
+                                              new SqlParameter("@MainServiceType",MainServiceType)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ServiceTypeMasterList", para);
+            return ds;
+
+        }
+
+        public DataSet ServiceInActive()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_MainServiceTypeId",Pk_MainServiceTypeId),
+                                              new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ServiceInActive", para);
+            return ds;
+
+        }
+
+        public DataSet ServiceActive()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_MainServiceTypeId",Pk_MainServiceTypeId),
+                                              new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ServiceActive", para);
+            return ds;
+
+        }
+
+
+        public DataSet SavingServiceTypeMaster()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@MainServiceType",MainServiceType),
+                new SqlParameter("@Preority",Preority),
+                new SqlParameter("@InputType",InputType),
+                new SqlParameter("@AddedBy",AddedBy),
+
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveServiceTypeMaster", para);
+            return ds;
+        }
+
+        public DataSet UpdateServiceTypeMaster()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_MainServiceTypeId",Pk_MainServiceTypeId),
+                                          new SqlParameter("@MainServiceType",MainServiceType),
+                                            new SqlParameter("@Preority",Preority),
+                                           new SqlParameter("@UpdatedBy",UpdatedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateServiceTypeMaster", para);
+            return ds;
+
+        }
+        public DataSet ServiceMasterList()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_ServiceId",Pk_ServiceId),
+                                              new SqlParameter("@Service",Service),
+                                               new SqlParameter("@Category",Category),
+                                               new SqlParameter("@ServiceUrl",ServiceUrl),
+                                                   new SqlParameter("@ServiceIcon",ServiceIcon)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ServiceMaster", para);
+            return ds;
+
+        }
+
+        public DataSet InActive()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_ServiceId",Pk_ServiceId),
+                                              new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("InActiveServiceMaster", para);
+            return ds;
+
+        }
+
+        public DataSet Active()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_ServiceId",Pk_ServiceId),
+                                              new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ActiveServiceMaster", para);
+            return ds;
+
+        }
+
+
+        public DataSet SavingServiceMaster()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_MainServiceTypeId",Fk_MainServiceTypeId),
+                new SqlParameter("@Category",Category),
+                new SqlParameter("@ServiceIcon",ServiceIcon),
+                 new SqlParameter("@ServiceUrl",ServiceUrl),
+                   new SqlParameter("@Service",Service),
+                   new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveServiceMaster", para);
+            return ds;
+        }
+
+        public DataSet UpdateServiceMaster()
+        {
+            SqlParameter[] para =
+              {
+                                         new SqlParameter("@Pk_ServiceId",Pk_ServiceId),
+                                          new SqlParameter("@Fk_MainServiceTypeId",Fk_MainServiceTypeId),
+                                           new SqlParameter("@Service",Service),
+                                           new SqlParameter("@Category",Category),
+                                           new SqlParameter("@ServiceIcon",ServiceIcon),
+                                              new SqlParameter("@ServiceUrl",ServiceUrl),
+                                           new SqlParameter("@UpdatedBy",UpdatedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateServiceMaster", para);
+            return ds;
+
+        }
+        public DataSet GetService()
+        {
+            SqlParameter[] para =
+            {
+                                          new SqlParameter("@Fk_MainServiceTypeId",Fk_MainServiceTypeId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetService", para);
+            return ds;
+        }
+        public DataSet GetActivatedNFC()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@Fk_UserId", Fk_UserId)
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("GetActivatedNFC", para);
+            return ds;
+        }
+        #endregion
+>>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
 
 
         public DataSet SelectCouponTypeList()

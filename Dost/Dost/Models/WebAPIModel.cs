@@ -2899,4 +2899,36 @@ namespace Dost.Models
             return ds;
         }
     }
+    public class Balance
+    {
+        public string FK_AddressId { get; set; }
+        public string FK_UserId { get; set; }
+        public DataSet GetAvailableBalanceForCheckout()
+        {
+            SqlParameter[] para ={
+                  new SqlParameter ("@FK_AddressId",FK_AddressId),
+                  new SqlParameter ("@FK_UserId",FK_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetAvailableBalanceForCheckout", para);
+            return ds;
+        }
+        public DataSet AddToCartList()
+        {
+            SqlParameter[] para = {
+                new SqlParameter("@Fk_UserId",FK_UserId )
+            };
+            DataSet ds = DBHelper.ExecuteQuery("[SP_AddToCartList]", para);
+            return ds;
+        }
+        public DataSet GetUserAddressBookForId()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@FK_UserId",FK_UserId),
+                 new SqlParameter("@FK_AddressId",FK_AddressId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetUserAddressBook", para);
+            return ds;
+        }
+    }
 }

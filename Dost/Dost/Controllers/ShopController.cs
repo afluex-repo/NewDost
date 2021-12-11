@@ -40,7 +40,7 @@ namespace Dost.Controllers
         }
         public ActionResult ProductDescription(string EventId)
         {
-
+            List<Shop> lst = new List<Shop>();
             Shop obj = new Shop();
             if (EventId != "")
             {
@@ -63,7 +63,14 @@ namespace Dost.Controllers
                     obj.PK_EventId = ds.Tables[0].Rows[0]["Pk_EventId"].ToString();
                     ViewBag.TotalItem = ds.Tables[1].Rows[0]["TotalItem"].ToString();
                 }
-
+                foreach (DataRow r in ds.Tables[2].Rows)
+                {
+                    Shop model = new Shop();
+                    model.EventImage =r["ProductImage"].ToString();
+                    model.ImageId = Common.ConvertDigitToWords(Convert.ToInt32(r["Pk_ProductImageId"]));
+                    lst.Add(model);
+                }
+                obj.lstproduct = lst;
             }
             return View(obj);
         }
@@ -107,6 +114,7 @@ namespace Dost.Controllers
                 Shop obj = new Shop();
                 List<AddressBook> lstAddress = new List<AddressBook>();
                 List<Shop> lstproduct = new List<Shop>();
+                List<Shop> lstCoupon = new List<Shop>();
                 obj.Fk_UserId = Session["Pk_userId"].ToString();
                 #region Wallet 
                 DataSet dsw = obj.GetWalletMoney();
@@ -115,7 +123,7 @@ namespace Dost.Controllers
                 ViewBag.FWalletShow = false;
                 if (dsw != null && dsw.Tables.Count > 0 && dsw.Tables[0].Rows.Count > 0)
                 {
-                    ViewBag.WalletBalance = double.Parse(dsw.Tables[0].Rows[0][0].ToString()).ToString("");
+                    ViewBag.WalletBalance = string.Format("{0:0.00}", dsw.Tables[0].Rows[0][0]);
                 }
                 #endregion
 
@@ -160,7 +168,20 @@ namespace Dost.Controllers
                         model.IGST = dr["IGST"].ToString();
                         lstproduct.Add(model);
                     }
+                    if (dsUser.Tables[2].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsUser.Tables[2].Rows)
+                        {
+                            Shop model = new Shop();
+                            model.CouponName = dr["Coupon"].ToString();
+                            model.CouponCode = dr["CouponCode"].ToString();
+                            model.TotalPrice = dr["Price"].ToString();
+                            lstCoupon.Add(model);
+                        }
+                    }
+
                     obj.lstproduct = lstproduct;
+                    obj.lstcoupon = lstCoupon;
                     ViewBag.TotalItem = dsUser.Tables[1].Rows[0]["TotalItem"].ToString();
                     ViewBag.TotalReferalBV = double.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
                     ViewBag.TotalPrice = double.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString()).ToString("");
@@ -247,13 +268,13 @@ namespace Dost.Controllers
                 {
                     model.Result = "yes";
                     DataSet ds1 = model.AddToCartList();
-                    if (ds1!= null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+                    if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
                     {
                         model.BV = double.Parse(ds1.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
                         model.IGST = double.Parse(ds1.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2");
                         model.DeliveryCharge = ds1.Tables[0].Rows[0]["DeliveryCharges"].ToString();
                         model.Total = ds1.Tables[1].Rows[0]["TotalItem"].ToString();
-                        model.TotalPrice = (decimal.Parse(ds1.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()) + decimal.Parse(ds1.Tables[0].Compute("sum(IGST)", "").ToString())+Convert.ToDecimal(ds1.Tables[0].Rows[0]["DeliveryCharges"]) + decimal.Parse(ds1.Tables[0].Compute("sum(TotalPrice)", "").ToString())).ToString();
+                        model.TotalPrice = (decimal.Parse(ds1.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()) + decimal.Parse(ds1.Tables[0].Compute("sum(IGST)", "").ToString()) + Convert.ToDecimal(ds1.Tables[0].Rows[0]["DeliveryCharges"]) + decimal.Parse(ds1.Tables[0].Compute("sum(TotalPrice)", "").ToString())).ToString();
                     }
                 }
                 else
@@ -336,5 +357,36 @@ namespace Dost.Controllers
 
         }
         #endregion
+
+        public ActionResult ApplyCoupon(string CouponCode, string TotalPrice)
+        {
+            try
+            {
+                Shop model = new Shop();
+                model.CouponCode = CouponCode;
+                model.TotalPrice = TotalPrice;
+                model.Fk_UserId = Session["Pk_userId"].ToString();
+
+                DataSet ds = model.ApplyCoupon();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        model.Result = "yes";
+                        model.TotalPrice = ds.Tables[0].Rows[0]["Price"].ToString();
+                    }
+                    else
+                    {
+                        model.Result = "no";
+                        model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
+        }
     }
 }

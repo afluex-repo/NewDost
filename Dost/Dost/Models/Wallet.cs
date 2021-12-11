@@ -39,6 +39,7 @@ namespace Dost.Models
         public string Pk_RequestId { get;  set; }
         public string Status { get;  set; }
         public List<Wallet> WalletRequestList { get;  set; }
+      
         public List<Dashboard> lstuser { get; set; }
         #endregion
         public DataSet GetDigiWalletBalance()
@@ -117,6 +118,10 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetEwalletLedger", para);
             return ds;
         }
+       
+      
+
+
         #region WalletRequest
         public DataSet ApproveEwalletRequest()
         {
