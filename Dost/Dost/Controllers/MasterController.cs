@@ -1278,6 +1278,122 @@ namespace Dost.Controllers
             return RedirectToAction("ServiceMaster");
         }
 
+<<<<<<< HEAD
+        public ActionResult CouponTypeMaster( string Id)
+        {
+            Master model = new Master();
+            if (Id != null)
+            {
+                model.CouponTypeId = Id;
+                DataSet ds = model.SelectCouponTypeList();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    model.CouponType = ds.Tables[0].Rows[0]["CouponType"].ToString();
+                }
+            }
+
+            return View(model);
+        }
+        [HttpPost]
+        [ActionName("CouponTypeMaster")]
+        public ActionResult CouponTypeMaster(Master model)
+        {
+            try
+            {
+                if(model.CouponTypeId==null)
+                {
+                    model.AddedBy = Session["Pk_AdminId"].ToString();
+                    DataSet ds = model.SaveCouponType();
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            TempData["CouponType"] = "Coupon type saved successfully";
+                        }
+                        else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                        {
+                            TempData["CouponType"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+                }
+                else
+                {
+                    model.AddedBy = Session["Pk_AdminId"].ToString();
+                    DataSet ds = model.UpdateCouponType();
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            TempData["CouponType"] = "Coupon type updated successfully";
+                        }
+                        else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                        {
+                            TempData["CouponType"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+                }
+          
+            }
+            catch (Exception ex)
+            {
+                TempData["CouponType"] = ex.Message;
+            }
+            return RedirectToAction("CouponTypeMaster", "Master");
+        }
+
+
+       
+        public ActionResult CouponTypeList()
+        {
+            //Master model = new Master();
+            //List<Master> lstCouponType = new List<Master>();
+            //DataSet ds = model.SelectCouponTypeList();
+            //if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            //{
+            //    foreach (DataRow r in ds.Tables[0].Rows)
+            //    {
+            //        Master obj = new Master();
+            //        obj.CouponTypeId = r["PK_CouponTypeId"].ToString();
+            //        obj.CouponType = r["CouponType"].ToString();
+            //        lstCouponType.Add(obj);
+            //    }
+            //    model.lstCouponType = lstCouponType;
+            //}
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("CouponTypeList")]
+        public ActionResult CouponTypeList(Master model)
+        {
+            List<Master> lstCouponType = new List<Master>();
+
+            DataSet ds = model.SelectCouponTypeList();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Master obj = new Master();
+                    obj.CouponTypeId = r["PK_CouponTypeId"].ToString();
+                    obj.CouponType = r["CouponType"].ToString();
+                    lstCouponType.Add(obj);
+                }
+                model.lstCouponType = lstCouponType;
+            }
+            return View(model);
+        }
+
+
+
+        public ActionResult DeleteCouponType(string Id)
+        {
+            try
+            {
+                Master model = new Master();
+                model.CouponTypeId = Id;
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.DeleteCouponType();
+=======
         public ActionResult InActive(string Pk_ServiceId)
         {
             Master model = new Master();
@@ -1379,24 +1495,42 @@ namespace Dost.Controllers
                     }
                 }
                 DataSet ds = model.UpdateServiceMaster();
+>>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
+<<<<<<< HEAD
+                        TempData["CouponType"] = "Coupon type deleted successfully";
+                    }
+                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                    {
+                        TempData["CouponType"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+=======
                         TempData["ServiceMaster"] = "Updated Successfully";
                     }
                     else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
                     {
                         TempData["ServiceMaster"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
+>>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
                     }
                 }
             }
             catch (Exception ex)
             {
+<<<<<<< HEAD
+                TempData["CouponType"] = ex.Message;
+            }
+            return RedirectToAction("CouponTypeList", "Master");
+        }
+        
+=======
                 TempData["ServiceMaster"] = ex.Message;
             }
             return RedirectToAction("ServiceMaster");
         }
         #endregion
+>>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
     }
+
 }

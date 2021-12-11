@@ -3628,12 +3628,17 @@
     <Content Include="Views\Master\ProductImage.cshtml" />
     <Content Include="Views\Master\CouponMaster.cshtml" />
     <Content Include="Views\Master\CouponList.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Master\CouponTypeMaster.cshtml" />
+    <Content Include="Views\Master\CouponTypeList.cshtml" />
+=======
     <Content Include="Views\Master\ServiceMaster.cshtml" />
     <Content Include="Views\Master\ServiceTypeMaster.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\NFCActivation.cshtml" />
     <Content Include="Views\NFC\NFCDevice.cshtml" />
     <Content Include="Views\NFC\SetActionDashboard.cshtml" />
+>>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

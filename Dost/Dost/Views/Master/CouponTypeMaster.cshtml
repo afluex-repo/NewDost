@@ -1,0 +1,99 @@
+﻿@model Dost.Models.Master
+
+@{
+    ViewBag.Title = "CouponTypeMaster";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Master
+                </a>
+            </li>
+            <li class="active">
+                Add Coupon Type 
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("CouponTypeMaster", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <span style="color: red">
+        @TempData["CouponType"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Coupon Type Master
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <input type="hidden" name="CouponTypeId" id="CouponTypeId" value="@Model.CouponTypeId" />
+                                <label class="col-sm-2 col-form-label">Coupon Type <span style="color: red">*</span></label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.CouponType, new { @class = "form-control", @placeholder = "Coupon Type" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="submit" id="BtnCoupon" class="btn btn-success" name="btnCoupon" value="Submit" onclick="return validate();" />
+                            <a class="btn btn-primary" href="/Master/CouponTypeList">Back To List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+
+<script>
+    var CouponTypeId = $("#CouponTypeId").val();
+    if (CouponTypeId != 0)
+    {
+        $("#BtnCoupon").val("Update");
+    }
+ 
+    function validate() {
+        $(".errortext").removeClass("errortext");
+        if ($('#CouponType').val() == '') {
+            $("#CouponType").addClass('errortext');
+            $('#CouponType').focus();
+            return false;
+        }
+    }
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+

@@ -59,6 +59,8 @@ namespace Dost.Models
 
         public List<SelectListItem> ddlCouponType { get; set; }
         public string PK_CouponId { get; set; }
+        public string CouponTypeId { get; set; }
+        
         public string CouponType { get; set; }
         public string Pk_CouponTypeId { get; set; }
         public string Coupon { get; set; }
@@ -67,6 +69,8 @@ namespace Dost.Models
         public string RangeFrom { get; set; }
         public string RangeTo { get; set; }
         public List<Master> lstCoupon { get; set; }
+        public List<Master> lstCouponType { get; set; }
+        
 
         public string MainServiceType { get; set; }
         public string Preority { get; set; }
@@ -377,6 +381,32 @@ namespace Dost.Models
             return ds;
         }
 
+<<<<<<< HEAD
+        public DataSet SaveCouponType()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@CouponType",CouponType),
+                 new SqlParameter("@AddedBy",AddedBy)
+           };
+            DataSet ds = DBHelper.ExecuteQuery("SaveCouponType", para);
+            return ds;
+        }
+
+        public DataSet UpdateCouponType()
+        {
+            SqlParameter[] para =
+           {
+                   new SqlParameter("@CouponTypeId",CouponTypeId),
+                new SqlParameter("@CouponType",CouponType),
+                 new SqlParameter("@AddedBy",AddedBy)
+           };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateCouponType", para);
+            return ds;
+        }
+
+        
+=======
         #region Servicetypemaster
         public DataSet ServiceTypeMasterList()
         {
@@ -531,7 +561,32 @@ namespace Dost.Models
             return ds;
         }
         #endregion
+>>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
 
+
+        public DataSet SelectCouponTypeList()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@CouponTypeId",CouponTypeId),
+                 new SqlParameter("@CouponType",CouponType)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetCouponTypeDetailsNew", para);
+            return ds;
+        }
+
+
+        public DataSet DeleteCouponType()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@CouponTypeId",CouponTypeId),
+                 new SqlParameter("@DeletedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteCouponType", para);
+            return ds;
+        }
+        
 
     }
 }
