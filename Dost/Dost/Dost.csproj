@@ -93,6 +93,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivator, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -3628,17 +3632,38 @@
     <Content Include="Views\Master\ProductImage.cshtml" />
     <Content Include="Views\Master\CouponMaster.cshtml" />
     <Content Include="Views\Master\CouponList.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Master\CouponTypeMaster.cshtml" />
-    <Content Include="Views\Master\CouponTypeList.cshtml" />
-=======
     <Content Include="Views\Master\ServiceMaster.cshtml" />
     <Content Include="Views\Master\ServiceTypeMaster.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\NFCActivation.cshtml" />
     <Content Include="Views\NFC\NFCDevice.cshtml" />
     <Content Include="Views\NFC\SetActionDashboard.cshtml" />
->>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
+    <Content Include="Views\Admin\_Tree.cshtml" />
+    <Content Include="Views\Admin\AddDigiWallet.cshtml" />
+    <Content Include="Views\Admin\AddFranchiseWallet.cshtml" />
+    <Content Include="Views\Admin\AdvancePayment.cshtml" />
+    <Content Include="Views\Admin\AdvancePaymentReport.cshtml" />
+    <Content Include="Views\Admin\AllotedNFCList.cshtml" />
+    <Content Include="Views\Admin\AllotNFC.cshtml" />
+    <Content Include="Views\Admin\ApproveUPI.cshtml" />
+    <Content Include="Views\Admin\AssociateListForKYC.cshtml" />
+    <Content Include="Views\Admin\BinaryTree.cshtml" />
+    <Content Include="Views\Admin\ChangeNFCCode.cshtml" />
+    <Content Include="Views\Admin\ConfirmRegistration.cshtml" />
+    <Content Include="Views\Admin\CreatePin.cshtml" />
+    <Content Include="Views\Admin\DistributorRegistration.cshtml" />
+    <Content Include="Views\Admin\GenerateNFCCode.cshtml" />
+    <Content Include="Views\Admin\NFCPurchaseHistory.cshtml" />
+    <Content Include="Views\Admin\PaidPayout.cshtml" />
+    <Content Include="Views\Admin\PayPayout.cshtml" />
+    <Content Include="Views\Admin\ProductMaster.cshtml" />
+    <Content Include="Views\Admin\PurchaseandOrder.cshtml" />
+    <Content Include="Views\Admin\Registration.cshtml" />
+    <Content Include="Views\Admin\RequestNFCList.cshtml" />
+    <Content Include="Views\Admin\SubscriptionPurchaseHistory.cshtml" />
+    <Content Include="Views\Admin\TopUpByPin.cshtml" />
+    <Content Include="Views\Admin\UnusedPins.cshtml" />
+    <Content Include="Views\Admin\UsedPins.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

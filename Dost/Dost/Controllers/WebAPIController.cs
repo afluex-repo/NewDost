@@ -19,7 +19,7 @@ namespace dost.Controllers
 {
     public class WebAPIController : ApiController
     {
-      
+
 
         [HttpPost]
         public HttpResponseMessage CheckMobile(CheckMobileModel model)
@@ -4088,15 +4088,15 @@ namespace dost.Controllers
                     foreach (DataRow r in ds.Tables[0].Rows)
                     {
                         NFCList model = new NFCList();
-                        model.PK_EventId =r["PK_EventId"].ToString();
+                        model.PK_EventId = r["PK_EventId"].ToString();
                         model.EventName = r["EventName"].ToString();
                         model.BinaryBV = r["BinaryPercentage"].ToString();
                         model.ReferalBV = r["ReferralPercentage"].ToString();
                         model.EventImage = r["EventImage"].ToString();
                         model.ProductPrice = r["PlanName"].ToString();
                         model.Brand = r["Brand"].ToString();
-                       // model.Price = r["ProductPrice"].ToString();
-                      //  model.OfferPrice = r["OfferPrice"].ToString();
+                        // model.Price = r["ProductPrice"].ToString();
+                        //  model.OfferPrice = r["OfferPrice"].ToString();
                         model.EventDescription = r["EventDescription"].ToString();
                         model.ProductCode = r["ProductCode"].ToString();
                         model.instock = r["NoOfSeats"].ToString();
@@ -7088,8 +7088,7 @@ namespace dost.Controllers
         {
             try
             {
-              
-                  UpdateBusinessProfileForMobile para = new UpdateBusinessProfileForMobile();
+                UpdateBusinessProfileForMobile para = new UpdateBusinessProfileForMobile();
                 int FK_NFCProfileId = 0;
                 int IsIncluded = 0;
                 DataTable dtcontact = new DataTable();
@@ -7098,7 +7097,7 @@ namespace dost.Controllers
 
                 if (model.ContactList != null)
                 {
-                  
+
                     int i = 0;
                     for (i = 0; i < model.ContactList.Count; i++)
                     {
@@ -7200,7 +7199,7 @@ namespace dost.Controllers
             }
         }
         [HttpPost]
-     
+
         public HttpResponseMessage GetProductImageList(GetProductImage obj)
         {
             try
@@ -7253,7 +7252,7 @@ namespace dost.Controllers
         [HttpPost]
         public HttpResponseMessage Addtocard(Addtocard model)
         {
-            
+
             try
             {
                 DataSet ds = model.AddToCard();
@@ -7323,7 +7322,7 @@ namespace dost.Controllers
                         model.Brand = dr["Brand"].ToString();
                         model.TotalPrice = dr["TotalPrice"].ToString();
                         model.PK_EventId = dr["Pk_Eventid"].ToString();
-                   
+
                         model.IGST = dr["IGST"].ToString();
                         lstproduct.Add(model);
                     }
@@ -7339,7 +7338,7 @@ namespace dost.Controllers
                              GST = double.Parse(ds.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2"),
                              TotalDeliveryCharge = ds.Tables[0].Rows[0]["DeliveryCharges"].ToString()
 
-                });
+                         });
                 }
                 else
                 {
@@ -7348,7 +7347,7 @@ namespace dost.Controllers
                       {
                           StatusCode = HttpStatusCode.InternalServerError,
                           Message = "No Record Found",
-                         
+
                       });
                 }
             }
@@ -7536,7 +7535,7 @@ namespace dost.Controllers
                           {
                               StatusCode = HttpStatusCode.OK,
                               Message = "Address Changed successfully",
-                             // PK_AddressId = ds.Tables[0].Rows[0]["PK_AddressId"].ToString(),
+                              // PK_AddressId = ds.Tables[0].Rows[0]["PK_AddressId"].ToString(),
                           });
                     }
                     else

@@ -69,6 +69,37 @@ namespace Dost.Models
         public string ProfileType { get; set; }
         public string CardImage { get; set; }
         public string Remarks { get; set; }
+        public string[] ContactList { get; set; }
+        public string[] EmailList { get; set; }
+        public string[] WebLinkList { get; set; }
+        public string[] SocialLink { get; set; }
+        public DataTable dtcontact { get; set; }
+        public DataTable dtemail { get; set; }
+        public DataTable dtweblink { get; set; }
+        public DataTable dtsocial { get; set; }
+        public string ActiveStatus { get; set; }
+        public string ColorCode { get; set; }
+        public DataSet UpdateProfilePic()
+        {
+            SqlParameter[] para ={
+                new SqlParameter ("@PK_ProfileId",PK_ProfileId),
+                new SqlParameter("@ProfilePic",ProfilePic)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateProfilePicForNFC", para);
+            return ds;
+        }
+        public DataSet UpdateRedirectionUrl()
+        {
+            SqlParameter[] para ={
+                   new SqlParameter ("@Pk_NfcProfileId",Pk_NfcProfileId),
+                new SqlParameter ("@PK_ProfileId",PK_ProfileId),
+                 new SqlParameter ("@IsCheked",IsIncluded),
+                  new SqlParameter ("@AddedBy",FK_UserId),
+            };
+
+            DataSet ds = DBHelper.ExecuteQuery("RedirectWebLink", para);
+            return ds;
+        }
         public DataSet GetNFCProfileData()
         {
             SqlParameter[] para ={
@@ -92,6 +123,33 @@ namespace Dost.Models
                 new SqlParameter("@Fk_UserId",PK_UserId)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetEmailList", para);
+            return ds;
+        }
+        public DataSet GetContactList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_UserId",PK_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetContactList", para);
+            return ds;
+        }
+        public DataSet GetSocialMediaList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_UserId",PK_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetSocialMediaList", para);
+            return ds;
+        }
+        public DataSet GetWebLinkList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_UserId",PK_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetWebLinkList", para);
             return ds;
         }
         public DataSet InsertBusinessInfo()
@@ -187,6 +245,7 @@ namespace Dost.Models
         {
             SqlParameter[] para ={
                 new SqlParameter ("@Pk_NfcProfileId",Pk_NfcProfileId),
+                new SqlParameter ("@PK_ProfileId",PK_ProfileId),
                  new SqlParameter ("@IsCheked",IsChecked),
                   new SqlParameter ("@AddedBy",PK_UserId),
             };
@@ -260,11 +319,45 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateProfileOnOffStatus", para);
             return ds;
         }
+        public DataSet UpdateProfileInfo()
+        {
+            SqlParameter[] para ={
+                  new SqlParameter ("@PK_ProfileId",PK_ProfileId),
+                  new SqlParameter ("@FK_UserId",FK_UserId),
+                  new SqlParameter ("@FirstName",FirstName),
+                  new SqlParameter ("@LastName",LastName),
+                  new SqlParameter ("@BusinessName",BusinessName),
+                   new SqlParameter ("@Designation",Designation),
+                   new SqlParameter ("@DOB",DOB),
+                  new SqlParameter ("@Description",Description),
+                  new SqlParameter ("@Gender",Gender),
+                  new SqlParameter ("@AddedBy",FK_UserId),
+                  new SqlParameter("@dtcontact",dtcontact),
+                  new SqlParameter("@dtemail",dtemail),
+                  new SqlParameter("@dtweblink",dtweblink),
+                  new SqlParameter("@dtsocial",dtsocial)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateBusinessInfoNew", para);
+            return ds;
+        }
+        public DataSet GetUrlForRedirection()
+        {
+            SqlParameter[] para ={
+                  new SqlParameter ("@FK_UserId",FK_UserId),
+                  new SqlParameter ("@Type",Type)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetUrlForRedirection", para);
+            return ds;
+        }
+     
     }
     public class NFCContent
     {
         public string Content { get; set; }
         public string Type { get; set; }
         public string IsWhatsApp { get; set; }
+        public string PK_NFCProfileId { get; set; }
+        public string IsIncluded { get; set; }
+        public string IsRedirect { get; set; }
     }
 }
