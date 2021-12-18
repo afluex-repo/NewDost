@@ -69,7 +69,14 @@
                                             <i class="fa fa-credit-card-alt"></i>
                                         </span>
                                         <div class="media-body text-white text-right">
-                                            <p class="mb-1"><a href="/Home/NFCActivation" class="text-white text-activate">Activate</a></p>
+                                            @if (@Item.Color == "#FF4C41")
+                                            {
+                                                <p class="mb-1"><a href="/Home/NFCActivation" class="text-white text-activate">Activate</a></p>
+                                            }
+                                            else
+                                            {
+                                                <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                            }
                                             <h4 class="text-white">@Item.Service</h4>
                                         </div>
                                     </div>

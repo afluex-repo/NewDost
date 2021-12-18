@@ -31,20 +31,23 @@
     <link rel="stylesheet" href="../vendor/toastr/css/toastr.min.css">
     <link href="../css/style.css" rel="stylesheet">
     <style>
-         [data-theme-version="dark"] .form-control {
-    background-color: transparent;
-    border-color: #dbd9e9;
-    color: #fff;
-}
-           .multi-select-placeholder js-states select2-hidden-accessible {
-    background-color: transparent;
-    border-color: #dbd9e9;
-    color: #fff;
-}
-    [data-theme-version="dark"] .bootstrap-select .btn {
-    border-color: #f5f3fb !important;
-    background: #2C254A !important;
-}
+        [data-theme-version="dark"] .form-control {
+            background-color: transparent;
+            border-color: #dbd9e9;
+            color: #fff;
+        }
+
+        .multi-select-placeholder js-states select2-hidden-accessible {
+            background-color: transparent;
+            border-color: #dbd9e9;
+            color: #fff;
+        }
+
+        [data-theme-version="dark"] .bootstrap-select .btn {
+            border-color: #f5f3fb !important;
+            background: #2C254A !important;
+        }
+
         input#fileupload {
             background-color: transparent;
             border-color: #dbd9e9;
@@ -54,14 +57,15 @@
             height: 50px;
             padding: 10px 20px;
             border-radius: 0.35rem;
-            width:100%;
-    }
-           a.text-activate {
-    background-color: #2c254a30 !important;
-    padding: 2px 8px;
-    border-radius: 8px;
-    font-size: 12px;
-}
+            width: 100%;
+        }
+
+        a.text-activate {
+            background-color: #2c254a30 !important;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -689,7 +693,7 @@
                                     <a class="all-notification" href="javascript:void(0)">See all notifications <i class="ti-arrow-right"></i></a>
                                 </div>
                             </li>
-                          
+
                             <li class="nav-item dropdown notification_dropdown d-sm-flex d-none">
                                 <a class="nav-link  ai-icon" href="javascript:void(0)" role="button" data-toggle="dropdown">
                                     <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -755,17 +759,17 @@
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     @if (Session["ProfilePic"] != null && Session["ProfilePic"].ToString() != "")
                                     {
-                                        <img src="@Session["ProfilePic"]" alt=""  width="20">
+                                        <img src="@Session["ProfilePic"]" alt="" width="20">
                                     }
                                     else
                                     {
-                                        <img src="~/images/noimage.jpg" alt=""  width="20">
+                                        <img src="~/images/noimage.jpg" alt="" width="20">
                                     }
-                                   
+
                                     <div class="header-info">
                                         <span>@Session["FullName"]</span>
                                         <small>Referral Code : @Session["UserCode"]</small>
-                                      
+
                                     </div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
@@ -802,14 +806,14 @@
             <div class="deznav-scroll">
                 <div class="main-profile">
                     <div class="image-bx">
-                      @if (Session["ProfilePic"] != null && Session["ProfilePic"].ToString() != "")
-                      {
-                        <img src="@Session["ProfilePic"]" alt="" width="20" id="output">
-                      }
-                      else
-                      {
-                        <img src="~/images/noimage.jpg" alt="" width="20" id="output">
-                      }
+                        @if (Session["ProfilePic"] != null && Session["ProfilePic"].ToString() != "")
+                        {
+                            <img src="@Session["ProfilePic"]" alt="" width="20" id="output">
+                        }
+                        else
+                        {
+                            <img src="~/images/noimage.jpg" alt="" width="20" id="output">
+                        }
                         <a href="javascript:void(0);" onclick="getFile1()"><i class="fa fa-cog" aria-hidden="true"></i><input id="files1" onchange="loadFile(event)" type="file" value="upload" style="display: none"></a>
                     </div>
                     <h5 class="name"><span class="font-w400"></span> @Session["FullName"]</h5>
@@ -827,19 +831,19 @@
                             <li><a href="/User/UserProfile">Profile</a></li>
                             <li><a href="/Wallet/Wallet">Wallet</a></li>
                             <!-- <li><a href="tranasactions.html">Transactions</a></li>
-                        <li><a href="coin-details.html">Coin Details</a></li>
-                        <li><a href="portofolio.html">Portofolio</a></li>
-                        <li><a href="market-capital.html">Market Capital</a></li> -->
+                            <li><a href="coin-details.html">Coin Details</a></li>
+                            <li><a href="portofolio.html">Portofolio</a></li>
+                            <li><a href="market-capital.html">Market Capital</a></li> -->
                         </ul>
 
                     </li>
                     <li><a href="my-community.html"><i class="fa fa-users"></i><span class="nav-text">My Community</span></a></li>
-                    <li class="nav-label">Apps</li>
-                   
+                    <li class="nav-label">NFC Zone</li>
+
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="fa fa-credit-card"></i>
-                            <span class="nav-text">NFC Zone</span>
+                            <span class="nav-text">NFC</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href='@Url.Action("NFCDevice","NFC")'>Add NFC Device</a></li>
@@ -858,11 +862,23 @@
                             <li><a href='@Url.Action("SettransactionPassword","User")'>Set Transaction Password</a></li>
                         </ul>
                     </li>
-                    <li><a href="/shop/product"><i class="fa fa-shopping-cart"></i><span class="nav-text">Shop</span></a></li>
+                    <li class="nav-label">Shopping Zone</li>
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="nav-text">Shop</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/shop/product"><span class="nav-text">Product</span></a></li>
+                            <li><a href="#"><span class="nav-text">Order & Purchases</span></a></li>
+                            <li><a href="#"><span class="nav-text">My Addresses</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-label">Task Zone</li>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="fa fa-tasks"></i>
-                            <span class="nav-text">Task Zone</span>
+                            <span class="nav-text">Task</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="task-zone.html">Submit</a></li>
@@ -872,7 +888,7 @@
                             <li><a href="submit.html">Pending</a></li>
                         </ul>
                     </li>
-
+                    <li class="nav-label">Apps</li>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="flaticon-061-puzzle"></i>
@@ -928,13 +944,13 @@
                 <p>Copyright © Designed &amp; Developed by <a href="afluex.com" target="_blank">Afluex Multiservices LLP Lucknow</a> 2021</p>
             </div>
         </div>
-   </div>
-  
+    </div>
+
     <script src="~/vendor/global/global.min.js"></script>
     <script src="~/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="~/vendor/select2/js/select2.full.min.js"></script>
     <script src="~/js/plugins-init/select2-init.js"></script>
-                
+
     <script src="~/vendor/toastr/js/toastr.min.js"></script>
     <script src="~/js/plugins-init/toastr-init.js"></script>
     <script src="~/vendor/chart.js/Chart.bundle.min.js"></script>
@@ -951,32 +967,32 @@
     @*<script src="../js/deznav-init.js"></script>*@
 
     @*<script src="../js/demo.js"></script>
-    <script src="../js/styleSwitcher.js"></script>*@
+        <script src="../js/styleSwitcher.js"></script>*@
     <script>
-		jQuery(document).ready(function(){
-			setTimeout(function() {
-				dezSettingsOptions.version = 'dark';
-				new dezSettings(dezSettingsOptions);
-			})
-		});
-		const monthNames = ["January", "February", "March", "April", "May", "June",
+        jQuery(document).ready(function(){
+            setTimeout(function() {
+                dezSettingsOptions.version = 'dark';
+                new dezSettings(dezSettingsOptions);
+            })
+        });
+        const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
-		];
+        ];
 
-		const d = new Date();
-		document.write("The current month is " + monthNames[d.getMonth()]);
-		$('#Month').text(monthNames[d.getMonth()]);
-		$('#Date').text(d.getDate());
-		$('#Year').text(d.getFullYear());
+        const d = new Date();
+        document.write("The current month is " + monthNames[d.getMonth()]);
+        $('#Month').text(monthNames[d.getMonth()]);
+        $('#Date').text(d.getDate());
+        $('#Year').text(d.getFullYear());
     </script>
     <script>
         function getFile1() {
-        document.getElementById("files1").click();
-    }
-    var loadFile = function (event) {
-        var image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
-    };
+            document.getElementById("files1").click();
+        }
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
     </script>
     <script>
         $("#files1").change(function () {
@@ -987,12 +1003,12 @@
             formData.append(files[0].name, files[0]);
             var UserId= @Session["Pk_userId"];
             formData.append("UserId", UserId)
-            var status = $('#status');
-            var preloader = $('#preloader');
-            var body = $('body');
-            status.fadeIn();
-            preloader.delay(0).fadeIn('fast');
-            body.delay(0).css({ 'overflow': 'visible' });
+            //var status = $('#status');
+            //var preloader = $('#preloader');
+            //var body = $('body');
+            //status.fadeIn();
+            //preloader.delay(0).fadeIn('fast');
+            //body.delay(0).css({ 'overflow': 'visible' });
             $.ajax({
                 url: "/User/UpdateProfilePic",
                 type: 'post',
@@ -1002,56 +1018,49 @@
                 async: false,
                 data: formData,
                 success: function (data) {
-                    status.fadeOut();
-                    preloader.delay(0).fadeOut('fast');
+                    debugger;
+                    //status.fadeOut();
+                    //preloader.delay(0).fadeOut('fast');
                     if (data == true) {
-                        $(document).ready(function () {
-                            toastr.success("Picture Uploaded succesfully ! ", "success", {
-                                positionClass: "toast-top-right",
-                                timeOut: 5e3,
-                                closeButton: !0,
-                                debug: !1,
-                                newestOnTop: !0,
-                                progressBar: !0,
-                                preventDuplicates: !0,
-                                onclick: null,
-                                showDuration: "300",
-                                hideDuration: "1000",
-                                extendedTimeOut: "1000",
-                                showEasing: "swing",
-                                hideEasing: "linear",
-                                showMethod: "fadeIn",
-                                hideMethod: "fadeOut",
-                                tapToDismiss: !1
-                            })
-                        }
-                       )
-                        //  alert("Picture Uploaded succesfully !");
+                        toastr.success("Picture Uploaded succesfully ! ", "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
                         window.location.href= "/User/UserDashboard";
                     }
                     else {
-                        $(document).ready(function () {
-                            toastr.error("Not Uploaded. Kindly try after some times. !! ", "error", {
-                                positionClass: "toast-top-right",
-                                timeOut: 5e3,
-                                closeButton: !0,
-                                debug: !1,
-                                newestOnTop: !0,
-                                progressBar: !0,
-                                preventDuplicates: !0,
-                                onclick: null,
-                                showDuration: "300",
-                                hideDuration: "1000",
-                                extendedTimeOut: "1000",
-                                showEasing: "swing",
-                                hideEasing: "linear",
-                                showMethod: "fadeIn",
-                                hideMethod: "fadeOut",
-                                tapToDismiss: !1
-                            })
-                        }
-                      )
-                        //   alert("Not Uploaded. Kindly try after some times.");
+                        toastr.error("Not Uploaded. Kindly try after some times. !! ", "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
                     }
                 }
             })

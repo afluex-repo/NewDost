@@ -853,7 +853,7 @@
                             for (var i = 0; i < obj[1].length; i++) {
                                 if (obj[1][i].IsRedirect == true) {
                                     $("#ddlUrl [value=" + obj[1][i].Type + "]").attr("selected", "true");
-                                    html += "<option value='" + obj[1][i].Pk_NfcProfileId + "'>" + obj[1][i].Content + "</option>";
+                                    html += "<option value='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</option>";
                                     $("#spUrl").text(obj[1][i].Content);
                                 }
                                 else {
@@ -1042,12 +1042,12 @@
         formData.append(files[0].name, files[0]);
         @*var UserId= @Session["Pk_userId"];*@
         formData.append("PK_ProfileId", $("#hdfProfile").val())
-        var status = $('#status');
-        var preloader = $('#preloader');
-        var body = $('body');
-        status.fadeIn();
-        preloader.delay(0).fadeIn('fast');
-        body.delay(0).css({ 'overflow': 'visible' });
+        //var status = $('#status');
+        //var preloader = $('#preloader');
+        //var body = $('body');
+        //status.fadeIn();
+        //preloader.delay(0).fadeIn('fast');
+        //body.delay(0).css({ 'overflow': 'visible' });
         $.ajax({
             url: "/NFC/UpdateProfilePicForContactCard",
             type: 'post',
@@ -1057,14 +1057,15 @@
             async: false,
             data: formData,
             success: function (data) {
-                status.fadeOut();
-                preloader.delay(0).fadeOut('fast');
+                //status.fadeOut();
+                //preloader.delay(0).fadeOut('fast');
                 if (data.Result == "true") {
                     SuccessAlert(data.Message);
                 }
                 else {
                     ErrorAlert(data.Message);
                 }
+                window.location.href = "/NFC/ProfileUpdate";
             }
         })
     })
@@ -1108,7 +1109,7 @@
         });
         console.log(Emaillist)
         if (Emaillist.length == 0) {
-            alert('At least 1 value required.');
+            ErrorAlert('Email required.');
             isAllValid = false;
             $("#divload").css({ 'display': 'none' });
             return false;

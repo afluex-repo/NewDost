@@ -25,7 +25,7 @@ namespace Dost.Controllers
             {
                 ViewBag.TotalDownline = ds.Tables[0].Rows[0]["TotalDownline"].ToString();
                 ViewBag.TotalDirects = ds.Tables[0].Rows[0]["TotalDirect"].ToString();
-                ViewBag.PayoutWalletBalance = ds.Tables[0].Rows[0]["PayoutWalletBalance"].ToString();
+                ViewBag.PayoutWalletBalance = string.Format("{0:0.00}", ds.Tables[0].Rows[0]["PayoutWalletBalance"]);
                 ViewBag.TotalPayout = ds.Tables[0].Rows[0]["TotalPayout"].ToString();
                 ViewBag.TotalDeduction = ds.Tables[0].Rows[0]["TotalDeduction"].ToString();
                 ViewBag.TotalAdvance = ds.Tables[0].Rows[0]["TotalAdvance"].ToString();
