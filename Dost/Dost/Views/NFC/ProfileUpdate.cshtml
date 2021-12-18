@@ -144,7 +144,7 @@
                                                                                                 <div class="text-center">
                                                                                                     <div class="my-profile">
                                                                                                         <img src="@Item.ProfilePic" alt="" class="rounded" id="output1">
-                                                                                                        <a class="file_active" onclick="getFile()" for="upfile"><i class="fa fa-pencil" aria-hidden="true"></i><input id="upfile" onchange="loadImage(event)" type="file" value="upload" style="display: none"></a>
+                                                                                                        <a class="file_active" onclick="getFile()" for="upfile"><i class="fa fa-pencil" aria-hidden="true"></i><input id="upfile"  type="file" value="upload" style="display: none"></a>
 
                                                                                                     </div>
 
@@ -571,7 +571,7 @@
                                     <div class="text-center">
                                         <div class="my-profile">
                                             <img src="" alt="" class="rounded" id="ProfileImage">
-                                            <a href="javascript:void(0);" onclick="getFile()" for="up1file"><i class="fa fa-pencil" aria-hidden="true"></i><input id="up1file" onchange="loadImage(event)" type="file" value="upload" style="display: none"></a>
+                                            <a href="javascript:void(0);" onclick="getFile()" for="up1file"><i class="fa fa-pencil" aria-hidden="true"></i><input id="up1file"  type="file" value="upload" style="display: none"></a>
                                         </div>
                                         <h4 class="mt-3 font-w600 text-black mb-0 name-text">URL :</h4>
                                         <span id="spUrl"></span>
@@ -1023,7 +1023,7 @@
             success: function (data) {
                 status.fadeOut();
                 preloader.delay(0).fadeOut('fast');
-                if (data.Result == true) {
+                if (data.Result == "true") {
                     SuccessAlert(data.Message);
                 }
                 else {
@@ -1059,7 +1059,7 @@
             success: function (data) {
                 status.fadeOut();
                 preloader.delay(0).fadeOut('fast');
-                if (data.Result == true) {
+                if (data.Result == "true") {
                     SuccessAlert(data.Message);
                 }
                 else {
