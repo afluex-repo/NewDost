@@ -380,8 +380,6 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("DeleteCoupon", para);
             return ds;
         }
-
-<<<<<<< HEAD
         public DataSet SaveCouponType()
         {
             SqlParameter[] para =
@@ -404,9 +402,6 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateCouponType", para);
             return ds;
         }
-
-        
-=======
         #region Servicetypemaster
         public DataSet ServiceTypeMasterList()
         {
@@ -561,8 +556,6 @@ namespace Dost.Models
             return ds;
         }
         #endregion
->>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
-
 
         public DataSet SelectCouponTypeList()
         {

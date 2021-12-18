@@ -845,10 +845,10 @@ namespace Dost.Controllers
         }
         #endregion
 
-        public ActionResult CouponMaster( string Id)
+        public ActionResult CouponMaster(string Id)
         {
             Master model = new Master();
-            if(Id!=null)
+            if (Id != null)
             {
                 model.PK_CouponId = Id;
                 DataSet ds = model.SelectCouponList();
@@ -865,7 +865,7 @@ namespace Dost.Controllers
                 }
 
             }
-          
+
             #region Bind Coupon Type
             int count = 0;
             List<SelectListItem> ddlCouponType = new List<SelectListItem>();
@@ -895,10 +895,10 @@ namespace Dost.Controllers
         {
             try
             {
-                if (model.PK_CouponId==null)
+                if (model.PK_CouponId == null)
                 {
                     model.AddedBy = Session["Pk_AdminId"].ToString();
-                    model.ValidityDate = string.IsNullOrEmpty(model.ValidityDate) ? null : Common.ConvertToSystemDate(model.ValidityDate, "dd/MM/yyyy");                  
+                    model.ValidityDate = string.IsNullOrEmpty(model.ValidityDate) ? null : Common.ConvertToSystemDate(model.ValidityDate, "dd/MM/yyyy");
                     DataSet ds = model.SaveCoupon();
 
                     if (ds != null && ds.Tables[0].Rows.Count > 0)
@@ -913,7 +913,8 @@ namespace Dost.Controllers
                         }
                     }
                 }
-                else {
+                else
+                {
 
                     model.AddedBy = Session["Pk_AdminId"].ToString();
                     model.ValidityDate = string.IsNullOrEmpty(model.ValidityDate) ? null : Common.ConvertToSystemDate(model.ValidityDate, "dd/MM/yyyy");
@@ -931,7 +932,7 @@ namespace Dost.Controllers
                         }
                     }
 
-                }   
+                }
             }
             catch (Exception ex)
             {
@@ -992,8 +993,8 @@ namespace Dost.Controllers
             return View(model);
         }
 
-        
- 
+
+
         public ActionResult DeleteCoupon(string Id)
         {
             try
@@ -1277,9 +1278,7 @@ namespace Dost.Controllers
 
             return RedirectToAction("ServiceMaster");
         }
-
-<<<<<<< HEAD
-        public ActionResult CouponTypeMaster( string Id)
+        public ActionResult CouponTypeMaster(string Id)
         {
             Master model = new Master();
             if (Id != null)
@@ -1300,7 +1299,7 @@ namespace Dost.Controllers
         {
             try
             {
-                if(model.CouponTypeId==null)
+                if (model.CouponTypeId == null)
                 {
                     model.AddedBy = Session["Pk_AdminId"].ToString();
                     DataSet ds = model.SaveCouponType();
@@ -1332,7 +1331,7 @@ namespace Dost.Controllers
                         }
                     }
                 }
-          
+
             }
             catch (Exception ex)
             {
@@ -1342,7 +1341,7 @@ namespace Dost.Controllers
         }
 
 
-       
+
         public ActionResult CouponTypeList()
         {
             //Master model = new Master();
@@ -1393,7 +1392,23 @@ namespace Dost.Controllers
                 model.CouponTypeId = Id;
                 model.AddedBy = Session["Pk_AdminId"].ToString();
                 DataSet ds = model.DeleteCouponType();
-=======
+                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                {
+                    TempData["CouponType"] = "Coupon type deleted successfully";
+                }
+                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                {
+                    TempData["CouponType"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["CouponType"] = ex.Message;
+            }
+            return RedirectToAction("CouponTypeList", "Master");
+        }
+
+
         public ActionResult InActive(string Pk_ServiceId)
         {
             Master model = new Master();
@@ -1495,42 +1510,23 @@ namespace Dost.Controllers
                     }
                 }
                 DataSet ds = model.UpdateServiceMaster();
->>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
-                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                    {
-<<<<<<< HEAD
-                        TempData["CouponType"] = "Coupon type deleted successfully";
-                    }
-                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                    {
-                        TempData["CouponType"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-=======
-                        TempData["ServiceMaster"] = "Updated Successfully";
-                    }
-                    else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
-                    {
-                        TempData["ServiceMaster"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
->>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
-                    }
+
+                    TempData["ServiceMaster"] = "Updated Successfully";
+                }
+                else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
+                {
+                    TempData["ServiceMaster"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-<<<<<<< HEAD
-                TempData["CouponType"] = ex.Message;
-            }
-            return RedirectToAction("CouponTypeList", "Master");
-        }
-        
-=======
                 TempData["ServiceMaster"] = ex.Message;
             }
             return RedirectToAction("ServiceMaster");
         }
-        #endregion
->>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
+          
     }
-
+        #endregion
 }
