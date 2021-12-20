@@ -3670,6 +3670,8 @@
     <Content Include="Views\Admin\TopUpByPin.cshtml" />
     <Content Include="Views\Admin\UnusedPins.cshtml" />
     <Content Include="Views\Admin\UsedPins.cshtml" />
+    <Content Include="Views\Shop\MyAddresses.cshtml" />
+    <Content Include="Views\Shop\MyOrders.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
