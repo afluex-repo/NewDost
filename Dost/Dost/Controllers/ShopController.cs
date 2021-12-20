@@ -66,7 +66,7 @@ namespace Dost.Controllers
                 foreach (DataRow r in ds.Tables[2].Rows)
                 {
                     Shop model = new Shop();
-                    model.EventImage =r["ProductImage"].ToString();
+                    model.EventImage = r["ProductImage"].ToString();
                     model.ImageId = Common.ConvertDigitToWords(Convert.ToInt32(r["Pk_ProductImageId"]));
                     lst.Add(model);
                 }
@@ -387,6 +387,76 @@ namespace Dost.Controllers
             {
                 return View(ex.Message);
             }
+        }
+        public ActionResult MyAddresses()
+        {
+            Shop objprofile = new Shop();
+            objprofile.Fk_UserId = Session["Pk_userId"].ToString();
+            DataSet dsAddress = objprofile.GetUserAddressBook();
+            List<AddressBook> lstAddress = new List<AddressBook>();
+            if (dsAddress != null && dsAddress.Tables.Count > 0 && dsAddress.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in dsAddress.Tables[0].Rows)
+                {
+                    lstAddress.Add(new AddressBook()
+                    {
+                        FirstName = row["FirstName"].ToString(),
+                        LastName = row["LastName"].ToString(),
+                        Email = row["Email"].ToString(),
+                        MobileNo = row["MobileNo"].ToString(),
+                        Address = row["Address"].ToString(),
+                        City = row["City"].ToString(),
+                        State = row["State"].ToString(),
+                        Pincode = row["Pincode"].ToString(),
+                        PK_AddressId = row["PK_AddressId"].ToString(),
+                        CompleteAddress = row["CompleteAddress"].ToString(),
+                        IsRecentlyUsed = row["IsRecentlyUsed"].ToString(),
+                    });
+                }
+                objprofile.lstAddressBook = lstAddress;
+            }
+            return View(objprofile);
+        }
+        public ActionResult DeleteAddress(string Id)
+        {
+            Shop model = new Shop();
+            model.AddressId = Id;
+            model.Fk_UserId = Session["Pk_userId"].ToString();
+            DataSet ds = model.DeleteAddress();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                {
+                    TempData["Msg"] = "Address Deleted Successfully";
+                }
+            }
+            return RedirectToAction("MyAddresses", "Shop");
+        }
+        public ActionResult MyOrders()
+        {
+            Shop model = new Shop();
+            List<Shop> lst = new List<Shop>();
+            model.Fk_UserId = Session["Pk_userId"].ToString();
+            DataSet ds = model.GetOrders();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    lst.Add(new Shop()
+                    {
+                        PK_EventId = row["PK_EventId"].ToString(),
+                        ProductName = row["EventName"].ToString(),
+                        ProductPrice = row["OfferPrice"].ToString(),
+                        OrderDate = row["OrderDate"].ToString(),
+                        TotalPrice = row["TotalPrice"].ToString(),
+                        Status = row["Status"].ToString(),
+
+                    });
+                }
+                model.lstproduct = lst;
+            }
+            return View(model);
         }
     }
 }
