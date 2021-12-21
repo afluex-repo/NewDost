@@ -448,6 +448,14 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetPassbookdetails", para);
             return ds;
         }
+        public DataSet GetActivatedNFC()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@Fk_UserId", Fk_UserId)
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("GetActivatedNFC", para);
+            return ds;
+        }
     }
     public class WithdrawalMobile
     {
@@ -2855,7 +2863,7 @@ namespace Dost.Models
     }
     public class menuDetails
     {
-
+        public string Pk_MainServiceTypeId { get; set; }
         public string MainServiceType { get; set; }
         public string Preority { get; set; }
         public string InputType { get; set; }
@@ -2930,5 +2938,41 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetUserAddressBook", para);
             return ds;
         }
+    }
+    public class Service
+    {
+        public string Pk_MainServiceTypeId { get; set; }
+        public DataSet GetAllService()
+        {
+            SqlParameter[] para = {
+                new SqlParameter("@ServiceTypeId",Pk_MainServiceTypeId )
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetAllServiceById", para);
+            return ds;
+        }
+    }
+    public class ActivatedNFC
+    {
+        public string FK_ServiceId { get; set; }
+        public string FK_NFCId { get; set; }
+        public string Service { get; set; }
+        public string ServiceIcon { get; set; }
+        public string ColorCode { get; set; }
+    }
+    public class PhotoForDashboard
+    {
+        public string PK_UserId { get; set; }
+        public string ProfilePic { get; set; }
+        public DataSet UploadProfilePic()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@PK_UserID",PK_UserId),
+                new SqlParameter("@ProfilePic",ProfilePic),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateProfilePic", para);
+            return ds;
+        }
+
     }
 }

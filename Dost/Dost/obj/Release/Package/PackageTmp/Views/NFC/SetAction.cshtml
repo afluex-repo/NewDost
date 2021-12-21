@@ -1,0 +1,154 @@
+﻿@model Dost.Models.NFCProfileModel
+
+@{
+    ViewBag.Title = "SetAction";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+@using (Html.BeginForm("SetAction", "NFC", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Profile</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <button type="button" class="btn btn-secondary mb-2" data-toggle="modal" data-target="#exampleModalCenter">+ Create New</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenter">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create a new card</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    @*<input type="hidden" id="hdfProfile" name="PK_ProfileId" value="@Model.PK_ProfileId" />*@
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" style="white-space: nowrap;">Profile Name</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.ProfileName, new { @class = "form-control", @placeholder = "Profile Name" })
+                        </div>
+                    </div>
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <label class="col-form-label col-sm-3 pt-0">Profile Type</label>
+                            <div class="col-sm-9">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Contact Card" name="ProfileType" />
+                                    <label class="form-check-label">
+                                        Contact Card
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="ProfileType" value="Redirection">
+                                    <label class="form-check-label">
+                                        Redirection
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnProfileAdd">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script>
+    $("#btnProfileAdd").click(function () {
+        debugger;
+        if (window.FormData !== undefined) {
+            var fileData = new FormData();
+            fileData.append('Flag', 'Profile');
+            fileData.append('ProfileName', $("#ProfileName").val());
+            fileData.append('ProfileType', $('input[name="ProfileType"]:checked').val());
+            $.ajax({
+                url: '/nfc/ProfileUpdate',
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (data) {
+                    $("#Flag").val('');
+                    if (data.Result == "Success") {
+                        toastr.success(data.Message, "", {
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            positionClass: "toast-top-right",
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                    else {
+                        toastr.error(data.Message, "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                    GetProfilePersonalData();
+                    $('#exampleModalCenter').modal('hide');
+                },
+                error: function (err) {
+                    toastr.error("Error while inserting data", "", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    })
+                    GetProfilePersonalData();
+                    $('#exampleModalCenter').modal('hide');
+                }
+            });
+        }
+        $("#Flag").val("Profile");
+    });
+</script>

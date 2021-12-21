@@ -39,8 +39,18 @@ namespace Dost.Models
         public string Pk_RequestId { get;  set; }
         public string Status { get;  set; }
         public List<Wallet> WalletRequestList { get;  set; }
-      
+        public string Package { get; set; }
         public List<Dashboard> lstuser { get; set; }
+        public string TopUpDate { get; set; }
+        public List<Wallet> lstPayoutrequest { get; set; }
+        public string CouponCode { get; set; }
+        public string CouponPrice { get; set; }
+        public string Description { get; set; }
+        public string RequestCode { get; set; }
+        public string PlotNumber { get; set; }
+        public string EventName { get; set; }
+        public string ErrorMessage { get; set; }
+        public string UserCode { get; set; }
         #endregion
         public DataSet GetDigiWalletBalance()
         {
@@ -118,10 +128,34 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetEwalletLedger", para);
             return ds;
         }
-       
-      
+
+        public DataSet BindPriceByProduct()
+        {
+            SqlParameter[] para = { new SqlParameter("@ProductId", Package) };
+            DataSet ds = DBHelper.ExecuteQuery("GetProductList", para);
+            return ds;
+        }
+        public DataSet CouponTopupByAdmin()
+        {
+            SqlParameter[] para = { new SqlParameter("@LoginId", LoginId),
+                                    new SqlParameter("@AddedBy", AddedBy),
+                                    new SqlParameter("@CouponCode", CouponCode),
+                                    new SqlParameter("@TopupDate", TopUpDate),
+                                    new SqlParameter("@CouponPrice", CouponPrice),
+                                    new SqlParameter("@Description", Description) };
+            DataSet ds = DBHelper.ExecuteQuery("CouponTopUpByAdmin", para);
+            return ds;
+        }
+        public DataSet GetPayoutRequest()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@Fk_UserId", Fk_UserId),
 
 
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("GetPayoutRequest", para);
+            return ds;
+        }
         #region WalletRequest
         public DataSet ApproveEwalletRequest()
         {
@@ -162,6 +196,91 @@ namespace Dost.Models
             return ds;
         }
         #endregion
+        public DataSet ApprovePayoutRequest()
+        {
+            SqlParameter[] para = {
+
+                                       new SqlParameter("@AddedBy", AddedBy),
+                                        new SqlParameter("@Pk_RequestId", Pk_RequestId),
+                                         new SqlParameter("@Status", Status)
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("ApproveDeclinePayoutRequest", para);
+            return ds;
+        }
+        public DataSet GetEWalletRequest()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@Fk_UserId", Fk_UserId),
+
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("GetEwalletRequest", para);
+            return ds;
+        }
+        public DataSet GetFranchiseeWalletRequest()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@Fk_UserId", Fk_UserId),
+
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("GetFranchiseeWalletRequest", para);
+            return ds;
+        }
+        public DataSet ReTopup()
+        {
+            SqlParameter[] para = { new SqlParameter("@LoginId", LoginId),
+                                    new SqlParameter("@AddedBy", AddedBy),
+                                    new SqlParameter("@Fk_ProductId", Package),
+                                    new SqlParameter("@TopupDate", TopUpDate),
+                                    new SqlParameter("@Amount", Amount),
+                                    new SqlParameter("@PlotNumber", PlotNumber),
+                                    new SqlParameter("@Description", Description) };
+            DataSet ds = DBHelper.ExecuteQuery("ReTopup", para);
+            return ds;
+        }
+        public DataSet TopUpIdByAdminProduct()
+        {
+            SqlParameter[] para = { new SqlParameter("@LoginId", LoginId),
+                                    new SqlParameter("@AddedBy", AddedBy),
+                                    new SqlParameter("@Fk_ProductId", Package),
+                                    new SqlParameter("@TopupDate", TopUpDate),
+                                    new SqlParameter("@Amount", Amount),
+                                    new SqlParameter("@PlotNumber", PlotNumber),
+                                    new SqlParameter("@Description", Description) };
+            DataSet ds = DBHelper.ExecuteQuery("ProductTopUpByAdmin", para);
+            return ds;
+        }
+        public DataSet GetCouponDetails()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@CouponCode", ReferBy),
+
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("GetCouponDetails", para);
+
+            return ds;
+        }
+        public DataSet GetFranchiseeWalletLedgerByAdmin()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@LoginId", LoginId),
+                                      new SqlParameter("@FromDate", FromDate),
+                                      new SqlParameter("@ToDate", ToDate)
+
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("GetFranchiseeWalletLedgerByAdmin", para);
+            return ds;
+        }
+        public DataSet GetDDCoinWalletLedgerByAdmin()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@LoginId", LoginId),
+                                      new SqlParameter("@FromDate", FromDate),
+                                      new SqlParameter("@ToDate", ToDate)
+
+                                     };
+            DataSet ds = DBHelper.ExecuteQuery("GetDDCoinWalletLedgerByAdmin", para);
+            return ds;
+        }
     }
 
 }

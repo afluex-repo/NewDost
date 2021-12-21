@@ -3025,6 +3025,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AdminBaseController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminReportsController.cs" />
@@ -3402,6 +3403,7 @@
     <Content Include="icons\themify-icons\fonts\themify.woff" />
     <Content Include="icons\themify-icons\fonts\themify9f24.eot" />
     <Content Include="icons\themify-icons\fonts\themifyd41d.eot" />
+    <None Include="Properties\PublishProfiles\Dost.pubxml" />
     <None Include="Properties\PublishProfiles\NewDost.pubxml" />
     <Content Include="Views\Home\index.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
@@ -3672,6 +3674,26 @@
     <Content Include="Views\Admin\UsedPins.cshtml" />
     <Content Include="Views\Shop\MyAddresses.cshtml" />
     <Content Include="Views\Shop\MyOrders.cshtml" />
+    <Content Include="Views\Accounts\AdminDigiCoinLedger.cshtml" />
+    <Content Include="Views\Accounts\ApproveEwalletRequest.cshtml" />
+    <Content Include="Views\Accounts\ApproveFranchiseewalletRequest.cshtml" />
+    <Content Include="Views\Accounts\ApprovepayoutRequest.cshtml" />
+    <Content Include="Views\Accounts\FranchiseWalletLedger.cshtml" />
+    <Content Include="Views\Accounts\ProductTopUp.cshtml" />
+    <Content Include="Views\Accounts\RetopUp.cshtml" />
+    <Content Include="Views\Accounts\Topup.cshtml" />
+    <Content Include="Views\Master\Category.cshtml" />
+    <Content Include="Views\Master\CategoryList.cshtml" />
+    <Content Include="Views\Master\CouponTypeList.cshtml" />
+    <Content Include="Views\Master\CouponTypeMaster.cshtml" />
+    <Content Include="Views\Master\GalleryMaster.cshtml" />
+    <Content Include="Views\Master\NewsList.cshtml" />
+    <Content Include="Views\Master\EventList.cshtml" />
+    <Content Include="Views\Master\CodeMaster.cshtml" />
+    <Content Include="Views\Master\AddNews.cshtml" />
+    <Content Include="Views\Master\NfcCode.cshtml" />
+    <Content Include="Views\Master\SubscriptionList.cshtml" />
+    <Content Include="Views\Master\SubscriptionMaster.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
