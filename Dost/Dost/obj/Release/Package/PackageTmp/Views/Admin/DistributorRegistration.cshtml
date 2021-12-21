@@ -1,0 +1,262 @@
+﻿@model Dost.Models.DistributorModel
+@{
+    ViewBag.Title = "DistributorRegistration";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/assets/bundles/izitoast/css/iziToast.min.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Distributor
+                </a>
+            </li>
+            <li class="active">
+                Distributor Registration
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("DistributorRegistration", "Admin", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Distributor Registration
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Login Id <span style="color: red">*</span></label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.LoginId, new {  @class = "form-control", @onchange = "getMemberName();" })
+                                    @Html.HiddenFor(m => m.Fk_UserId)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Sponsor Name<span style="color: red">*</span></label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.SponsorName, new { @class = "form-control",@readonly="true" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Distributor Name <span style="color: red">*</span></label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.YourName, new {  @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Designation</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.Designation, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Company Name </label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Company Type </label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.CompanyType, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Company Size </label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.CompanySize, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">GST </label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.GST, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">PAN No</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.PAN, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Email <span style="color: red">*</span></label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control",@type="email" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Mobile <span style="color: red">*</span></label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @onkeypress = "return isNumberKey(event);", @maxlength="10"})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Website</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.Website, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Company Address </label>
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(m => m.CompanyAddress, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Description</label>
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(m => m.AboutCompany, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="submit" id="Btn" class="btn btn-success"  value="Submit" onclick="return validate();" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+<script src="~/assets/bundles/izitoast/js/iziToast.min.js"></script>
+<script>
+    function getMemberName() {
+        debugger;
+        var LoginId = $("#LoginId").val();
+        $.ajax({
+            url: '/Admin/GetNameByLoginId',
+            type: 'GET',
+            dataType: 'JSON',
+            data: { 'LoginId': LoginId },
+            success: function (response) {
+                debugger
+                if (response.Result == "Yes") {
+                    $("#SponsorName").val(response.DisplayName);
+                    $("#Fk_UserId").val(response.FK_UserId);
+                }
+                else {
+                    $("#LoginId").val('');
+                    alert('Invalid Login Id');
+                }
+            }
+        })
+    }
+    function validate() {
+        $(".errortext").removeClass("errortext");
+        if ($('#LoginId').val() == '') {
+            $("#LoginId").addClass('errortext');
+            $('#LoginId').focus();
+            return false;
+        }
+        if ($('#SponsorName').val() == '') {
+            $("#SponsorName").addClass('errortext');
+            $('#SponsorName').focus();
+            return false;
+        }
+        if ($('#YourName').val() == '') {
+            $("#YourName").addClass('errortext');
+            $('#YourName').focus();
+            return false;
+        }
+        if ($('#Mobile').val() == '') {
+            $("#Mobile").addClass('errortext');
+            $('#Mobile').focus();
+            return false;
+        }
+        if ($('#Email').val() == '') {
+            $("#Email").addClass('errortext');
+            $('#Email').focus();
+            return false;
+        }
+    }
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
+
+@if (TempData["Msg"] != null)
+{
+    <script>
+        debugger;
+        iziToast.success({
+            title: "Success!",
+            message: '@TempData["Msg"]',
+            position: "topRight",
+        });
+    </script>
+}
+@if (TempData["Error"] != null)
+{
+    <script>
+        debugger;
+        iziToast.error({
+            title: "Error!",
+            message: '@TempData["Error"]',
+            position: "topRight",
+        });
+    </script>
+}

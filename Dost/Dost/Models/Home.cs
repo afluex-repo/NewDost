@@ -11,6 +11,9 @@ namespace Dost.Models
     {
         public List<Home> lstMenu { get; set; }
         public List<Home> lstsubmenu { get; set; }
+        public string AddedBy { get; set; }
+        public int Quantity { get; set; }
+        public string EncCode { get; set; }
         #region property
         public string LoginId { get; set; }
         public string Password { get; set; }
@@ -190,6 +193,16 @@ namespace Dost.Models
         {
             SqlParameter[] para = { new SqlParameter("@Code", Code) };
             DataSet ds = DBHelper.ExecuteQuery("GetNFCAllotmentStatus", para);
+            return ds;
+        }
+        public DataSet GenerateNFCCode()
+        {
+            SqlParameter[] para = {
+                new SqlParameter("@Code",Code),
+                 new SqlParameter("@EncCode",EncCode),
+                 new SqlParameter("@AddedBy",1),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GenerateNFCCode", para);
             return ds;
         }
     }

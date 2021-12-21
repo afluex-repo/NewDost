@@ -1,0 +1,99 @@
+﻿@model Dost.Models.NFCData
+@{
+    ViewBag.Title = "AllotedNFCList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/assets/bundles/datatables/datatables.min.css">
+<link rel="stylesheet" href="~/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    NFC
+                </a>
+            </li>
+            <li class="active">
+                Allot NFC
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("AllotedNFCList", "Admin", FormMethod.Post, new { @id = "form1"}))
+{
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Alloted NFC List
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <div class="col-sm-4">
+                            <label class="col-form-label">Distributor </label>
+                            @Html.DropDownListFor(m => m.FK_DistributerId, new SelectList(ViewBag.Distributor, "Value", "Text"), new { @class = "form-control" })
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="col-form-label">Code</label>
+                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" class="btn btn-primary" value="Search"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <p style="color:red">@TempData["Msg"]</p>
+                        @Html.HiddenFor(m => m.Result)
+                        <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th hidden="hidden"></th>
+                                    <th>Distributor</th>
+                                    <th>Mobile No</th>
+                                    <th>Email</th>
+                                    <th>Code</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lst != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lst)
+                                        {
+                                            <tr class="text-left row-select">
+                                                <td class="@i">@i</td>
+                                                <td hidden="hidden">@Item.PK_NFCId</td>
+                                                <td>@Item.Name</td>
+                                                <td>@Item.MobileNo</td>
+                                                <td>@Item.Email</td>
+                                                <td>@Item.Code</td>
+                                                <td>@Item.NFCStatus</td>
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+}

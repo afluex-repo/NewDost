@@ -360,4 +360,97 @@ namespace Dost.Models
         public string IsIncluded { get; set; }
         public string IsRedirect { get; set; }
     }
+    public class NFCData
+    {
+        public List<NFCData> lst { get; set; }
+
+        public string Name { get; set; }
+        public string LoginId { get; set; }
+        public string MobileNo { get; set; }
+        public string Email { get; set; }
+        public string Code { get; set; }
+        public string AddedBy { get; set; }
+        public string FK_DistributerId { get; set; }
+        public bool IsCodeAlloted { get; set; }
+        public string PK_NFCId { get; set; }
+        public string NFCStatus { get; set; }
+        public string Status { get; set; }
+        public string Result { get; set; }
+        public string DisplayName { get; set; }
+        public string ActivatedOn { get; set; }
+        public string AllotedOn { get; set; }
+        public string Quantity { get; set; }
+        public string Count { get; set; }
+        public DataSet GetNFCDataList()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetNFCCodeForAllotment");
+            return ds;
+        }
+        public DataSet NFCAllotment()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@PK_NFCId",PK_NFCId),
+                new SqlParameter("@LoginId",LoginId),
+                new SqlParameter("@Code",Code),
+                new SqlParameter("@Count",Count),
+                new SqlParameter("@Quantity",Quantity),
+                new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("NFCAllotment", para);
+            return ds;
+        }
+        public DataSet DebitAmountFromWallet()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@LoginId",LoginId),
+                 new SqlParameter("@Quantity",Quantity),
+                new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DebitAmountFromWallet", para);
+            return ds;
+        }
+
+        public DataSet CancelNFCAllotment()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@PK_NFCId",PK_NFCId),
+                new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("CancelNFCAllotment", para);
+            return ds;
+        }
+        public DataSet GetAlloteNFC()
+        {
+            SqlParameter[] para =
+          {
+                new SqlParameter("@DistributorId",FK_DistributerId),
+                new SqlParameter("@Code",Code)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetNFCDataForAllotmentForAdmin", para);
+            return ds;
+        }
+        public DataSet GetUsedNFC()
+        {
+            SqlParameter[] para =
+          {
+                new SqlParameter("@DistributorId",FK_DistributerId),
+                new SqlParameter("@Code",Code)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetUsedNFC", para);
+            return ds;
+        }
+        public DataSet GetUnusedNFC()
+        {
+            SqlParameter[] para =
+          {
+                new SqlParameter("@DistributorId",FK_DistributerId),
+                new SqlParameter("@Code",Code)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetUnusedNFC", para);
+            return ds;
+        }
+    }
 }

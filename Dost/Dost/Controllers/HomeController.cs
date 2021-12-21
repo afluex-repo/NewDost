@@ -196,7 +196,7 @@ namespace Dost.Controllers
                             Session["UserId"] = model.FK_UserId;
                             try
                             {
-                                string msg = BLSMS.sendSMSUpdated(Message, model.MobileNo);
+                                string msg = BLSMS.sendSMSUpdated(Message, model.Mobile);
                             }
                             catch (Exception ex)
                             {

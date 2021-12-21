@@ -7632,5 +7632,218 @@ namespace dost.Controllers
                    });
             }
         }
+
+        [HttpPost]
+        public HttpResponseMessage GetAllService(Service model)
+        {
+            Menu obj = new Menu();
+            try
+            {
+                List<Data1> datalist = new List<Data1>();
+                List<menuDetails> datalist1 = new List<menuDetails>();
+                DataSet dsResult = model.GetAllService();
+                if (dsResult != null && dsResult.Tables.Count > 0)
+                {
+
+                    if (dsResult.Tables[0].Rows.Count > 0)
+                    {
+                        obj.Status = "0";
+                        foreach (DataRow row0 in (dsResult.Tables[0].Rows))
+                        {
+                            obj.menu = datalist1;
+                        }
+                    }
+                    if (dsResult.Tables[0].Rows.Count > 0)
+                    {
+                        List<menuDetails> objrecentjoined = new List<menuDetails>();
+                        {
+                            #region menuDetails
+                            for (int i = 0; i <= dsResult.Tables[0].Rows.Count - 1; i++)
+                            {
+                                List<menuData> objsub = new List<menuData>();
+                                objrecentjoined.Add(new menuDetails
+
+                                {
+                                    Pk_MainServiceTypeId = dsResult.Tables[0].Rows[i]["Pk_MainServiceTypeId"].ToString(),
+                                    MainServiceType = dsResult.Tables[0].Rows[i]["MainServiceType"].ToString(),
+                                    Preority = dsResult.Tables[0].Rows[i]["Preority"].ToString(),
+                                    InputType = dsResult.Tables[0].Rows[i]["InputType"].ToString(),
+
+
+
+                                });
+                                for (int j = 0; j <= dsResult.Tables[1].Rows.Count - 1; j++)
+                                {
+
+                                    if (dsResult.Tables[0].Rows[i]["Pk_MainServiceTypeId"].ToString() == dsResult.Tables[1].Rows[j]["Fk_MainServiceTypeId"].ToString())
+                                    {
+                                        objsub.Add(new menuData
+
+                                        {
+                                            Service = dsResult.Tables[1].Rows[j]["Service"].ToString(),
+                                            ServiceUrl = dsResult.Tables[1].Rows[j]["ServiceUrl"].ToString(),
+                                            ServiceIcon = dsResult.Tables[1].Rows[j]["ServiceIcon"].ToString(),
+
+
+                                        });
+                                    }
+                                }
+                                objrecentjoined[i].menuData = objsub;
+                            }
+                            datalist.Add(new Data1
+                            {
+
+                                menu = objrecentjoined,
+
+
+                            });
+                            #endregion
+                        }
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK,
+                      new
+                      {
+                          StatusCode = HttpStatusCode.OK,
+                          Message = "Record Found",
+                          lstservice = obj.menu = datalist[0].menu
+                      });
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK,
+                     new
+                     {
+                         StatusCode = HttpStatusCode.InternalServerError,
+                         Message = "Record Not Found",
+
+                     });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK,
+                    new
+                    {
+                        StatusCode = HttpStatusCode.InternalServerError,
+                        Message = ex.Message,
+
+                    });
+            }
+        }
+        [HttpPost]
+        public HttpResponseMessage GetActivatedNFC(GetPassbook model)
+        {
+            try
+            {
+                List<ActivatedNFC> lstproduct = new List<ActivatedNFC>();
+                //string[] color = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D", "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
+                DataSet ds = model.GetActivatedNFC();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ActivatedNFC obj = new ActivatedNFC();
+                        obj.FK_ServiceId = dr["PK_ServiceId"].ToString();
+                        obj.FK_NFCId = dr["PK_NFCId"].ToString();
+                        obj.Service = dr["Service"].ToString();
+                        obj.ServiceIcon = dr["ServiceIcon"].ToString();
+                        obj.ColorCode = dr["ColorCode"].ToString();
+                        lstproduct.Add(obj);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK,
+                      new
+                      {
+                          StatusCode = HttpStatusCode.OK,
+                          Message = "Record Found",
+                          lstNFC = lstproduct,
+                      });
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK,
+                        new
+                        {
+                            StatusCode = HttpStatusCode.InternalServerError,
+                            Message = "No Record Found"
+                        });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK,
+                   new
+                   {
+                       StatusCode = HttpStatusCode.InternalServerError,
+                       Message = "Error: " + ex.Message,
+
+                   });
+            }
+        }
+        [HttpPost]
+        public HttpResponseMessage UploadPhoto()
+        {
+            PhotoForDashboard model = new PhotoForDashboard();
+            try
+            {
+                Random rn = new Random();
+                string Results = string.Empty;
+                if (!Request.Content.IsMimeMultipartContent())
+                {
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+                }
+                model.PK_UserId = HttpContext.Current.Request.Params["PK_UserId"];
+                var file = HttpContext.Current.Request.Files[0];
+                model.ProfilePic = rn.Next(10, 100) + "_photo_" + file.FileName;
+                string folderPath = HttpContext.Current.Server.MapPath("~/images/ProfilePicture/");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                file.SaveAs(folderPath + model.ProfilePic);
+                model.ProfilePic = "/images/ProfilePicture/" + model.ProfilePic;
+                DataSet ds = model.UploadProfilePic();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK,
+                       new
+                       {
+                           StatusCode = HttpStatusCode.OK,
+                           Message = "Profile Pic Uploaded Successfully",
+                           ProfilePic = ds.Tables[0].Rows[0]["ProfilePic"].ToString(),
+                       });
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK,
+                       new
+                       {
+                           StatusCode = HttpStatusCode.OK,
+                           Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString(),
+                       });
+                    }
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK,
+                       new
+                       {
+                           StatusCode = HttpStatusCode.InternalServerError,
+                           Message = "Error Occurred",
+                       });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK,
+                       new
+                       {
+                           StatusCode = HttpStatusCode.InternalServerError,
+                           Message = ex.Message,
+                       });
+            }
+        }
     }
 }
+
