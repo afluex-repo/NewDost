@@ -20,7 +20,7 @@
     }
 </style>
 <div class="content-body">
-    @using (Html.BeginForm("ProfileUpdate", "nfc", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("ProfileUpdate", "NFCProfile", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
     {
 
         <div class="container-fluid">
@@ -674,7 +674,7 @@
             fileData.append('ProfileName', $("#ProfileName").val());
             fileData.append('ProfileType', $('input[name="ProfileType"]:checked').val());
             $.ajax({
-                url: '/nfc/ProfileUpdate',
+                url: '/NFCProfile/ProfileUpdate',
                 type: "POST",
                 contentType: false,
                 processData: false,
@@ -744,7 +744,7 @@
         $.ajax({
             type: 'Get',
             contentType: "Application/Json",
-            url: '@Url.Action("GetProfilePersonalData", "NFC")',
+            url: '@Url.Action("GetProfilePersonalData", "NFCProfile")',
             dataType: 'json',
             success: function (data) {
                 var cl = "";
@@ -765,7 +765,7 @@
     function ProfileUpdatePost() {
         debugger;
         $.ajax({
-            url: '@Url.Action("ProfileUpdate", "nfc")',
+            url: '@Url.Action("ProfileUpdate", "NFCProfile")',
             type: 'POST',
             data: $("#form1").serialize(),
             success: function (data) {
@@ -804,7 +804,7 @@
                 type: "GET",
                 dataType: "JSON",
                 contentType: "Application/Json",
-                url: '@Url.Action("UpdateProfileStatus", "nfc")',
+                url: '@Url.Action("UpdateProfileStatus", "NFCProfile")',
                 data: { ProfileId: ProfileId, IsChecked: IsChecked },
                 success: function (data) {
                     var message = "";
@@ -834,7 +834,7 @@
             type: "GET",
             dataType: "JSON",
             contentType: "Application/Json",
-            url: '@Url.Action("GetBusinessProfile", "nfc")',
+            url: '@Url.Action("GetBusinessProfile", "NFCProfile")',
             data: { PK_ProfileId: Id },
             success: function (data) {
                 debugger;
@@ -929,7 +929,7 @@
             type: "GET",
             dataType: "JSON",
             contentType: "Application/Json",
-            url: '@Url.Action("DeleteNFCProfileData", "nfc")',
+            url: '@Url.Action("DeleteNFCProfileData", "NFCProfile")',
             data: { Pk_NfcProfileId: Id },
             success: function (data) {
                 if (data.Result == "Yes") {
@@ -966,7 +966,7 @@
         $.ajax({
             type: 'Get',
             contentType: "Application/Json",
-            url: '@Url.Action("GetProfileData", "nfc")',
+            url: '@Url.Action("GetProfileData", "NFCProfile")',
             data: { Type: Type, PK_ProfileId: $("hdfProfile").val() },
             dataType: 'json',
             success: function (data) {
@@ -1013,7 +1013,7 @@
         preloader.delay(0).fadeIn('fast');
         body.delay(0).css({ 'overflow': 'visible' });
         $.ajax({
-            url: "/NFC/UpdateProfilePicForContactCard",
+            url: "/NFCProfile/UpdateProfilePicForContactCard",
             type: 'post',
             datatype: 'json',
             contentType: false,
@@ -1049,7 +1049,7 @@
         //preloader.delay(0).fadeIn('fast');
         //body.delay(0).css({ 'overflow': 'visible' });
         $.ajax({
-            url: "/NFC/UpdateProfilePicForContactCard",
+            url: "/NFCProfile/UpdateProfilePicForContactCard",
             type: 'post',
             datatype: 'json',
             contentType: false,
@@ -1065,7 +1065,7 @@
                 else {
                     ErrorAlert(data.Message);
                 }
-                window.location.href = "/NFC/ProfileUpdate";
+                window.location.href = "/NFCProfile/ProfileUpdate";
             }
         })
     })
@@ -1109,7 +1109,7 @@
         });
         console.log(Emaillist)
         if (Emaillist.length == 0) {
-            ErrorAlert('Email required.');
+            alert('At least 1 value required.');
             isAllValid = false;
             $("#divload").css({ 'display': 'none' });
             return false;

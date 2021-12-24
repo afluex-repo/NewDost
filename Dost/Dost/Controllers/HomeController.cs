@@ -1027,7 +1027,7 @@ namespace Dost.Controllers
             }
             else if(Session["UserNFCCode"].ToString() != "")
             {
-                return RedirectToAction("Profile", "home", new { @id = Session["UserNFCCode"].ToString() });
+                return RedirectToAction("Profile", "NFC", new { @id = Session["UserNFCCode"].ToString() });
             }
             else
             {
@@ -1125,6 +1125,9 @@ namespace Dost.Controllers
             //return RedirectToAction(FormName,Controller);
             //return View();
         }
-
+        public ActionResult DecryptPass(string id)
+        {
+            return Json(Crypto.Decrypt(id), JsonRequestBehavior.AllowGet);
+        }
     }
 }

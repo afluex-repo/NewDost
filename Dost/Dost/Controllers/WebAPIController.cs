@@ -4089,6 +4089,7 @@ namespace dost.Controllers
                     {
                         NFCList model = new NFCList();
                         model.PK_EventId = r["PK_EventId"].ToString();
+                        model.CategoryId = r["FK_CategoryId"].ToString();
                         model.EventName = r["EventName"].ToString();
                         model.BinaryBV = r["BinaryPercentage"].ToString();
                         model.ReferalBV = r["ReferralPercentage"].ToString();
@@ -4934,6 +4935,8 @@ namespace dost.Controllers
             try
             {
                 List<BusinessProfile> lst = new List<BusinessProfile>();
+                string[] color = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D", "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
+                int i = 0;
                 DataSet ds = objprofile.GetBusinessInfo();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
@@ -4959,8 +4962,9 @@ namespace dost.Controllers
                         obj.BusinessName = r["BusinessName"].ToString();
                         obj.Description = r["Description"].ToString();
                         obj.IsProfileTurnedOff = Convert.ToBoolean(r["IsProfileTurnedOff"]);
-
+                        obj.ColorCode = color[i];
                         lst.Add(obj);
+                        i++;
                     }
 
                     return Request.CreateResponse(HttpStatusCode.OK,
@@ -5792,7 +5796,7 @@ namespace dost.Controllers
                 {
                     throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
                 }
-                model.PK_UserId = HttpContext.Current.Request.Params["PK_UserId"];
+                model.PK_ProfileId = HttpContext.Current.Request.Params["PK_ProfileId"];
                 var file = HttpContext.Current.Request.Files[0];
                 model.ProfilePic = rn.Next(10, 100) + "_photo_" + file.FileName;
                 string folderPath = HttpContext.Current.Server.MapPath("~/images/ProfilePicture/");
@@ -5812,6 +5816,7 @@ namespace dost.Controllers
                        {
                            StatusCode = HttpStatusCode.OK,
                            Message = "Profile Pic Uploaded Successfully",
+                           ProfilePic = ds.Tables[0].Rows[0]["ProfilePic"].ToString(),
                        });
                     }
                     else

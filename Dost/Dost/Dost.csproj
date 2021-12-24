@@ -132,6 +132,10 @@
     <Reference Include="System.Web.Http.WebHost">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ajax\contact-list.html" />
@@ -3024,6 +3028,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AdminBaseController.cs" />
@@ -3034,6 +3039,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\NFCController.cs" />
+    <Compile Include="Controllers\NFCProfileController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WalletController.cs" />
@@ -3301,7 +3307,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\User\UserDashboard.cshtml" />
     <Content Include="Views\User\UserProfile.cshtml" />
-    <Content Include="Views\NFC\ProfileUpdate.cshtml" />
+    <Content Include="Views\NFCProfile\ProfileUpdate.cshtml" />
     <Content Include="Views\Wallet\Wallet.cshtml" />
     <Content Include="Views\Wallet\Statement.cshtml" />
     <Content Include="obj\Release\Package\PackageTmp\Views\User\UserDashboard.cshtml" />
@@ -3414,7 +3420,7 @@
     <Content Include="Views\Home\Registration.cshtml" />
     <Content Include="Views\Home\ResetPassword.cshtml" />
     <Content Include="Views\Home\SignUp.cshtml" />
-    <Content Include="Views\NFC\SetAction.cshtml" />
+    <Content Include="Views\NFCProfile\SetAction.cshtml" />
     <Content Include="Views\Wallet\TransferEwalletToEwallet.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
@@ -3642,10 +3648,10 @@
     <Content Include="Views\Master\CouponList.cshtml" />
     <Content Include="Views\Master\ServiceMaster.cshtml" />
     <Content Include="Views\Master\ServiceTypeMaster.cshtml" />
-    <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\NFC\Profile.cshtml" />
     <Content Include="Views\Home\NFCActivation.cshtml" />
-    <Content Include="Views\NFC\NFCDevice.cshtml" />
-    <Content Include="Views\NFC\SetActionDashboard.cshtml" />
+    <Content Include="Views\NFCProfile\NFCDevice.cshtml" />
+    <Content Include="Views\NFCProfile\SetActionDashboard.cshtml" />
     <Content Include="Views\Admin\_Tree.cshtml" />
     <Content Include="Views\Admin\AddDigiWallet.cshtml" />
     <Content Include="Views\Admin\AddFranchiseWallet.cshtml" />
@@ -3721,9 +3727,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>61327</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:61327/</IISUrl>
+          <IISUrl>http://localhost:63466/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
