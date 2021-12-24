@@ -23,6 +23,7 @@ D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Web.Infrastructure.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Swashbuckle.Core.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Helpers.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.dll
@@ -32,6 +33,7 @@ D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Razor.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Webpages.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\WebActivator.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.AI.Web.xml
@@ -49,4 +51,3 @@ D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.pdb
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\WebActivator.dll

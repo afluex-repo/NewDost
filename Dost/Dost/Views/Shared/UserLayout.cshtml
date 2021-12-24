@@ -26,8 +26,8 @@
     <link href="../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="../vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="../vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link rel="stylesheet" href="../vendor/select2/css/select2.min.css">
-    <link href="../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="~/vendor/select2/css/select2.min.css" />
+    <link href="~/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../vendor/toastr/css/toastr.min.css">
     <link href="../css/style.css" rel="stylesheet">
     <style>
@@ -846,8 +846,8 @@
                             <span class="nav-text">NFC</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href='@Url.Action("NFCDevice","NFC")'>Add NFC Device</a></li>
-                            <li><a href='@Url.Action("SetActionDashboard","NFC")'>Set Action</a></li>
+                            <li><a href='@Url.Action("NFCDevice","NFCProfile")'>Add NFC Device</a></li>
+                            <li><a href='@Url.Action("SetActionDashboard","NFCProfile")'>Set Action</a></li>
                         </ul>
                     </li>
                     <li>
@@ -941,7 +941,7 @@
         @RenderBody();
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="afluex.com" target="_blank">Afluex Multiservices LLP Lucknow</a> 2021</p>
+                <p>Copyright © <a href="https://dost.click/" target="_blank">Dost Inc.</a> 2021</p>
             </div>
         </div>
     </div>

@@ -648,7 +648,7 @@ namespace Dost.Models
         public string Name { get; set; }
         public string PK_ProfileId { get; set; }
         public string ProfilePic { get; set; }
-
+        public string ColorCode { get; set; }
 
     }
     public class UpdateBusinessProfile
@@ -1045,6 +1045,7 @@ namespace Dost.Models
     public class NFCList
     {
         public string PK_EventId { get; set; }
+        public string CategoryId { get; set; }
         public string EventName { get; set; }
         public string BinaryBV { get; set; }
         public string ReferalBV { get; set; }
@@ -1612,16 +1613,16 @@ namespace Dost.Models
     }
     public class Photo
     {
-        public string PK_UserId { get; set; }
+        public string PK_ProfileId { get; set; }
         public string ProfilePic { get; set; }
         public DataSet UploadProfilePic()
         {
             SqlParameter[] para =
             {
-                new SqlParameter("@PK_UserID",PK_UserId),
+                new SqlParameter("@PK_ProfileId",PK_ProfileId),
                 new SqlParameter("@ProfilePic",ProfilePic),
             };
-            DataSet ds = DBHelper.ExecuteQuery("UpdateProfilePic", para);
+            DataSet ds = DBHelper.ExecuteQuery("UpdateProfilePicForNFC", para);
             return ds;
         }
 

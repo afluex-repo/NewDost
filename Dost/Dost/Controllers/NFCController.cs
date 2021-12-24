@@ -14,783 +14,198 @@ using System.IO;
 
 namespace Dost.Controllers
 {
-    public class NFCController : BaseController
+    public class NFCController : Controller
     {
-        // GET: NFC
-        public ActionResult ProfileUpdate()
+        public ActionResult Profile(string id)
         {
-            #region ddlgender
-            List<SelectListItem> ddlgender = Common.BindGender();
-            ViewBag.ddlgender = ddlgender;
-            #endregion ddlgender
-            NFCProfileModel model = new NFCProfileModel();
-            //model.Code = desc;
-            model.PK_UserId = Session["Pk_userId"].ToString();
-            List<NFCProfileModel> lstUerProfile = new List<NFCProfileModel>();
-            #region ddlEmailList
-            int count = 0;
-            List<SelectListItem> ddlEmail = new List<SelectListItem>();
-            DataSet ds1 = model.GetmailList();
-            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow r in ds1.Tables[0].Rows)
-                {
-                    if (count == 0)
-                    {
-                        ddlEmail.Add(new SelectListItem { Text = "Select Email", Value = "0" });
-                    }
-                    ddlEmail.Add(new SelectListItem { Text = r["Content"].ToString(), Value = r["Pk_NfcProfileId"].ToString() });
-                    count = count + 1;
-                }
-            }
-            ViewBag.ddlEmail = ddlEmail;
-            #endregion
-            #region Mobile
-            int count1 = 0;
-            List<SelectListItem> Mobile = new List<SelectListItem>();
-            DataSet ds2 = model.GetContactList();
-            if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow r in ds2.Tables[0].Rows)
-                {
-                    if (count == 0)
-                    {
-                        Mobile.Add(new SelectListItem { Text = "Select Mobile No.", Value = "0" });
-                    }
-                    Mobile.Add(new SelectListItem { Text = r["Content"].ToString(), Value = r["Pk_NfcProfileId"].ToString() });
-                    count = count + 1;
-                }
-            }
-
-            ViewBag.Mobile = Mobile;
-
-            #endregion
-            #region SocialMedia
-            List<SelectListItem> SocialMedia = new List<SelectListItem>();
-            DataSet ds3 = model.GetSocialMediaList();
-            if (ds3 != null && ds3.Tables.Count > 0 && ds3.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow r in ds3.Tables[0].Rows)
-                {
-                    if (count == 0)
-                    {
-                        SocialMedia.Add(new SelectListItem { Text = "Select Social Media", Value = "0" });
-                    }
-                    SocialMedia.Add(new SelectListItem { Text = r["Content"].ToString(), Value = r["Pk_NfcProfileId"].ToString() });
-                    count = count + 1;
-                }
-            }
-            ViewBag.SocialMedia = SocialMedia;
-            #endregion SocialMedia
-            #region WebLink
-            List<SelectListItem> WebLink = new List<SelectListItem>();
-            DataSet ds4 = model.GetWebLinkList();
-            if (ds4 != null && ds4.Tables.Count > 0 && ds4.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow r in ds4.Tables[0].Rows)
-                {
-                    if (count == 0)
-                    {
-                        WebLink.Add(new SelectListItem { Text = "Select Web Link", Value = "0" });
-                    }
-                    WebLink.Add(new SelectListItem { Text = r["Content"].ToString(), Value = r["Pk_NfcProfileId"].ToString() });
-                    count = count + 1;
-                }
-            }
-            ViewBag.WebLink = WebLink;
-            #endregion WebLink
-            string[] color = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D", "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
-            var i = 0;
-            DataSet ds = model.GetNFCProfileData();
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                model.IsProfileTurnedOff = Convert.ToBoolean(ds.Tables[0].Rows[0]["IsProfileTurnedOff"]);
-                foreach (DataRow r in ds.Tables[0].Rows)
-                {
-                    NFCProfileModel obj = new NFCProfileModel();
-                    obj.PK_ProfileId = r["PK_ProfileId"].ToString();
-                    obj.FirstName = r["FirstName"].ToString();
-                    obj.Name = r["Name"].ToString();
-                    obj.LastName = r["LastName"].ToString();
-                    obj.ProfilePic = r["ProfilePic"].ToString();
-                    obj.Leg = r["Leg"].ToString();
-                    obj.BusinessName = r["BusinessName"].ToString();
-                    obj.Designation = r["Designation"].ToString();
-                    obj.Description = r["Description"].ToString();
-                    obj.Status = r["Status"].ToString();
-                    obj.ProfileType = r["ProfileType"].ToString();
-
-                    if (obj.Status == "Active")
-                    {
-                        model.PK_ProfileId = obj.PK_ProfileId;
-                        model.Leg = obj.Leg;
-                    }
-                    obj.CardImage = r["CardImage"].ToString();
-                    obj.ProfileName = r["ProfileName"].ToString();
-                    obj.ActiveStatus = r["IsChecked"].ToString();
-                    obj.ColorCode = color[i];
-                    lstUerProfile.Add(obj);
-                }
-                model.lst = lstUerProfile;
-            }
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult ProfileUpdate(NFCProfileModel model)
-        {
+            var RedirectionLink = "";
+            //var enc = Crypto.EncryptNFC("DIGI946211");
+            NFCProfileModel objProfile = new NFCProfileModel();
             try
             {
-                #region ddlgender
-                List<SelectListItem> ddlgender = Common.BindGender();
-                ViewBag.ddlgender = ddlgender;
-                #endregion ddlgender
-                model.PK_UserId = Session["Pk_userId"].ToString();
 
-                if (model.IsRedirectWeb == true)
+                if (id == null || id == "")
                 {
-                    model.IsRedirect = true;
+                    return RedirectToAction("Login", "Home");
                 }
-                if (model.IsRedirectSocial == true)
-                {
-                    model.IsRedirect = true;
-                }
-                if (model.IsIncludedContact == true)
-                {
-                    model.IsIncluded = true;
-                }
-                if (model.IsIncludedEmail == true)
-                {
-                    model.IsIncluded = true;
-                }
-                if (model.IsIncludedWeb == true)
-                {
-                    model.IsIncluded = true;
-                }
-                if (model.IsIncludedSocial == true)
-                {
-                    model.IsIncluded = true;
-                }
-                if (model.Leg == "undefined")
-                {
-                    model.Leg = null;
-                }
-                if (model.PK_ProfileId != null)
-                {
-                    UpdateBusinessProfileForMobile para = new UpdateBusinessProfileForMobile();
-                    int FK_NFCProfileId = 0;
-                    int IsIncluded = 0;
-                    DataTable dtcontact = new DataTable();
-                    dtcontact.Columns.Add("FK_NFCProfileId");
-                    dtcontact.Columns.Add("IsIncluded");
+                //if (Session["LoginId"] == null)
+                //{
+                //    return RedirectToAction("login_new", "home");
+                //}
+                NFCModel obj = new NFCModel();
+                //DataSet ds11 = obj.GetNFCCodes();
+                //if (ds11 != null && ds11.Tables.Count > 0 && ds11.Tables[0].Rows.Count > 0)
+                //{
 
-                    if (model.ContactList != null)
-                    {
-                        model.ContactList = model.ContactList[0].Split(',');
-                        int i = 0;
-                        for (i = 0; i < model.ContactList.Length; i++)
-                        {
-                            FK_NFCProfileId = Convert.ToInt32(model.ContactList[i]);
-                            IsIncluded = 1;
-                            dtcontact.Rows.Add(FK_NFCProfileId, IsIncluded);
-                        }
-                    }
-                    DataTable dtEmail = new DataTable();
-                    dtEmail.Columns.Add("FK_NFCProfileId");
-                    dtEmail.Columns.Add("IsIncluded");
-                    if (model.EmailList != null)
-                    {
-                        model.EmailList = model.EmailList[0].Split(',');
-                        int i = 0;
-                        for (i = 0; i < model.EmailList.Length; i++)
-                        {
-                            FK_NFCProfileId = Convert.ToInt32(model.EmailList[i]);
-                            IsIncluded = 1;
-                            dtEmail.Rows.Add(FK_NFCProfileId, IsIncluded);
-                        }
-                    }
-                    DataTable dtWebLink = new DataTable();
-                    dtWebLink.Columns.Add("FK_NFCProfileId");
-                    dtWebLink.Columns.Add("IsIncluded");
-                    if (model.WebLinkList != null)
-                    {
-                        model.WebLinkList = model.WebLinkList[0].Split(',');
-                        int i = 0;
-                        for (i = 0; i < model.WebLinkList.Length; i++)
-                        {
-                            FK_NFCProfileId = Convert.ToInt32(model.WebLinkList[i]);
-                            IsIncluded = 1;
-                            dtWebLink.Rows.Add(FK_NFCProfileId, IsIncluded);
-                        }
-                    }
-                    DataTable dtSocialMedia = new DataTable();
-                    dtSocialMedia.Columns.Add("FK_NFCProfileId");
-                    dtSocialMedia.Columns.Add("IsIncluded");
-                    if (model.SocialLink != null)
-                    {
-                        model.SocialLink = model.SocialLink[0].Split(',');
-                        int i = 0;
-                        for (i = 0; i < model.SocialLink.Length; i++)
-                        {
-                            FK_NFCProfileId = Convert.ToInt32(model.SocialLink[i]);
-                            IsIncluded = 1;
-                            dtSocialMedia.Rows.Add(FK_NFCProfileId, IsIncluded);
-                        }
-                    }
-                    model.dtcontact = dtcontact;
-                    model.dtemail = dtEmail;
-                    model.dtweblink = dtWebLink;
-                    model.dtsocial = dtSocialMedia;
-                    model.FK_UserId = Session["Pk_userId"].ToString();
-                    DataSet ds = model.UpdateProfileInfo();
-                    if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-                    {
-                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                        {
-                            model.Result = "Success";
-                            model.Message = "Profile Updated Successfully";
-                        }
-                        else
-                        {
-                            model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                        }
-                    }
-                }
-                if (model.Flag != null && model.Flag != "")
-                {
-                    if (model.Flag == "Contact")
-                    {
-                        TempData["FlagResponse"] = "Contact";
-                        model.Type = "ContactNo";
-                        if (model.Status == "U")
-                        {
-                            DataSet ds = model.UpdateNfc();
-                            if (ds != null && ds.Tables.Count > 0)
-                            {
-                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                {
-                                    model.Result = "Success";
-                                    model.Message = "Contact No updated successfully";
-                                }
-                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                {
-                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                }
-                            }
-                            else
-                            {
-                                model.Result = "Success";
-                                model.Message = "Profile updated successfully";
-                            }
-                        }
-                        else
-                        {
+                //    for (int i = 0; i < ds11.Tables[0].Rows.Count; i++)
+                //    {
+                //        obj.LoginId = ds11.Tables[0].Rows[i]["Id"].ToString();
+                //        obj.Code = Crypto.EncryptNFC(ds11.Tables[0].Rows[i]["Code"].ToString());
+                //        obj.UpdateNFCEncCode();
+                //    }
+                //}
+                id = id.Replace(" ", "+");
 
-                            DataSet ds = model.SaveUpdateContactNoNfc();
-                            if (ds != null && ds.Tables.Count > 0)
-                            {
-                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                {
-                                    model.Result = "Success";
-                                    model.Message = "Contact No saved successfully";
-                                }
-                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                {
-                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                }
-                            }
-                            else
-                            {
-                                model.Message = "Contact No not saved successfully";
-                            }
-                        }
-                    }
-                    if (model.Flag == "Email")
-                    {
-                        TempData["FlagResponse"] = "Email";
-                        model.Type = "Email";
-                        model.Content = model.ContentEmail;
-                        if (model.Status == "U")
-                        {
-                            DataSet ds = model.UpdateNfc();
-                            if (ds != null && ds.Tables.Count > 0)
-                            {
-                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                {
-                                    model.Result = "Success";
-                                    model.Message = "Email updated successfully";
-                                }
-                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                {
-                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                }
-                            }
-                            else
-                            {
-                                model.Message = "Email not updated successfully";
-                            }
-                        }
-                        else
-                        {
-                            model.Content = model.ContentEmail;
-                            DataSet ds = model.SaveUpdateContactNoNfc();
-                            if (ds != null && ds.Tables.Count > 0)
-                            {
-                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                {
-                                    model.Result = "Success";
-                                    model.Message = "Email saved successfully";
-                                }
-                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                {
-                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                }
-                            }
-                            else
-                            {
-                                model.Message = "Profile not updated successfully";
-                            }
-                        }
-                    }
-                    if (model.Flag == "WebLink")
-                    {
-                        TempData["FlagResponse"] = "WebLink";
-                        model.Type = "WebLink";
-                        model.Content = model.WebLink + model.ContentWebLinks;
-                        if (model.Status == "U")
-                        {
-                            DataSet ds = model.UpdateNfc();
-                            if (ds != null && ds.Tables.Count > 0)
-                            {
-                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                {
-                                    model.Result = "Success";
-                                    model.Message = "WebLink updated successfully";
-                                }
-                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                {
-                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                }
-                            }
-                            else
-                            {
-                                model.Message = "WebLink not updated successfully";
-                            }
-                        }
-                        else
-                        {
-                            model.Content = model.WebLink + model.ContentWebLinks;
-                            DataSet ds = model.SaveUpdateContactNoNfc();
-                            if (ds != null && ds.Tables.Count > 0)
-                            {
-                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                {
-                                    model.Result = "Success";
-                                    model.Message = "WebLink saved successfully";
-                                }
-                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                {
-                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                }
-                            }
-                            else
-                            {
-                                model.Message = "WebLink not saved successfully";
-                            }
-                        }
-                    }
-                    if (model.Flag == "SocialMedia")
-                    {
-                        TempData["FlagResponse"] = "SocialMedia";
-                        model.Type = "SocialMedia";
-                        model.Content = model.SocialMedia + model.ContentSocialMedia;
-                        if (model.Status == "U")
-                        {
-                            DataSet ds = model.UpdateNfc();
-                            if (ds != null && ds.Tables.Count > 0)
-                            {
-                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                {
-                                    model.Result = "Success";
-                                    model.Message = "Social Media Link updated Successfully";
-                                }
-                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                {
-                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                }
-                            }
-                            else
-                            {
-                                model.Message = "Social Media Link not updated Successfully";
-                            }
-                        }
-                        else
-                        {
-                            model.Content = model.SocialMedia + model.ContentSocialMedia;
-                            DataSet ds = model.SaveUpdateContactNoNfc();
-                            if (ds != null && ds.Tables.Count > 0)
-                            {
-                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                {
-                                    model.Result = "Success";
-                                    model.Message = "Social Media Link saved successfully";
-                                }
-                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                {
-                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                }
-                            }
-                            else
-                            {
+                //var enc = Crypto.EncryptNFC(id);
+                var desc = Crypto.DecryptNFC(id);
+                //if (Session["LoginId"] != null)
+                //{
+                //    //
 
-                                model.Message = "Social Media Link not saved successfully";
-                            }
-                        }
-                    }
-                    if (model.Flag == "Profile")
-                    {
-                        if (model.PK_ProfileId == null || model.PK_ProfileId == "")
-                        {
-                            DataSet ds = model.InsertProfileName();
-                            if (ds != null && ds.Tables.Count > 0)
-                            {
-                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                {
-                                    model.Result = "Success";
-                                    model.Message = "New Contact card save Successfully";
-                                    model.PK_ProfileId = ds.Tables[0].Rows[0]["PK_ProfileId"].ToString();
-                                }
-                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                {
-                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                }
-                            }
-                        }
-                    }
-                    if (model.Flag == "Business")
-                    {
-                        TempData["FlagResponse"] = "Business";
-                        if (model.PK_ProfileId == null || model.PK_ProfileId == "")
-                        {
-                            DataSet ds = model.InsertBusinessInfo();
-                            if (ds != null && ds.Tables.Count > 0)
-                            {
-                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                {
-                                    model.Result = "Success";
-                                    model.Message = "Profile updated Successfully";
-                                }
-                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                {
-                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (Request.Files.Count > 0)
-                            {
-                                HttpFileCollectionBase files = Request.Files;
-                                HttpPostedFileBase fileUploaderControl = null;
-                                for (int i = 0; i < files.Count; i++)
-                                {
-                                    fileUploaderControl = files[i];
-                                }
-                                if (fileUploaderControl != null)
-                                {
-                                    string filename = System.IO.Path.GetFileName(fileUploaderControl.FileName);
-                                    fileUploaderControl.SaveAs(Server.MapPath("~/images/ProfilePicture/" + filename));
-                                    string filepathtosave = "/images/ProfilePicture/" + filename;
-                                    model.Name = model.Name;
-                                    model.ProfilePic = filepathtosave;
-                                    DataSet ds = model.UpdateBusinessInfo();
-                                    if (ds != null && ds.Tables.Count > 0)
-                                    {
-                                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                        {
-                                            model.Result = "Success";
-                                            model.Message = "Profile Updated Successfully";
-                                        }
-                                        else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                        {
-                                            model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        model.Message = "Profile Updated Successfully";
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                DataSet ds = model.UpdateBusinessInfo();
-                                if (ds != null && ds.Tables.Count > 0)
-                                {
-                                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                                    {
-                                        model.Result = "Success";
-                                        model.Message = "Profile Updated Successfully";
-                                    }
-                                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                                    {
-                                        model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                                    }
-                                }
-                                else
-                                {
-                                    model.Message = "Profile Updated Successfully";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                model.Message = ex.Message;
-            }
-            return Json(model, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult GetProfilePersonalData()
-        {
-            NFCProfileModel model = new NFCProfileModel();
-            model.PK_UserId = Session["Pk_userId"].ToString();
-            TempData["ReDesc"] = model.Code;
-            DataSet ds = model.GetNFCProfileData();
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                var LinesStatusList = JsonConvert.SerializeObject(ds.Tables[0]);
-                return Json(LinesStatusList, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json("0", JsonRequestBehavior.AllowGet);
-            }
-        }
-        public ActionResult UpdateProfileStatus(string ProfileId, bool IsChecked)
-        {
-            NFCProfileModel model = new NFCProfileModel();
-            model.PK_UserId = Session["Pk_userId"].ToString();
-            model.PK_ProfileId = ProfileId;
-            DataSet ds = model.UpdateProfileStatus(IsChecked);
-            if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-            {
-                model.Result = "Yes";
-            }
-            else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-            {
-                model.Result = "No";
-            }
-            else
-            {
-                model.Result = "No";
-            }
-            return Json(model, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult GetBusinessProfile(string PK_ProfileId)
-        {
-            NFCProfileModel model = new NFCProfileModel();
-            model.PK_UserId = Session["Pk_userId"].ToString();
-            model.PK_ProfileId = PK_ProfileId;
-            DataSet ds = model.GetBusinessProfileById();
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                model.Result = "Yes";
-                var LinesStatusList = JsonConvert.SerializeObject(ds.Tables);
-                return Json(LinesStatusList, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json("0", JsonRequestBehavior.AllowGet);
-            }
-        }
-        public ActionResult GetProfileData(string Type, string PK_ProfileId)
-        {
-            NFCProfileModel model = new NFCProfileModel();
+                //}
+                //else
+                //{
 
-            model.PK_UserId = Session["Pk_userId"].ToString();
-            model.Type = Type;
-            if (PK_ProfileId == null)
-            {
-                model.PK_ProfileId = "0";
-            }
-            else
-            {
-                model.PK_ProfileId = PK_ProfileId;
-            }
-            TempData["ReDesc"] = model.Code;
-            DataSet ds = model.GetProfileDataForNFC();
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                var LinesStatusList = JsonConvert.SerializeObject(ds.Tables[0]);
-                return Json(LinesStatusList, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json("0", JsonRequestBehavior.AllowGet);
-            }
-        }
-        public ActionResult DeleteNFCProfileData(string Pk_NfcProfileId)
-        {
-            NFCProfileModel model = new NFCProfileModel();
-            model.PK_UserId = Session["Pk_userId"].ToString();
-            model.Pk_NfcProfileId = Convert.ToInt32(Pk_NfcProfileId);
-            DataSet ds = model.DeleteNFCProfileData();
-            if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-            {
-                model.Result = "Yes";
-                TempData["Update"] = "Success";
-            }
-            else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-            {
-                model.Result = "No";
-                TempData["Update"] = "Error";
-            }
-            else
-            {
-                model.Result = "No";
-                TempData["Update"] = "Error";
-            }
-            return Json(model, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult NFCDevice()
-        {
-            Master model = new Master();
-            try
-            {
-                List<Master> lst = new List<Master>();
-                model.Fk_MainServiceTypeId = "3";
-                // string[] color = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D", "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
-                DataSet ds = model.GetService();
+                //List<Wallet> lst = new List<Wallet>();
+                obj.Code = desc;
+                DataSet ds = obj.CheckNFCCode();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
-                    int i = 0;
-                    foreach (DataRow r in ds.Tables[0].Rows)
+                    if (ds.Tables[0].Rows[0]["IsActivated"].ToString() != "" && Convert.ToBoolean(ds.Tables[0].Rows[0]["IsActivated"].ToString()))
                     {
-                        Master obj = new Master();
-                        obj.Color = r["ColorCode"].ToString();
-                        obj.EncCode = r["ColorCode"].ToString();
-                        obj.Pk_ServiceId = r["Pk_ServiceId"].ToString();
-                        obj.Fk_MainServiceTypeId = r["Fk_MainServiceTypeId"].ToString();
-                        obj.ServiceIcon = r["ServiceIcon"].ToString();
-                        obj.Service = r["Service"].ToString();
-                        obj.ServiceUrl = r["ServiceUrl"].ToString();
-                        obj.Category = r["Category"].ToString();
-                        obj.IsActive = r["IsActive"].ToString();
-                        obj.IsActiveDeactiveDate = r["IsActiveDeactiveDate"].ToString();
-                        lst.Add(obj);
-                        i++;
-                    }
-                    model.lst = lst;
-                }
-            }
-            catch (Exception ex)
-            {
+                        //get profile data for activated user
+                        obj.Browser = HttpContext.Request.Browser.Browser;
+                        obj.IP = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                        if (string.IsNullOrEmpty(obj.IP))
+                        {
+                            obj.IP = Request.ServerVariables["REMOTE_ADDR"];
+                        }
+                        obj.Medium = "Web";
+                        List<Location> locations = new List<Location>();
+                        string APIKey = "391fd5bcd76d4745a6c883968b50a97124d416db45218ec201a58a6d049cbb9b";
+                        string url = string.Format("http://api.ipinfodb.com/v3/ip-city/?key={0}&ip={1}&format=json", APIKey, obj.IP);
+                        using (WebClient client = new WebClient())
+                        {
+                            string json = client.DownloadString(url);
+                            Location location = new JavaScriptSerializer().Deserialize<Location>(json);
+                            obj.ZipCode = location.ZipCode;
+                            obj.Lat = location.Latitude;
+                            obj.Long = location.Longitude;
+                            obj.Location = location.CityName + ' ' + location.RegionName + ' ' + location.CountryName;
+                            obj.Device = GetDevice();
+                        }
+                        DataSet ds1 = obj.GetNFCProfileData();
+                        if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+                        {
+                            if (Convert.ToBoolean(ds1.Tables[0].Rows[0]["IsProfileTurnedOff"]) == true)
+                            {
+                                return Redirect("https://urdost.com/");
+                            }
+                            else
+                            {
+                                DataSet ds2 = obj.InsertLog();
+                                objProfile.Name = ds1.Tables[0].Rows[0]["Name"].ToString();
+                                objProfile.Email = ds1.Tables[0].Rows[0]["PrimaryEmail"].ToString();
+                                objProfile.DOB = ds1.Tables[0].Rows[0]["DOB"].ToString();
+                                objProfile.Mobile = ds1.Tables[0].Rows[0]["Mobile"].ToString();
+                                objProfile.ProfilePic = ds1.Tables[0].Rows[0]["ProfilePic"].ToString();
+                                objProfile.Gender = ds1.Tables[0].Rows[0]["Sex"].ToString();
+                                objProfile.PK_UserId = ds1.Tables[0].Rows[0]["PK_UserId"].ToString();
+                                objProfile.Summary = ds1.Tables[0].Rows[0]["Summary"].ToString();
+                                objProfile.BusinessName = ds1.Tables[0].Rows[0]["BusinessName"].ToString();
+                                objProfile.Designation = ds1.Tables[0].Rows[0]["Designation"].ToString();
+                                objProfile.UserCode = ds1.Tables[0].Rows[0]["UserCode"].ToString();
+                                objProfile.Leg = ds1.Tables[0].Rows[0]["NFCProfileLeg"].ToString();
+                                Session["SponsorId"] = ds1.Tables[0].Rows[0]["LoginId"].ToString();
+                                objProfile.ProfilePic = ds1.Tables[0].Rows[0]["ProfilePic"].ToString();
 
-            }
-            return View(model);
-        }
-        public ActionResult SetActionDashboard()
-        {
-            Master model = new Master();
-            List<Master> lst = new List<Master>();
-            model.Fk_UserId = Session["Pk_userId"].ToString();
-            DataSet ds = model.GetActivatedNFC();
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow r in ds.Tables[0].Rows)
-                {
-                    Master obj = new Master();
-                    obj.Service = r["Service"].ToString();
-                    obj.Color = r["ColorCode"].ToString();
-                    obj.ServiceIcon = r["ServiceIcon"].ToString();
-                    obj.Pk_ServiceId = r["PK_ServiceId"].ToString();
-                    obj.PK_NFcId = Convert.ToInt32(r["PK_NFCId"]);
-                    lst.Add(obj);
-                }
-                model.lst = lst;
-            }
-            return View(model);
-        }
-        [HttpPost]
-        public ActionResult SaveCompanyDetails(NFCProfileModel model)
-        {
-            return View(model);
-        }
-       
-        public JsonResult UpdateProfilePicForContactCard(string PK_ProfileId)
-        {
-            NFCProfileModel obj = new NFCProfileModel();
-            bool msg = false;
-            if (Request.Files.Count > 0)
-            {
-                HttpFileCollectionBase files = Request.Files;
-                HttpPostedFileBase file = files[0];
 
-                string fileName = file.FileName;
-                obj.PK_ProfileId = PK_ProfileId;
-                obj.ProfilePic = "/images/ProfilePicture/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
-                file.SaveAs(Path.Combine(Server.MapPath(obj.ProfilePic)));
-                DataSet ds = obj.UpdateProfilePic();
+                                //IpInfo ipInfo = new IpInfo();
+                                //string info = new WebClient().DownloadString("https://dost.click/" + myIP);
+                                //ipInfo = JsonConvert.DeserializeObject<IpInfo>(info);
+                                //RegionInfo myRI1 = new RegionInfo(ipInfo.Country);
+                                //ipInfo.Country = myRI1.EnglishName;
+                            }
+                        }
+                        if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[1].Rows.Count > 0)
+                        {
+                            List<NFCContent> NfcContentList = new List<NFCContent>();
 
-                if (ds != null && ds.Tables.Count > 0)
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
-                    {
-                        obj.Result = "true";
-                        obj.Message = "Picture Uploaded succesfully ! ";
+                            foreach (DataRow row in ds1.Tables[1].Rows)
+                            {
+                                NfcContentList.Add(new NFCContent()
+                                {
+                                    Content = row["Content"].ToString(),
+                                    Type = row["Type"].ToString(),
+                                    IsWhatsApp = row["IsWhatsapp"].ToString()
+
+                                });
+                            }
+                            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[2].Rows.Count > 0)
+                            {
+                                if (ds1.Tables[2].Rows[0]["IsRedirect"].ToString() == "True")
+                                {
+                                    RedirectionLink = ds1.Tables[2].Rows[0]["Content"].ToString();
+                                }
+                            }
+                            objProfile.NfcContentList = NfcContentList;
+                        }
+                        ViewBag.ISActivated = true;
+                        Session["NFCCode"] = id;
+                        Session["NFCActivated"] = "true";
                     }
                     else
                     {
-                        obj.Result = "false";
-                        obj.Message = "Not Uploaded. Kindly try after some times. !! ";
+                        //Not Activated login or activation required
+                        ViewBag.ISActivated = false;
+                        Session["NFCCode"] = id;
+                        Session["NFCActivated"] = "false";
+                        Session["SponsorId"] = null;
+                        Session["Leg"] = null;
                     }
-                }
-            }
-            return Json(obj, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult GetUrlForRedirection(string Type)
-        {
-            NFCProfileModel obj = new NFCProfileModel();
-            obj.Type = Type;
-            obj.FK_UserId = Session["Pk_userId"].ToString();
-            DataSet ds = obj.GetUrlForRedirection();
-
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                var JsonList = JsonConvert.SerializeObject(ds.Tables[0]);
-                return Json(JsonList, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(null, JsonRequestBehavior.AllowGet);
-            }
-           
-        }
-        public ActionResult UpdateRedirectionUrl(string PK_ProfileId, string PK_NFCProfileId)
-        {
-            NFCProfileModel obj = new NFCProfileModel();
-            obj.PK_ProfileId = PK_ProfileId;
-            obj.Pk_NfcProfileId = Convert.ToInt32(PK_NFCProfileId);
-            obj.FK_UserId = Session["Pk_userId"].ToString();
-            obj.IsRedirect = true;
-            obj.IsIncluded = true;
-            DataSet ds = obj.UpdateRedirectionUrl();
-
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                if(ds.Tables[0].Rows[0][0].ToString()=="1")
-                {
-                    obj.Result = "Success";
-                    obj.Message = "Profile updated successfully";
                 }
                 else
                 {
-                    obj.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    ViewBag.NFCResopnse = "Wrong NFC Code";
+                }
+                //}
+            }
+            catch (System.Exception ex)
+            {
+                return RedirectToAction("Login_New", "Home");
+            }
+            if (RedirectionLink != "")
+            {
+
+                RedirectionLink = RedirectionLink.ToLower();
+                if (!RedirectionLink.Contains("http://www.") && !RedirectionLink.Contains("https://www.") && !RedirectionLink.Contains("https://") && !RedirectionLink.Contains("http://"))
+                {
+                    RedirectionLink = RedirectionLink.Replace("www.", "");
+                    RedirectionLink = "http://www." + RedirectionLink;
+                }
+
+                //return Content("<script>window.location = 'http://www.example.com';</script>");
+                return Redirect(RedirectionLink);
+            }
+            return View(objProfile);
+        }
+        public string GetDevice()
+        {
+            string userAgent = Request.ServerVariables["HTTP_USER_AGENT"];
+            Regex OS = new Regex(@"(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            Regex device = new Regex(@"1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            string device_info = string.Empty;
+            if (OS.IsMatch(userAgent))
+            {
+                device_info = OS.Match(userAgent).Groups[0].Value;
+            }
+            if (device.IsMatch(userAgent.Substring(0, 4)))
+            {
+                device_info += device.Match(userAgent).Groups[0].Value;
+            }
+
+            if (device_info != "" && device_info != null)
+            {
+
+                int index2 = device_info.IndexOf(';');
+                string[] authorInfo = device_info.Split(';');
+                foreach (string info in authorInfo)
+                {
+                    device_info = info.Substring(0, info.IndexOf(")") + 1);
+                    device_info = device_info.Replace(')', ' ');
                 }
             }
-            return Json(obj, JsonRequestBehavior.AllowGet);
+            return device_info;
         }
     }
 }
