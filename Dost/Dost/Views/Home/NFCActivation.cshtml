@@ -84,24 +84,24 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="../vendor/global/global.min.js"></script>
-    <script src="../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="../vendor/select2/js/select2.full.min.js"></script>
-    <script src="../js/plugins-init/select2-init.js"></script>
+    <script src="~/vendor/global/global.min.js"></script>
+    <script src="~/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/vendor/select2/js/select2.full.min.js"></script>
+    <script src="~/js/plugins-init/select2-init.js"></script>
 
-    <script src="../vendor/toastr/js/toastr.min.js"></script>
-    <script src="../js/plugins-init/toastr-init.js"></script>
-    <script src="../vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="../vendor/peity/jquery.peity.min.js"></script>
-    <script src="../vendor/apexchart/apexchart.js"></script>
-    <script src="../js/dashboard/dashboard-1.js"></script>
-    <script src="../vendor/owl-carousel/owl.carousel.js"></script>
-    <script src="../vendor/toastr/js/toastr.min.js"></script>
-    <script src="../js/plugins-init/toastr-init.js"></script>
-    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../js/plugins-init/datatables.init.js"></script>
-    <script src="../js/custom.min.js"></script>
-    <script src="../js/deznav-init.js"></script>
+    <script src="~/vendor/toastr/js/toastr.min.js"></script>
+    <script src="~/js/plugins-init/toastr-init.js"></script>
+    <script src="~/vendor/chart.js/Chart.bundle.min.js"></script>
+    <script src="~/vendor/peity/jquery.peity.min.js"></script>
+    <script src="~/vendor/apexchart/apexchart.js"></script>
+    <script src="~/js/dashboard/dashboard-1.js"></script>
+    <script src="~/vendor/owl-carousel/owl.carousel.js"></script>
+    @*<script src="~/vendor/toastr/js/toastr.min.js"></script>
+    <script src="~/js/plugins-init/toastr-init.js"></script>*@
+    <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/plugins-init/datatables.init.js"></script>
+    <script src="~/js/custom.min.js"></script>
+    <script src="~/js/deznav-init.js"></script>
     <!-- <script src="js/styleSwitcher.js"></script> -->
     <script>
         jQuery(document).ready(function () {
@@ -112,7 +112,7 @@
         });
     </script>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="~/assets/bundles/izitoast/js/iziToast.min.js"></script>
+    @*<script src="~/assets/bundles/izitoast/js/iziToast.min.js"></script>*@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
@@ -227,69 +227,70 @@
                     debugger;
                     if (result == "NFC Code Activated successfully") {
                         debugger;
-                        toastr.success("NFC Code Activated successfully", "", {
-                            positionClass: "toast-top-right",
-                            timeOut: 5e3,
-                            closeButton: !0,
-                            debug: !1,
-                            newestOnTop: !0,
-                            progressBar: !0,
-                            preventDuplicates: !0,
-                            onclick: null,
-                            showDuration: "300",
-                            hideDuration: "1000",
-                            extendedTimeOut: "1000",
-                            showEasing: "swing",
-                            hideEasing: "linear",
-                            showMethod: "fadeIn",
-                            hideMethod: "fadeOut",
-                            tapToDismiss: !1
-                        })
+                        //toastr.success("NFC Code Activated successfully", "", {
+                        //    positionClass: "toast-top-right",
+                        //    timeOut: 5e3,
+                        //    closeButton: !0,
+                        //    debug: !1,
+                        //    newestOnTop: !0,
+                        //    progressBar: !0,
+                        //    preventDuplicates: !0,
+                        //    onclick: null,
+                        //    showDuration: "300",
+                        //    hideDuration: "1000",
+                        //    extendedTimeOut: "1000",
+                        //    showEasing: "swing",
+                        //    hideEasing: "linear",
+                        //    showMethod: "fadeIn",
+                        //    hideMethod: "fadeOut",
+                        //    tapToDismiss: !1
+                        //})
+                        alert(result);
                         window.location.href = "/user/userdashboard";
                     }
                     else {
-                        $("#preloader").css({ 'display': 'none' });
-                        toastr.error(result, "", {
-                            positionClass: "toast-top-right",
-                            timeOut: 5e3,
-                            closeButton: !0,
-                            debug: !1,
-                            newestOnTop: !0,
-                            progressBar: !0,
-                            preventDuplicates: !0,
-                            onclick: null,
-                            showDuration: "300",
-                            hideDuration: "1000",
-                            extendedTimeOut: "1000",
-                            showEasing: "swing",
-                            hideEasing: "linear",
-                            showMethod: "fadeIn",
-                            hideMethod: "fadeOut",
-                            tapToDismiss: !1
-                        })
-                        // alert(result);
+                        //$("#preloader").css({ 'display': 'none' });
+                        //toastr.error(result, "", {
+                        //    positionClass: "toast-top-right",
+                        //    timeOut: 5e3,
+                        //    closeButton: !0,
+                        //    debug: !1,
+                        //    newestOnTop: !0,
+                        //    progressBar: !0,
+                        //    preventDuplicates: !0,
+                        //    onclick: null,
+                        //    showDuration: "300",
+                        //    hideDuration: "1000",
+                        //    extendedTimeOut: "1000",
+                        //    showEasing: "swing",
+                        //    hideEasing: "linear",
+                        //    showMethod: "fadeIn",
+                        //    hideMethod: "fadeOut",
+                        //    tapToDismiss: !1
+                        //})
+                         alert(result);
                     }
                 },
                 error: function () {
-                    toastr.error("Error while processing request", "", {
-                        positionClass: "toast-top-right",
-                        timeOut: 5e3,
-                        closeButton: !0,
-                        debug: !1,
-                        newestOnTop: !0,
-                        progressBar: !0,
-                        preventDuplicates: !0,
-                        onclick: null,
-                        showDuration: "300",
-                        hideDuration: "1000",
-                        extendedTimeOut: "1000",
-                        showEasing: "swing",
-                        hideEasing: "linear",
-                        showMethod: "fadeIn",
-                        hideMethod: "fadeOut",
-                        tapToDismiss: !1
-                    })
-                    //alert("Error while processing request");
+                    //toastr.error("Error while processing request", "", {
+                    //    positionClass: "toast-top-right",
+                    //    timeOut: 5e3,
+                    //    closeButton: !0,
+                    //    debug: !1,
+                    //    newestOnTop: !0,
+                    //    progressBar: !0,
+                    //    preventDuplicates: !0,
+                    //    onclick: null,
+                    //    showDuration: "300",
+                    //    hideDuration: "1000",
+                    //    extendedTimeOut: "1000",
+                    //    showEasing: "swing",
+                    //    hideEasing: "linear",
+                    //    showMethod: "fadeIn",
+                    //    hideMethod: "fadeOut",
+                    //    tapToDismiss: !1
+                    //})
+                    alert("Error while processing request");
                 }
             });
         };
