@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace Dost.Models
 {
@@ -451,6 +452,104 @@ namespace Dost.Models
             };
             DataSet ds = DBHelper.ExecuteQuery("GetUnusedNFC", para);
             return ds;
+        }
+    }
+    public class VCard
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Organization { get; set; }
+        public string JobTitle { get; set; }
+        public string Note { get; set; }
+        public string StreetAddress { get; set; }
+        public string Zip { get; set; }
+        public string City { get; set; }
+        public string CountryName { get; set; }
+        public string Phone { get; set; }
+        public string Mobile { get; set; }
+        public string OfficialEmail { get; set; }
+        public string PersonalEmail { get; set; }
+        public string Designation { get; set; }
+        public string BusinessName { get; set; }
+        public string ProfileName { get; set; }
+        public string HomePage { get; set; }
+        public List<string> WebLinks { get; set; }
+        public List<string> Emails { get; set; }
+        public List<string> Contacts { get; set; }
+        public List<string> SocialLinks { get; set; }
+        public byte[] Image { get; set; }
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("BEGIN:VCARD");
+            builder.AppendLine("VERSION:3.0");
+            // Name 
+            //builder.AppendLine("N:" + LastName + ";" + FirstName);
+            // Full name 
+            builder.AppendLine("FN:" + FirstName + " " + LastName);
+            //builder.AppendLine("TITLE:" + "");
+            if (!string.IsNullOrEmpty(Note))
+                builder.AppendLine("NOTE:" + Note);
+            // Address  
+            //builder.Append("ADR;HOME;PREF:;;");
+            //builder.Append(StreetAddress + ";");
+            //builder.Append(City + ";;");
+            //builder.Append(Zip + ";");
+            //builder.AppendLine(CountryName);
+            // Other data 
+            if (!string.IsNullOrEmpty(ProfileName))
+                builder.AppendLine("Profile:" + ProfileName);
+            if (!string.IsNullOrEmpty(BusinessName))
+                builder.AppendLine("ORG:" + BusinessName);
+            if (!string.IsNullOrEmpty(Designation))
+                builder.AppendLine("TITLE:" + Designation);
+
+            if (!string.IsNullOrEmpty(Mobile))
+                builder.AppendLine("TEL;TYPE=Personal:" + Mobile);
+            if (!string.IsNullOrEmpty(OfficialEmail))
+                builder.AppendLine("EMAIL;TYPE=Official:" + OfficialEmail);
+            if (!string.IsNullOrEmpty(PersonalEmail))
+                builder.AppendLine("EMAIL;TYPE=Personal:" + PersonalEmail);
+
+
+            if (WebLinks != null && WebLinks.Count > 0)
+            {
+                foreach (var url in WebLinks)
+                {
+                    builder.AppendLine("URL:" + url);
+                }
+            }
+
+            if (SocialLinks != null && SocialLinks.Count > 0)
+            {
+                foreach (var url in SocialLinks)
+                {
+                    builder.AppendLine("URL:" + url);
+                }
+            }
+            if (Contacts != null && Contacts.Count > 0)
+            {
+                foreach (var url in Contacts)
+                {
+                    builder.AppendLine("TEL:" + url);
+                }
+            }
+            if (Emails != null && Emails.Count > 0)
+            {
+                foreach (var url in Emails)
+                {
+                    builder.AppendLine("Email:" + url);
+                }
+            }
+            // Add image
+            if (Image != null)
+            {
+                builder.AppendLine("PHOTO;ENCODING=b:" + Convert.ToBase64String(Image));
+            }
+
+            //End
+            builder.AppendLine("END:VCARD");
+            return builder.ToString();
         }
     }
 }
