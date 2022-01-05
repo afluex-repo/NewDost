@@ -567,7 +567,7 @@ namespace Dost.Controllers
                 model.Message = ex.Message;
             }
 
-            return Json(model, JsonRequestBehavior.AllowGet);
+            return Json(model.Result, model.Message, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetProfilePersonalData()
         {
@@ -785,14 +785,26 @@ namespace Dost.Controllers
             }
 
         }
-        public ActionResult UpdateRedirectionUrl(string PK_ProfileId, string PK_NFCProfileId)
+        public ActionResult UpdateRedirectionUrl(string PK_ProfileId, string PK_NFCProfileId, string func)
         {
             NFCProfileModel obj = new NFCProfileModel();
             obj.PK_ProfileId = PK_ProfileId;
             obj.Pk_NfcProfileId = Convert.ToInt32(PK_NFCProfileId);
             obj.FK_UserId = Session["Pk_userId"].ToString();
-            obj.IsRedirect = true;
-            obj.IsIncluded = true;
+            if (func == "Update")
+            {
+                obj.IsRedirect = true;
+                obj.IsIncluded = true;
+            }
+            else if (func == "Remove")
+            {
+                obj.IsRedirect = false;
+                obj.IsIncluded = false;
+            }
+            else
+            {
+
+            }
             DataSet ds = obj.UpdateRedirectionUrl();
 
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)

@@ -116,13 +116,13 @@
                                                                             <div class="text-right" style="margin-top: -28px">
                                                                                 <div class="mt-4 text-white">
                                                                                     <input type="checkbox" class="chkactive" value="@Item.PK_ProfileId" @Item.ActiveStatus /><p>Activate</p>
-                                                                                    <p><a href="#ShowConctact('@i')" onclick="ShowConctact(@Item.PK_ProfileId);" data-epensedetailsid='@Item.PK_ProfileId' class="text-white"><i class="fa fa-edit"></i> Edit</a></p>
+                                                                                    <p><a href="#ShowConctact('@i')" onclick="ShowConctact(@Item.PK_ProfileId,@i);" data-epensedetailsid='@Item.PK_ProfileId' class="text-white"><i class="fa fa-edit"></i> Edit</a></p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="d-flex">
                                                                             <div class="mb-2">
-                                                                                <button type="button" class="btn btn-secondary">Contact Card</button>
+                                                                                <button type="button" class="btn btn-secondary" style="background:#e12929;border: 1px solid #e12929">Contact Card</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -144,7 +144,7 @@
                                                                                                 <div class="text-center">
                                                                                                     <div class="my-profile">
                                                                                                         <img src="@Item.ProfilePic" alt="" class="rounded" id="output1">
-                                                                                                        <a class="file_active" onclick="getFile()" for="upfile"><i class="fa fa-pencil" aria-hidden="true"></i><input id="upfile"  type="file" value="upload" style="display: none"></a>
+                                                                                                        <a class="file_active" onclick="getFile()" for="upfile"><i class="fa fa-pencil" aria-hidden="true"></i><input id="upfile" type="file" value="upload" style="display: none"/></a>
 
                                                                                                     </div>
 
@@ -191,7 +191,7 @@
                                                                                         <div class="col-xl-6 col-lg-6 form-group">
                                                                                             <div class="mb-3">
                                                                                                 <label>Date of Birth</label>
-                                                                                                @Html.TextBoxFor(m => m.DOB, new { @class = "form-control DOB_" + @i + "", @Placeholder = "DOB", @readonly = true })
+                                                                                                @Html.TextBoxFor(m => m.DOB, new { @class = "form-control date DOB_" + @i + "", @Placeholder = "DOB", @readonly = true })
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -274,7 +274,7 @@
                                                                                 <!-- <div class="num-text text-white mb-3 font-w600" style="border: 2px solid white; border-radius: 8px; width: 50px; height: 50px;"></div> -->
                                                                                 <div class="mt-4 text-white">
                                                                                     <input type="checkbox" class="chkactive" value="@Item.PK_ProfileId" @Item.ActiveStatus /><p>Activate</p>
-                                                                                    <p><a href="#Redirect('@i')" onclick="Redirect(@Item.PK_ProfileId);" class="text-white"><i class="fa fa-edit"></i> Edit</a></p>
+                                                                                    <p><a href="#Redirect('@i')" onclick="Redirect(@Item.PK_ProfileId,@i);" class="text-white"><i class="fa fa-edit"></i> Edit</a></p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -299,13 +299,13 @@
                                                                                         <div class="col-xl-12 col-lg-12 col-md-12 text-center">
                                                                                             <div class="input-group mb-3">
                                                                                                 <div class="input-group-prepend">
-                                                                                                    <select class="form-control btn btn-primary dropdown-toggle" onchange="GetUrl()" id="ddlUrl">
+                                                                                                    <select class="form-control btn btn-primary dropdown-toggle" onchange="GetUrl(@i)" id="ddlUrl_@i">
                                                                                                         <option value="0" class="dropdown-toggle">Select</option>
                                                                                                         <option value="WebLink" class="dropdown-item">Web Link</option>
                                                                                                         <option value="SocialMedia" class="dropdown-item">Social Media</option>
                                                                                                     </select>
                                                                                                 </div>
-                                                                                                <select class="form-control" id="ddlWebLink" style="background-color: #42366c;">
+                                                                                                <select class="form-control" id="ddlWebLink_@i" style="background-color: #42366c;">
                                                                                                     <option value="0">--Select--</option>
                                                                                                 </select>
                                                                                             </div>
@@ -314,10 +314,10 @@
 
                                                                                     <div class="row mt-5 ">
                                                                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-center">
-                                                                                            <input class="btn btn-success mb-2 px-5" type="submit" value="UPDATE" id="btnRedirct" name="btnRedirct" onclick="UpdateRedirectionUrl();" />
+                                                                                            <input class="btn btn-success mb-2 px-5" type="submit" value="UPDATE" id="btnRedirct" name="btnRedirct" onclick="UpdateRedirectionUrl('Update',@i);" />
                                                                                         </div>
                                                                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-center ">
-                                                                                            <button type="submit" class="btn btn-danger mb-2 px-5">REMOVE</button>
+                                                                                            <button type="button" class="btn btn-danger mb-2 px-5" onclick="UpdateRedirectionUrl('Remove',@i);">REMOVE</button>
                                                                                         </div>
                                                                                     </div>
                                                                                 </form>
@@ -537,7 +537,6 @@
                                     <div class="text-center">
                                         <div class="my-profile">
                                             <img src="" alt="" class="rounded" id="MyProfileImage">
-                                            <a href="javascript:void(0);"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                         </div>
                                         <h4 class="mt-3 font-w600 text-black mb-0 name-text" id="lblName"></h4>
                                         <span id="spDesignation"></span>
@@ -571,7 +570,7 @@
                                     <div class="text-center">
                                         <div class="my-profile">
                                             <img src="" alt="" class="rounded" id="ProfileImage">
-                                            <a href="javascript:void(0);" onclick="getFile()" for="up1file"><i class="fa fa-pencil" aria-hidden="true"></i><input id="up1file"  type="file" value="upload" style="display: none"></a>
+                                            <a href="javascript:void(0);" onclick="getFile()" for="up1file"><i class="fa fa-pencil" aria-hidden="true"></i><input id="up1file" type="file" value="upload" style="display: none"></a>
                                         </div>
                                         <h4 class="mt-3 font-w600 text-black mb-0 name-text">URL :</h4>
                                         <span id="spUrl"></span>
@@ -600,7 +599,7 @@
                                 <div class="card-body text-center">
                                     <div id="pieChart" class="d-inline-block"></div>
                                     <div class="chart-items">
-                                        <div class=" col-xl-12 col-sm-12">
+                                        <div class="col-xl-12 col-sm-12">
                                             <div class="row text-black text-left fs-13 mt-4">
                                                 <span class="mb-3 col-6 px-2">
                                                     <svg class="mr-2" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -655,6 +654,7 @@
             tags: true,
         });
     });
+
     var ProfileId = "";
     $('input[name="ProfileType"]').on('change', function () {
         $('input[name="ProfileType"]').not(this).prop('checked', false);
@@ -680,23 +680,33 @@
                 processData: false,
                 data: fileData,
                 success: function (data) {
+                    debugger;
+                    var obj = jQuery.parseJSON(data);
                     $("#Flag").val('');
-                    if (data.Result == "Success") {
-                        SuccessAlert(data.Message);
+                    if (obj == "Success") {
+                        SuccessAlert("New Contact card save Successfully");
+                        $("#ProfileName").val('');
+                        $('input[name="ProfileType"]:checked').val('false');
                     }
                     else {
-                        ErrorAlert(data.Message);
+                        ErrorAlert("Error Occurred");
+                        $("#ProfileName").val('');
+                        $('input[name="ProfileType"]:checked').val('false');
                     }
-                    GetProfilePersonalData();
+                    //GetProfilePersonalData();
                     $('#exampleModalCenter').modal('hide');
+                    window.location.href = "/NFCProfile/ProfileUpdate";
                 },
                 error: function (err) {
                     ErrorAlert("Error while inserting data");
-
-                    GetProfilePersonalData();
+                    $("#ProfileName").val('');
+                    $('input[name="ProfileType"]:checked').val('false');
+                   // GetProfilePersonalData();
                     $('#exampleModalCenter').modal('hide');
+                    window.location.href = "/NFCProfile/ProfileUpdate";
                 }
             });
+            
         }
         $("#Flag").val("Profile");
     });
@@ -757,7 +767,7 @@
                     else {
                         cl = "btn-secondary";
                     }
-                    $("#divbindProfile").append('<div class="swiper-slide"><div class="card-bx stacked card"><img src=' + obj[i].CardImage + ' alt=""><div class="card-info"><p class="mb-1 text-white fs-14">' + obj[i].ProfileName + '</p><div class="d-flex justify-content-between"><h2 class="num-text text-white mb-5 font-w600">' + obj[i].Name + '</h2><div class="text-center"><span class="num-text text-white mb-5 font-w600"></span><div class="mt-4 text-white"><input type="checkbox" class="chkactive" value=' + obj[i].PK_ProfileId + ' ' + obj[i].IsChecked + '/><p>Activate</p><p><a href="javascript:void(0)" class="text-white" onclick="GetBusinessProfile(' + obj[i].PK_ProfileId + ');"><i class="fa fa-edit"></i> Edit</a></p></div></div></div><div class="d-flex"><div class="mb-2"><button type="button" class="btn ' + cl + '" onclick="GetBusinessProfile(' + obj[i].PK_ProfileId + ');">' + obj[i].ProfileType + '</button></div></div></div></div></div>')
+                    $("#divbindProfile").append('<div class="swiper-slide"><div class="card-bx stacked card"><img src=' + obj[i].CardImage + ' alt=""><div class="card-info"><p class="mb-1 text-white fs-14">' + obj[i].ProfileName + '</p><div class="d-flex justify-content-between"><h2 class="num-text text-white mb-5 font-w600">' + obj[i].Name + '</h2><div class="text-center"><span class="num-text text-white mb-5 font-w600"></span><div class="mt-4 text-white"><input type="checkbox" class="chkactive" value=' + obj[i].PK_ProfileId + ' ' + obj[i].IsChecked + '/><p>Activate</p><p><a href="javascript:void(0)" class="text-white" onclick="ShowConctact(' + obj[i].PK_ProfileId + ',' + (i + 1) + ');"><i class="fa fa-edit"></i> Edit</a></p></div></div></div><div class="d-flex"><div class="mb-2"><button type="button" class="btn ' + cl + '" onclick="GetBusinessProfile(' + obj[i].PK_ProfileId + ',' + (i + 1) + ');">' + obj[i].ProfileType + '</button></div></div></div></div></div>')
                 }
             }
         });
@@ -770,9 +780,10 @@
             data: $("#form1").serialize(),
             success: function (data) {
                 debugger;
+                var obj = jQuery.parseJSON(data);
                 $("#Flag").val('');
-                if (data.Result == "Success") {
-                    SuccessAlert(data.Message);
+                if (obj == "Success") {
+                    SuccessAlert("Profile Updated Successfully");
                     $("#Content").val('');
                     $("#ContentEmail").val('');
                     $("#ContentWebLinks").val('');
@@ -782,7 +793,9 @@
                     GetProfileData("WebLink", "#tblWebLink");
                     GetProfileData("SocialMedia", "#tblSocialMedia");
                 }
-                SuccessAlert(data.Message);
+                else {
+                    ErrorAlert("Error while inserting data");
+                }
             },
             error: function () {
                 ErrorAlert("Error while inserting data");
@@ -817,7 +830,8 @@
                         }
                         SuccessAlert(message);
                         $("#hdfProfile").val(ProfileId);
-                        GetProfilePersonalData();
+                        window.location.href="/NFCProfile/ProfileUpdate";
+                        //GetProfilePersonalData();
                     }
                     else {
                         ErrorAlert("Please try again");
@@ -826,9 +840,8 @@
             });
         });
     });
-    window.GetBusinessProfile = function (Id) {
+    window.GetBusinessProfile = function (Id, index) {
         debugger;
-
         $("#hdfProfile").val(Id);
         $.ajax({
             type: "GET",
@@ -842,17 +855,17 @@
                 if (data != null) {
                     var obj = jQuery.parseJSON(data);
                     if (obj[0][0].PK_ProfileId != null) {
-                        
+
                         if (obj[0][0].ProfileType == "Redirection") {
                             $("#ProfileImage").attr("src", obj[0][0].ProfilePic);
                             $("#divRedirection").show();
                             $("#divContactCard").hide();
                             $('.Redirect_' + Id).toggle('show');
                             var html = '';
-                            $("#ddlWebLink").html('');
+                            $("#ddlWebLink_" + index).html('');
                             for (var i = 0; i < obj[1].length; i++) {
                                 if (obj[1][i].IsRedirect == true) {
-                                    $("#ddlUrl [value=" + obj[1][i].Type + "]").attr("selected", "true");
+                                    $("#ddlUrl" + index + " [value=" + obj[1][i].Type + "]").attr("selected", "true");
                                     html += "<option value='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</option>";
                                     $("#spUrl").text(obj[1][i].Content);
                                 }
@@ -860,9 +873,10 @@
 
                                 }
                             }
-                            $("#ddlWebLink").append(html);
+                            $("#ddlWebLink_" + index).append(html);
                         }
                         else {
+
                             $("#MyProfileImage").attr("src", obj[0][0].ProfilePic);
                             $("#divContactCard").show();
                             $("#divRedirection").hide();
@@ -870,26 +884,33 @@
                             $("#lblName").text(obj[0][0].FirstName);
                             //$("#joiningDate").text(obj[0].CreatedDate)
                             $("#hdfProfile").val(obj[0][0].PK_ProfileId);
-                            $("#Designation").val(obj[0][0].Designation);
-                            $("#ProfileImage").attr("src", obj[0][0].ProfilePic);
-                            $("#Gender [value=" + obj[0][0].Gender + "]").attr("selected", "true");
-                            $("#FirstName").val(obj[0][0].FirstName);
-                            $("#DOB").val(obj[0][0].DOB);
-                            $("#LastName").val(obj[0][0].LastName);
-
-                            for (var i = 0; i < obj[1].length; i++) {
-                                if (obj[1][i].Type == "Email") {
-                                    $(".selectedEmail2").append("<button type='button' data-emailid='" + obj[1][i].PK_NFCProfileId + "' id='btnSelected2'>" + obj[1][i].Content + "</button>");
+                            $(".Designation_" + index).val(obj[0][0].Designation);
+                            $("#ProfileImage" + index).attr("src", obj[0][0].ProfilePic);
+                            $(".Gender_" + index + " [value=' + obj[0][0].Gender + ']").attr("selected", "true");
+                            $(".FirstName_" + index).val(obj[0][0].FirstName);
+                            $(".DOB_" + index).val(obj[0][0].DOB);
+                            $(".LastName_" + index).val(obj[0][0].LastName);
+                            if (obj[1].length > 0) {
+                                for (var i = 0; i < obj[1].length; i++) {
+                                    if (obj[1][i].Type == "Email") {
+                                        $(".selectedEmail2").append("<button type='button' data-emailid='" + obj[1][i].PK_NFCProfileId + "' id='btnSelected2'>" + obj[1][i].Content + "</button>");
+                                    }
+                                    if (obj[1][i].Type == "ContactNo") {
+                                        $(".selectedMobile").append("<button type='button' data-mobileid='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</button>");
+                                    }
+                                    if (obj[1][i].Type == "SocialMedia") {
+                                        $(".selectedSocial").append("<button type='button' data-socialid='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</button>");
+                                    }
+                                    if (obj[1][i].Type == "WebLink") {
+                                        $(".selectedWebLink").append("<button type='button' data-weblinkid='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</button>");
+                                    }
                                 }
-                                if (obj[1][i].Type == "ContactNo") {
-                                    $(".selectedMobile").append("<button type='button' data-mobileid='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</button>");
-                                }
-                                if (obj[1][i].Type == "SocialMedia") {
-                                    $(".selectedSocial").append("<button type='button' data-socialid='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</button>");
-                                }
-                                if (obj[1][i].Type == "WebLink") {
-                                    $(".selectedWebLink").append("<button type='button' data-weblinkid='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</button>");
-                                }
+                            }
+                            else {
+                                $(".selectedEmail2").html("");
+                                $(".selectedMobile").html("");
+                                $(".selectedSocial").html("");
+                                $(".selectedWebLink").html("");
                             }
                             var selectedEmail2 = new Array();
                             var selectedMobile = new Array();
@@ -898,26 +919,25 @@
                             $.each($('.selectedEmail2 button[type=button]'), function (i, v) {
                                 debugger;
                                 selectedEmail2[i] = $(this).attr('data-emailid');
-                                $('#EmailList').val(selectedEmail2).trigger('change');
+                                $('.Email_' + index).val(selectedEmail2).trigger('change');
                             });
                             $.each($('.selectedMobile button[type=button]'), function (i, v) {
                                 debugger;
                                 selectedMobile[i] = $(this).attr('data-mobileid');
-                                $('#ContactList').val(selectedMobile).trigger('change');
+                                $('.Mobile_' + index).val(selectedMobile).trigger('change');
                             });
                             $.each($('.selectedSocial button[type=button]'), function (i, v) {
                                 debugger;
                                 selectedSocial[i] = $(this).attr('data-socialid');
-                                $('#SocialLink').val(selectedSocial).trigger('change');
+                                $('.SocialMedia_' + index).val(selectedSocial).trigger('change');
                             });
                             $.each($('.selectedWebLink button[type=button]'), function (i, v) {
                                 debugger;
                                 selectedWebLink[i] = $(this).attr('data-weblinkid');
-                                $('#WebLink').val(selectedWebLink).trigger('change');
+                                $('.WebLink_' + index).val(selectedWebLink).trigger('change');
                             });
-                            $("#Remarks").val(obj[0][0].Description);
-                            $("#CompanyName").val(obj[0][0].BusinessName);
-
+                            $(".Remarks_" + index).val(obj[0][0].Description);
+                            $(".CompanyName_" + index).val(obj[0][0].BusinessName);
                         }
                     }
                 }
@@ -999,6 +1019,7 @@
     $("#upfile").change(function (event) {
         var image = document.getElementById('output1');
         image.src = URL.createObjectURL(event.target.files[0]);
+        $("#MyProfileImage").attr("src", image.src);
         debugger;
         var fileUpload = $("#upfile").get(0);
         var files = fileUpload.files;
@@ -1033,7 +1054,7 @@
         })
     })
     $("#up1file").change(function (event) {
-        var image = document.getElementById('output1');
+        var image = document.getElementById('ProfileImage');
         image.src = URL.createObjectURL(event.target.files[0]);
         debugger;
         var fileUpload = $("#up1file").get(0);
@@ -1069,12 +1090,13 @@
             }
         })
     })
-    function ShowConctact(index) {
-        GetBusinessProfile(index);
+    function ShowConctact(ProfileId, index) {
+        debugger;
+        GetBusinessProfile(ProfileId, index);
     }
-    function Redirect(index) {
+    function Redirect(ProfileId, index) {
 
-        GetBusinessProfile(index);
+        GetBusinessProfile(ProfileId, index);
     }
     function SaveBusinessContact(index) {
         var isAllValid = true;
@@ -1124,14 +1146,14 @@
             formData.append("Emaillist", Emaillist);
             formData.append("SocialLink", SocialLink);
             formData.append("WebLinkList", WebLinkList);
-            formData.append("FirstName", $('#FirstName').val());
-            formData.append("LastName", $('#LastName').val());
-            formData.append("Gender", $('#Gender').val());
-            formData.append("DOB", $('#DOB').val());
+            formData.append("FirstName", $('.FirstName_' + index + '').val());
+            formData.append("LastName", $('.LastName_' + index + '').val());
+            formData.append("Gender", $('.Gender_' + index + '').val());
+            formData.append("DOB", $('.DOB_' + index + '').val());
             formData.append("PK_ProfileId", $('#hdfProfile').val());
-            formData.append("BusinessName", $('#CompanyName').val());
-            formData.append("Designation", $('#Designation').val());
-            formData.append("Description", $('#Remarks').val());
+            formData.append("BusinessName", $('.CompanyName_' + index + '').val());
+            formData.append("Designation", $('.Designation_' + index + '').val());
+            formData.append("Description", $('.Remarks_' + index + '').val());
             debugger;
             $.ajax({
                 type: 'POST',
@@ -1141,11 +1163,12 @@
                 data: formData,
                 success: function (response) {
                     debugger;
-                    if (response.Result = "Success") {
-                        SuccessAlert(response.Message);
+                    var obj = jQuery.parseJSON(response);
+                    if (obj = "Success") {
+                        SuccessAlert("Profile Updated successfully");
                     }
                     else {
-                        ErrorAlert(response.Message);
+                        ErrorAlert("Error Occurred");
                     }
                 },
                 error: function (error) {
@@ -1155,21 +1178,22 @@
             });
         }
     };
-    function GetUrl() {
+    function GetUrl(index) {
         debugger;
-        var Type = $("#ddlUrl :selected").val();
+        var Type = $("#ddlUrl_" + index + " :selected").val();
+        var PK_ProfileId = $("#hdfProfile").val();
         $.ajax({
             cache: false,
             type: "get",
             contentType: "application/json; charset=utf-8",
             url: 'GetUrlForRedirection',
-            data: { Type: Type },
+            data: { Type: Type, ProfileId: PK_ProfileId },
             dataType: "json",
             aysnc: false,
             success: function (data) {
                 debugger;
                 if (data != null) {
-                    $("#ddlWebLink").html('');
+                    $("#ddlWebLink_" + index).html('');
                     var obj = jQuery.parseJSON(data)
                     var html = '';
                     for (var i = 0; i < obj.length; i++) {
@@ -1177,21 +1201,21 @@
                             html += "<option value='" + obj[i].Pk_NfcProfileId + "'>" + obj[i].Content + "</option>";
                         }
                     }
-                    $("#ddlWebLink").append(html);
+                    $("#ddlWebLink_" + index).append(html);
                 }
             }
         });
     }
-    function UpdateRedirectionUrl() {
+    function UpdateRedirectionUrl(func,index) {
         debugger;
-        var PK_NFCProfileId = $("#ddlWebLink :selected").val();
+        var PK_NFCProfileId = $("#ddlWebLink_" + index + " :selected").val();
         var PK_ProfileId = $("#hdfProfile").val();
         $.ajax({
             cache: false,
             type: "get",
             contentType: "application/json; charset=utf-8",
             url: 'UpdateRedirectionUrl',
-            data: { PK_ProfileId: PK_ProfileId, PK_NFCProfileId: PK_NFCProfileId },
+            data: { PK_ProfileId: PK_ProfileId, PK_NFCProfileId: PK_NFCProfileId, func },
             dataType: "json",
             aysnc: false,
             success: function (data) {
@@ -1247,5 +1271,5 @@
             tapToDismiss: !1
         })
     }
-    $("#DOB").datepicker();
+    $(".date").datepicker();
 </script>
