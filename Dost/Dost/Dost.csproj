@@ -2459,6 +2459,7 @@
     <Content Include="images\users\pic7.jpg" />
     <Content Include="images\users\pic8.jpg" />
     <Content Include="images\user_profile.png" />
+    <Content Include="index.html" />
     <Content Include="js\custom.js" />
     <Content Include="js\custom.min.js" />
     <Content Include="js\dashboard\chat.js" />
