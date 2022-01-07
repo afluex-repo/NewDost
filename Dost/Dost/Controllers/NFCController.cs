@@ -258,138 +258,144 @@ namespace Dost.Controllers
 
                             foreach (DataRow row in ds1.Tables[1].Rows)
                             {
+                                if (row["Content"].ToString().Contains("m.youtube.com"))
+                                {
+                                    row["Content"].ToString().Replace("www.youtube.com", "m.youtube.com");
+                                }
                                 NfcContentList.Add(new NFCContent()
                                 {
+                                 
                                     Content = row["Content"].ToString(),
                                     Type = row["Type"].ToString(),
                                     IsWhatsApp = row["IsWhatsapp"].ToString()
                                 });
-                            }
-
-                            objProfile.NfcContentList = NfcContentList;
                         }
-                        if (!string.IsNullOrEmpty(objProfile.Name))
-                        {
 
-                            var myCard = new VCard
-                            {
-                                FirstName = objProfile.FirstName,
-                                LastName = objProfile.LastName,
-                                ProfileName = objProfile.ProfileName,
-                                BusinessName = objProfile.BusinessName,
-                                Designation = objProfile.Designation,
-                                Note = objProfile.Summary,
-                                //Organization = "",
-                                //JobTitle = "",
-                                //Zip = objProfile.PinCode,
-                                //StreetAddress = objProfile.Address,
-                                //City = objProfile.City,
-                                //CountryName = "India",
-                                //Phone = objProfile.Mobile,
-                                //Mobile = objProfile.Mobile,
-                                //OfficialEmail = objProfile.Email
-                            };
-                            try
-                            {
-                                if (objProfile.NfcContentList != null && objProfile.NfcContentList.Count > 0)
-                                {
-                                    List<string> Contacts = new List<string>();
-                                    List<string> Email = new List<string>();
-                                    List<string> Weblinks = new List<string>();
-                                    List<string> SocialLinks = new List<string>();
-                                    foreach (var item in objProfile.NfcContentList)
-                                    {
-                                        if (item.Type == "WebLink")
-                                        {
-                                            Weblinks.Add(item.Content);
-                                        }
-                                        else if (item.Type == "SocialMedia")
-                                        {
-                                            Weblinks.Add(item.Content);
-                                        }
-                                        else if (item.Type == "ContactNo")
-                                        {
-                                            Contacts.Add(item.Content);
-                                        }
-                                        else if (item.Type == "Email")
-                                        {
-                                            Email.Add(item.Content);
-                                        }
-                                    }
-                                    if (Weblinks != null && Weblinks.Count > 0)
-                                    {
-                                        myCard.WebLinks = Weblinks;
-                                    }
-                                    if (Contacts != null && Contacts.Count > 0)
-                                    {
-                                        myCard.Contacts = Contacts;
-                                    }
-                                    if (Email != null && Email.Count > 0)
-                                    {
-                                        myCard.Emails = Email;
-                                    }
-                                    if (SocialLinks != null && SocialLinks.Count > 0)
-                                    {
-                                        myCard.SocialLinks = SocialLinks;
-                                    }
-                                }
-                            }
-                            catch (Exception exx)
-                            {
-
-                            }
-                            try
-                            {
-                                if (!string.IsNullOrEmpty(objProfile.ProfilePic))
-                                {
-                                    string path = System.Web.HttpContext.Current.Server.MapPath(objProfile.ProfilePic);
-                                    myCard.Image = System.IO.File.ReadAllBytes(path);
-                                }
-                            }
-                            catch (Exception exx)
-                            {
-
-                            }
-                            System.Web.HttpContext.Current.Response.Clear();
-                            //System.Web.HttpContext.Current.Response.ContentType = "text/vcard";
-                            System.Web.HttpContext.Current.Response.AddHeader("Content-type", "text/x-vcard; charset=utf-8");
-                            if (objProfile.FirstName == "")
-                            {
-                                System.Web.HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment; filename=" + objProfile.FirstName + "Contact.vcf");
-                            }
-                            else
-                            {
-                                System.Web.HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment; filename=" + objProfile.FirstName + ".vcf");
-                            }
-
-                            var cardString = myCard.ToString();
-                            var inputEncoding = Encoding.Default;
-                            var outputEncoding = Encoding.GetEncoding("utf-8");
-                            var cardBytes = inputEncoding.GetBytes(cardString);
-                            var outputBytes = Encoding.Convert(inputEncoding,
-                                                    outputEncoding, cardBytes);
-                            System.Web.HttpContext.Current.Response.OutputStream.Write(outputBytes, 0, outputBytes.Length);
-                            System.Web.HttpContext.Current.Response.End();
-                        }
+                        objProfile.NfcContentList = NfcContentList;
                     }
-                    else
+                    if (!string.IsNullOrEmpty(objProfile.Name))
                     {
 
+                        var myCard = new VCard
+                        {
+                            FirstName = objProfile.FirstName,
+                            LastName = objProfile.LastName,
+                            ProfileName = objProfile.ProfileName,
+                            BusinessName = objProfile.BusinessName,
+                            Designation = objProfile.Designation,
+                            Note = objProfile.Summary,
+                            //Organization = "",
+                            //JobTitle = "",
+                            //Zip = objProfile.PinCode,
+                            //StreetAddress = objProfile.Address,
+                            //City = objProfile.City,
+                            //CountryName = "India",
+                            //Phone = objProfile.Mobile,
+                            //Mobile = objProfile.Mobile,
+                            //OfficialEmail = objProfile.Email
+                        };
+                        try
+                        {
+                            if (objProfile.NfcContentList != null && objProfile.NfcContentList.Count > 0)
+                            {
+                                List<string> Contacts = new List<string>();
+                                List<string> Email = new List<string>();
+                                List<string> Weblinks = new List<string>();
+                                List<string> SocialLinks = new List<string>();
+                                foreach (var item in objProfile.NfcContentList)
+                                {
+                                    if (item.Type == "WebLink")
+                                    {
+                                        Weblinks.Add(item.Content);
+                                    }
+                                    else if (item.Type == "SocialMedia")
+                                    {
+                                        Weblinks.Add(item.Content);
+                                    }
+                                    else if (item.Type == "ContactNo")
+                                    {
+                                        Contacts.Add(item.Content);
+                                    }
+                                    else if (item.Type == "Email")
+                                    {
+                                        Email.Add(item.Content);
+                                    }
+                                }
+                                if (Weblinks != null && Weblinks.Count > 0)
+                                {
+                                    myCard.WebLinks = Weblinks;
+                                }
+                                if (Contacts != null && Contacts.Count > 0)
+                                {
+                                    myCard.Contacts = Contacts;
+                                }
+                                if (Email != null && Email.Count > 0)
+                                {
+                                    myCard.Emails = Email;
+                                }
+                                if (SocialLinks != null && SocialLinks.Count > 0)
+                                {
+                                    myCard.SocialLinks = SocialLinks;
+                                }
+                            }
+                        }
+                        catch (Exception exx)
+                        {
+
+                        }
+                        try
+                        {
+                            if (!string.IsNullOrEmpty(objProfile.ProfilePic))
+                            {
+                                string path = System.Web.HttpContext.Current.Server.MapPath(objProfile.ProfilePic);
+                                myCard.Image = System.IO.File.ReadAllBytes(path);
+                            }
+                        }
+                        catch (Exception exx)
+                        {
+
+                        }
+                        System.Web.HttpContext.Current.Response.Clear();
+                        //System.Web.HttpContext.Current.Response.ContentType = "text/vcard";
+                        System.Web.HttpContext.Current.Response.AddHeader("Content-type", "text/x-vcard; charset=utf-8");
+                        if (objProfile.FirstName == "")
+                        {
+                            System.Web.HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment; filename=" + objProfile.FirstName + "Contact.vcf");
+                        }
+                        else
+                        {
+                            System.Web.HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment; filename=" + objProfile.FirstName + ".vcf");
+                        }
+
+                        var cardString = myCard.ToString();
+                        var inputEncoding = Encoding.Default;
+                        var outputEncoding = Encoding.GetEncoding("utf-8");
+                        var cardBytes = inputEncoding.GetBytes(cardString);
+                        var outputBytes = Encoding.Convert(inputEncoding,
+                                                outputEncoding, cardBytes);
+                        System.Web.HttpContext.Current.Response.OutputStream.Write(outputBytes, 0, outputBytes.Length);
+                        System.Web.HttpContext.Current.Response.End();
                     }
                 }
                 else
                 {
 
                 }
-                //}
             }
+                else
+                {
+
+            }
+            //}
+        }
             catch (System.Exception ex)
             {
 
             }
 
 
-            return RedirectToAction("Profile", new { id = id });
+            return RedirectToAction("Profile", new { id = id
+});
             //System.Web.HttpContext.Current.Request.QueryString["id"].ToString();
             //return Json("hi", JsonRequestBehavior.AllowGet);
         }

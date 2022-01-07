@@ -76,6 +76,12 @@
             overflow: hidden;
             line-height: 30px;
         }
+
+        .fa-lg {
+            font-size: 1.58em;
+            line-height: .75em;
+            vertical-align: -15%;
+        }
     </style>
 </head>
 <body>
@@ -241,7 +247,7 @@
                                                                         <div class="col-xl-2 col-xxl-2 col-sm-2">
                                                                             <div class="card">
                                                                                 <div class="">
-                                                                                    <span class="s-icon"><a href="https://web.whatsapp.com/@item.Content" target="_blank" style="background:#42f560"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                                                    <span class="s-icon"><a href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank" style="background:#42f560"><i class="fa fa-whatsapp fa-lg"></i></a></span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -269,7 +275,7 @@
                                                                                 }
                                                                                 @if (item.Content.Contains("instagram") || item.Content.Contains("insta"))
                                                                                 {
-                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank" style="background:#833AB4"><i class="fa fa-instagram fa-lg"></i></a></span>
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank" style="background:#E1306C"><i class="fa fa-instagram fa-lg"></i></a></span>
                                                                                 }
                                                                                 @if (item.Content.Contains("linkedin") || item.Content.Contains("link"))
                                                                                 {
