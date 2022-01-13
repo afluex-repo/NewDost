@@ -26,10 +26,18 @@
     <link rel="stylesheet" href="../vendor/chartist/css/chartist.min.css">
     <link href="../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="../vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="../vendor/toastr/css/toastr.min.css">
     <link href="../css/style.css" rel="stylesheet">
 
 </head>
 <body class="vh-100">
+    @*<div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>*@
     <div class="authincation h-100">
         <div class="container h-100">
             <div class="row justify-content-center h-100 align-items-center">
@@ -40,7 +48,7 @@
                                 <div class="auth-form">
                                     <div class="text-center mb-3">
                                         <img src="../images/logos/dost-logo.png" alt="" style="width:150px;">
-                                       
+
                                     </div>
                                     <h4 class="text-center mb-4">Login</h4>
                                     <span style="color:red;display:none" id="tst">@TempData["LoginResponse"]</span>
@@ -58,7 +66,7 @@
                                             <div class="form-group">
                                                 <div class="custom-control custom-checkbox ml-1">
                                                     @*<input type="checkbox" class="custom-control-input" id="basic_checkbox_1">
-                                                    <label class="custom-control-label" for="basic_checkbox_1">Remember my preference</label>*@
+                                                        <label class="custom-control-label" for="basic_checkbox_1">Remember my preference</label>*@
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -67,7 +75,7 @@
                                         </div>
                                         <div class="text-center">
                                             <input type="submit" class="btn btn-primary btn-block" value="Sign In" onclick="return funSubmit();">
-                                            
+
                                         </div>
                                     }
 
@@ -92,7 +100,7 @@
     <script src="../vendor/select2/js/select2.full.min.js"></script>
     <script src="../js/plugins-init/select2-init.js"></script>
 
-    <script src="../vendor/toastr/js/toastr.min.js"></script>   `1
+    <script src="../vendor/toastr/js/toastr.min.js"></script>
     <script src="../js/plugins-init/toastr-init.js"></script>
     <script src="../vendor/chart.js/Chart.bundle.min.js"></script>
     <script src="../vendor/peity/jquery.peity.min.js"></script>
@@ -115,80 +123,87 @@
         });
     </script>
     <script type="text/javascript">
-    $(window).on('load', function () {
-        var res = $("#tst").text();
-        if (res != "" && res != null) {
-            //alert(res);
-            if (res == "NFC Code Activated") {
-                window.location.href = "/User/UserDashboard";
+        $(window).on('load', function () {
+            var res = $("#tst").text();
+            if (res != "" && res != null) {
+                //alert(res);
+                if (res == "NFC Code Activated") {
+                    window.location.href = "/User/UserDashboard";
+                }
             }
+            $('#overlay1').fadeOut();
+        })
+        function funSubmit() {
+            var status = $('#status');
+            var preloader = $('#preloader');
+            var body = $('body');
+            status.fadeIn();
+            preloader.delay(0).fadeIn('fast');
+            body.delay(0).css({ 'overflow': 'visible' });
         }
-        $('#overlay1').fadeOut();
-    })
-    function funSubmit()
-    {
-        var status = $('#status');
-        var preloader = $('#preloader');
-        var body = $('body');
-        status.fadeIn();
-        preloader.delay(0).fadeIn('fast');
-        body.delay(0).css({ 'overflow': 'visible' });
-    }
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+              && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
     </script>
     @if (TempData["LoginResponse"] != null && TempData["LoginResponse"] != "")
     {
-        
-        if (TempData["LoginResponse"] != "Success")
+
+        if (TempData["LoginResponse"] == "Logged in")
         {
             <script>
                 $(document).ready(function () {
                     debugger
-                toastr.success("@TempData["LoginResponse"]", "Error", {
-                    positionClass: "toast-top-right",
-                    timeOut: 5e3,
-                    closeButton: !0,
-                    debug: !1,
-                    newestOnTop: !0,
-                    progressBar: !0,
-                    preventDuplicates: !0,
-                    onclick: null,
-                    showDuration: "300",
-                    hideDuration: "1000",
-                    extendedTimeOut: "1000",
-                    showEasing: "swing",
-                    hideEasing: "linear",
-                    showMethod: "fadeIn",
-                    hideMethod: "fadeOut",
-                    tapToDismiss: !1
-                })
-            }
+                    toastr.success("@TempData["LoginResponse"]", "", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    })
+                }
         )
             </script>
         }
         else
         {
             <script>
-            $(document).ready(function () {
-                toastr.error("@TempData["LoginResponse"]", "Error", {
-                    positionClass: "toast-top-right",
-                    timeOut: 5e3,
-                    closeButton: !0,
-                    debug: !1,
-                    newestOnTop: !0,
-                    progressBar: !0,
-                    preventDuplicates: !0,
-                    onclick: null,
-                    showDuration: "300",
-                    hideDuration: "1000",
-                    extendedTimeOut: "1000",
-                    showEasing: "swing",
-                    hideEasing: "linear",
-                    showMethod: "fadeIn",
-                    hideMethod: "fadeOut",
-                    tapToDismiss: !1
+                $(document).ready(function () {
+                    toastr.error("@TempData["LoginResponse"]", "", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    })
+
                 })
-               
-            })
             </script>
         }
     }

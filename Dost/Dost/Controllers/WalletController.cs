@@ -54,9 +54,7 @@ namespace Dost.Controllers
                     if (dsBal.Tables[2].Rows.Count > 0)
                     {
                         ViewBag.FranchiseeBalance = dsBal.Tables[2].Rows[0]["Balance"].ToString();
-
                     }
-
                 }
                 #region Walletledger
                 List<Wallet> lst = new List<Wallet>();
@@ -78,6 +76,21 @@ namespace Dost.Controllers
                         lst.Add(Objload);
                     }
                     obj.lstewalletledger = lst;
+                }
+                List<Dashboard> lstuser = new List<Dashboard>();
+                obj.Fk_UserId = Session["Pk_UserId"].ToString();
+                DataSet dsUser = obj.userlist();
+                if (dsUser.Tables != null && dsUser.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dsUser.Tables[0].Rows)
+                    {
+                        Dashboard model1 = new Dashboard();
+                        model1.DisplayName = dr["Name"].ToString();
+                        model1.ProfilePic = dr["Profile"].ToString();
+                        model1.Mobile = dr["LoginId"].ToString();
+                        lstuser.Add(model1);
+                    }
+                    obj.lstUser = lstuser;
                 }
                 #endregion
             }
@@ -150,8 +163,8 @@ namespace Dost.Controllers
                         TempData["Wallet"] = "Yes";
                         try
                         {
-                            string str = "Rs. " + obj.Amount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
-                            string str2 = "You have received Rs. " + obj.Amount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
+                            string str = "Rs. " + obj.TransferAmount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
+                            string str2 = "You have received Rs. " + obj.TransferAmount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
                             BLSMS.sendSMSUpdated(str, obj.SenderMobile);
                             BLSMS.sendSMSUpdated(str2, obj.ReceiverMobile);
                         }
@@ -220,6 +233,65 @@ namespace Dost.Controllers
 
             }
             return RedirectToAction("Wallet", "Wallet");
+        }
+        public ActionResult QuickTransferEwallet(string Mobile, string Amount)
+        {
+            Wallet obj = new Wallet();
+            try
+            {
+                obj.MobileNo = Mobile;
+                obj.TransferAmount = Amount;
+                obj.AddedBy = Session["Pk_UserId"].ToString();
+                DataSet ds = obj.TransferEwalletToEwallet();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["MSG"].ToString() == "1")
+                    {
+                        obj.ReceiverMobile = ds.Tables[0].Rows[0]["ToMobileNo"].ToString();
+                        obj.SenderMobile = ds.Tables[0].Rows[0]["FromMobileNo"].ToString();
+                        obj.ReceiverName = ds.Tables[0].Rows[0]["ToName"].ToString();
+                        obj.SenderName = ds.Tables[0].Rows[0]["FromName"].ToString();
+                        obj.SenderEmail = ds.Tables[0].Rows[0]["FromEmail"].ToString();
+                        obj.ReceiverEmail = ds.Tables[0].Rows[0]["ToEmail"].ToString();
+                        obj.Result = "Yes";
+                        try
+                        {
+                            string str = "Rs. " + obj.TransferAmount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
+                            string str2 = "You have received Rs. " + obj.TransferAmount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
+                            BLSMS.sendSMSUpdated(str, obj.SenderMobile);
+                            BLSMS.sendSMSUpdated(str2, obj.ReceiverMobile);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                        try
+                        {
+                            string Subject1 = "Wallet Transfer";
+                            string Subject2 = "Fund Received";
+                            string MailBody1 = "INR " + obj.TransferAmount + " has been successfully transferred from your DOST wallet to user " + obj.ReceiverName + ".<br><br>For any issue please reach us through email or through DOST helpline.";
+                            string MailBody2 = "INR " + obj.TransferAmount + " has been successfully credited into your DOST wallet from the user " + obj.SenderName + "<br><br>For any issue please reach us through email or through DOST helpline.";
+                            BLMail.SendTransactionMail(obj.SenderName, MailBody1, Subject1, obj.SenderEmail);
+                            BLMail.SendTransactionMail(obj.ReceiverName, MailBody2, Subject2, obj.ReceiverEmail);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+              obj.Result   = ex.Message;
+
+            }
+            return Json(obj, JsonRequestBehavior.AllowGet);
+
         }
         public ActionResult GetMemberNameByMobileNo(string LoginId)
         {
