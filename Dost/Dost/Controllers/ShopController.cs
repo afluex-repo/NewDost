@@ -151,7 +151,7 @@ namespace Dost.Controllers
                 DataSet dsUser = obj.AddToCartList();
                 if (dsUser.Tables != null && dsUser.Tables[0].Rows.Count > 0)
                 {
-                    if (dsUser.Tables[0].Rows[0]["Msg"].ToString()=="0")
+                    if (dsUser.Tables[0].Rows[0][0].ToString()=="0")
                     {
                         TempData["Msg"] = dsUser.Tables[0].Rows[0]["ErrorMessage"].ToString();
                         return RedirectToAction("ProductDescription", "Shop");

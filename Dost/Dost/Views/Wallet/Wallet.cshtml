@@ -205,7 +205,7 @@
                                                                                     </div>
                                                                                     <div class="row">
                                                                                         <div class="col-xl-12 col-lg-12 text-right">
-                                                                                            <input class="btn btn-primary mb-2 px-5" id="btnAddFund" name="btnAddFund" onclick="return validateform()" type="submit" value="Wallet Request" />
+                                                                                            <input class="btn btn-primary mb-2 px-5" id="btnAddFund" name="btnAddFund" onclick="return validateform()" type="button" value="Wallet Request" />
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -670,6 +670,7 @@
         }
     }
     function validateform() {
+        debugger;
         $(".errortext").removeClass("errortext");
         if ($('#LoginId').val() == '') {
             $("#LoginId").addClass('errortext');
@@ -703,6 +704,38 @@
                 return false;
             }
         }
+        if ($("#fileupload").val() != null)
+        {
+            var fileUpload = $("#fileupload").get(0);
+            var files = fileUpload.files;
+            var formData = new FormData();
+            formData.append(files[0].name, files[0]);
+        }
+        form
+        $.ajax({
+            url: '/Wallet/AddFund',
+            type: "POST",
+            dataType: "JSON",
+            data: $("#form1").serialize(), formData,
+            success: function (data) {
+                debugger;
+                if (data.Result == "Yes") {
+                    $('#txtname').html(data.DisplayName);
+
+                    divname.style.display = "block";
+                } else {
+                    iziToast.error({
+                        title: "",
+                        message: "Invalid Sponser Id",
+                        position: "topRight",
+                    });
+                    //alert("Invalid Sponser Id");
+                    $('#txtname').html("");
+                    $('#LoginId').val("");
+
+                }
+            }
+        });
         //var status = $('#status');
         //var preloader = $('#preloader');
         //var body = $('body');
