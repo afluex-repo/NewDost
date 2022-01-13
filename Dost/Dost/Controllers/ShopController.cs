@@ -151,44 +151,52 @@ namespace Dost.Controllers
                 DataSet dsUser = obj.AddToCartList();
                 if (dsUser.Tables != null && dsUser.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow dr in dsUser.Tables[0].Rows)
+                    if (dsUser.Tables[0].Rows[0]["Msg"].ToString()=="0")
                     {
-                        Shop model = new Shop();
-                        model.ProductName = dr["EventName"].ToString();
-                        model.OfferPrice = dr["OfferPrice"].ToString();
-                        model.BV = dr["TotalReferalBV"].ToString();
-                        model.ProductCode = dr["productcode"].ToString();
-                        model.EventDescription = dr["EventDescription"].ToString();
-                        model.EventImage = dr["EventImage"].ToString();
-                        model.NoOfSeats = dr["TotalItem"].ToString();
-                        model.Brand = dr["Brand"].ToString();
-                        model.TotalPrice = dr["TotalPrice"].ToString();
-                        model.PK_EventId = dr["Pk_Eventid"].ToString();
-                        //model.DeliverCharge = dr["DeliveryCharges"].ToString();
-                        model.IGST = dr["IGST"].ToString();
-                        lstproduct.Add(model);
+                        TempData["Msg"] = dsUser.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        return RedirectToAction("ProductDescription", "Shop");
                     }
-                    if (dsUser.Tables[2].Rows.Count > 0)
+                    else
                     {
-                        foreach (DataRow dr in dsUser.Tables[2].Rows)
+                        foreach (DataRow dr in dsUser.Tables[0].Rows)
                         {
                             Shop model = new Shop();
-                            model.CouponName = dr["Coupon"].ToString();
-                            model.CouponCode = dr["CouponCode"].ToString();
-                            model.TotalPrice = dr["Price"].ToString();
-                            lstCoupon.Add(model);
+                            model.ProductName = dr["EventName"].ToString();
+                            model.OfferPrice = dr["OfferPrice"].ToString();
+                            model.BV = dr["TotalReferalBV"].ToString();
+                            model.ProductCode = dr["productcode"].ToString();
+                            model.EventDescription = dr["EventDescription"].ToString();
+                            model.EventImage = dr["EventImage"].ToString();
+                            model.NoOfSeats = dr["TotalItem"].ToString();
+                            model.Brand = dr["Brand"].ToString();
+                            model.TotalPrice = dr["TotalPrice"].ToString();
+                            model.PK_EventId = dr["Pk_Eventid"].ToString();
+                            //model.DeliverCharge = dr["DeliveryCharges"].ToString();
+                            model.IGST = dr["IGST"].ToString();
+                            lstproduct.Add(model);
                         }
-                    }
+                        if (dsUser.Tables[2].Rows.Count > 0)
+                        {
+                            foreach (DataRow dr in dsUser.Tables[2].Rows)
+                            {
+                                Shop model = new Shop();
+                                model.CouponName = dr["Coupon"].ToString();
+                                model.CouponCode = dr["CouponCode"].ToString();
+                                model.TotalPrice = dr["Price"].ToString();
+                                lstCoupon.Add(model);
+                            }
+                        }
 
-                    obj.lstproduct = lstproduct;
-                    obj.lstcoupon = lstCoupon;
-                    ViewBag.TotalItem = dsUser.Tables[1].Rows[0]["TotalItem"].ToString();
-                    ViewBag.TotalReferalBV = double.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
-                    ViewBag.TotalPrice = double.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString()).ToString("");
-                    ViewBag.GST = double.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2");
-                    ViewBag.DeliveryCharge = dsUser.Tables[0].Rows[0]["DeliveryCharges"].ToString();
-                    ViewBag.TotalAmount = (decimal.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()) + decimal.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()) + Convert.ToDecimal(dsUser.Tables[0].Rows[0]["DeliveryCharges"]) + decimal.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString())).ToString();
-                    obj.UserName = Session["LoginId"].ToString();
+                        obj.lstproduct = lstproduct;
+                        obj.lstcoupon = lstCoupon;
+                        ViewBag.TotalItem = dsUser.Tables[1].Rows[0]["TotalItem"].ToString();
+                        ViewBag.TotalReferalBV = double.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
+                        ViewBag.TotalPrice = double.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString()).ToString("");
+                        ViewBag.GST = double.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2");
+                        ViewBag.DeliveryCharge = dsUser.Tables[0].Rows[0]["DeliveryCharges"].ToString();
+                        ViewBag.TotalAmount = (decimal.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()) + decimal.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()) + Convert.ToDecimal(dsUser.Tables[0].Rows[0]["DeliveryCharges"]) + decimal.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString())).ToString();
+                        obj.UserName = Session["LoginId"].ToString();
+                    }
                 }
                 return View(obj);
             }

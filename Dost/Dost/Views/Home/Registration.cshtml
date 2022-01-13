@@ -198,7 +198,7 @@
                 return false;
             }
             else {
-                $("#txtFirstName").addClass('successtext');
+                $("#txtFirstName").removeClass('errortext');
             }
             if (LastName == "") {
                 $("#txtLastName").addClass('errortext');
@@ -207,7 +207,16 @@
                 return false;
             }
             else {
-                $("#txtLastName").addClass('successtext');
+                $("#txtLastName").removeClass('errortext');
+            }
+            if ($("#txtEmail").val() == "") {
+                $("#txtEmail").addClass('errortext');
+                $("#preloader").css({ 'display': 'none' });
+                $('#txtEmail').focus();
+                return false;
+            }
+            else {
+                $("#txtEmail").removeClass('errortext');
             }
             if (MobileNumber == "") {
                 $("#txtMobileNumber").addClass('errortext');
@@ -217,7 +226,7 @@
                 return false;
             }
             else {
-                $("#txtMobileNumber").addClass('successtext');
+                $("#txtMobileNumber").removeClass('errortext');
             }
             if (Gender == "") {
                 $("#Gender").addClass('errortext');
@@ -227,7 +236,7 @@
                 return false;
             }
             else {
-                $("#Gender").addClass('successtext');
+                $("#Gender").removeClass('errortext');
             }
             if (Password == "") {
                 $("#txtPassword").addClass('errortext');
@@ -237,7 +246,7 @@
                 return false;
             }
             else {
-                $("#txtPassword").addClass('successtext');
+                $("#txtPassword").removeClass('errortext');
             }
             if (CPassword == "") {
                 $("#txtCPassword").addClass('errortext');
@@ -247,7 +256,7 @@
                 return false;
             }
             else {
-                $("#txtCPassword").addClass('successtext');
+                $("#txtCPassword").removeClass('errortext');
             }
             if (OTP == "") {
                 $("#txtotp").addClass('errortext');
@@ -257,7 +266,7 @@
                 return false;
             }
             else {
-                $("#txtotp").addClass('successtext');
+                $("#txtotp").removeClass('errortext');
             }
             var status = $('#status');
             var preloader = $('#preloader');

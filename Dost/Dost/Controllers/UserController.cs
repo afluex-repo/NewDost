@@ -578,8 +578,8 @@ namespace Dost.Controllers
                         TempData["Wallet"] = "Yes";
                         try
                         {
-                            string str = "Rs. " + obj.Amount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
-                            string str2 = "You have received Rs. " + obj.Amount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
+                            string str = "Rs. " + obj.TransferAmount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
+                            string str2 = "You have received Rs. " + obj.TransferAmount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
                             BLSMS.sendSMSUpdated(str, obj.SenderMobile);
                             BLSMS.sendSMSUpdated(str2, obj.ReceiverMobile);
                         }
@@ -591,8 +591,8 @@ namespace Dost.Controllers
                         {
                             string Subject1 = "Wallet Transfer";
                             string Subject2 = "Fund Received";
-                            string MailBody1 = "INR " + obj.Amount + " has been successfully transferred from your DOST wallet to user " + obj.ReceiverName + ".<br><br>For any issue please reach us through email or through DOST helpline.";
-                            string MailBody2 = "INR " + obj.Amount + " has been successfully credited into your DOST wallet from the user " + obj.SenderName + "<br><br>For any issue please reach us through email or through DOST helpline.";
+                            string MailBody1 = "INR " + obj.TransferAmount + " has been successfully transferred from your DOST wallet to user " + obj.ReceiverName + ".<br><br>For any issue please reach us through email or through DOST helpline.";
+                            string MailBody2 = "INR " + obj.TransferAmount + " has been successfully credited into your DOST wallet from the user " + obj.SenderName + "<br><br>For any issue please reach us through email or through DOST helpline.";
                             BLMail.SendTransactionMail(obj.SenderName, MailBody1, Subject1, obj.SenderEmail);
                             BLMail.SendTransactionMail(obj.ReceiverName, MailBody2, Subject2, obj.ReceiverEmail);
                         }
@@ -856,9 +856,12 @@ namespace Dost.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
-
         #endregion
-
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            TempData["LoginResponse"] = "";
+            return RedirectToAction("Login", "Home");
+        }
     }
 }

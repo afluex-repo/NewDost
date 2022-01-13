@@ -567,7 +567,7 @@ namespace Dost.Controllers
                 model.Message = ex.Message;
             }
 
-            return Json(model, JsonRequestBehavior.AllowGet);
+            return Json(model.Result, model.Message, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetProfilePersonalData()
         {
@@ -678,6 +678,7 @@ namespace Dost.Controllers
             {
                 List<Master> lst = new List<Master>();
                 model.Fk_MainServiceTypeId = "3";
+                model.Fk_UserId= Session["Pk_userId"].ToString();
                 // string[] color = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D", "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
                 DataSet ds = model.GetService();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -785,14 +786,26 @@ namespace Dost.Controllers
             }
 
         }
-        public ActionResult UpdateRedirectionUrl(string PK_ProfileId, string PK_NFCProfileId)
+        public ActionResult UpdateRedirectionUrl(string PK_ProfileId, string PK_NFCProfileId, string func)
         {
             NFCProfileModel obj = new NFCProfileModel();
             obj.PK_ProfileId = PK_ProfileId;
             obj.Pk_NfcProfileId = Convert.ToInt32(PK_NFCProfileId);
             obj.FK_UserId = Session["Pk_userId"].ToString();
-            obj.IsRedirect = true;
-            obj.IsIncluded = true;
+            if (func == "Update")
+            {
+                obj.IsRedirect = true;
+                obj.IsIncluded = true;
+            }
+            else if (func == "Remove")
+            {
+                obj.IsRedirect = false;
+                obj.IsIncluded = false;
+            }
+            else
+            {
+
+            }
             DataSet ds = obj.UpdateRedirectionUrl();
 
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)

@@ -2459,6 +2459,7 @@
     <Content Include="images\users\pic7.jpg" />
     <Content Include="images\users\pic8.jpg" />
     <Content Include="images\user_profile.png" />
+    <Content Include="index.html" />
     <Content Include="js\custom.js" />
     <Content Include="js\custom.min.js" />
     <Content Include="js\dashboard\chat.js" />
@@ -2514,6 +2515,7 @@
     <Content Include="KYCDocuments\7ae9bcb5-f7cd-40f1-8c73-c222144035fc.jpg" />
     <Content Include="KYCDocuments\86f0898f-8044-4db7-ac37-e660aebddcf3.jpg" />
     <Content Include="KYCDocuments\f7921b4c-4ad3-46a5-98ce-bcb03b5108c9.png" />
+    <Content Include="obj\Release\Package\PackageTmp\images\noimage.jpg" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scss\main.css" />
