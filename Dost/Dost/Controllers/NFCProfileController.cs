@@ -678,6 +678,7 @@ namespace Dost.Controllers
             {
                 List<Master> lst = new List<Master>();
                 model.Fk_MainServiceTypeId = "3";
+                model.Fk_UserId= Session["Pk_userId"].ToString();
                 // string[] color = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D", "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
                 DataSet ds = model.GetService();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)

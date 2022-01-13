@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="col-xl-4 col-lg-4 form-group">
                                         <div class="mb-3">
-                                            <label>Middle Name <span class="text-danger">*</span></label>
+                                            <label>Middle Name </label>
                                             @if (Model.MiddleName != "")
                                             {
                                                 @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", @disabled = "disabled" })
@@ -344,7 +344,7 @@
                                         <a class="btn btn-info" href="/User/UserProfile">Back To List</a>
                                     </div>*@
                                                     <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                                    <input type="submit" class="btn btn-primary" name="btnRegistration" value="Save">
+                                                    <input type="submit" class="btn btn-primary" name="btnRegistration" value="Save" onclick="return validateAadharform();">
                                                 </div>
                                             </div>
                                         </div>
@@ -601,6 +601,51 @@
         }
         return true;
     }
+    function ValidateAadharForm() {
+        $(".errortext").removeClass("errortext");
+        if ($('#First_Name').val() == '') {
+            $("#First_Name").addClass('errortext');
+            $('#First_Name').focus();
+            return false;
+        }
+        if ($('#FatherName').val() == '') {
+            $("#FatherName").addClass('errortext');
+            $('#FatherName').focus();
+            return false;
+        }
+        if ($('#DOB_Date').val() == '') {
+            $("#DOB_Date").addClass('errortext');
+            $('#DOB_Date').focus();
+            return false;
+        }
+        if ($('input[name="Gender"]:checked').val() == '') {
+            $('input[name="Gender"]').addClass('errortext');
+            $('input[name="Gender"]').focus();
+            return false;
+        }
+        if ($('#Mobile_No').val() == '') {
+            $("#Mobile_No").addClass('errortext');
+            $('#Mobile_No').focus();
+            return false;
+        }
+        if ($('#Email_ID').val() == '') {
+            $("#Email_ID").addClass('errortext');
+            $('#Email_ID').focus();
+            return false;
+        } 
+        if ($('#Address_Name').val() == '') {
+            $("#Address_Name").addClass('errortext');
+            $('#Address_Name').focus();
+            return false;
+        }
+        if ($('#Address_Name').val() == '') {
+            $("#Address_Name").addClass('errortext');
+            $('#Address_Name').focus();
+            return false;
+        }
+        return true;
+    }
+
     function isNumberKey(evt) {
 
         var charCode = (evt.which) ? evt.which : event.keyCode;

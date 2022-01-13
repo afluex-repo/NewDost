@@ -49,7 +49,7 @@ namespace Dost.Controllers
             {
                 model.LoginId = Session["S_MobileNo"].ToString();
             }
-            //Session.Abandon();
+            Session.Abandon();
             return View(model);
         }
         public ActionResult LoginAction(Home obj)
@@ -85,7 +85,7 @@ namespace Dost.Controllers
                             Session["IsDistributor"] = ds.Tables[0].Rows[0]["IsDistributor"].ToString();
                             Session["IsDistributorAplied"] = ds.Tables[0].Rows[0]["IsDistributorAplied"].ToString();
                             Session["IsInvoiceGenerated"] = ds.Tables[0].Rows[0]["IsInvoiceGenerated"].ToString();
-                            TempData["LoginResponse"] = "Success";
+                            TempData["LoginResponse"] = "Logged in";
                             obj.FormName = "UserDashBoard";
                             obj.ControllerName = "User";
 

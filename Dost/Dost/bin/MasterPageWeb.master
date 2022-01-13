@@ -1,0 +1,536 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPageWeb.master.cs" Inherits="MasterPageWeb" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="description" /><meta name="keywords" /><meta name="author" />
+<title>" Welcome Ram Gauri Nidhi Ltd."</title>
+<link href="webassets/fevicon.png" rel="shortcut icon" type="image/png" />
+<link href="webassets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="webassets/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="webassets/css/animate.css" rel="stylesheet" type="text/css" />
+<link href="webassets/css/css-plugin-collections.css" rel="stylesheet" />
+<!-- CSS | menuzord megamenu skins -->
+<link href="webassets/css/menuzord-megamenu.css" rel="stylesheet" />
+
+<!-- CSS | Main style file -->
+<link href="webassets/css/style-main.css" rel="stylesheet" type="text/css" />
+<!-- CSS | Preloader Styles -->
+<link href="webassets/css/preloader.css" rel="stylesheet" type="text/css" />
+<!-- CSS | Custom Margin Padding Collection -->
+<link href="webassets/css/custom-bootstrap-margin-padding.css" rel="stylesheet" type="text/css" />
+<!-- CSS | Responsive media queries -->
+<link href="webassets/css/responsive.css" rel="stylesheet" type="text/css" />
+<!-- CSS | Style css. This is the file where you can place your own custom css code. Just uncomment it and use it. -->
+<!-- <link href="webassets/css/style.css" rel="stylesheet" type="text/css" /> -->
+     <link href="webassets/animation/aos.css" rel="stylesheet" />
+<!-- Revolution Slider 5.x CSS settings -->
+<link href="webassets/js/revolution-slider/css/layers.css" rel="stylesheet" type="text/css" />
+ <link href="webassets/js/revolution-slider/css/settings.css" rel="stylesheet" type="text/css" />
+ <link href="webassets/js/revolution-slider/css/navigation.css" rel="stylesheet" type="text/css" />
+<!-- CSS | Theme Color -->
+<link href="webassets/css/colors/theme-skin-color-set4.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="webassets/cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+
+<!-- external javascripts -->
+<script src="webassets/js/jquery-2.2.4.min.js"></script>
+  
+<script src="webassets/js/jquery-ui.min.js"></script>
+<script src="webassets/js/bootstrap.min.js"></script>
+<!-- JS | jquery plugin collection for this theme -->
+<script src="webassets/js/jquery-plugin-collection.js"></script>
+
+<!-- Revolution Slider 5.x SCRIPTS -->
+<script src="webassets/js/revolution-slider/js/jquery.themepunch.tools.min.js"></script>
+<script src="webassets/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
+<style>
+	.btn1{
+	background-color:#f79742;
+	padding:10px 20px 10px 20px;
+	color:#fff;
+	border-radius:3px;
+	}
+	.btn2{
+	background-color:#268807;
+	padding:10px 10px  10px  20px;
+	color:#fff;
+	border-radius:3px;
+	}
+	product iframe{
+	 width:100%;
+	 height:250px;
+	 border:0;
+	 background:none;
+	 padding:0;
+	 margin:0;
+	 
+	
+	}
+	</style>
+<style>
+
+/*! Slide Social Buttons - v1.0 - 2013-7-10
+* Slide Social Buttons are a fun way to display your social media buttons
+* https://github.com/christophery/slide-social-buttons
+* by Christopher Yee */
+
+.slide-social{
+    display: inline-block;
+    overflow: hidden;
+    margin: 0 10px 10px 0;
+    width: 150px;
+    height: 48px;
+    background: #F1F1F1;
+}
+
+.slide-social .button{
+    position: absolute;
+    margin: 15px 0 0 55px;
+}
+
+.slide-social a{
+    display: none; /* hide flash of unstyled tweet button */
+}
+
+.icon{
+    float: left;
+    padding-top: 15px;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+}
+
+.icon i{
+    color: #FFF;
+    font-size: 1.2em;
+}
+
+.slide{
+    position: relative;
+    float: left;
+    width: 75%;
+    height: 100%;
+}
+
+.slide p{
+    position: relative;
+    top: 15px;
+    margin: 0;
+    border-left: 1px solid rgb(255,255,255); /* IE < 9 Fallback Colour */
+    border-left: 1px solid rgba(255,255,255,0.3);
+    color: #FFF;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Brand Colours */
+
+.facebook{
+    background: #3b5998;
+}
+
+.twitter{
+    background: #00acee;
+}
+
+.google-plus{
+    background: #db4a39;
+}
+
+.linkedin{
+    background: #0e76a8;
+}
+
+.pinterest{
+    background: #c8232c;
+}
+
+/* Slide Animation */
+
+.slide-social:hover .slide{
+    -webkit-transform: translate(101%, 0);
+    -moz-transform: translate(101%, 0);
+    -ms-transform: translate(101%, 0);
+    -o-transform: translate(101%, 0);
+    transform: translate(101%, 0);
+}
+
+.no-cssanimations .slide{
+    display: none; /* hide in IE 8-9 */
+}
+
+.touch .slide{
+    display: none; /* hide on touch devices */
+}
+
+/* Transition */
+
+.slide{
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+
+/* Example Media Queries */
+
+@media only screen and (max-width : 30em) { /* 480px/16px = 30em */
+
+    .slide-social{
+        width: 100%;
+    }
+
+    .slide-social .button{
+        position: absolute;
+        margin-left: 50%;
+    }
+}
+</style>
+
+  
+       <style>
+   .header-middle{
+    /*padding: 10px 0px;*/
+    padding: 0px 0px;
+    position: relative;
+    z-index: 9;
+        box-shadow: 0px 1px 1px rgba(0,0,0,.1);
+}
+.header-middle::before{
+    content: "";
+    background-color: #fff;
+    /*width: 40%;*/
+    width: 45%;
+    height: 100%;
+    position: absolute;
+    left: -50px;
+    top: 0;
+    -webkit-transform: skewX(40deg);
+    -moz-transform: skewX(40deg);
+    -o-transform: skewX(40deg);
+    -ms-transform: skewX(40deg);
+    transform: skewX(40deg);
+}
+.bg-2{
+    /*background:#008234 ! important;*/
+     background:#46ae4b;
+
+}
+
+           .mssclplan {
+               color: #42423f;
+    font-weight: bold;
+    /* text-shadow: 1px 3px 2px #e8e4e4; */
+    font-size: 17px;
+           }
+    </style>
+
+    
+    
+   
+   
+   
+  <link rel="stylesheet" type="text/css" href="webassets/engine1/style.css" />
+   
+ 
+   
+	
+  <style>
+
+  .flip-box {
+  background-color: transparent;
+  width: 100%;
+  height: 320px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px;
+}
+
+.flip-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /*text-align: center;*/
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-box:hover .flip-box-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-box-front, .flip-box-back {
+  position: absolute;
+  width: 100%;
+  /*height: 100%;*/
+  height: 340px;
+  backface-visibility: hidden;
+}
+
+.flip-box-front {
+  /*background-color: #bbb;*/
+  color: black;
+}
+
+.flip-box-back {
+ background-color: #1254a5;
+  color: white;
+  transform: rotateY(180deg);
+}
+</style>
+  <script type="text/javascript">
+     function callPostBack() {
+         // add any condition here that checks for a value
+         if (1 == 2)
+             return true;
+         else
+             return false;
+     }
+    </script>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+     <form id="form1" runat="server">
+    <div>
+  <div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTY1NDU2MTA1MmRkx6chB05ca5QhA4kM5L9eHW1hj+b4khhmQnLLVfLzNYk=" />
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    var theForm = document.forms['form1'];
+    if (!theForm) {
+        theForm = document.form1;
+    }
+    function __doPostBack(eventTarget, eventArgument) {
+        if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+            theForm.__EVENTTARGET.value = eventTarget;
+            theForm.__EVENTARGUMENT.value = eventArgument;
+            theForm.submit();
+        }
+    }
+    //]]>
+</script>
+
+
+<script src="webassets/WebResource418741874187.js?d=c414FXxF6okdAaCmrScGsRe2b7cbqChXdKmhmIJr_7pqxVzujBFOaJdIyKm7xgP5YX8BD49aOqMsOMKB2od5zaxZRZW71M8vG0lfs4FfUR01&amp;t=635145251460000000" type="text/javascript"></script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0" />
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0" />
+	<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+	<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+</div>
+  <div id="wrapper" class="clearfix">
+  <header id="header" class="header modern-header modern-header-white">
+  
+    
+    <div class="header-middle p-0 bg-lightest xs-text-center pb-30">
+     <div class="header-middle bg-2">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-4">
+           <a class="menuzord-brand pull-left flip sm-pull-center mb-15" href="Default.aspx"><img src="webassets/images/logo.jpg"    alt=""  style=" padding-bottom:12px; padding-top:3px;"></a>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-8" id="mccslheader">
+          <div class="header-widget-contact-info-box sm-text-center">
+              <div class="media element contact-info">
+              <div class="media-left">
+                
+               
+                
+                </div>
+                <div class="media-body">
+                  <div id="google_translate_element"></div>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+    }
+</script>
+
+<script type="text/javascript" src="webassets/../translate.google.com/translate_a/elementa0d8.aspx?cb=googleTranslateElementInit"></script>
+                </div>
+              </div>
+             
+              
+              
+              <div class="media element contact-info">
+              <div class="media-left">
+                 
+              <i class="fa fa-phone-square text-theme-colored2 font-icon sm-display-block"></i>
+                  
+              </div>
+              <div class="media-body">
+               <span class="title" style="font-weight:bold;">Call us </span>
+               <h5 class="media-heading subtitle"  style="color:#fff; font-size: 13px; font-weight: normal;">+91-8922867030</h5>
+                </div>
+              </div>
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+    <div class="header-nav">
+      <div class="header-nav-wrapper navbar-scrolltofixed">
+        <div class="container">
+          <nav id="menuzord" class="menuzord default">
+            <ul class="menuzord-menu">
+              <li class="active"><a href="Default.aspx">Home</a>              </li>
+              <li><a href="about.aspx">About Us</a>             </li>
+
+                 <li><a href="#">Scheme</a>
+                <ul class="dropdown">
+              
+    		    <li><a href="rdplan.aspx"> Recurring Deposit Scheme</a></li>
+               <li><a href="fixeddeposit.aspx">Fixed Deposit Scheme</a></li>
+              <li><a href="dailydeposit.aspx">Daily Deposit Scheme</a></li>
+             <%--<li><a href="#">Monthly Income Scheme</a></li>--%>
+               <li><a href="savingaccount.aspx">Savings Account</a></li>
+             </ul>
+             </li>
+
+              <li><a href="#">Loan</a>
+                    <ul class="dropdown">
+                  <li><a href="GoldLoan.aspx">Gold Loan</a></li>
+                       <%-- <ul class="dropdown">
+              
+                             <li><a href="#">Mortgage Loan</a></li>
+                                <li><a href="#">Loan Against Property</a></li>
+								
+                                <li><a href="dls.aspx">Daily Loan Scheme</a></li>--%>
+                        </ul>
+                    </li>
+                   
+
+             
+				     <li><a href="career.aspx"> Career</a></li>
+                     <%--<li><a href="membership.aspx"> Membership</a></li>--%>
+                 <%--   <li><a href="career.aspx">Career</a></li>--%>
+                    <li><a href="contact.aspx">Contact</a></li>
+                  <li><a href="Default.aspx" target="_blank">Login</a></li>
+                    
+                    
+                </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+   </header>
+    <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    <footer id="footer" class="footer" data-bg-color="#212331">
+                <div class="container pt-70 pb-40">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="widget dark">
+
+                                <h4 class="widget-title line-bottom-theme-colored-2">About Us</h4>
+                                <p style="color:#fff; font-size: 14px;text-align: justify;">RAM GAURI NIDHI LIMITED was introduced to allow co-operatives to function as a corporate entity. </p>
+
+                                <ul class="styled-icons icon-sm icon-bordered icon-circled clearfix mt-10">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+
+
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                                <img src="webassets/images/logo.jpg" style="height:80px; width:260px;">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="widget dark">
+                                <h4 class="widget-title line-bottom-theme-colored-2">Useful Links</h4>
+                                <ul class="angle-double-right list-border" style="font-size: 14px;">
+                                    <li><a href="index.aspx" style="color:#fff;">Home </a></li>
+                                    <li><a href="about.aspx" style="color:#fff;">About Us</a></li>
+                                    <li><a href="Contact.aspx" style="color:#fff;">Contact</a></li>
+                                    <li><a href="Career.aspx" style="color:#fff;">Career</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-sm-6 col-md-5">
+                            <div class="widget dark">
+                                <h4 class="widget-title line-bottom-theme-colored-2">Contact Information</h4>
+                                <ul class="angle-double-right list-border">
+                                    <li><i class="fa fa-map-marker text-theme-colored2 mr-5"></i> <a class="text-gray" href="#" style="font-size: 14px;">LUCKNOW(UP)</a></li>
+                                    <li><i class="fa fa-phone text-theme-colored2 mr-5"></i> <a class="text-gray" href="#" style="font-size: 14px;">+91 8922867030 </a></li>
+
+                                    <li>
+                                        <i class="fa fa-envelope-o text-theme-colored2 mr-5"></i> <a class="text-gray" href="#" style="font-size: 14px;">
+                                            rgnltd.org@gmail.com
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-bg-color="#2b2d3b">
+                    <div class="container pt-20 pb-20">
+                        <div class="row">
+                            <div class="col-md-12" align="center">
+                                <p class="font-12 text-black-777 m-0 sm-text-center">Copyright &copy;2020 RAM GAURI NIDHI LIMITED.  All Rights Reserved </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+
+
+   
+  </div>
+
+<script type="text/javascript">
+    //<![CDATA[
+
+    theForm.oldSubmit = theForm.submit;
+    theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+    theForm.oldOnSubmit = theForm.onsubmit;
+    theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+    //]]>
+</script>
+
+
+   <script src="webassets/animation/aos.js"></script>
+    <script>
+        AOS.init({
+            easing: 'ease-in-out-sine'
+        });
+    </script>
+ <script src="webassets/js/custom.js"></script>
+
+
+<script type="text/javascript" src="webassets/js/revolution-slider/js/extensions/revolution.extension.navigation.min.js"></script>
+<script type="text/javascript" src="webassets/js/revolution-slider/js/extensions/revolution.extension.parallax.min.js"></script>
+<script type="text/javascript" src="webassets/js/revolution-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
+
+      
+    </div>
+    </form>
+</body>
+</html>
