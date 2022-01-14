@@ -702,6 +702,15 @@ namespace Dost.Controllers
                     }
                     model.lst = lst;
                 }
+                if(ds != null && ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
+                {
+                    Session["NFCCode"] = ds.Tables[1].Rows[0]["EncCode"].ToString();
+                    if (ds.Tables[1].Rows[0]["IsActivated"].ToString()=="False")
+                    {
+                        Session["NFCActivated"] = "false";
+                    }
+                   
+                }
             }
             catch (Exception ex)
             {

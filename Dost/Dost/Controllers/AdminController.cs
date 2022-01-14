@@ -50,5 +50,10 @@ namespace Dost.Controllers
             }
             return View(model);
         }
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("AdminLogin", "Home");
+        }
     }
 }
