@@ -3036,6 +3036,7 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AdminBaseController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminProfileController.cs" />
     <Compile Include="Controllers\AdminReportsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EmployeeRegistrationController.cs" />
@@ -3703,6 +3704,11 @@
     <Content Include="Views\Master\NfcCode.cshtml" />
     <Content Include="Views\Master\SubscriptionList.cshtml" />
     <Content Include="Views\Master\SubscriptionMaster.cshtml" />
+    <Content Include="Views\AdminProfile\AssociateList.cshtml" />
+    <Content Include="Views\AdminProfile\UpdateAssociateProfile.cshtml" />
+    <Content Include="Views\AdminProfile\WelcomeLetter.cshtml" />
+    <Content Include="Views\AdminReports\TopupReport.cshtml" />
+    <Content Include="Views\AdminReports\TransactionLog.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

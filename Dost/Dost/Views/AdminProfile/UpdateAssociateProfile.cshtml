@@ -1,0 +1,364 @@
+﻿@model Dost.Models.Profile
+@{
+    ViewBag.Title = "UpdateAssociateProfile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Reports
+                </a>
+            </li>
+            <li class="active">
+                Update Associate Profile
+            </li>
+
+        </ol>
+
+
+    </div>
+</div>
+<br />
+
+@using (Html.BeginForm("UpdateAssociateProfile", "AdminProfile", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Update Associate Profile
+
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+
+
+                    <p style="color:red">
+                        @TempData["UpdateProfilebyadmin"]
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">User Code </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.UserCode, new { @class = "form-control" ,@Disabled="Disabled"})
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">First Name <span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                    @Html.HiddenFor(m => m.LoginId)
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Last Name </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Mobile No <span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @MaxLength = "10", @onkeypress = "return isNumberKey(event);" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Spill Id <span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.SponsorId, new { @class = "form-control", @onchange = "getsponsordetails(this);", @disabled="disabled" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Spill Name<span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.SponsorName, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">PAN Number</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.PanNumber, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Adhar Number</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control", @MaxLength = "12", @placeholder = "Adhar Number", @onkeypress = "return isNumberKey(event);" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Password<span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control",  @placeholder = "Password" })
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Email Id </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Joining Date </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.JoiningDate, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Acc No. </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Acc Holder Name </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.AccountHolder, new { @class = "form-control", })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">IFSC Code</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.IFSC, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Bank Name</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.BankName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Bank Branch</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.BankBranch, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Address</label>
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">PinCode</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.PinCode, new { @class = "form-control", @Placeholder = "PinCode", @onchange = "return getstatecity();" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">State</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.State, new { @class = "form-control", @Placeholder = "State", @Disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">City</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.City, new { @class = "form-control", @Placeholder = "City", @Disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Upload PAN</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="postedPan"  class="form-control" />
+                                    <br />
+                                    <img src="@Url.Content(Model.PanImage)" height="120" width="180" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Upload Aadhar</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="postedAadhar"  class="form-control" />
+                                    <br />
+                                    <img src="@Url.Content(Model.AadharImage)" height="120" width="180" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Upload Passbook/Cheque</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="postedPassbook"  class="form-control" />
+                                    <br />
+                                    <img src="@Url.Content(Model.DocumentImage)" height="120" width="180" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="submit" id="btnUpdate" class="btn btn-success pull-left" name="btnUpdate" value="Update" onclick="return editProfile()" />
+                            <input type="button" id="btnEdit" class="btn btn-primary pull-left" value="Edit" onclick="return editProfile()" style="display: none" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+<script>
+
+    function editProfile() {
+        $(".errortext").removeClass("errortext");
+        if ($('#FirstName').val() == '') {
+            $("#FirstName").addClass('errortext');
+            $('#FirstName').focus();
+            return false;
+        }
+        if ($('#Mobile').val() == '') {
+            $("#Mobile").addClass('errortext');
+            $('#Mobile').focus();
+            return false;
+        }
+        if ($('#Password').val() == '') {
+            $("#Password").addClass('errortext');
+            $('#Password').focus();
+            return false;
+        }
+
+
+        return true;
+    }
+    function getstatecity() {
+        $(".errortext").removeClass("errortext");
+        $.ajax({
+            url: "/AdminProfile/GetStateCity",
+            Type: "Get",
+            DataType: "JSON",
+            data: { PinCode: $("#PinCode").val() },
+            success: function (data) {
+                if (data.Result == "1") {
+                    $("#State").val(data.State);
+                    $("#City").val(data.City);
+                }
+                else {
+                    $("#State").val('');
+                    $("#City").val('');
+                    $("#PinCode").val('');
+                    $("#PinCode").addClass('errortext');
+                    $('#PinCode').focus();
+                    alert(data.Result);
+
+                }
+
+
+            }
+
+        });
+    }
+    function getsponsordetails(obj) {
+        $(".errortext").removeClass("errortext");
+        $.ajax({
+            url: '/AdminProfile/GetSponserDetails',
+            type: 'GET',
+            dataType: 'JSON',
+            data: { 'ReferBy': $(obj).val() },
+            success: function (response) {
+                if (response.Result == "Yes") {
+
+                    $('#SponsorName').val(response.DisplayName);
+                }
+                else {
+                    $("#SponsorId").addClass('errortext');
+                    $('#SponsorName').val('');
+                    $('#SponsorId').val('');
+                    $('#SponsorId').focus();
+                    alert(response.Result);
+                }
+            }
+        })
+    }
+
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
