@@ -410,5 +410,41 @@ namespace Dost.Controllers
 
             return View(newdata);
         }
+        public ActionResult KYCDetails(KYCDocuments obj)
+        {
+            return View(obj);
+        }
+
+        [HttpPost]
+        [OnAction(ButtonName = "Search")]
+        [ActionName("KYCDetails")]
+        public ActionResult GetKYCDetails(KYCDocuments objKYC)
+        {
+
+            List<KYCDocuments> list = new List<KYCDocuments>();
+            objKYC.LoginId = objKYC.LoginId;
+            DataSet ds = objKYC.GetKYCDetails();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[1].Rows.Count > 0)
+            {
+                KYCDocuments obj = new KYCDocuments();
+                obj.AdharNumber = ds.Tables[0].Rows[0]["AdharNumber"].ToString();
+                obj.AdharImage = ds.Tables[0].Rows[0]["AdharImage"].ToString();
+                obj.AdharStatus = "Status : " + ds.Tables[0].Rows[0]["AdharStatus"].ToString();
+                obj.PanNumber = ds.Tables[0].Rows[0]["PanNumber"].ToString();
+                obj.PanImage = ds.Tables[0].Rows[0]["PanImage"].ToString();
+                obj.PanStatus = "Status : " + ds.Tables[0].Rows[0]["PanStatus"].ToString();
+                obj.DocumentNumber = ds.Tables[0].Rows[0]["DocumentNumber"].ToString();
+                obj.DocumentImage = ds.Tables[0].Rows[0]["DocumentImage"].ToString();
+                obj.DocumentStatus = "Status : " + ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
+                obj.MemberAccNo = ds.Tables[1].Rows[0]["MemberAccNo"].ToString();
+                obj.MemberBankName = ds.Tables[1].Rows[0]["MemberBankName"].ToString();
+                obj.IFSCCode = ds.Tables[1].Rows[0]["IFSCCode"].ToString();
+                obj.MemberBranch = ds.Tables[1].Rows[0]["MemberBranch"].ToString();
+                list.Add(obj);
+            }
+            objKYC.KycDetailList = list;
+
+            return View(objKYC);
+        }
     }
 }

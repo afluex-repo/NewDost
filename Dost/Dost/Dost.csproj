@@ -3061,6 +3061,7 @@
     <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\EmployeeRegistrations.cs" />
     <Compile Include="Models\Home.cs" />
+    <Compile Include="Models\KYCDocuments.cs" />
     <Compile Include="Models\Master.cs" />
     <Compile Include="Models\NFC.cs" />
     <Compile Include="Models\NFCModel.cs" />
