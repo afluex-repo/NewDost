@@ -89,6 +89,8 @@ namespace Dost.Models
         public string DOB_ID { get; set; }
         public string First_NM { get; set; }
         public string Pan_Number { get; set; }
+        public string PinCode { get;  set; }
+        public string AadharImage { get;  set; }
         #endregion
         #endregion
         public DataSet GetUserProfile()
@@ -197,7 +199,15 @@ namespace Dost.Models
         }
 
         #endregion
-
+        public DataSet ApproveUPIRequest()
+        {
+            SqlParameter[] para = { new SqlParameter("@PK_UserId", PK_UserID),
+                                  new SqlParameter("@Status", Status),
+              new SqlParameter("@UpdatedBy", AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("ApproveUPIRequest", para);
+            return ds;
+        }
         #region pancard update
         public DataSet GetCardPanDetail()
         {
@@ -222,7 +232,81 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("SP_Update_PanCardDetail", para);
             return ds;
         }
+        public DataSet UpdateAssociateProfileByAdmin()
+        {
+            SqlParameter[] para = { new SqlParameter("@LoginID",LoginId) ,
+                                      new SqlParameter("@FirstName", FirstName) ,
+                                      new SqlParameter("@LastName", LastName) ,
+                                      new SqlParameter("@Mobile", Mobile) ,
+                                      new SqlParameter("@Email", EmailId) ,
+                                      new SqlParameter("@AccountNo", AccountNumber) ,
+                                      new SqlParameter("@BankName", BankName) ,
+                                      new SqlParameter("@BankBranch", BankBranch) ,
+                                      new SqlParameter("@IFSC", IFSC),
+                                      new SqlParameter("@UpdatedBy", UpdatedBy) ,
+                                      new SqlParameter("@SponsorId", SponsorId),
+                                        new SqlParameter("@PanNumber", PanNumber) ,
+                                         new SqlParameter("@RealtionName", RealtionName) ,
+                                          new SqlParameter("@Relation", Relation) ,
+                                           new SqlParameter("@Address", Address) ,
+                                            new SqlParameter("@State", State) ,
+                                             new SqlParameter("@City", City) ,
+                                             new SqlParameter("@Gender", Gender) ,
+                                              new SqlParameter("@PinCode", PinCode),
+                                               new SqlParameter("@BankHolderName", AccountHolder),
+                                                new SqlParameter("@AdharNo", AdharNo),
+                                                new SqlParameter("@Password",Password),
+                                                new SqlParameter("@PanImage", PanImage),
+                                                new SqlParameter("@AdharImage", AadharImage),
+                                                new SqlParameter("@DocumentImage", DocumentImage),
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateAssociateProfileByAdmin", para);
+            return ds;
+        }
+        public DataSet BlockAssociate()
+        {
+            SqlParameter[] para = { new SqlParameter("@LoginId", LoginId),
+                                  new SqlParameter("@BlockedBy", UpdatedBy)};
+            DataSet ds = DBHelper.ExecuteQuery("BlockAssociate", para);
+            return ds;
+        }
 
+        public DataSet UnblockAssociate()
+        {
+            SqlParameter[] para = { new SqlParameter("@LoginId", LoginId),
+                                  new SqlParameter("@BlockedBy", UpdatedBy)};
+            DataSet ds = DBHelper.ExecuteQuery("UnblockAssociate", para);
+            return ds;
+        }
+        public DataSet GetAdminProfile()
+        {
+            SqlParameter[] para = { new SqlParameter("@PK_AdminID", PK_UserID) };
+            DataSet ds = DBHelper.ExecuteQuery("GetAdminProfile", para);
+            return ds;
+        }
+
+        public DataSet UpdateAdminProfile()
+        {
+            SqlParameter[] para = { new SqlParameter("@PK_AdminID", UpdatedBy),
+                                  new SqlParameter("@Name", FirstName)};
+            DataSet ds = DBHelper.ExecuteQuery("UpdateAdminProfile", para);
+            return ds;
+        }
+        public DataSet DeactivateUserByAdmin()
+        {
+            SqlParameter[] para = { new SqlParameter("@LoginID", LoginId),
+                                   new SqlParameter("@UpdatedBy", UpdatedBy) };
+            DataSet ds = DBHelper.ExecuteQuery("DeactivateUser", para);
+            return ds;
+        }
+        public DataSet ActivateUserByAdmin()
+        {
+            SqlParameter[] para = { new SqlParameter("@FK_UserID", Fk_UserId),
+                                    new SqlParameter("@FK_ProductID", ProductID),
+                                    new SqlParameter("@UpdatedBy", UpdatedBy)};
+            DataSet ds = DBHelper.ExecuteQuery("ActivateUserByAdmin", para);
+            return ds;
+        }
         #endregion
     }
 }

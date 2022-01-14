@@ -521,6 +521,8 @@ namespace Dost.Models
         public string Contact { get; set; }
         public string PK_RewardItemId { get; set; }
         public string TotalPrice { get; set; }
+        public string Address { get; internal set; }
+        public string PinCode { get; internal set; }
 
         public DataSet RewardList()
         {
