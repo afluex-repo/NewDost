@@ -17,6 +17,7 @@ namespace Dost.Controllers
         public ActionResult UserDashboard()
         {
             Dashboard obj = new Dashboard();
+            TempData["LoginResponse"] = "";
             List<Dashboard> lstinvestment = new List<Dashboard>();
             obj.Fk_UserId = Session["Pk_UserId"].ToString();
             DataSet ds = obj.GetAssociateDashboard();

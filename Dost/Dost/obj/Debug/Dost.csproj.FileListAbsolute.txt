@@ -105,7 +105,6 @@ E:\Mona\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 E:\Mona\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\Mona\NewDost\Dost\Dost\obj\Debug\Dost.pdb
 E:\Mona\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\Divya\repository\NewDost\Dost\Dost\bin\ApplicationInsights.config
 E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\csc.exe
 E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll

@@ -344,7 +344,7 @@
                                         <a class="btn btn-info" href="/User/UserProfile">Back To List</a>
                                     </div>*@
                                                     <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                                    <input type="submit" class="btn btn-primary" name="btnRegistration" value="Save" onclick="return validateAadharform();">
+                                                    <input type="submit" class="btn btn-primary" name="btnRegistration" value="Save" onclick="return validateAadharForm();">
                                                 </div>
                                             </div>
                                         </div>
@@ -408,7 +408,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                                        <input type="submit" class="btn btn-primary" name="btnpanupdate" value="Save"/>
+                                                        <input type="submit" class="btn btn-primary" name="btnpanupdate" value="Save" onclick="return validatePanForm();"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -601,16 +601,17 @@
         }
         return true;
     }
-    function ValidateAadharForm() {
+    function validateAadharForm() {
+        debugger;
         $(".errortext").removeClass("errortext");
         if ($('#First_Name').val() == '') {
             $("#First_Name").addClass('errortext');
             $('#First_Name').focus();
             return false;
         }
-        if ($('#FatherName').val() == '') {
-            $("#FatherName").addClass('errortext');
-            $('#FatherName').focus();
+        if ($('#Father_Name').val() == '') {
+            $("#Father_Name").addClass('errortext');
+            $('#Father_Name').focus();
             return false;
         }
         if ($('#DOB_Date').val() == '') {
@@ -641,6 +642,27 @@
         if ($('#Address_Name').val() == '') {
             $("#Address_Name").addClass('errortext');
             $('#Address_Name').focus();
+            return false;
+        }
+        return true;
+    }
+
+    function validatePanForm() {
+        debugger;
+        $(".errortext").removeClass("errortext");
+        if ($('#Pan_Card').val() == '') {
+            $("#Pan_Card").addClass('errortext');
+            $('#Pan_Card').focus();
+            return false;
+        }
+        if ($('#First_NM').val() == '') {
+            $("#First_NM").addClass('errortext');
+            $('#First_NM').focus();
+            return false;
+        }
+        if ($('#DOB_ID').val() == '') {
+            $("#DOB_ID").addClass('errortext');
+            $('#DOB_ID').focus();
             return false;
         }
         return true;

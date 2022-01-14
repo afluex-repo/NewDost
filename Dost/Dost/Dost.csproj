@@ -2371,6 +2371,7 @@
     <Content Include="images\dfavicon.png" />
     <Content Include="images\dots-2.png" />
     <Content Include="images\dots.png" />
+    <Content Include="images\EventImage\f08faca7-b0c4-4754-ad42-b24fe436ece4.jpg" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\favicon.png" />
     <Content Include="images\like.png" />
@@ -3712,7 +3713,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\chat\" />
-    <Folder Include="images\EventImage\" />
     <Folder Include="images\ProductImage\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
