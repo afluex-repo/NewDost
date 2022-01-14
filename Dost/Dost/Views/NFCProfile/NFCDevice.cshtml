@@ -71,7 +71,14 @@
                                         <div class="media-body text-white text-right">
                                             @if (@Item.Color == "#FF4C41")
                                             {
-                                                <p class="mb-1"><a href="/Home/NFCActivation" class="text-white text-activate">Activate</a></p>
+                                                if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "" && Session["NFCActivated"] != null && Session["NFCActivated"].ToString() == "true")
+                                                {
+                                                    <p class="mb-1"><a href="/Home/NFCActivation" class="text-white text-activate">Activated</a></p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="mb-1"><a href="/Home/NFCActivation" class="text-white text-activate">Activate</a></p>
+                                                }
                                             }
                                             else
                                             {

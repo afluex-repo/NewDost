@@ -241,6 +241,7 @@ namespace Dost.Controllers
                 obj1.BV = Request["totalBV"].ToString();
                 obj1.DeliveryCharge = Request["totalBV"].ToString();
                 obj1.Gst = Request["totalBV"].ToString();
+                
                 DataSet ds = obj1.SaveEventDetails();
                 if (ds != null && ds.Tables.Count > 0)
                 {
