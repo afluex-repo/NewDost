@@ -215,7 +215,6 @@ namespace Dost.Controllers
                 dt.Columns.Add("ProductAmount", typeof(string));
                 dt.Columns.Add("NoofItems", typeof(string));
                 dt.Columns.Add("Pk_EventId", typeof(string));
-
                 string hdrows = Request["hdRows"].ToString();
                 for (int i = 1; i <= int.Parse(hdrows) - 1; i++)
                 {
@@ -225,14 +224,12 @@ namespace Dost.Controllers
                     string Pk_EventId = Request["PK_EventId_" + i].ToString();
                     DataRow dr = dt.NewRow();
                     dr = dt.NewRow();
-
                     dr["ProductName"] = ProductName;
                     dr["ProductAmount"] = TotalPrice;
                     dr["NoofItems"] = NoofItems;
                     dr["Pk_EventId"] = Pk_EventId;
                     dt.Rows.Add(dr);
                 }
-
                 obj1.dtproductitem = dt;
                 obj1.WalletBalance = Request["walletbalance"].ToString();
                 obj1.TotalPrice = Request["totalamount"].ToString();
