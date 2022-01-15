@@ -9,6 +9,8 @@ namespace Dost.Models
 {
     public class Shop
     {
+       
+
         public DataTable dtproductitem { get; set; }
         public List<Shop> lstproduct { get; set; }
         public List<Shop> lstcoupon { get; set; }
@@ -52,12 +54,13 @@ namespace Dost.Models
         public string State { get; set; }
         public string WalletBalance { get; set; }
         public string DeliveryCharge { get; set; }
-        public string AddressId { get; set; }
+        public string PK_AddressId { get; set; }
         public string Gst { get; set; }
         public List<AddressBook> lstAddressBook { get; set; }
         public string City { get; set; }
         public string OrderDate { get; set; }
         public string Status { get; set; }
+        public string MobileNo { get; set; }
         #region
 
         public List<productimagelst> lstProductImage { get; set; }
@@ -155,7 +158,11 @@ namespace Dost.Models
                 new SqlParameter("@State",State),
                 new SqlParameter("@City",City),
                 new SqlParameter("@Address",Address),
-                new SqlParameter("@AddressId",AddressId),
+                new SqlParameter("@AddressId",PK_AddressId),
+                 new SqlParameter("@FirstName",FirstName),
+                new SqlParameter("@LastName",LastName),
+                new SqlParameter("@MobileNo ",MobileNo ),
+                new SqlParameter("@Email",Email),
                 new SqlParameter("@ReferralBV",BV),
                 new SqlParameter("@DeliveryCharge",DeliveryCharge),
                 new SqlParameter("@Gst",Gst),
@@ -209,7 +216,7 @@ namespace Dost.Models
             SqlParameter[] para =
             {
                  new SqlParameter("@FK_UserId",Fk_UserId),
-                new SqlParameter("@PK_AddressId",AddressId)
+                new SqlParameter("@PK_AddressId",PK_AddressId)
 
 
             };

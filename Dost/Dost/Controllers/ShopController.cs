@@ -429,7 +429,7 @@ namespace Dost.Controllers
         public ActionResult DeleteAddress(string Id)
         {
             Shop model = new Shop();
-            model.AddressId = Id;
+            model.PK_AddressId = Id;
             model.Fk_UserId = Session["Pk_userId"].ToString();
             DataSet ds = model.DeleteAddress();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
