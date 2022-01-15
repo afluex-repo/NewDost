@@ -457,7 +457,7 @@ namespace Dost.Controllers
                         OrderDate = row["OrderDate"].ToString(),
                         TotalPrice = row["TotalPrice"].ToString(),
                         Status = row["Status"].ToString(),
-
+                        Address = row["Address"].ToString(),
                     });
                 }
                 model.lstproduct = lst;
