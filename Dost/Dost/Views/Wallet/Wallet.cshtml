@@ -176,13 +176,13 @@
                                                                                     <div class="row">
                                                                                         <div class="col-xl-6 col-lg-6 form-group" id="bankname" style="display: none">
                                                                                             <div class="mb-3">
-                                                                                                <label class="mb-1 text-white fs-14">Bank Name <span class="text-danger">*</span></label>
+                                                                                                <label class="mb-1 text-white fs-14" id="lblbank">Bank Name </label><span class="text-danger">*</span>
                                                                                                 @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @placeholder = "Bank Name" })
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-xl-6 col-lg-6 form-group" id="chequeno" style="display: none">
                                                                                             <div class="mb-3">
-                                                                                                <label class="mb-1 text-white fs-14">Transaction No  <span class="text-danger">*</span></label>
+                                                                                                <label class="mb-1 text-white fs-14" id="lbltno">Transaction No  </label><span class="text-danger">*</span>
                                                                                                 @Html.TextBoxFor(m => m.DDChequeNo, new { @class = "form-control", @placeholder = "Transaction No" })
                                                                                             </div>
                                                                                         </div>
@@ -191,7 +191,7 @@
                                                                                     <div class="form-row">
                                                                                         <div class="col-xl-6 col-lg-6 form-group" id="chequdate" style="display: none">
                                                                                             <div class="mb-3">
-                                                                                                <label class="mb-1 text-white fs-14">Transaction Date <span class="text-danger">*</span></label>
+                                                                                                <label class="mb-1 text-white fs-14" id="lbltno">Transaction Date </label><span class="text-danger">*</span>
                                                                                                 @Html.TextBoxFor(m => m.DDChequeDate, new { @class = "form-control", @placeholder = "Transaction Date" })
                                                                                             </div>
                                                                                         </div>
@@ -524,7 +524,7 @@
                                                     <div class="items" onclick="return fillvalue(@Item.Mobile)">
                                                         <div class="text-center">
                                                             <img class="mb-3 rounded" src="@Item.ProfilePic" alt="">
-                                                            <h6 class="mb-0" style="font-size:0.738rem"><a class="text-black" href="javascript:void(0);">@Item.DisplayName</a></h6>
+                                                            <h6 class="mb-0" @*style="font-size:0.738rem"*@><a class="text-black" href="javascript:void(0);">@Item.DisplayName</a></h6>
                                                             <span class="fs-12">@Item.Mobile</span>
                                                         </div>
                                                     </div>
@@ -642,11 +642,23 @@
     function getpaymentdetails() {
         debugger;
         var paymentmode = ($("#PaymentMode option:selected").text());
-        if (paymentmode != "Cash") {
+        if (paymentmode != "Cash" && paymentmode != "UPI") {
+
             bankname.style.display = "block";
             chequeno.style.display = "block";
             chequdate.style.display = "block";
             bankbranch.style.display = "block";
+            $("#BankName").attr("placeholder", "Bank Name");
+            $("#lblbank").html('Bank Name');
+        }
+        else if(paymentmode == "UPI")
+        {
+          
+            bankname.style.display = "block";
+            chequeno.style.display = "block";
+            chequdate.style.display = "block";
+            $("#BankName").attr("placeholder", "UPI Id");
+            $("#lblbank").html('UPI Id');
         }
         else {
             bankname.style.display = "none";

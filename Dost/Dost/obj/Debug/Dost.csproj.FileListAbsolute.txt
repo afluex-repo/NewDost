@@ -213,3 +213,4 @@ D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\obj\Debug\Dost.dll
 D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
