@@ -18,6 +18,31 @@
     select.form-control.btn.btn-primary.dropdown-toggle {
         background-color: #eb8153;
     }
+
+    input.chkactive.massive-checkbox {
+        height: 30px;
+        width: 30px;
+    }
+
+    input[type="checkbox"].massive-checkbox:checked:after {
+        width: 2rem;
+        height: 2rem;
+        font-size: 25px;
+        line-height: 1.3;
+    }
+
+    input[type="checkbox"].massive-checkbox:after {
+        height: 30px;
+        width: 30px;
+    }
+
+    .card-bx .card-info {
+        border-radius: 0.35rem;
+    }
+   .g option {
+    background: white;
+    color: black;
+}
 </style>
 <div class="content-body">
     @using (Html.BeginForm("ProfileUpdate", "NFCProfile", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
@@ -110,13 +135,16 @@
                                                             <div class="swiper-slide">
                                                                 <div class="card-bx stacked card">
                                                                     @*<img src="../images/card/card1.jpg" alt="">*@
-                                                                    <div class="card-info" style="background-color:@Item.ColorCode">
+                                                                    <div class="card-info" style="background-color:@Item.ColorCodeContact">
                                                                         <p class="mb-1 text-white fs-14">Profile Name</p>
                                                                         <div class="d-flex justify-content-between">
                                                                             <h2 class="num-text text-white mb-5 font-w600">@Item.ProfileName</h2>
-                                                                            <div class="text-right" style="margin-top: -28px">
+                                                                            <div class="text-right" style="margin-top: -45px">
                                                                                 <div class="mt-4 text-white">
-                                                                                    <input type="checkbox" class="chkactive" value="@Item.PK_ProfileId" @Item.ActiveStatus /><p>Activate</p>
+                                                                                    <input type="checkbox" class="chkactive massive-checkbox" value="@Item.PK_ProfileId" @Item.ActiveStatus />
+                                                                                </div>
+                                                                                <div class="mt-4 text-white">
+                                                                                    <p>Activate</p>
                                                                                     <p><a href="#ShowConctact('@i')" onclick="ShowConctact(@Item.PK_ProfileId,@i);" data-epensedetailsid='@Item.PK_ProfileId' class="text-white"><i class="fa fa-edit"></i> Edit</a></p>
                                                                                 </div>
                                                                             </div>
@@ -145,7 +173,7 @@
                                                                                                 <div class="text-center">
                                                                                                     <div class="my-profile">
                                                                                                         <img src="@Item.ProfilePic" alt="" class="rounded" id="output1">
-                                                                                                        <a class="file_active" onclick="getFile()" for="upfile"><i class="fa fa-pencil" aria-hidden="true"></i><input id="upfile" type="file" value="upload" style="display: none"/></a>
+                                                                                                        <a class="file_active" onclick="getFile()" for="upfile"><i class="fa fa-pencil" aria-hidden="true"></i><input id="upfile" type="file" value="upload" style="display: none" /></a>
 
                                                                                                     </div>
 
@@ -183,7 +211,7 @@
                                                                                             <div class="mb-3">
                                                                                                 <div class="form-group">
                                                                                                     <label>Gender</label>
-                                                                                                    @Html.DropDownListFor(m => m.Gender, new SelectList(ViewBag.ddlgender, "Value", "Text"), new { @class = "form-control Gender_" + @i + "" })
+                                                                                                    @Html.DropDownListFor(m => m.Gender, new SelectList(ViewBag.ddlgender, "Value", "Text"), new { @class = "form-control g Gender_" + @i + "" })
                                                                                                 </div>
 
                                                                                             </div>
@@ -266,22 +294,24 @@
                                                         {
                                                             <div class="swiper-slide">
                                                                 <div class="card-bx stacked card">
-                                                                    <img src="../images/card/card4.jpg" alt="">
-                                                                    <div class="card-info">
+                                                                    <div class="card-info" style="background-color:@Item.ColorCodeRedirection">
                                                                         <p class="mb-1 text-white fs-14">Profile Name</p>
                                                                         <div class="d-flex justify-content-between">
                                                                             <h2 class="num-text text-white mb-5 font-w600">@Item.ProfileName</h2>
-                                                                            <div class="text-right" style="margin-top: -28px">
+                                                                            <div class="text-right" style="margin-top: -45px">
                                                                                 <!-- <div class="num-text text-white mb-3 font-w600" style="border: 2px solid white; border-radius: 8px; width: 50px; height: 50px;"></div> -->
                                                                                 <div class="mt-4 text-white">
-                                                                                    <input type="checkbox" class="chkactive" value="@Item.PK_ProfileId" @Item.ActiveStatus /><p>Activate</p>
+                                                                                    <input type="checkbox" class="chkactive massive-checkbox" value="@Item.PK_ProfileId" @Item.ActiveStatus />
+                                                                                </div>
+                                                                                <div class="mt-4 text-white">
+                                                                                    <p>Activate</p>
                                                                                     <p><a href="#Redirect('@i')" onclick="Redirect(@Item.PK_ProfileId,@i);" class="text-white"><i class="fa fa-edit"></i> Edit</a></p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="d-flex">
                                                                             <div class="mb-2">
-                                                                                <button type="button" class="btn btn-success">Redirection</button>
+                                                                                <button type="button" class="btn btn-secondary">Redirection</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -702,12 +732,12 @@
                     ErrorAlert("Error while inserting data");
                     $("#ProfileName").val('');
                     $('input[name="ProfileType"]:checked').val('false');
-                   // GetProfilePersonalData();
+                    // GetProfilePersonalData();
                     $('#exampleModalCenter').modal('hide');
                     window.location.href = "/NFCProfile/ProfileUpdate";
                 }
             });
-            
+
         }
         $("#Flag").val("Profile");
     });
@@ -763,10 +793,10 @@
                 var obj = jQuery.parseJSON(data);
                 for (var i = 0; i < obj.length; i++) {
                     if (obj[i].ProfileType == "Redirection") {
-                        cl = "btn-success";
+                        cl = "btn-secondary";
                     }
                     else {
-                        cl = "btn-secondary";
+                        cl = "btn-danger";
                     }
                     $("#divbindProfile").append('<div class="swiper-slide"><div class="card-bx stacked card"><img src=' + obj[i].CardImage + ' alt=""><div class="card-info"><p class="mb-1 text-white fs-14">' + obj[i].ProfileName + '</p><div class="d-flex justify-content-between"><h2 class="num-text text-white mb-5 font-w600">' + obj[i].Name + '</h2><div class="text-center"><span class="num-text text-white mb-5 font-w600"></span><div class="mt-4 text-white"><input type="checkbox" class="chkactive" value=' + obj[i].PK_ProfileId + ' ' + obj[i].IsChecked + '/><p>Activate</p><p><a href="javascript:void(0)" class="text-white" onclick="ShowConctact(' + obj[i].PK_ProfileId + ',' + (i + 1) + ');"><i class="fa fa-edit"></i> Edit</a></p></div></div></div><div class="d-flex"><div class="mb-2"><button type="button" class="btn ' + cl + '" onclick="GetBusinessProfile(' + obj[i].PK_ProfileId + ',' + (i + 1) + ');">' + obj[i].ProfileType + '</button></div></div></div></div></div>')
                 }
@@ -831,7 +861,7 @@
                         }
                         SuccessAlert(message);
                         $("#hdfProfile").val(ProfileId);
-                        window.location.href="/NFCProfile/ProfileUpdate";
+                        window.location.href = "/NFCProfile/ProfileUpdate";
                         //GetProfilePersonalData();
                     }
                     else {
@@ -1207,7 +1237,7 @@
             }
         });
     }
-    function UpdateRedirectionUrl(func,index) {
+    function UpdateRedirectionUrl(func, index) {
         debugger;
         var PK_NFCProfileId = $("#ddlWebLink_" + index + " :selected").val();
         var PK_ProfileId = $("#hdfProfile").val();
@@ -1223,7 +1253,12 @@
                 debugger;
                 if (data != null) {
                     if (data.Result == "Success") {
+                        
                         SuccessAlert(data.Message);
+                        if(func=="Remove")
+                        {
+                            window.location.href = "/NFCProfile/ProfileUpdate";
+                        }
                     }
                     else {
                         ErrorAlert(data.Message);

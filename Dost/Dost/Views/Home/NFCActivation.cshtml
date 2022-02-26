@@ -32,6 +32,13 @@
 
 </head>
 <body class="vh-100">
+    <div id="preloader" style="display: none;">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
     <div class="authincation h-100">
         <div class="container h-100">
             <div class="row justify-content-center h-100 align-items-center">
@@ -97,7 +104,7 @@
     <script src="~/js/dashboard/dashboard-1.js"></script>
     <script src="~/vendor/owl-carousel/owl.carousel.js"></script>
     @*<script src="~/vendor/toastr/js/toastr.min.js"></script>
-    <script src="~/js/plugins-init/toastr-init.js"></script>*@
+        <script src="~/js/plugins-init/toastr-init.js"></script>*@
     <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="~/js/plugins-init/datatables.init.js"></script>
     <script src="~/js/custom.min.js"></script>
@@ -123,9 +130,8 @@
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
         $(window).on('load', function () {
-
-            $("#preloader").css({ 'display': 'none' });
-
+            $("#preloader").fadeOut(500);
+              
         })
         //})
         //function CheckDistributor() {
@@ -150,7 +156,8 @@
         //}
 
         function ActivateNow() {
-            $("#preloader").css({ 'display': '' });
+            debugger;
+            $("#preloader").css({ 'display': 'block' });
             if ($('#Code').val() == '') {
                 toastr.warning("NFC Code required", "", {
                     positionClass: "toast-top-right",
@@ -268,7 +275,7 @@
                         //    hideMethod: "fadeOut",
                         //    tapToDismiss: !1
                         //})
-                         alert(result);
+                        alert(result);
                     }
                 },
                 error: function () {
