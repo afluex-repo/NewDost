@@ -61,6 +61,7 @@
                 {
                     foreach (var Item in Model.lst)
                     {
+
                         <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
                             <div class="widget-stat card" style="background-color:@Item.Color">
                                 <div class="card-body  p-4">
@@ -71,7 +72,14 @@
                                         <div class="media-body text-white text-right">
                                             @if (@Item.Color == "#FF4C41")
                                             {
-                                                <p class="mb-1"><a href="/Home/NFCActivation" class="text-white text-activate">Activate</a></p>
+                                                if (Session["UserNFCCode"] != null && Session["UserNFCCode"].ToString() != "na")
+                                                {
+                                                    <p class="mb-1"><a href="/NFCProfile/SetActionDashboard" class="text-white text-activate">Activated</a></p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="mb-1"><a href="/Home/NFCActivation" class="text-white text-activate">Activate</a></p>
+                                                }
                                             }
                                             else
                                             {
@@ -83,7 +91,27 @@
                                 </div>
                             </div>
                         </div>
+
                     }
+                }
+                else
+                {
+                    <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                        <div class="widget-stat card" style="background-color:#FF4C41">
+                            <div class="card-body  p-4">
+                                <div class="media">
+                                    <span class="mr-3">
+                                        <i class="fa fa-credit-card-alt"></i>
+                                    </span>
+                                    <div class="media-body text-white text-right">
+                                        <p class="mb-1"><a href="/Shop/Product" class="text-white text-activate">Purchase</a></p>
+                                       
+                                        <h4 class="text-white">Business Card</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
             }
         </div>

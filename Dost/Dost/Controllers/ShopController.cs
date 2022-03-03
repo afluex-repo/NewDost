@@ -215,7 +215,6 @@ namespace Dost.Controllers
                 dt.Columns.Add("ProductAmount", typeof(string));
                 dt.Columns.Add("NoofItems", typeof(string));
                 dt.Columns.Add("Pk_EventId", typeof(string));
-
                 string hdrows = Request["hdRows"].ToString();
                 for (int i = 1; i <= int.Parse(hdrows) - 1; i++)
                 {
@@ -225,14 +224,12 @@ namespace Dost.Controllers
                     string Pk_EventId = Request["PK_EventId_" + i].ToString();
                     DataRow dr = dt.NewRow();
                     dr = dt.NewRow();
-
                     dr["ProductName"] = ProductName;
                     dr["ProductAmount"] = TotalPrice;
                     dr["NoofItems"] = NoofItems;
                     dr["Pk_EventId"] = Pk_EventId;
                     dt.Rows.Add(dr);
                 }
-
                 obj1.dtproductitem = dt;
                 obj1.WalletBalance = Request["walletbalance"].ToString();
                 obj1.TotalPrice = Request["totalamount"].ToString();
@@ -241,6 +238,7 @@ namespace Dost.Controllers
                 obj1.BV = Request["totalBV"].ToString();
                 obj1.DeliveryCharge = Request["totalBV"].ToString();
                 obj1.Gst = Request["totalBV"].ToString();
+                
                 DataSet ds = obj1.SaveEventDetails();
                 if (ds != null && ds.Tables.Count > 0)
                 {
@@ -428,7 +426,7 @@ namespace Dost.Controllers
         public ActionResult DeleteAddress(string Id)
         {
             Shop model = new Shop();
-            model.AddressId = Id;
+            model.PK_AddressId = Id;
             model.Fk_UserId = Session["Pk_userId"].ToString();
             DataSet ds = model.DeleteAddress();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -459,7 +457,7 @@ namespace Dost.Controllers
                         OrderDate = row["OrderDate"].ToString(),
                         TotalPrice = row["TotalPrice"].ToString(),
                         Status = row["Status"].ToString(),
-
+                        Address = row["Address"].ToString(),
                     });
                 }
                 model.lstproduct = lst;

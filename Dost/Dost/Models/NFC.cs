@@ -79,7 +79,8 @@ namespace Dost.Models
         public DataTable dtweblink { get; set; }
         public DataTable dtsocial { get; set; }
         public string ActiveStatus { get; set; }
-        public string ColorCode { get; set; }
+        public string ColorCodeContact { get; set; }
+        public string ColorCodeRedirection { get; set; }
         public DataSet UpdateProfilePic()
         {
             SqlParameter[] para ={

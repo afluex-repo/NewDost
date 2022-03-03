@@ -1,0 +1,236 @@
+﻿@model Dost.Models.Reports
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+        .col h3 {
+            font-size: 22px;
+        }
+
+        #report {
+            padding: 220px 20px 20px 20px;
+            width: 900px;
+            min-height: 1165px;
+            margin: 0 auto;
+            background: url(https://oceanmart.co.in/PayUser/images/welcome-letter.jpg) no-repeat top;
+        }
+
+        .report {
+            position: relative;
+            min-height: 930px;
+            padding: 15px;
+        }
+
+            .report header {
+                padding: 10px 0;
+                margin-bottom: 20px;
+                border-bottom: 1px solid #3989c6;
+            }
+
+            .report .company-details {
+                text-align: right;
+            }
+
+                .report .company-details .name {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                }
+
+            .report .contacts {
+                margin-bottom: 20px;
+            }
+
+            .report .report-to {
+                text-align: left;
+            }
+
+                .report .report-to .to {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    font-size: 22px;
+                }
+
+            .report .report-details {
+                text-align: right;
+            }
+
+                .report .report-details .report-id {
+                    margin-top: 0;
+                    color: #3989c6;
+                }
+
+            .report main {
+                padding-bottom: 50px;
+            }
+
+                .report main .thanks {
+                    margin-top: 00px;
+                    font-size: 2em;
+                    margin-bottom: 50px;
+                }
+
+                .report main .notices {
+                    padding-left: 6px;
+                    border-left: 6px solid #3989c6;
+                }
+
+                    .report main .notices .notice {
+                        font-size: 1.2em;
+                    }
+
+            .report table {
+                width: 100%;
+                border-collapse: collapse;
+                border-spacing: 0;
+                margin-bottom: 20px;
+            }
+
+                .report table td, .report table th {
+                    padding: 15px;
+                    background: #eee;
+                    border-bottom: 1px solid #fff;
+                }
+
+                .report table th {
+                    white-space: nowrap;
+                    font-weight: 400;
+                    font-size: 16px;
+                }
+
+                .report table td h3 {
+                    margin: 0;
+                    font-weight: 400;
+                    color: #3989c6;
+                    font-size: 1.2em;
+                }
+
+                .report table .qty, .report table .total, .report table .unit {
+                    text-align: right;
+                    font-size: 1.2em;
+                }
+
+                .report table .no {
+                    color: #fff;
+                    font-size: 1.6em;
+                    background: #3989c6;
+                }
+
+                .report table .unit {
+                    background: #ddd;
+                }
+
+                .report table .total {
+                    background: #3989c6;
+                    color: #fff;
+                }
+
+                .report table tbody tr:last-child td {
+                    border: none;
+                }
+
+                .report table tfoot td {
+                    background: 0 0;
+                    border-bottom: none;
+                    white-space: nowrap;
+                    text-align: right;
+                    padding: 10px 20px;
+                    font-size: 1.2em;
+                    border-top: 1px solid #aaa;
+                }
+
+                .report table tfoot tr:first-child td {
+                    border-top: none;
+                }
+
+                .report table tfoot tr:last-child td {
+                    color: #3989c6;
+                    font-size: 1.4em;
+                    border-top: 1px solid #3989c6;
+                }
+
+                .report table tfoot tr td:first-child {
+                    border: none;
+                }
+
+            .report footer {
+                text-align: center;
+                color: #777;
+                border-top: 1px solid #aaa;
+                padding: 8px 0;
+                background: none;
+                margin-left: 0px;
+            }
+
+        @@media print {
+            .report {
+                font-size: 11px !important;
+                overflow: hidden !important;
+            }
+
+                .report footer {
+                    position: absolute;
+                    bottom: 10px;
+                    page-break-after: always;
+                }
+
+                .report > div:last-child {
+                    page-break-before: always;
+                }
+        }
+    </style>
+    <title>Welcome Letter</title>
+</head>
+<body>
+    <div class="row">
+
+        <div id="report">
+            <div class="report overflow-auto">
+                <div style="min-width: 600px">
+                    <header>
+                        <div class="row pb-3">
+                            <div class="col">
+                                <h3 class="name">REF.No.: @ViewBag.RefNo</h3>
+                            </div>
+                            <div class="col company-details">
+                                <h3 class="name">Date :@ViewBag.DATE </h3>
+                            </div>
+                        </div>
+                    </header>
+                    <main>
+                        <div class="row contacts">
+                            <div class="col report-to">
+                                <div class="text-gray-light">Dear:</div>
+                                <h2 class="to" id="name">@ViewBag.Name </h2>
+                                <div class="address">Father Name : <span id="fname"></span></div>
+                                <div class="address">Address : @ViewBag.Address</div>
+                                <div class="address">Mobile No. : @ViewBag.Mobile</div>
+                            </div>
+
+                        </div>
+
+                        <div class="text-center">
+                            <p>We glad to i…………..</p>
+                        </div>
+                        <div class="thanks text-center">Thank you!</div>
+                        <div class="notices">
+                            <div class="notice">YOU &amp; YOUR FAMILY ARE HAPPY ITS OUR HAPPIENESS</div>
+                        </div>
+                    </main>
+                    <footer>Auto generated Welcome Letter</footer>
+                </div>
+                <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+                <div></div>
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+</html>

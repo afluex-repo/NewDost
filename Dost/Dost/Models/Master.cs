@@ -90,6 +90,14 @@ namespace Dost.Models
         public string IsDeleted { get; set; }
         public string Color { get; set; }
         public string EncCode { get; set; }
+        public string UserCode { get;  set; }
+        public string LoginId { get;  set; }
+        public string Status { get;  set; }
+        public string InvoiceNo { get;  set; }
+        public string ActivationDate { get;  set; }
+        public string FromDate { get;  set; }
+        public string ToDate { get;  set; }
+
         public DataSet categorylist()
         {
             DataSet ds = DBHelper.ExecuteQuery("CategoryList");
@@ -580,8 +588,29 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("DeleteCouponType", para);
             return ds;
         }
-        
-
+        public DataSet GetListForInvoiceAdmin()
+        {
+            SqlParameter[] para =
+           {
+                 new SqlParameter("@FromDate",FromDate),
+                  new SqlParameter("@ToDate",ToDate),
+                   new SqlParameter("@LoginId",LoginId),
+                    new SqlParameter("@UserCode",UserCode),
+                     new SqlParameter("@Status",Status),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetListForInvoiceAdmin", para);
+            return ds;
+        }
+        public DataSet UpdateInvoiceStatus()
+        {
+            SqlParameter[] para =
+           {
+                new SqlParameter("@PK_InvestmentId",InvoiceNo),
+                  new SqlParameter("@Status",Status),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateInvoiceStatus", para);
+            return ds;
+        }
     }
 
 

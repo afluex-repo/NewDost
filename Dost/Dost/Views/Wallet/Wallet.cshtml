@@ -148,7 +148,7 @@
                                                                                         <div class="col-xl-6 col-lg-6 form-group">
                                                                                             <div class="mb-3">
                                                                                                 <label class="mb-1 text-white fs-14">Login Id </label>
-                                                                                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id", @onchange = "getmembername(this);", @Readonly = "true" })
+                                                                                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id", @onchange = "getmembername(this);", @Readonly = "true" ,@id="Login_Id"})
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-xl-6 col-lg-6 form-group">
@@ -176,13 +176,13 @@
                                                                                     <div class="row">
                                                                                         <div class="col-xl-6 col-lg-6 form-group" id="bankname" style="display: none">
                                                                                             <div class="mb-3">
-                                                                                                <label class="mb-1 text-white fs-14">Bank Name <span class="text-danger">*</span></label>
+                                                                                                <label class="mb-1 text-white fs-14" id="lblbank">Bank Name </label><span class="text-danger">*</span>
                                                                                                 @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @placeholder = "Bank Name" })
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-xl-6 col-lg-6 form-group" id="chequeno" style="display: none">
                                                                                             <div class="mb-3">
-                                                                                                <label class="mb-1 text-white fs-14">Transaction No  <span class="text-danger">*</span></label>
+                                                                                                <label class="mb-1 text-white fs-14" id="lbltno">Transaction No  </label><span class="text-danger">*</span>
                                                                                                 @Html.TextBoxFor(m => m.DDChequeNo, new { @class = "form-control", @placeholder = "Transaction No" })
                                                                                             </div>
                                                                                         </div>
@@ -191,7 +191,7 @@
                                                                                     <div class="form-row">
                                                                                         <div class="col-xl-6 col-lg-6 form-group" id="chequdate" style="display: none">
                                                                                             <div class="mb-3">
-                                                                                                <label class="mb-1 text-white fs-14">Transaction Date <span class="text-danger">*</span></label>
+                                                                                                <label class="mb-1 text-white fs-14" id="lbltno">Transaction Date </label><span class="text-danger">*</span>
                                                                                                 @Html.TextBoxFor(m => m.DDChequeDate, new { @class = "form-control", @placeholder = "Transaction Date" })
                                                                                             </div>
                                                                                         </div>
@@ -205,7 +205,7 @@
                                                                                     </div>
                                                                                     <div class="row">
                                                                                         <div class="col-xl-12 col-lg-12 text-right">
-                                                                                            <input class="btn btn-primary mb-2 px-5" id="btnAddFund" name="btnAddFund" onclick="return validateform()" type="button" value="Wallet Request" />
+                                                                                            <input class="btn btn-primary mb-2 px-5" id="btnAddFund" name="btnAddFund" onclick="return validateform();" type="submit" value="Wallet Request" />
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -524,7 +524,7 @@
                                                     <div class="items" onclick="return fillvalue(@Item.Mobile)">
                                                         <div class="text-center">
                                                             <img class="mb-3 rounded" src="@Item.ProfilePic" alt="">
-                                                            <h6 class="mb-0" style="font-size:0.738rem"><a class="text-black" href="javascript:void(0);">@Item.DisplayName</a></h6>
+                                                            <h6 class="mb-0" @*style="font-size:0.738rem"*@><a class="text-black" href="javascript:void(0);">@Item.DisplayName</a></h6>
                                                             <span class="fs-12">@Item.Mobile</span>
                                                         </div>
                                                     </div>
@@ -642,11 +642,23 @@
     function getpaymentdetails() {
         debugger;
         var paymentmode = ($("#PaymentMode option:selected").text());
-        if (paymentmode != "Cash") {
+        if (paymentmode != "Cash" && paymentmode != "UPI") {
+
             bankname.style.display = "block";
             chequeno.style.display = "block";
             chequdate.style.display = "block";
             bankbranch.style.display = "block";
+            $("#BankName").attr("placeholder", "Bank Name");
+            $("#lblbank").html('Bank Name');
+        }
+        else if(paymentmode == "UPI")
+        {
+          
+            bankname.style.display = "block";
+            chequeno.style.display = "block";
+            chequdate.style.display = "block";
+            $("#BankName").attr("placeholder", "UPI Id");
+            $("#lblbank").html('UPI Id');
         }
         else {
             bankname.style.display = "none";
@@ -704,35 +716,56 @@
                 return false;
             }
         }
-        if ($("#fileupload").val() != null)
-        {
-            var fileUpload = $("#fileupload").get(0);
-            var files = fileUpload.files;
-            var formData = new FormData();
-            formData.append(files[0].name, files[0]);
-        }
-        form
+        var formData = new FormData();
+        formData.append("LoginId", $("#Login_Id").val());
+        formData.append("Amount", $("#Amount").val());
         $.ajax({
-            url: '/Wallet/AddFund',
+            url: "/Wallet/AddFund",
             type: "POST",
             dataType: "JSON",
-            data: $("#form1").serialize(), formData,
+            data: { LoginId: $("#Login_Id").val(), Amount: $("#Amount").val(), PaymentMode: $("#PaymentMode").val() },
             success: function (data) {
-                debugger;
-                if (data.Result == "Yes") {
-                    $('#txtname').html(data.DisplayName);
-
-                    divname.style.display = "block";
-                } else {
-                    iziToast.error({
-                        title: "",
-                        message: "Invalid Sponser Id",
-                        position: "topRight",
-                    });
-                    //alert("Invalid Sponser Id");
-                    $('#txtname').html("");
-                    $('#LoginId').val("");
-
+                if (data != null) {
+                    if (data.Result == "Yes") {
+                        toastr.success("Fund requested successfully ", "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                    else {
+                        toastr.error(data.Result, "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
                 }
             }
         });
@@ -875,6 +908,56 @@
             $('#WithDrawAmount').focus();
             return false;
         }
+        $.ajax({
+            url: "/Wallet/SavePayoutRequest",
+            type: "POST",
+            dataType: "JSON",
+            data: { LoginId: $("#LoginId").val(), Amount: $("#WithDrawAmount").val() },
+            success: function (data) {
+                if (data != null) {
+                    if (data.Result == "Yes") {
+                        toastr.success("Withdraw requested successfully ", "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                    else {
+                        toastr.error(data.Result, "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                }
+            }
+        });
         return true;
     }
     function getcFillterDate(TypeDate) {

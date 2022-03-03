@@ -54,6 +54,7 @@ namespace Dost.Models
         public List<Dashboard> lstUser { get; set; }
         public string WalletAmount { get; set; }
         public string Mobile { get; set; }
+        public HttpPostedFileBase fileProfilePicture { get; set; }
         #endregion
         public DataSet userlist()
         {

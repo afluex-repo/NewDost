@@ -102,17 +102,18 @@ namespace Dost.Controllers
             return View(obj);
         }
         [HttpPost]
-        [ActionName("Wallet")]
-        [OnAction(ButtonName = "btnAddFund")]
-        public ActionResult AddFund(Wallet obj, HttpPostedFileBase fileProfilePicture)
+        public ActionResult AddFund(string LoginId, string Amount, string PaymentMode)
         {
-
+            Wallet obj = new Wallet();
             try
             {
-                if (fileProfilePicture != null && fileProfilePicture.ContentLength > 0)
+                obj.LoginId = LoginId;
+                obj.Amount = Amount;
+                obj.PaymentMode = PaymentMode;
+                if (obj.fileProfilePicture != null && obj.fileProfilePicture.ContentLength > 0)
                 {
-                    obj.DocumentImg = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(fileProfilePicture.FileName);
-                    fileProfilePicture.SaveAs(Path.Combine(Server.MapPath(obj.DocumentImg)));
+                    obj.DocumentImg = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(obj.fileProfilePicture.FileName);
+                    obj.fileProfilePicture.SaveAs(Path.Combine(Server.MapPath(obj.DocumentImg)));
                 }
                 obj.LoginId = Session["Loginid"].ToString();
                 obj.AddedBy = Session["Pk_UserId"].ToString();
@@ -122,23 +123,22 @@ namespace Dost.Controllers
                 {
                     if (ds.Tables[0].Rows[0]["MSG"].ToString() == "1")
                     {
-                        TempData["Ewallet"] = "Wallet Requested Successfully.";
-                        TempData["Wallet"] = "Yes";
+                        //TempData["Ewallet"] = "Wallet Requested Successfully.";
+                        obj.Result = "Yes";
                     }
                     else
                     {
-                        TempData["Ewallet"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-
-
+                        //TempData["Ewallet"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        obj.Result = "No";
                     }
                 }
             }
             catch (Exception ex)
             {
-                TempData["Ewallet"] = ex.Message;
-
+                //TempData["Ewallet"] = ex.Message;
+                obj.Result = ex.Message;
             }
-            return RedirectToAction("Wallet", "Wallet");
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         [ActionName("Wallet")]
@@ -200,39 +200,38 @@ namespace Dost.Controllers
             return RedirectToAction("Wallet", "Wallet");
 
         }
-        [HttpPost]
-        [ActionName("Wallet")]
-        [OnAction(ButtonName = "btnWithdraw")]
-        public ActionResult SavePayoutRequest(Wallet obj)
+        public ActionResult SavePayoutRequest(string LoginId, string Amount)
         {
+            Wallet obj = new Wallet();
             try
             {
-
+                obj.LoginId = LoginId;
+                obj.WithDrawAmount = Amount;
                 obj.AddedBy = Session["Pk_UserId"].ToString();
                 DataSet ds = obj.SavePayoutRequest();
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["MSG"].ToString() == "1")
                     {
-                        TempData["Wallet"] = "Yes";
-                        TempData["EWallet"] = "Withdrawl Request Save Successfully.";
+                        obj.Result = "Yes";
+                        //TempData["EWallet"] = "Withdrawl Request Save Successfully.";
                     }
                     else if (ds.Tables[0].Rows[0]["ErrorMessage"].ToString() == "Account Details are not yet updated. Please update your account details.")
                     {
-                        TempData["EWallet"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
                     }
                     else
                     {
-                        TempData["EWallet"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
                     }
                 }
             }
             catch (Exception ex)
             {
-                TempData["EWallet"] = ex.Message;
+                obj.Result = ex.Message;
 
             }
-            return RedirectToAction("Wallet", "Wallet");
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
         public ActionResult QuickTransferEwallet(string Mobile, string Amount)
         {
@@ -287,7 +286,7 @@ namespace Dost.Controllers
             }
             catch (Exception ex)
             {
-              obj.Result   = ex.Message;
+                obj.Result = ex.Message;
 
             }
             return Json(obj, JsonRequestBehavior.AllowGet);

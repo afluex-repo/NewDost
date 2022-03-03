@@ -100,7 +100,8 @@ namespace Dost.Controllers
             }
             ViewBag.WebLink = WebLink;
             #endregion WebLink
-            string[] color = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D", "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
+            string[] colorContact = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D"};
+            string[] colorRedirection = { "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
             var i = 0;
             DataSet ds = model.GetNFCProfileData();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -129,7 +130,14 @@ namespace Dost.Controllers
                     obj.CardImage = r["CardImage"].ToString();
                     obj.ProfileName = r["ProfileName"].ToString();
                     obj.ActiveStatus = r["IsChecked"].ToString();
-                    obj.ColorCode = color[i];
+                    if(obj.ProfileType=="Redirection")
+                    {
+                        obj.ColorCodeRedirection = colorRedirection[i];
+                    }
+                    else
+                    {
+                        obj.ColorCodeContact = colorContact[i];
+                    }
                     lstUerProfile.Add(obj);
                 }
                 model.lst = lstUerProfile;
@@ -701,6 +709,15 @@ namespace Dost.Controllers
                         i++;
                     }
                     model.lst = lst;
+                }
+                if(ds != null && ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
+                {
+                    Session["NFCCode"] = ds.Tables[1].Rows[0]["EncCode"].ToString();
+                    if (ds.Tables[1].Rows[0]["IsActivated"].ToString()=="False")
+                    {
+                        Session["NFCActivated"] = "false";
+                    }
+                   
                 }
             }
             catch (Exception ex)
