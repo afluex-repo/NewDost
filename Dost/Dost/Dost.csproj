@@ -2369,6 +2369,7 @@
     <Content Include="images\demo\pic7.jpg" />
     <Content Include="images\demo\pic8.jpg" />
     <Content Include="images\dfavicon.png" />
+    <Content Include="images\dost-loader.gif" />
     <Content Include="images\dots-2.png" />
     <Content Include="images\dots.png" />
     <Content Include="images\EventImage\f08faca7-b0c4-4754-ad42-b24fe436ece4.jpg" />
@@ -2451,6 +2452,7 @@
     <Content Include="images\tab\3.jpg" />
     <Content Include="images\tab\4.jpg" />
     <Content Include="images\Untitled-1.jpg" />
+    <Content Include="images\loader.gif" />
     <Content Include="images\users\pic1.jpg" />
     <Content Include="images\users\pic2.jpg" />
     <Content Include="images\users\pic3.jpg" />
@@ -3710,6 +3712,9 @@
     <Content Include="Views\AdminProfile\WelcomeLetter.cshtml" />
     <Content Include="Views\AdminReports\TopupReport.cshtml" />
     <Content Include="Views\AdminReports\TransactionLog.cshtml" />
+    <Content Include="Views\NFCProfile\Analytics.cshtml" />
+    <Content Include="Views\NFCProfile\EditProfileSetAction.cshtml" />
+    <Content Include="Views\Home\ConfirmActivationPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

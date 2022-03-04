@@ -51,6 +51,7 @@
 
                                         <input type="hidden" value="@ViewBag.SponsorId" id="SponsorId" name="SponsorId" />
                                         <input type="hidden" value="@ViewBag.Leg" id="Leg" name="Leg" />
+                                        <input type="hidden" value="@ViewBag.SignUpMode" id="hdfSign" />
                                     }
                                     <form action="#">
                                         <div class="row">
@@ -113,8 +114,8 @@
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <input type="submit" class="btn btn-primary btn-block" value="Sign up" onclick="return Registration()">
-                                          
+                                            <input type="button" class="btn btn-primary btn-block" value="Sign up" onclick="return Registration()">
+
                                         </div>
                                         <div class="new-account mt-3">
                                             <div class="form-group">
@@ -279,13 +280,36 @@
                 Type: "Get",
                 DataType: "JSON",
                 data: {
-                    FirstName: $("#txtFirstName").val(), LastName: $("#txtLastName").val(), Email: $("#txtEmail").val(), Gender: $("#Gender").val(), SponsorId: $("#SponsorId").val(), Leg: $("#Leg").val(), Password: $("#txtPassword").val(), OTP: $("#txtotp").val()
+                    FirstName: $("#txtFirstName").val(), LastName: $("#txtLastName").val(), Email: $("#txtEmail").val(), Gender: $("#Gender").val(), SponsorId: $("#SponsorId").val(), Leg: $("#Leg").val(), Password: $("#txtPassword").val(), OTP: $("#txtotp").val(), Mode: $("#hdfSign").val()
                 },
                 success: function (result) {
                     debugger
                     status.fadeOut();
                     preloader.delay(0).fadeOut('fast');
-                    if (result.Response == "Success") {
+                    if (result.Response == "NFCActivation") {
+                        $(document).ready(function () {
+                            toastr.success("Registered successfully. Now Activate your card", "", {
+                                positionClass: "toast-top-right",
+                                timeOut: 5e3,
+                                closeButton: !0,
+                                debug: !1,
+                                newestOnTop: !0,
+                                progressBar: !0,
+                                preventDuplicates: !0,
+                                onclick: null,
+                                showDuration: "300",
+                                hideDuration: "1000",
+                                extendedTimeOut: "1000",
+                                showEasing: "swing",
+                                hideEasing: "linear",
+                                showMethod: "fadeIn",
+                                hideMethod: "fadeOut",
+                                tapToDismiss: !1
+                            })
+                        })
+                        window.location.href = '@Url.Action("ConfirmActivationPage", "Home")';
+                    }
+                    else if (result.Response == "Success") {
                         $(document).ready(function () {
                             toastr.success("Registered successfully", "", {
                                 positionClass: "toast-top-right",
@@ -386,7 +410,8 @@
                         showMethod: "fadeIn",
                         hideMethod: "fadeOut",
                         tapToDismiss: !1
-                    })})
+                    })
+                })
                 $("#txtCPassword").addClass('errortext');
                 $("#txtCPassword").addClass('errortext');
                 $('#txtPassword').val('');
