@@ -2412,6 +2412,7 @@
     <Content Include="images\profile\8.jpg" />
     <Content Include="images\profile\9.jpg" />
     <Content Include="images\profile\cover.jpg" />
+    <Content Include="images\profile\intro.mp4" />
     <Content Include="images\profile\pic1.jpg" />
     <Content Include="images\profile\port.jpg" />
     <Content Include="images\profile\profile.png" />

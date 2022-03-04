@@ -35,7 +35,12 @@
         .social-graph-wrapper.widget-instagram {
             background-image: linear-gradient(to right, #1882e8, #c40866);
         }
-
+        .social-graph-wrapper.widget-phone{
+            background-color: #2ca9d7;
+        }
+        .social-graph-wrapper.widget-email{
+            background-color: #f04336;
+        }
         .s-icon a {
             /*background-color: #eb8153;*/
             border-radius: 5px;
@@ -126,14 +131,18 @@
                                             <div class="profile-photo">
                                                 @if (Model != null)
                                                 {
-                                                    if (Model.ProfilePic != null)
+                                                    if (Model.ProfilePic != null && Model.ProfilePic != "")
                                                     {
-                                                        <img src="@Model.ProfilePic" class="img-fluid rounded-circle" alt="">
+                                                        <img src="@Model.ProfilePic" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                                                    <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
                                                 }
 
                                             </div>
@@ -143,8 +152,8 @@
                                                     <p>@Model.Designation</p>
                                                 </div>
                                                 <div class="profile-email px-2 pt-2">
-                                                    <h4 class="text-muted mb-0">@Model.Email</h4>
-                                                    <p class="summary">@Model.Summary</p>
+                                                    @*<h4 class="text-muted mb-0">@Model.Email</h4>
+                                                    <p class="summary">@Model.Summary</p>*@
                                                 </div>
                                                 @*<div class="dropdown ml-auto">
                                                         <a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
@@ -155,56 +164,17 @@
                                                             <li class="dropdown-item"><i class="fa fa-ban text-primary mr-2"></i> Block</li>
                                                         </ul>
                                                     </div>*@
-                                                <div class="pt-2 ml-auto">
-                                                    <a href="javascript:void(0);" class="btn btn-primary mb-1 mr-1" id="btnAddToContacts">Add Contact</a>
-                                                    <a href="/Home/Signup?Pid=@Dost.Models.Crypto.Encrypt(Model.UserCode)" class="btn btn-primary mb-1">Sign Up</a>
+                                                <div class="pt-2 ml-auto" style="width: 70%">
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                                                 </div>
-                                                <div class="modal fade" id="sendMessageModal">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Sign</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form class="comment-form">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-6">
-                                                                            <div class="form-group">
-                                                                                <label class="text-black font-w600">Name <span class="required">*</span></label>
-                                                                                <input type="text" class="form-control" value="Author" name="Author" placeholder="Author">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="form-group">
-                                                                                <label class="text-black font-w600">Email <span class="required">*</span></label>
-                                                                                <input type="text" class="form-control" value="Email" placeholder="Email" name="Email">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-12">
-                                                                            <div class="form-group">
-                                                                                <label class="text-black font-w600">Comment</label>
-                                                                                <textarea rows="8" class="form-control" name="comment" placeholder="Comment"></textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-12">
-                                                                            <div class="form-group mb-0">
-                                                                                <input type="submit" value="Post Comment" class="submit btn btn-primary" name="submit">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        @*<div class="row">
                             <div class="col-xl-4">
                                 <div class="row">
                                     <div class="col-xl-12">
@@ -304,8 +274,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        @*<div class="row">
+                        </div>*@
+                        <div class="row">
                                 <div class="col-xl-4">
                                     <div class="row">
                                         <div class="col-xl-12">
@@ -315,13 +285,13 @@
                                                         <div class="text-center">
                                                                 <div class="row">
                                                                     <div class="col">
-                                                                        <h3 class="m-b-0">150</h3><span>Follower</span>
+                                                                        <h3 class="m-b-0">150</h3><span>Sharing</span>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <h3 class="m-b-0">140</h3><span>Place Stay</span>
+                                                                        <h3 class="m-b-0">140</h3><span>Location</span>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <h3 class="m-b-0">45</h3><span>Reviews</span>
+                                                                        <h3 class="m-b-0">45</h3><span>Contacts</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mt-4">
@@ -378,9 +348,8 @@
                                                     <div class="card-body">
                                                         <div class="profile-blog">
                                                             <h5 class="text-primary d-inline">Today Highlights</h5>
-                                                            <img src="images/profile/1.jpg" alt="" class="img-fluid mt-4 mb-4 w-100">
-                                                            <h4><a href="post-details.html" class="text-black">Darwin Creative Agency Theme</a></h4>
-                                                            <p class="mb-0">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                                            <img src="" class="mt-4 mb-4 w-100" height="142px" width="500px" onclick="getFile()" id="output" style="cursor: pointer;">
+                                                            <input id="upfile" onchange="loadFile_highlights(event)" type="file" value="upload" style="display: none">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -389,61 +358,17 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <div class="profile-interest">
-                                                            <h5 class="text-primary d-inline">Ads</h5>
-                                                            <div class="row mt-4 sp4" id="lightgallery">
-                                                                <a href="images/profile/2.jpg" data-exthumbimage="images/profile/2.jpg" data-src="images/profile/2.jpg" class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6">
-                                                                    <img src="images/profile/2.jpg" alt="" class="img-fluid">
-                                                                </a>
-                                                                <a href="images/profile/3.jpg" data-exthumbimage="images/profile/3.jpg" data-src="images/profile/3.jpg" class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6">
-                                                                    <img src="images/profile/3.jpg" alt="" class="img-fluid">
-                                                                </a>
-                                                                <a href="images/profile/4.jpg" data-exthumbimage="images/profile/4.jpg" data-src="images/profile/4.jpg" class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6">
-                                                                    <img src="images/profile/4.jpg" alt="" class="img-fluid">
-                                                                </a>
-                                                                <a href="images/profile/3.jpg" data-exthumbimage="images/profile/3.jpg" data-src="images/profile/3.jpg" class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6">
-                                                                    <img src="images/profile/3.jpg" alt="" class="img-fluid">
-                                                                </a>
-                                                                <a href="images/profile/4.jpg" data-exthumbimage="images/profile/4.jpg" data-src="images/profile/4.jpg" class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6">
-                                                                    <img src="images/profile/4.jpg" alt="" class="img-fluid">
-                                                                </a>
-                                                                <a href="images/profile/2.jpg" data-exthumbimage="images/profile/2.jpg" data-src="images/profile/2.jpg" class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6">
-                                                                    <img src="images/profile/2.jpg" alt="" class="img-fluid">
-                                                                </a>
+                                                            <h5 class="text-primary d-inline">Video</h5>
+                                                            <div class="row mt-4 sp4">
+                                                                <video width="100%" height="170" controls muted autoplay>
+                                                                    <source src="~/images/profile/intro.mp4" type="video/mp4" />
+                                                                </video>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-12">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="profile-news">
-                                                            <h5 class="text-primary d-inline">Our Latest News</h5>
-                                                            <div class="media pt-3 pb-3">
-                                                                <img src="images/profile/5.jpg" alt="image" class="mr-3 rounded" width="75">
-                                                                <div class="media-body">
-                                                                    <h5 class="m-b-5"><a href="post-details.html" class="text-black">Collection of textile samples</a></h5>
-                                                                    <p class="mb-0">I shared this on my fb wall a few months back, and I thought.</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="media pt-3 pb-3">
-                                                                <img src="images/profile/6.jpg" alt="image" class="mr-3 rounded" width="75">
-                                                                <div class="media-body">
-                                                                    <h5 class="m-b-5"><a href="post-details.html" class="text-black">Collection of textile samples</a></h5>
-                                                                    <p class="mb-0">I shared this on my fb wall a few months back, and I thought.</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="media pt-3 pb-3">
-                                                                <img src="images/profile/7.jpg" alt="image" class="mr-3 rounded" width="75">
-                                                                <div class="media-body">
-                                                                    <h5 class="m-b-5"><a href="post-details.html" class="text-black">Collection of textile samples</a></h5>
-                                                                    <p class="mb-0">I shared this on my fb wall a few months back, and I thought.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                     </div>
                                 </div>
                                 <div class="col-xl-8">
@@ -452,21 +377,21 @@
                                                 <div class="profile-tab">
                                                     <div class="custom-tab-1">
                                                         <ul class="nav nav-tabs">
-                                                            <li class="nav-item">
+                                                            @*<li class="nav-item">
                                                                 <a href="#social-media" data-toggle="tab" class="nav-link active show">Social Media</a>
+                                                            </li>*@
+                                                            <li class="nav-item">
+                                                                <a href="#contacts" data-toggle="tab" class="nav-link">Contact</a>
                                                             </li>
                                                             <li class="nav-item">
                                                                 <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
                                                             </li>
-                                                            <li class="nav-item">
-                                                                <a href="#chats" data-toggle="tab" class="nav-link">Chats</a>
-                                                            </li>
-                                                            <li class="nav-item">
+                                                            @*<li class="nav-item">
                                                                 <a href="#broadcast" data-toggle="tab" class="nav-link">Broadcast</a>
-                                                            </li>
+                                                            </li>*@
                                                         </ul>
                                                         <div class="tab-content">
-                                                            <div id="social-media" class="tab-pane fade active show">
+                                                            @*<div id="social-media" class="tab-pane fade active show">
                                                                 <div class="my-post-content pt-3">
                                                                     <div class="post-input">
                                                                         <textarea name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea>
@@ -592,7 +517,85 @@
                                                                         </button>
                                                                     </div>
                                                                 </div>
+                                                            </div>*@
+
+                                                            <div id="contacts" class="tab-pane fade active show">
+                                                                <div class="pt-3">
+                                                                    <div class="settings-form">
+                                                                        @*<h4 class="text-primary">Contact Us</h4>*@
+
+                                                                        <div class="row mt-4">
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-phone">
+                                                                                        <span class="s-icon"><i class="fa fa-phone fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-email">
+                                                                                        <span class="s-icon"><i class="fa fa-envelope fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-whatsapp">
+                                                                                        <span class="s-icon"><i class="fa fa-whatsapp fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-facebook">
+                                                                                        <span class="s-icon"><i class="fa fa-facebook fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-telegram">
+                                                                                        <span class="s-icon"><i class="fa fa-telegram fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-instagram">
+                                                                                        <span class="s-icon"><i class="fa fa-instagram fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-linkedin">
+                                                                                        <span class="s-icon"><i class="fa fa-linkedin fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-twitter">
+                                                                                        <span class="s-icon"><i class="fa fa-twitter fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
+
                                                             <div id="about-me" class="tab-pane fade">
                                                                 <div class="profile-about-me">
                                                                     <div class="pt-4 border-bottom-1 pb-3">
@@ -665,66 +668,8 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="chats" class="tab-pane fade">
-                                                                <div class="pt-3">
-                                                                    <div class="settings-form">
-                                                                        <h4 class="text-primary">Contact Us</h4>
 
-                                                                        <div class="row mt-4">
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-facebook">
-                                                                                        <span class="s-icon"><i class="fa fa-facebook fa-lg"></i></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-whatsapp">
-                                                                                        <span class="s-icon"><i class="fa fa-whatsapp fa-lg"></i></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-telegram">
-                                                                                        <span class="s-icon"><i class="fa fa-telegram fa-lg"></i></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-instagram">
-                                                                                        <span class="s-icon"><i class="fa fa-instagram fa-lg"></i></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-linkedin">
-                                                                                        <span class="s-icon"><i class="fa fa-linkedin fa-lg"></i></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-twitter">
-                                                                                        <span class="s-icon"><i class="fa fa-twitter fa-lg"></i></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div id="broadcast" class="tab-pane fade">
+                                                            @*<div id="broadcast" class="tab-pane fade">
                                                                 <div class="pt-3">
                                                                     <div class="settings-form">
                                                                         <h4 class="text-primary">Account Setting</h4>
@@ -779,7 +724,7 @@
                                                                         </form>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div>*@
                                                         </div>
                                                     </div>
                                                     <!-- Modal -->
@@ -806,7 +751,7 @@
                                             </div>
                                         </div>
                                     </div>
-                            </div>*@
+                            </div>
                         @if (Session["NFCCode"] != null)
                         {
                             <input type="hidden" value="@Session["NFCCode"]" id="hdfCode" />
@@ -903,7 +848,16 @@
             window.location.href = "/nfc/SaveVCF?id=" + id;
         })
     </script>
-
-
+    <script type="text/javascript">
+      function getFile() {
+            document.getElementById("upfile").click();
+      }
+    </script>
+    <script type="text/javascript">
+      var loadFile_highlights = function(event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+      };
+    </script>
 </body>
 </html>
