@@ -11,6 +11,8 @@ using System.Net;
 //using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Drawing;
+using IronBarCode;
 
 namespace Dost.Controllers
 {
@@ -64,7 +66,14 @@ namespace Dost.Controllers
             }
 
             ViewBag.Mobile = Mobile;
-
+            if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "")
+            {
+                ViewBag.Code = Session["NFCCode"].ToString();
+            }
+            if (Session["UserNFCCode"].ToString() != "na")
+            {
+                ViewBag.Code = Session["UserNFCCode"].ToString();
+            }
             #endregion
             #region SocialMedia
             List<SelectListItem> SocialMedia = new List<SelectListItem>();
@@ -142,6 +151,37 @@ namespace Dost.Controllers
                 }
                 model.lst = lstUerProfile;
             }
+            //var url = string.Format("http://chart.apis.google.com/chart?cht=qr&chs={1}x{2}&chl={0}", "Mona",  500, 500);
+            //WebResponse response = default(WebResponse);
+            //Stream remoteStream = default(Stream);
+            //StreamReader readStream = default(StreamReader);
+            //WebRequest request = WebRequest.Create(url);
+            //response = request.GetResponse();
+            //remoteStream = response.GetResponseStream();
+            //readStream = new StreamReader(remoteStream);
+            //Image img = System.Drawing.Image.FromStream(remoteStream);
+            //img.Save("/KYCDocuments/" + Guid.NewGuid() +"Mona.png");
+            //response.Close();
+            //remoteStream.Close();
+            //readStream.Close();
+            //if (Session["UserNFCCode"] != null)
+            //{
+            //    if (Session["UserNFCCode"].ToString() != "na")
+            //    {
+            //        GeneratedBarcode Qrcode = IronBarCode.QRCodeWriter.CreateQrCode("https://dost.click/NFC/Profile?id=" + Session["UserNFCCode"].ToString());
+            //        Qrcode.SaveAsPng("QrCode.png");
+            //    }
+            //}
+            //if (Session["NFCCode"] != null)
+            //{
+            //    GeneratedBarcode Qrcode = IronBarCode.QRCodeWriter.CreateQrCode("https://dost.click/NFC/Profile?id=" + (Session["NFCCode"].ToString()));
+            //    Qrcode.SaveAsPng("QrCode.png");
+            //}
+            //GeneratedBarcode barcode = IronBarCode.BarcodeWriter.CreateBarcode("https://ironsoftware.com/csharp/barcode/docs/", BarcodeEncoding.Code128);
+            //var MyQRWithLogo = QRCodeWriter.CreateQrCodeWithLogo("https://ironsoftware.com/csharp/barcode/", "visual-studio-logo.png", 500);
+            //MyQRWithLogo.ChangeBarCodeColor(System.Drawing.Color.DarkGreen);
+            ////Save as PDF
+            //MyQRWithLogo.SaveAsPdf("MyQRWithLogo.pdf");
             return View(model);
         }
 

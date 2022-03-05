@@ -301,7 +301,7 @@ namespace Dost.Controllers
             try
             {
                 Common model = new Common();
-                model.Pincode = Pincode;
+                model.PinCode = Pincode;
 
                 #region GetStateCity
                 DataSet dsStateCity = model.GetStateCity();

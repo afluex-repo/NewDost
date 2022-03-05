@@ -35,7 +35,12 @@
         .social-graph-wrapper.widget-instagram {
             background-image: linear-gradient(to right, #1882e8, #c40866);
         }
-
+        .social-graph-wrapper.widget-phone{
+            background-color: #2ca9d7;
+        }
+        .social-graph-wrapper.widget-email{
+            background-color: #f04336;
+        }
         .s-icon a {
             /*background-color: #eb8153;*/
             border-radius: 5px;
@@ -126,15 +131,18 @@
                                             <div class="profile-photo">
                                                 @if (Model != null)
                                                 {
-                                                    <input type="hidden" id="LogId" name="LogId" value="@Model.LogId" />
-                                                    if (Model.ProfilePic != null)
+                                                    if (Model.ProfilePic != null && Model.ProfilePic != "")
                                                     {
-                                                        <img src="@Model.ProfilePic" class="img-fluid rounded-circle" alt="">
+                                                        <img src="@Model.ProfilePic" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                                                    <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
                                                 }
 
                                             </div>
@@ -144,8 +152,8 @@
                                                     <p>@Model.Designation</p>
                                                 </div>
                                                 <div class="profile-email px-2 pt-2">
-                                                    <h4 class="text-muted mb-0">@Model.Email</h4>
-                                                    <p class="summary">@Model.Summary</p>
+                                                    @*<h4 class="text-muted mb-0">@Model.Email</h4>
+                                                    <p class="summary">@Model.Summary</p>*@
                                                 </div>
                                                 @*<div class="dropdown ml-auto">
                                                         <a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
@@ -156,56 +164,17 @@
                                                             <li class="dropdown-item"><i class="fa fa-ban text-primary mr-2"></i> Block</li>
                                                         </ul>
                                                     </div>*@
-                                                <div class="pt-2 ml-auto">
-                                                    <a href="javascript:void(0);" class="btn btn-primary mb-1 mr-1" id="btnAddToContacts">Add Contact</a>
-                                                    <a href="/Home/Signup?Pid=@Dost.Models.Crypto.Encrypt(Model.UserCode)" class="btn btn-primary mb-1">Sign Up</a>
+                                                <div class="pt-2 ml-auto" style="width: 70%">
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                                                 </div>
-                                                <div class="modal fade" id="sendMessageModal">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Sign</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form class="comment-form">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-6">
-                                                                            <div class="form-group">
-                                                                                <label class="text-black font-w600">Name <span class="required">*</span></label>
-                                                                                <input type="text" class="form-control" value="Author" name="Author" placeholder="Author">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="form-group">
-                                                                                <label class="text-black font-w600">Email <span class="required">*</span></label>
-                                                                                <input type="text" class="form-control" value="Email" placeholder="Email" name="Email">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-12">
-                                                                            <div class="form-group">
-                                                                                <label class="text-black font-w600">Comment</label>
-                                                                                <textarea rows="8" class="form-control" name="comment" placeholder="Comment"></textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-12">
-                                                                            <div class="form-group mb-0">
-                                                                                <input type="submit" value="Post Comment" class="submit btn btn-primary" name="submit">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        @*<div class="row">
                             <div class="col-xl-4">
                                 <div class="row">
                                     <div class="col-xl-12">
@@ -306,51 +275,354 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-8">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="profile-tab">
-                                            <div class="custom-tab-1">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="nav-item">
-                                                        <a href="#chats" data-toggle="tab" class="nav-link">Chats</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
-                                                    </li>
-                                                  
-                                                    <li class="nav-item">
-                                                        <a href="#broadcast" data-toggle="tab" class="nav-link">Broadcast</a>
-                                                    </li>
-                                                </ul>
-                                                <div class="tab-content">
-                                                    
-                                                    <div id="about-me" class="tab-pane fade">
-                                                        <div class="profile-about-me">
-                                                            <div class="pt-4 border-bottom-1 pb-3">
-                                                                <h4 class="text-primary">About Me</h4>
-                                                                <textarea name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea>
-
+                        </div>*@
+                        <div class="row">
+                                <div class="col-xl-4">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="profile-statistics">
+                                                        <div class="text-center">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <h3 class="m-b-0">150</h3><span>Sharing</span>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <h3 class="m-b-0">140</h3><span>Location</span>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <h3 class="m-b-0">45</h3><span>Contacts</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mt-4">
+                                                                    <a href="javascript:void(0);" class="btn btn-primary mb-1 mr-1">Add Contact</a>
+                                                                    <a href="javascript:void(0);" class="btn btn-primary mb-1" data-toggle="modal" data-target="#sendMessageModal">Sign Up</a>
+                                                                </div>
+                                                            </div>
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="sendMessageModal">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Sign</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form class="comment-form">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <div class="form-group">
+                                                                                        <label class="text-black font-w600">Name <span class="required">*</span></label>
+                                                                                        <input type="text" class="form-control" value="Author" name="Author" placeholder="Author">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <div class="form-group">
+                                                                                        <label class="text-black font-w600">Email <span class="required">*</span></label>
+                                                                                        <input type="text" class="form-control" value="Email" placeholder="Email" name="Email">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="form-group">
+                                                                                        <label class="text-black font-w600">Comment</label>
+                                                                                        <textarea rows="8" class="form-control" name="comment" placeholder="Comment"></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="form-group mb-0">
+                                                                                        <input type="submit" value="Post Comment" class="submit btn btn-primary" name="submit">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="profile-skills mb-5">
-                                                            <h4 class="text-primary mb-2">Skills</h4>
-                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Admin</a>
-                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Dashboard</a>
-                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Photoshop</a>
-                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Bootstrap</a>
-                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Responsive</a>
-                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Crypto</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       <div class="col-xl-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="profile-blog">
+                                                            <h5 class="text-primary d-inline">Today Highlights</h5>
+                                                            <img src="" class="mt-4 mb-4 w-100" height="142px" width="500px" onclick="getFile()" id="output" style="cursor: pointer;">
+                                                            <input id="upfile" onchange="loadFile_highlights(event)" type="file" value="upload" style="display: none">
                                                         </div>
-                                                        <div class="profile-lang  mb-5">
-                                                            <h4 class="text-primary mb-2">Language</h4>
-                                                            <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> English</a>
-                                                            <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-fr"></i> French</a>
-                                                            <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-bd"></i> Bangla</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="profile-interest">
+                                                            <h5 class="text-primary d-inline">Video</h5>
+                                                            <div class="row mt-4 sp4">
+                                                                <video width="100%" height="170" controls muted autoplay>
+                                                                    <source src="~/images/profile/intro.mp4" type="video/mp4" />
+                                                                </video>
+                                                            </div>
                                                         </div>
-                                                        <div class="profile-personal-info">
-                                                            <h4 class="text-primary mb-4">Achievements</h4>
-                                                            <div class="card">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                    </div>
+                                </div>
+                                <div class="col-xl-8">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="profile-tab">
+                                                    <div class="custom-tab-1">
+                                                        <ul class="nav nav-tabs">
+                                                            @*<li class="nav-item">
+                                                                <a href="#social-media" data-toggle="tab" class="nav-link active show">Social Media</a>
+                                                            </li>*@
+                                                            <li class="nav-item">
+                                                                <a href="#contacts" data-toggle="tab" class="nav-link">Contact</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
+                                                            </li>
+                                                            @*<li class="nav-item">
+                                                                <a href="#broadcast" data-toggle="tab" class="nav-link">Broadcast</a>
+                                                            </li>*@
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            @*<div id="social-media" class="tab-pane fade active show">
+                                                                <div class="my-post-content pt-3">
+                                                                    <div class="post-input">
+                                                                        <textarea name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea>
+                                                                        <a href="javascript:void(0);" class="btn btn-primary light px-3" data-toggle="modal" data-target="#linkModal"><i class="fa fa-link m-0"></i> </a>
+                                                                        <!-- Modal -->
+                                                                        <div class="modal fade" id="linkModal">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title">Social Links</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal">
+                                                                                            <span>&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <a class="btn-social facebook" href="javascript:void(0)"><i class="fa fa-facebook"></i></a>
+                                                                                        <a class="btn-social google-plus" href="javascript:void(0)"><i class="fa fa-google-plus"></i></a>
+                                                                                        <a class="btn-social linkedin" href="javascript:void(0)"><i class="fa fa-linkedin"></i></a>
+                                                                                        <a class="btn-social instagram" href="javascript:void(0)"><i class="fa fa-instagram"></i></a>
+                                                                                        <a class="btn-social twitter" href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
+                                                                                        <a class="btn-social youtube" href="javascript:void(0)"><i class="fa fa-youtube"></i></a>
+                                                                                        <a class="btn-social whatsapp" href="javascript:void(0)"><i class="fa fa-whatsapp"></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <a href="javascript:void(0);" class="btn btn-primary light mr-1 px-3" data-toggle="modal" data-target="#cameraModal"><i class="fa fa-camera m-0"></i> </a>
+                                                                        <!-- Modal -->
+                                                                        <div class="modal fade" id="cameraModal">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title">Upload images</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal">
+                                                                                            <span>&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="input-group mb-3">
+                                                                                            <div class="input-group-prepend">
+                                                                                                <span class="input-group-text">Upload</span>
+                                                                                            </div>
+                                                                                            <div class="custom-file">
+                                                                                                <input type="file" class="custom-file-input">
+                                                                                                <label class="custom-file-label">Choose file</label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#postModal">Post</a>
+                                                                        <!-- Modal -->
+                                                                        <div class="modal fade" id="postModal">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title">Post</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal">
+                                                                                            <span>&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <textarea name="textarea" id="textarea2" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea>
+                                                                                        <a class="btn btn-primary btn-rounded" href="javascript:void(0)">Post</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-uoloaded-post border-bottom-1 pb-5">
+                                                                        <img src="images/profile/8.jpg" alt="" class="img-fluid w-100">
+                                                                        <a class="post-title" href="post-details.html"><h3 class="text-black">Collection of textile samples lay spread</h3></a>
+                                                                        <p>
+                                                                            A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
+                                                                            of spare which enjoy whole heart.
+                                                                        </p>
+                                                                        <button class="btn btn-primary mr-2">
+                                                                            <span class="mr-2">
+                                                                                <i class="fa fa-heart"></i>
+                                                                            </span>Like
+                                                                        </button>
+                                                                        <button class="btn btn-secondary" data-toggle="modal" data-target="#replyModal">
+                                                                            <span class="mr-2">
+                                                                                <i class="fa fa-reply"></i>
+                                                                            </span>Reply
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="profile-uoloaded-post border-bottom-1 pb-5">
+                                                                        <img src="images/profile/9.jpg" alt="" class="img-fluid w-100">
+                                                                        <a class="post-title" href="post-details.html"><h3 class="text-black">Collection of textile samples lay spread</h3></a>
+                                                                        <p>
+                                                                            A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
+                                                                            of spare which enjoy whole heart.
+                                                                        </p>
+                                                                        <button class="btn btn-primary mr-2">
+                                                                            <span class="mr-2">
+                                                                                <i class="fa fa-heart"></i>
+                                                                            </span>Like
+                                                                        </button>
+                                                                        <button class="btn btn-secondary" data-toggle="modal" data-target="#replyModal">
+                                                                            <span class="mr-2">
+                                                                                <i class="fa fa-reply"></i>
+                                                                            </span>Reply
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="profile-uoloaded-post pb-3">
+                                                                        <img src="images/profile/8.jpg" alt="" class="img-fluid w-100">
+                                                                        <a class="post-title" href="post-details.html"><h3 class="text-black">Collection of textile samples lay spread</h3></a>
+                                                                        <p>
+                                                                            A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
+                                                                            of spare which enjoy whole heart.
+                                                                        </p>
+                                                                        <button class="btn btn-primary mr-2">
+                                                                            <span class="mr-2">
+                                                                                <i class="fa fa-heart"></i>
+                                                                            </span>Like
+                                                                        </button>
+                                                                        <button class="btn btn-secondary" data-toggle="modal" data-target="#replyModal">
+                                                                            <span class="mr-2">
+                                                                                <i class="fa fa-reply"></i>
+                                                                            </span>Reply
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>*@
+
+                                                            <div id="contacts" class="tab-pane fade active show">
+                                                                <div class="pt-3">
+                                                                    <div class="settings-form">
+                                                                        @*<h4 class="text-primary">Contact Us</h4>*@
+
+                                                                        <div class="row mt-4">
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-phone">
+                                                                                        <span class="s-icon"><i class="fa fa-phone fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-email">
+                                                                                        <span class="s-icon"><i class="fa fa-envelope fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-whatsapp">
+                                                                                        <span class="s-icon"><i class="fa fa-whatsapp fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-facebook">
+                                                                                        <span class="s-icon"><i class="fa fa-facebook fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-telegram">
+                                                                                        <span class="s-icon"><i class="fa fa-telegram fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-instagram">
+                                                                                        <span class="s-icon"><i class="fa fa-instagram fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-linkedin">
+                                                                                        <span class="s-icon"><i class="fa fa-linkedin fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-twitter">
+                                                                                        <span class="s-icon"><i class="fa fa-twitter fa-lg"></i></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div id="about-me" class="tab-pane fade">
+                                                                <div class="profile-about-me">
+                                                                    <div class="pt-4 border-bottom-1 pb-3">
+                                                                        <h4 class="text-primary">About Me</h4>
+                                                                        <p class="mb-2">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence was created for the bliss of souls like mine.I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.</p>
+                                                                        <p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-skills mb-5">
+                                                                    <h4 class="text-primary mb-2">Skills</h4>
+                                                                    <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Admin</a>
+                                                                    <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Dashboard</a>
+                                                                    <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Photoshop</a>
+                                                                    <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Bootstrap</a>
+                                                                    <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Responsive</a>
+                                                                    <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Crypto</a>
+                                                                </div>
+                                                                <div class="profile-lang  mb-5">
+                                                                    <h4 class="text-primary mb-2">Language</h4>
+                                                                    <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> English</a>
+                                                                    <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-fr"></i> French</a>
+                                                                    <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-bd"></i> Bangla</a>
+                                                                </div>
+                                                                <div class="profile-personal-info">
+                                                                    <h4 class="text-primary mb-4">Achievements</h4>
+                                                                    <div class="card">
 
                                                                 <div class="card-body">
                                                                     <div class="table-responsive">
@@ -389,156 +661,98 @@
                                                                                         </div>
                                                                                     </td>
 
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="chats" class="tab-pane fade active show">
-                                                        <div class="pt-3">
-                                                            <div class="settings-form">
-                                                                <h4 class="text-primary">Contact Us</h4>
-
-                                                                <div class="row mt-4">
-                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                        <div class="card">
-                                                                            <div class="social-graph-wrapper widget-facebook">
-                                                                                <span class="s-icon"><i class="fa fa-facebook fa-lg"></i></span>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
                                                                             </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                        <div class="card">
-                                                                            <div class="social-graph-wrapper widget-whatsapp">
-                                                                                <span class="s-icon"><i class="fa fa-whatsapp fa-lg"></i></span>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                        <div class="card">
-                                                                            <div class="social-graph-wrapper widget-telegram">
-                                                                                <span class="s-icon"><i class="fa fa-telegram fa-lg"></i></span>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                        <div class="card">
-                                                                            <div class="social-graph-wrapper widget-instagram">
-                                                                                <span class="s-icon"><i class="fa fa-instagram fa-lg"></i></span>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                        <div class="card">
-                                                                            <div class="social-graph-wrapper widget-linkedin">
-                                                                                <span class="s-icon"><i class="fa fa-linkedin fa-lg"></i></span>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
-                                                                        <div class="card">
-                                                                            <div class="social-graph-wrapper widget-twitter">
-                                                                                <span class="s-icon"><i class="fa fa-twitter fa-lg"></i></span>
-                                                                            </div>
-
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+                                                            @*<div id="broadcast" class="tab-pane fade">
+                                                                <div class="pt-3">
+                                                                    <div class="settings-form">
+                                                                        <h4 class="text-primary">Account Setting</h4>
+                                                                        <form>
+                                                                            <div class="form-row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label>Email</label>
+                                                                                    <input type="email" placeholder="Email" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label>Password</label>
+                                                                                    <input type="password" placeholder="Password" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Address</label>
+                                                                                <input type="text" placeholder="1234 Main St" class="form-control">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Address 2</label>
+                                                                                <input type="text" placeholder="Apartment, studio, or floor" class="form-control">
+                                                                            </div>
+                                                                            <div class="form-row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label>City</label>
+                                                                                    <input type="text" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label>State</label>
+                                                                                    <select class="form-control default-select" id="inputState">
+                                                                                        <option selected="">Choose...</option>
+                                                                                        <option>Option 1</option>
+                                                                                        <option>Option 2</option>
+                                                                                        <option>Option 3</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="form-group col-md-2">
+                                                                                    <label>Zip</label>
+                                                                                    <input type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <div class="custom-control custom-checkbox">
+                                                                                    <input type="checkbox" class="custom-control-input" id="gridCheck">
+                                                                                    <label class="custom-control-label" for="gridCheck"> Check me out</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <button class="btn btn-primary" type="submit">
+                                                                                Sign
+                                                                                in
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>*@
                                                         </div>
                                                     </div>
-                                                    <div id="broadcast" class="tab-pane fade">
-                                                        <div class="pt-3">
-                                                            <div class="settings-form">
-                                                                <h4 class="text-primary">Account Setting</h4>
-                                                                <form>
-                                                                    <div class="form-row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label>Email</label>
-                                                                            <input type="email" placeholder="Email" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label>Password</label>
-                                                                            <input type="password" placeholder="Password" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label>Address</label>
-                                                                        <input type="text" placeholder="1234 Main St" class="form-control">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label>Address 2</label>
-                                                                        <input type="text" placeholder="Apartment, studio, or floor" class="form-control">
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label>City</label>
-                                                                            <input type="text" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-4">
-                                                                            <label>State</label>
-                                                                            <select class="form-control default-select" id="inputState">
-                                                                                <option selected="">Choose...</option>
-                                                                                <option>Option 1</option>
-                                                                                <option>Option 2</option>
-                                                                                <option>Option 3</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group col-md-2">
-                                                                            <label>Zip</label>
-                                                                            <input type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox" class="custom-control-input" id="gridCheck">
-                                                                            <label class="custom-control-label" for="gridCheck"> Check me out</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button class="btn btn-primary" type="submit">
-                                                                        Sign
-                                                                        in
-                                                                    </button>
-                                                                </form>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="replyModal">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Post Reply</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form>
+                                                                        <textarea class="form-control" rows="4">Message</textarea>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-primary">Reply</button>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="replyModal">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Post Reply</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form>
-                                                                <textarea class="form-control" rows="4">Message</textarea>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Reply</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                             </div>
-                        </div>
                         @if (Session["NFCCode"] != null)
                         {
                             <input type="hidden" value="@Session["NFCCode"]" id="hdfCode" />
@@ -643,7 +857,16 @@
             window.location.href = "/nfc/SaveVCF?id=" + id + "&LogId = " + LogId;
         })
     </script>
-
-
+    <script type="text/javascript">
+      function getFile() {
+            document.getElementById("upfile").click();
+      }
+    </script>
+    <script type="text/javascript">
+      var loadFile_highlights = function(event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+      };
+    </script>
 </body>
 </html>

@@ -1053,17 +1053,22 @@ namespace Dost.Controllers
             {
                 return RedirectToAction("login_new", "home");
             }
-            if (Session["UserNFCCode"].ToString() == "na" && Session["NFCCode"].ToString()=="")
+            if (Session["UserNFCCode"].ToString() == "na")
             {
                 obj1.Code = NFCCode;
                 DataSet ds = obj1.CheckNFCCode();
                 {
                     if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                     {
-                        if (ds.Tables[0].Rows[0]["IsActivated"].ToString() != "" && Convert.ToBoolean(ds.Tables[0].Rows[0]["IsActivated"].ToString())==false)
+                        if (ds.Tables[0].Rows[0]["IsActivated"].ToString() != "" && Convert.ToBoolean(ds.Tables[0].Rows[0]["IsActivated"].ToString()) == false)
                         {
-                            Session["NFCCode"] = Crypto.EncryptNFC(NFCCode);
-                            Session["NFCActivated"] = "false";
+                            //Session["NFCCode"] = null;
+                            if (Session["NFCCode"]== null)
+                            {
+                                Session["NFCCode"] = Crypto.EncryptNFC(NFCCode);
+                                Session["NFCActivated"] = "false";
+                                ActivationCode = "ManualPurchase";
+                            }
                         }
                     }
                 }
@@ -1094,6 +1099,7 @@ namespace Dost.Controllers
                             obj1.Email = ds1.Tables[0].Rows[0]["Email"].ToString();
                             //NFC Activated
                             Session["NFCActivated"] = "true";
+                            Session["UserNFCCode"] = Session["NFCCode"].ToString();
                             if (Session["FullName"] != null)
                             {
                                 try

@@ -699,7 +699,7 @@ namespace Dost.Controllers
                 obj.Email = dt2.Tables[0].Rows[0]["Email"].ToString();
                 obj.FatherName = dt2.Tables[0].Rows[0]["FatherName"].ToString();
                 obj.Address = dt2.Tables[0].Rows[0]["Address"].ToString();
-                obj.Pincode = dt2.Tables[0].Rows[0]["Pincode"].ToString();
+                obj.PinCode = dt2.Tables[0].Rows[0]["Pincode"].ToString();
 
                 obj.DOB = dt2.Tables[0].Rows[0]["DOB"].ToString();
                 obj.NameH = dt2.Tables[0].Rows[0]["NameH"].ToString();
@@ -771,7 +771,7 @@ namespace Dost.Controllers
                 obj.Email = dt3.Tables[0].Rows[0]["Email"].ToString();
                 obj.FatherName = dt3.Tables[0].Rows[0]["FatherName"].ToString();
                 obj.Address = dt3.Tables[0].Rows[0]["Address"].ToString();
-                obj.Pincode = dt3.Tables[0].Rows[0]["Pincode"].ToString();
+                obj.PinCode = dt3.Tables[0].Rows[0]["Pincode"].ToString();
 
                 obj.DOB = dt3.Tables[0].Rows[0]["DOB"].ToString();
                 obj.NameH = dt3.Tables[0].Rows[0]["NameH"].ToString();
@@ -863,6 +863,22 @@ namespace Dost.Controllers
             Session.Abandon();
             TempData["LoginResponse"] = "";
             return RedirectToAction("Login", "Home");
+        }
+        public ActionResult GetSponserDetails(string ReferBy)
+        {
+            Common obj = new Common();
+            obj.ReferBy = ReferBy;
+            DataSet ds = obj.GetMemberDetails();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+
+                obj.DisplayName = ds.Tables[0].Rows[0]["FullName"].ToString();
+                obj.Fk_SponsorId1 = ds.Tables[0].Rows[0]["SponsorId"].ToString();
+                obj.Result = "Yes";
+
+            }
+            else { obj.Result = "Invalid SponsorId"; }
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
     }
 }
