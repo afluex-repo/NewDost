@@ -55,6 +55,8 @@ namespace Dost.Models
         public string Category { get;  set; }
         public string ToDate { get;  set; }
         public string Status { get;  set; }
+        public string Mode { get; set; }
+   
         #endregion
         #region Login
         public DataSet Login()
@@ -128,7 +130,8 @@ namespace Dost.Models
                                      new SqlParameter("@Password",Password),
                                      new SqlParameter("@OTP",OTP),
                                      new SqlParameter("@Email",Email),
-                                     new SqlParameter("@UnderPlaceId",UnderPlaceId)
+                                     new SqlParameter("@UnderPlaceId",UnderPlaceId),
+                                      new SqlParameter("@Mode",Mode)
                                    };
             DataSet ds = DBHelper.ExecuteQuery("Registration_New_Web", para);
             return ds;

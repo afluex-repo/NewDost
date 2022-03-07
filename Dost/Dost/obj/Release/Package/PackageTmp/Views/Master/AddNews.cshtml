@@ -1,0 +1,150 @@
+﻿@model EoneCircle.Models.Master
+
+@{
+    ViewBag.Title = "AddNews";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <br />
+        @*<h4 class="page-header">Ewallet Deduction</h4>*@
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- /.row -->
+@using (Html.BeginForm("NewsList", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <span style="color: red">
+        @TempData["News"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Add News
+                    <a href="/Master/ProductList" class="btn btn-sm btn-primary pull-right">News List</a>
+                </div>
+                <div class="panel-body">
+                    <fieldset>
+
+                        <div class="row">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>News Heading <span style="color: red">*</span></label>
+                                    @Html.TextBoxFor(m => m.NewsHeading, new { @placeholder = "News Heading", @class = "form-control" })
+                                    @Html.HiddenFor(m => m.NewsID)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>New Body <span style="color: red">*</span></label>
+                                    @Html.TextAreaFor(m => m.NewsBody, new { @placeholder = "News Body", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="form-group">
+                                    @if(Model == null)
+                                    {
+                                        <input type="submit" id="btnSaveNews" name="btnSaveNews" class="btn btn-success pull-right" value="Save" onclick="return saveNews();" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" class="btn btn-success pull-right" value="Update" onclick="return updateNews();" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+         
+}
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+<script>
+    
+    function saveProduct() {
+        $(".errortext").removeClass("errortext");
+        if ($('#NewsHeading').val() == '') {
+            $("#NewsHeading").addClass('errortext');
+            $('#NewsHeading').focus();
+            return false;
+        }
+        if ($('#NewsBody').val() == '') {
+            $("#NewsBody").addClass('errortext');
+            $('#NewsBody').focus();
+            return false;
+        }
+
+
+        $.ajax({
+            url: "/Master/SaveNews",
+            Type: "Get",
+            DataType: "JSON",
+            data: { NewsHeading: $("#NewsHeading").val(), NewsBody: $("#NewsBody").val() },
+            success: function (data) {
+                alert(data.Result);
+                window.location.href = '@Url.Action("NewsList", "Master")';
+
+            }
+
+        });
+    }
+
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    
+    
+
+    function updateNews() {
+        $(".errortext").removeClass("errortext");
+        if ($('#NewsHeading').val() == '') {
+            $("#NewsHeading").addClass('errortext');
+            $('#NewsHeading').focus();
+            return false;
+        }
+        if ($('#NewsBody').val() == '') {
+            $("#NewsBody").addClass('errortext');
+            $('#NewsBody').focus();
+            return false;
+        }
+
+
+        $.ajax({
+            url: "/Master/UpdateNews",
+            Type: "Get",
+            DataType: "JSON",
+            data: { NewsID : $("#NewsID").val(), NewsHeading: $("#NewsHeading").val(), NewsBody: $("#NewsBody").val() },
+            success: function (data) {
+                alert(data.Result);
+                window.location.href = '@Url.Action("NewsList", "Master")';
+
+            }
+
+        });
+    }
+
+</script>

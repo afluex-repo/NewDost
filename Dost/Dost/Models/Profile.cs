@@ -18,7 +18,7 @@ namespace Dost.Models
         public string EncryptLoginID { get; set; }
         public string EncryptPayoutNo { get; set; }
         public string RealtionName { get; set; }
-        public string LoginId { get; set; }
+        //public string LoginId { get; set; }
         public string ProductID { get; set; }
         public string Gender { get; set; }
         public string Relation { get; set; }
@@ -89,7 +89,7 @@ namespace Dost.Models
         public string DOB_ID { get; set; }
         public string First_NM { get; set; }
         public string Pan_Number { get; set; }
-        public string PinCode { get;  set; }
+        //public string PinCode { get;  set; }
         public string AadharImage { get;  set; }
         #endregion
         #endregion
@@ -111,7 +111,8 @@ namespace Dost.Models
                                        new SqlParameter("@MiddleName", MiddleName) ,
                                       new SqlParameter("@LastName", LastName) ,
                                       new SqlParameter("@Mobile", Mobile) ,
-                                      new SqlParameter("@Email", EmailId)
+                                      new SqlParameter("@Email", EmailId),
+                                       new SqlParameter("@SponsorId", Fk_SponsorId1),
                                   };
             DataSet ds = DBHelper.ExecuteQuery("UpdatePersonalInfo", para);
             return ds;
@@ -184,7 +185,7 @@ namespace Dost.Models
                                       new SqlParameter("@Gender", Gender) ,
                                       new SqlParameter("@Mobile", Mobile),
                                         new SqlParameter("@Email", Email) ,
-                                        new SqlParameter("@Pincode", Pincode),
+                                        new SqlParameter("@Pincode", PinCode),
                                        new SqlParameter("@Address", Address) ,
                                       new SqlParameter("@NameH", NameH) ,
                                      // new SqlParameter("@FatherNameH", FatherNameH) ,

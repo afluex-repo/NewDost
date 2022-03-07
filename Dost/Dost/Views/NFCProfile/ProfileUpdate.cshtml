@@ -39,10 +39,55 @@
     .card-bx .card-info {
         border-radius: 0.35rem;
     }
-   .g option {
-    background: white;
-    color: black;
-}
+
+    .g option {
+        background: white;
+        color: black;
+    }
+
+    .post-input .btn-social {
+        font-size: 20px;
+        height: 55px;
+        display: inline-block;
+        padding: 0;
+        text-align: center;
+        border-radius: 0.35rem;
+        color: #fff;
+        width: 55px;
+        line-height: 54px;
+    }
+
+        .post-input .btn-social.facebook {
+            background-color: #3B5998;
+        }
+
+        .post-input .btn-social.google-plus {
+            background-color: #DE4E43;
+        }
+
+        .post-input .btn-social.linkedin {
+            background-color: #007BB6;
+        }
+
+        .post-input .btn-social.instagram {
+            background-color: #8A5A4E;
+        }
+
+        .post-input .btn-social.twitter {
+            background-color: #1EA1F3;
+        }
+
+        .post-input .btn-social.youtube {
+            background-color: #CE201F;
+        }
+
+        .post-input .btn-social.whatsapp {
+            background-color: #01C854;
+        }
+
+        .post-input .btn-social i {
+            margin: 0 !important;
+        }
 </style>
 <div class="content-body">
     @using (Html.BeginForm("ProfileUpdate", "NFCProfile", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
@@ -547,7 +592,129 @@
                 <div class="col-xl-3 col-xxl-4">
                     <div class="row">
                         <div class="col-xl-12 col-lg-6 col-sm-6">
-                            <div class="card" style="display:none" id="divContactCard">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <div class="my-profile mb-3">
+                                            <img src="~/images/profile/port.jpg" alt="" style="border: 2px solid white; border-radius: 50%; width: 80px; height: 80px;">
+                                            <h4 class="mt-3 font-w600 text-black mb-0 name-text">@Session["FullName"]</h4>
+                                        </div>
+                                        <div class="form-row mb-4">
+                                            <div class="col-lg-2 col-md-2 col-sm-12 my-1">
+                                                <label class="mr-sm-2 mt-1" style="white-space: nowrap;">Link :</label>
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-sm-12 my-1 d-flex">
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control input-default" readonly value="https://dost.click/NFC/Profile?id=@Model.Code">
+
+                                                    <button type="button" class="close h-100 ml-2">
+                                                        <span><i class="fa fa-files-o"></i></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="my-profile mb-2">
+                                            <img src="~/images/qr.png" alt="" style="border: 2px solid white; border-radius: 8px; width: 200px; height: 200px;">
+                                        </div>
+                                        <p class="text-justify px-3">Anyone can scan this QR to access  your profile as per your settings & send money to your DOST wallet.</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="post-input">
+                                            <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#linkModal">Share Profile</button>
+                                            <a href="/NFCProfile/EditProfileSetAction?Id=@Model.PK_UserId" class="btn btn-primary text-center">Edit Profile</a>
+                                            <div class="modal fade" id="linkModal">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Social Links</h5>
+                                                            <button type="button" class="close" data-dismiss="modal">
+                                                                <span>&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            @if (Model != null)
+                                                            {
+                                                                if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "ContactNo").Any())
+                                                                {
+                                                                    foreach (var item in Model.NfcContentList.Where(x => x.Type == "ContactNo").ToList())
+                                                                    {
+                                                                        if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
+                                                                        {
+                                                                            <a class="btn-social whatsapp" href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            @if (Model != null)
+                                                            {
+                                                                if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "SocialMedia").Any())
+                                                                {
+                                                                    foreach (var item in Model.NfcContentList.Where(x => x.Type == "SocialMedia").ToList())
+                                                                    {
+                                                                        if (item.Content.Contains("facebook") || item.Content.Contains("fb"))
+                                                                        {
+                                                                            <a class="btn-social facebook" href="@item.Content" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a class="btn-social facebook" href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                                        }
+                                                                        if (item.Content.Contains("instagram") || item.Content.Contains("insta"))
+                                                                        {
+                                                                            <a class="btn-social instagram" href="@item.Content" target="_blank"><i class="fa fa-instagram"></i></a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a class="btn-social instagram" href="https://www.instagram.com/?hl=en" target="_blank"><i class="fa fa-instagram"></i></a>
+                                                                        }
+                                                                        if (item.Content.Contains("linkedin") || item.Content.Contains("link"))
+                                                                        {
+                                                                            <a class="btn-social linkedin" href="@item.Content" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a class="btn-social linkedin" href="https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                                        }
+                                                                        if (item.Content.Contains("twitter") || item.Content.Contains("tw"))
+                                                                        {
+                                                                            <a class="btn-social twitter" href="@item.Content" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a class="btn-social twitter" href="https://twitter.com/login" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                                        }
+                                                                        if (item.Content.Contains("youtube") || item.Content.Contains("utube"))
+                                                                        {
+                                                                            <a class="btn-social youtube" href="@item.Content" target="_blank"><i class="fa fa-youtube"></i></a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a class="btn-social youtube" href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube"></i></a>
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a class="btn-social facebook" href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                                    <a class="btn-social instagram" href="https://www.instagram.com/?hl=en" target="_blank"><i class="fa fa-instagram"></i></a>
+                                                                    <a class="btn-social linkedin" href="https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                                    <a class="btn-social twitter" href="https://twitter.com/login" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                                    <a class="btn-social youtube" href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube"></i></a>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-6 col-sm-6">
+                            <div class="card" id="contact" style="display: none;">
                                 <div class="card-header border-0">
                                     <h4 class="mb-0 text-black fs-20">Profile Preview</h4>
                                     <div class="dropdown custom-dropdown mb-0 tbl-orders-style">
@@ -567,11 +734,12 @@
                                 <div class="card-body">
                                     <div class="text-center">
                                         <div class="my-profile">
-                                            <img src="" alt="" class="rounded" id="MyProfileImage">
+                                            <img src="images/profile/port.jpg" alt="" class="rounded">
+                                            <a href="javascript:void(0);"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                         </div>
-                                        <h4 class="mt-3 font-w600 text-black mb-0 name-text" id="lblName"></h4>
-                                        <span id="spDesignation"></span>
-                                        <p class="mb-0 mt-2" id="joiningDate"></p>
+                                        <h4 class="mt-3 font-w600 text-black mb-0 name-text">Marquezz Silalahi</h4>
+                                        <span></span>
+                                        <p class="mb-0 mt-2">Join on 24 March 2017</p>
                                     </div>
                                     <ul class="portofolio-social">
                                         <li><a href="javascript:void(0);"><i class="fa fa-phone"></i></a></li>
@@ -580,7 +748,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card" style="display:none" id="divRedirection">
+                            <div class="card" id="redirect" style="display: none;">
                                 <div class="card-header border-0">
                                     <h4 class="mb-0 text-black fs-20">Link Preview</h4>
                                     <div class="dropdown custom-dropdown mb-0 tbl-orders-style">
@@ -600,11 +768,11 @@
                                 <div class="card-body">
                                     <div class="text-center">
                                         <div class="my-profile">
-                                            <img src="" alt="" class="rounded" id="ProfileImage">
-                                            <a href="javascript:void(0);" onclick="getFile()" for="up1file"><i class="fa fa-pencil" aria-hidden="true"></i><input id="up1file" type="file" value="upload" style="display: none"></a>
+                                            <img src="images/profile/port.jpg" alt="" class="rounded">
+                                            <a href="javascript:void(0);"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                         </div>
                                         <h4 class="mt-3 font-w600 text-black mb-0 name-text">URL :</h4>
-                                        <span id="spUrl"></span>
+                                        <span>https://thomasdox</span>
                                     </div>
                                 </div>
                             </div>
@@ -630,7 +798,7 @@
                                 <div class="card-body text-center">
                                     <div id="pieChart" class="d-inline-block"></div>
                                     <div class="chart-items">
-                                        <div class="col-xl-12 col-sm-12">
+                                        <div class=" col-xl-12 col-sm-12">
                                             <div class="row text-black text-left fs-13 mt-4">
                                                 <span class="mb-3 col-6 px-2">
                                                     <svg class="mr-2" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -664,6 +832,126 @@
                         </div>
                     </div>
                 </div>
+                @*<div class="col-xl-3 col-xxl-4">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-6 col-sm-6">
+                                <div class="card" style="display:none" id="divContactCard">
+                                    <div class="card-header border-0">
+                                        <h4 class="mb-0 text-black fs-20">Profile Preview</h4>
+                                        <div class="dropdown custom-dropdown mb-0 tbl-orders-style">
+                                            <div class="btn sharp tp-btn" data-toggle="dropdown" aria-expanded="false" role="button">
+                                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12.0049 13C12.5572 13 13.0049 12.5523 13.0049 12C13.0049 11.4477 12.5572 11 12.0049 11C11.4526 11 11.0049 11.4477 11.0049 12C11.0049 12.5523 11.4526 13 12.0049 13Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <path d="M12.0049 6C12.5572 6 13.0049 5.55228 13.0049 5C13.0049 4.44772 12.5572 4 12.0049 4C11.4526 4 11.0049 4.44772 11.0049 5C11.0049 5.55228 11.4526 6 12.0049 6Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <path d="M12.0049 20C12.5572 20 13.0049 19.5523 13.0049 19C13.0049 18.4477 12.5572 18 12.0049 18C11.4526 18 11.0049 18.4477 11.0049 19C11.0049 19.5523 11.4526 20 12.0049 20Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="javascript:void(0);">Details</a>
+                                                <a class="dropdown-item text-danger" href="javascript:void(0);">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-center">
+                                            <div class="my-profile">
+                                                <img src="" alt="" class="rounded" id="MyProfileImage">
+                                            </div>
+                                            <h4 class="mt-3 font-w600 text-black mb-0 name-text" id="lblName"></h4>
+                                            <span id="spDesignation"></span>
+                                            <p class="mb-0 mt-2" id="joiningDate"></p>
+                                        </div>
+                                        <ul class="portofolio-social">
+                                            <li><a href="javascript:void(0);"><i class="fa fa-phone"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fa fa-envelope-o"></i></a></li>
+                                            <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card" style="display:none" id="divRedirection">
+                                    <div class="card-header border-0">
+                                        <h4 class="mb-0 text-black fs-20">Link Preview</h4>
+                                        <div class="dropdown custom-dropdown mb-0 tbl-orders-style">
+                                            <div class="btn sharp tp-btn" data-toggle="dropdown" aria-expanded="false" role="button">
+                                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12.0049 13C12.5572 13 13.0049 12.5523 13.0049 12C13.0049 11.4477 12.5572 11 12.0049 11C11.4526 11 11.0049 11.4477 11.0049 12C11.0049 12.5523 11.4526 13 12.0049 13Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <path d="M12.0049 6C12.5572 6 13.0049 5.55228 13.0049 5C13.0049 4.44772 12.5572 4 12.0049 4C11.4526 4 11.0049 4.44772 11.0049 5C11.0049 5.55228 11.4526 6 12.0049 6Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <path d="M12.0049 20C12.5572 20 13.0049 19.5523 13.0049 19C13.0049 18.4477 12.5572 18 12.0049 18C11.4526 18 11.0049 18.4477 11.0049 19C11.0049 19.5523 11.4526 20 12.0049 20Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="javascript:void(0);">Details</a>
+                                                <a class="dropdown-item text-danger" href="javascript:void(0);">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-center">
+                                            <div class="my-profile">
+                                                <img src="" alt="" class="rounded" id="ProfileImage">
+                                                <a href="javascript:void(0);" onclick="getFile()" for="up1file"><i class="fa fa-pencil" aria-hidden="true"></i><input id="up1file" type="file" value="upload" style="display: none"></a>
+                                            </div>
+                                            <h4 class="mt-3 font-w600 text-black mb-0 name-text">URL :</h4>
+                                            <span id="spUrl"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-6 col-sm-6">
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <h4 class="mb-0 text-black fs-20">Current Graph</h4>
+                                        <div class="dropdown custom-dropdown mb-0 tbl-orders-style">
+                                            <div class="btn sharp tp-btn" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12.0049 13C12.5572 13 13.0049 12.5523 13.0049 12C13.0049 11.4477 12.5572 11 12.0049 11C11.4526 11 11.0049 11.4477 11.0049 12C11.0049 12.5523 11.4526 13 12.0049 13Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <path d="M12.0049 6C12.5572 6 13.0049 5.55228 13.0049 5C13.0049 4.44772 12.5572 4 12.0049 4C11.4526 4 11.0049 4.44772 11.0049 5C11.0049 5.55228 11.4526 6 12.0049 6Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <path d="M12.0049 20C12.5572 20 13.0049 19.5523 13.0049 19C13.0049 18.4477 12.5572 18 12.0049 18C11.4526 18 11.0049 18.4477 11.0049 19C11.0049 19.5523 11.4526 20 12.0049 20Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="javascript:void(0);">Details</a>
+                                                <a class="dropdown-item text-danger" href="javascript:void(0);">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <div id="pieChart" class="d-inline-block"></div>
+                                        <div class="chart-items">
+                                            <div class="col-xl-12 col-sm-12">
+                                                <div class="row text-black text-left fs-13 mt-4">
+                                                    <span class="mb-3 col-6 px-2">
+                                                        <svg class="mr-2" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="19" height="19" rx="9.5" fill="#00ADA3" />
+                                                        </svg>
+                                                        Ethereum
+                                                    </span>
+                                                    <span class="mb-3 col-6 px-2">
+                                                        <svg class="mr-2" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="19" height="19" rx="9.5" fill="#374B96" />
+                                                        </svg>
+                                                        Litecoin
+                                                    </span>
+                                                    <span class="mb-3 col-6 px-2">
+                                                        <svg class="mr-2" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="19" height="19" rx="9.5" fill="#FF782C" />
+                                                        </svg>
+                                                        Monero
+                                                    </span>
+                                                    <span class="mb-3 col-6 px-2">
+                                                        <svg class="mr-2" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="19" height="19" rx="9.5" fill="#F7A62C" />
+                                                        </svg>
+                                                        Bitcoin
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
             </div>
         </div>
     }
@@ -1143,6 +1431,7 @@
             $("#divload").css({ 'display': 'none' });
             return false;
         }
+        var list = [];
         var ContactList = [];
         var Emaillist = [];
         var SocialLink = [];
@@ -1162,7 +1451,7 @@
         });
         console.log(Emaillist)
         if (Emaillist.length == 0) {
-            alert('At least 1 value required.');
+            alert('At least 1 email id required.');
             isAllValid = false;
             $("#divload").css({ 'display': 'none' });
             return false;
@@ -1172,6 +1461,7 @@
             var data = {
                 AddData: list,
             }
+
             var formData = new FormData();
             formData.append("ContactList", ContactList);
             formData.append("Emaillist", Emaillist);
@@ -1253,10 +1543,9 @@
                 debugger;
                 if (data != null) {
                     if (data.Result == "Success") {
-                        
+
                         SuccessAlert(data.Message);
-                        if(func=="Remove")
-                        {
+                        if (func == "Remove") {
                             window.location.href = "/NFCProfile/ProfileUpdate";
                         }
                     }

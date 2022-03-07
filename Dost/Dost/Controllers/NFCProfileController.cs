@@ -11,6 +11,8 @@ using System.Net;
 //using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Drawing;
+using IronBarCode;
 
 namespace Dost.Controllers
 {
@@ -64,7 +66,14 @@ namespace Dost.Controllers
             }
 
             ViewBag.Mobile = Mobile;
-
+            if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "")
+            {
+               model.Code = Session["NFCCode"].ToString();
+            }
+            if (Session["UserNFCCode"].ToString() != "na")
+            {
+                model.Code = Session["UserNFCCode"].ToString();
+            }
             #endregion
             #region SocialMedia
             List<SelectListItem> SocialMedia = new List<SelectListItem>();
@@ -100,7 +109,7 @@ namespace Dost.Controllers
             }
             ViewBag.WebLink = WebLink;
             #endregion WebLink
-            string[] colorContact = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D"};
+            string[] colorContact = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D" };
             string[] colorRedirection = { "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
             var i = 0;
             DataSet ds = model.GetNFCProfileData();
@@ -130,7 +139,7 @@ namespace Dost.Controllers
                     obj.CardImage = r["CardImage"].ToString();
                     obj.ProfileName = r["ProfileName"].ToString();
                     obj.ActiveStatus = r["IsChecked"].ToString();
-                    if(obj.ProfileType=="Redirection")
+                    if (obj.ProfileType == "Redirection")
                     {
                         obj.ColorCodeRedirection = colorRedirection[i];
                     }
@@ -142,6 +151,74 @@ namespace Dost.Controllers
                 }
                 model.lst = lstUerProfile;
             }
+            NFCModel objn = new NFCModel();
+            objn.Code = model.Code;
+            DataSet dsProfile= objn.GetNFCProfileData();
+            if (dsProfile != null && dsProfile.Tables.Count > 0 && dsProfile.Tables[0].Rows.Count > 0)
+            {
+                if (Convert.ToBoolean(ds1.Tables[0].Rows[0]["IsProfileTurnedOff"]) == true)
+                {
+                   
+                }
+                else
+                {
+                    model.Name = ds1.Tables[0].Rows[0]["Name"].ToString();
+                    model.Email = ds1.Tables[0].Rows[0]["PrimaryEmail"].ToString();
+                }
+            }
+            if (dsProfile != null && dsProfile.Tables.Count > 1)
+            {
+                if(dsProfile.Tables[1].Rows.Count>0)
+                {
+                    List<NFCContent> NfcContentList = new List<NFCContent>();
+
+                    foreach (DataRow row in dsProfile.Tables[1].Rows)
+                    {
+                        if (row["Type"].ToString() == "Email")
+                        {
+                            model.Email = row["Content"].ToString();
+                        }
+                        NfcContentList.Add(new NFCContent()
+                        {
+                            Content = row["Content"].ToString(),
+                            Type = row["Type"].ToString(),
+                            IsWhatsApp = row["IsWhatsapp"].ToString()
+                        });
+                    }
+                    model.NfcContentList = NfcContentList;
+                }
+            }
+            //var url = string.Format("http://chart.apis.google.com/chart?cht=qr&chs={1}x{2}&chl={0}", "Mona",  500, 500);
+            //WebResponse response = default(WebResponse);
+            //Stream remoteStream = default(Stream);
+            //StreamReader readStream = default(StreamReader);
+            //WebRequest request = WebRequest.Create(url);
+            //response = request.GetResponse();
+            //remoteStream = response.GetResponseStream();
+            //readStream = new StreamReader(remoteStream);
+            //Image img = System.Drawing.Image.FromStream(remoteStream);
+            //img.Save("/KYCDocuments/" + Guid.NewGuid() +"Mona.png");
+            //response.Close();
+            //remoteStream.Close();
+            //readStream.Close();
+            //if (Session["UserNFCCode"] != null)
+            //{
+            //    if (Session["UserNFCCode"].ToString() != "na")
+            //    {
+            //        GeneratedBarcode Qrcode = IronBarCode.QRCodeWriter.CreateQrCode("https://dost.click/NFC/Profile?id=" + Session["UserNFCCode"].ToString());
+            //        Qrcode.SaveAsPng("QrCode.png");
+            //    }
+            //}
+            //if (Session["NFCCode"] != null)
+            //{
+            //    GeneratedBarcode Qrcode = IronBarCode.QRCodeWriter.CreateQrCode("https://dost.click/NFC/Profile?id=" + (Session["NFCCode"].ToString()));
+            //    Qrcode.SaveAsPng("QrCode.png");
+            //}
+            //GeneratedBarcode barcode = IronBarCode.BarcodeWriter.CreateBarcode("https://ironsoftware.com/csharp/barcode/docs/", BarcodeEncoding.Code128);
+            //var MyQRWithLogo = QRCodeWriter.CreateQrCodeWithLogo("https://ironsoftware.com/csharp/barcode/", "visual-studio-logo.png", 500);
+            //MyQRWithLogo.ChangeBarCodeColor(System.Drawing.Color.DarkGreen);
+            ////Save as PDF
+            //MyQRWithLogo.SaveAsPdf("MyQRWithLogo.pdf");
             return View(model);
         }
 
@@ -686,7 +763,7 @@ namespace Dost.Controllers
             {
                 List<Master> lst = new List<Master>();
                 model.Fk_MainServiceTypeId = "3";
-                model.Fk_UserId= Session["Pk_userId"].ToString();
+                model.Fk_UserId = Session["Pk_userId"].ToString();
                 // string[] color = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D", "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
                 DataSet ds = model.GetService();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -710,14 +787,14 @@ namespace Dost.Controllers
                     }
                     model.lst = lst;
                 }
-                if(ds != null && ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
                 {
                     Session["NFCCode"] = ds.Tables[1].Rows[0]["EncCode"].ToString();
-                    if (ds.Tables[1].Rows[0]["IsActivated"].ToString()=="False")
+                    if (ds.Tables[1].Rows[0]["IsActivated"].ToString() == "False")
                     {
                         Session["NFCActivated"] = "false";
                     }
-                   
+
                 }
             }
             catch (Exception ex)
@@ -838,6 +915,103 @@ namespace Dost.Controllers
                 }
             }
             return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Analytics()
+        {
+            NFCProfileModel obj = new NFCProfileModel();
+            obj.PK_UserId = Session["Pk_userId"].ToString();
+            DataSet ds = obj.GetAnalysis();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+
+            }
+            return View();
+        }
+        public ActionResult EditProfileSetAction(string id)
+        {
+            NFCProfileModel objProfile = new NFCProfileModel();
+            try
+            {
+                if (id == null || id == "")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+                NFCModel obj = new NFCModel();
+                id = id.Replace(" ", "+");
+                var desc = Crypto.DecryptNFC(id);
+                obj.Code = desc;
+                DataSet ds = obj.CheckNFCCode();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["IsActivated"].ToString() != "" && Convert.ToBoolean(ds.Tables[0].Rows[0]["IsActivated"].ToString()))
+                    {
+                        DataSet ds1 = obj.GetNFCProfileData();
+                        if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+                        {
+                            objProfile.Name = ds1.Tables[0].Rows[0]["Name"].ToString();
+                            objProfile.Email = ds1.Tables[0].Rows[0]["PrimaryEmail"].ToString();
+                            objProfile.DOB = ds1.Tables[0].Rows[0]["DOB"].ToString();
+                            objProfile.Mobile = ds1.Tables[0].Rows[0]["Mobile"].ToString();
+                            objProfile.ProfilePic = ds1.Tables[0].Rows[0]["ProfilePic"].ToString();
+                            objProfile.Gender = ds1.Tables[0].Rows[0]["Sex"].ToString();
+                            objProfile.PK_UserId = ds1.Tables[0].Rows[0]["PK_UserId"].ToString();
+                            objProfile.Summary = ds1.Tables[0].Rows[0]["Summary"].ToString();
+                            objProfile.BusinessName = ds1.Tables[0].Rows[0]["BusinessName"].ToString();
+                            objProfile.Designation = ds1.Tables[0].Rows[0]["Designation"].ToString();
+                            objProfile.UserCode = ds1.Tables[0].Rows[0]["UserCode"].ToString();
+                            objProfile.Leg = ds1.Tables[0].Rows[0]["NFCProfileLeg"].ToString();
+                            Session["SponsorId"] = ds1.Tables[0].Rows[0]["LoginId"].ToString();
+                            objProfile.ProfilePic = ds1.Tables[0].Rows[0]["ProfilePic"].ToString();
+                        }
+                        if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[1].Rows.Count > 0)
+                        {
+                            List<NFCContent> NfcContentList = new List<NFCContent>();
+
+                            foreach (DataRow row in ds1.Tables[1].Rows)
+                            {
+                                if (row["Type"].ToString() == "Email")
+                                {
+                                    objProfile.Email = row["Content"].ToString();
+                                }
+                                NfcContentList.Add(new NFCContent()
+                                {
+                                    Content = row["Content"].ToString(),
+                                    Type = row["Type"].ToString(),
+                                    IsWhatsApp = row["IsWhatsapp"].ToString()
+                                });
+                            }
+                            objProfile.NfcContentList = NfcContentList;
+                        }
+                        ViewBag.ISActivated = true;
+                        Session["NFCCode"] = id;
+                        Session["NFCActivated"] = "true";
+                    }
+                    else
+                    {
+                        //Not Activated login or activation required
+                        ViewBag.ISActivated = false;
+                        Session["NFCCode"] = id;
+                        Session["NFCActivated"] = "false";
+                        Session["SponsorId"] = null;
+                        Session["Leg"] = null;
+                    }
+                }
+                else
+                {
+                    ViewBag.NFCResopnse = "Wrong NFC Code";
+                }
+                //}
+            }
+            catch (System.Exception ex)
+            {
+                return RedirectToAction("Login_New", "Home");
+            }
+            return View(objProfile);
+        }
+        public ActionResult SaveSkill(string Skill)
+        {
+            NFCProfileModel model = new NFCProfileModel();
+            return View();
         }
     }
 }

@@ -213,7 +213,6 @@ D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\obj\Debug\Dost.dll
 D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\obj\Debug\Dost.pdb
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\Divya\repository\NewDost\Dost\Dost\bin\ApplicationInsights.config
 E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\csc.exe
 E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -268,3 +267,24 @@ E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Babel.Licensing.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\BitMiracle.LibTiff.NET.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\BouncyCastle.Crypto.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\DotNetZip.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronBarCode.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronPdf.Pdfium.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronPdf.Pdfium.Domain.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronSoftware.Analytics.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronSoftware.Common.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronSoftware.Deployment.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronSoftware.IronConfigurationManager.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronSoftware.Licenses.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronSoftware.Logger.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronSoftware.Standard.Aforge.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\NativeLibraryLoader.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Newtonsoft.Json.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\PdfSharp.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\zxing.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\zxing.presentation.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronBarCode.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache

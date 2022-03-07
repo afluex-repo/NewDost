@@ -81,6 +81,8 @@ namespace Dost.Models
         public string ActiveStatus { get; set; }
         public string ColorCodeContact { get; set; }
         public string ColorCodeRedirection { get; set; }
+        public string LogId { get; set; }
+        public string DecryptedCode { get; set; }
         public DataSet UpdateProfilePic()
         {
             SqlParameter[] para ={
@@ -241,6 +243,14 @@ namespace Dost.Models
                   new SqlParameter ("@DeletedBy",PK_UserId),
             };
             DataSet ds = DBHelper.ExecuteQuery("DeleteNFCContact", para);
+            return ds;
+        }
+        public DataSet GetAnalysis()
+        {
+            SqlParameter[] para ={
+                  new SqlParameter ("@FK_UserId",PK_UserId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetAnalysis", para);
             return ds;
         }
         public DataSet RedirectLink(bool IsChecked)
