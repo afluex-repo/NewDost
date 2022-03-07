@@ -68,11 +68,11 @@ namespace Dost.Controllers
             ViewBag.Mobile = Mobile;
             if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "")
             {
-                ViewBag.Code = Session["NFCCode"].ToString();
+               model.Code = Session["NFCCode"].ToString();
             }
             if (Session["UserNFCCode"].ToString() != "na")
             {
-                ViewBag.Code = Session["UserNFCCode"].ToString();
+                model.Code = Session["UserNFCCode"].ToString();
             }
             #endregion
             #region SocialMedia
@@ -150,6 +150,43 @@ namespace Dost.Controllers
                     lstUerProfile.Add(obj);
                 }
                 model.lst = lstUerProfile;
+            }
+            NFCModel objn = new NFCModel();
+            objn.Code = model.Code;
+            DataSet dsProfile= objn.GetNFCProfileData();
+            if (dsProfile != null && dsProfile.Tables.Count > 0 && dsProfile.Tables[0].Rows.Count > 0)
+            {
+                if (Convert.ToBoolean(ds1.Tables[0].Rows[0]["IsProfileTurnedOff"]) == true)
+                {
+                   
+                }
+                else
+                {
+                    model.Name = ds1.Tables[0].Rows[0]["Name"].ToString();
+                    model.Email = ds1.Tables[0].Rows[0]["PrimaryEmail"].ToString();
+                }
+            }
+            if (dsProfile != null && dsProfile.Tables.Count > 1)
+            {
+                if(dsProfile.Tables[1].Rows.Count>0)
+                {
+                    List<NFCContent> NfcContentList = new List<NFCContent>();
+
+                    foreach (DataRow row in dsProfile.Tables[1].Rows)
+                    {
+                        if (row["Type"].ToString() == "Email")
+                        {
+                            model.Email = row["Content"].ToString();
+                        }
+                        NfcContentList.Add(new NFCContent()
+                        {
+                            Content = row["Content"].ToString(),
+                            Type = row["Type"].ToString(),
+                            IsWhatsApp = row["IsWhatsapp"].ToString()
+                        });
+                    }
+                    model.NfcContentList = NfcContentList;
+                }
             }
             //var url = string.Format("http://chart.apis.google.com/chart?cht=qr&chs={1}x{2}&chl={0}", "Mona",  500, 500);
             //WebResponse response = default(WebResponse);
@@ -970,6 +1007,11 @@ namespace Dost.Controllers
                 return RedirectToAction("Login_New", "Home");
             }
             return View(objProfile);
+        }
+        public ActionResult SaveSkill(string Skill)
+        {
+            NFCProfileModel model = new NFCProfileModel();
+            return View();
         }
     }
 }

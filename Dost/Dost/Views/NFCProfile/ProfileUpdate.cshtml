@@ -44,6 +44,50 @@
         background: white;
         color: black;
     }
+
+    .post-input .btn-social {
+        font-size: 20px;
+        height: 55px;
+        display: inline-block;
+        padding: 0;
+        text-align: center;
+        border-radius: 0.35rem;
+        color: #fff;
+        width: 55px;
+        line-height: 54px;
+    }
+
+        .post-input .btn-social.facebook {
+            background-color: #3B5998;
+        }
+
+        .post-input .btn-social.google-plus {
+            background-color: #DE4E43;
+        }
+
+        .post-input .btn-social.linkedin {
+            background-color: #007BB6;
+        }
+
+        .post-input .btn-social.instagram {
+            background-color: #8A5A4E;
+        }
+
+        .post-input .btn-social.twitter {
+            background-color: #1EA1F3;
+        }
+
+        .post-input .btn-social.youtube {
+            background-color: #CE201F;
+        }
+
+        .post-input .btn-social.whatsapp {
+            background-color: #01C854;
+        }
+
+        .post-input .btn-social i {
+            margin: 0 !important;
+        }
 </style>
 <div class="content-body">
     @using (Html.BeginForm("ProfileUpdate", "NFCProfile", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
@@ -553,7 +597,7 @@
                                     <div class="text-center">
                                         <div class="my-profile mb-3">
                                             <img src="~/images/profile/port.jpg" alt="" style="border: 2px solid white; border-radius: 50%; width: 80px; height: 80px;">
-                                            <h4 class="mt-3 font-w600 text-black mb-0 name-text">Aflex</h4>
+                                            <h4 class="mt-3 font-w600 text-black mb-0 name-text">@Session["FullName"]</h4>
                                         </div>
                                         <div class="form-row mb-4">
                                             <div class="col-lg-2 col-md-2 col-sm-12 my-1">
@@ -561,8 +605,8 @@
                                             </div>
                                             <div class="col-lg-10 col-md-10 col-sm-12 my-1 d-flex">
                                                 <div class="input-group input-group-sm">
-                                                        <input type="text" class="form-control input-default" readonly value="https://dost.click/NFC/Profile?id=@ViewBag.Code">
-                                                
+                                                    <input type="text" class="form-control input-default" readonly value="https://dost.click/NFC/Profile?id=@Model.Code">
+
                                                     <button type="button" class="close h-100 ml-2">
                                                         <span><i class="fa fa-files-o"></i></span>
                                                     </button>
@@ -577,8 +621,94 @@
                                         <p class="text-justify px-3">Anyone can scan this QR to access  your profile as per your settings & send money to your DOST wallet.</p>
                                     </div>
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-primary text-center">Share Profile</button>
-                                        <a href="/NFCProfile/EditProfileSetAction?Id=@Model.PK_UserId" class="btn btn-primary text-center">Edit Profile</a>
+                                        <div class="post-input">
+                                            <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#linkModal">Share Profile</button>
+                                            <a href="/NFCProfile/EditProfileSetAction?Id=@Model.PK_UserId" class="btn btn-primary text-center">Edit Profile</a>
+                                            <div class="modal fade" id="linkModal">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Social Links</h5>
+                                                            <button type="button" class="close" data-dismiss="modal">
+                                                                <span>&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            @if (Model != null)
+                                                            {
+                                                                if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "ContactNo").Any())
+                                                                {
+                                                                    foreach (var item in Model.NfcContentList.Where(x => x.Type == "ContactNo").ToList())
+                                                                    {
+                                                                        if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
+                                                                        {
+                                                                            <a class="btn-social whatsapp" href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            @if (Model != null)
+                                                            {
+                                                                if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "SocialMedia").Any())
+                                                                {
+                                                                    foreach (var item in Model.NfcContentList.Where(x => x.Type == "SocialMedia").ToList())
+                                                                    {
+                                                                        if (item.Content.Contains("facebook") || item.Content.Contains("fb"))
+                                                                        {
+                                                                            <a class="btn-social facebook" href="@item.Content" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a class="btn-social facebook" href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                                        }
+                                                                        if (item.Content.Contains("instagram") || item.Content.Contains("insta"))
+                                                                        {
+                                                                            <a class="btn-social instagram" href="@item.Content" target="_blank"><i class="fa fa-instagram"></i></a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a class="btn-social instagram" href="https://www.instagram.com/?hl=en" target="_blank"><i class="fa fa-instagram"></i></a>
+                                                                        }
+                                                                        if (item.Content.Contains("linkedin") || item.Content.Contains("link"))
+                                                                        {
+                                                                            <a class="btn-social linkedin" href="@item.Content" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a class="btn-social linkedin" href="https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                                        }
+                                                                        if (item.Content.Contains("twitter") || item.Content.Contains("tw"))
+                                                                        {
+                                                                            <a class="btn-social twitter" href="@item.Content" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a class="btn-social twitter" href="https://twitter.com/login" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                                        }
+                                                                        if (item.Content.Contains("youtube") || item.Content.Contains("utube"))
+                                                                        {
+                                                                            <a class="btn-social youtube" href="@item.Content" target="_blank"><i class="fa fa-youtube"></i></a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a class="btn-social youtube" href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube"></i></a>
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a class="btn-social facebook" href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                                    <a class="btn-social instagram" href="https://www.instagram.com/?hl=en" target="_blank"><i class="fa fa-instagram"></i></a>
+                                                                    <a class="btn-social linkedin" href="https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                                    <a class="btn-social twitter" href="https://twitter.com/login" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                                    <a class="btn-social youtube" href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube"></i></a>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1301,6 +1431,7 @@
             $("#divload").css({ 'display': 'none' });
             return false;
         }
+        var list = [];
         var ContactList = [];
         var Emaillist = [];
         var SocialLink = [];
@@ -1320,7 +1451,7 @@
         });
         console.log(Emaillist)
         if (Emaillist.length == 0) {
-            alert('At least 1 value required.');
+            alert('At least 1 email id required.');
             isAllValid = false;
             $("#divload").css({ 'display': 'none' });
             return false;
@@ -1330,6 +1461,7 @@
             var data = {
                 AddData: list,
             }
+
             var formData = new FormData();
             formData.append("ContactList", ContactList);
             formData.append("Emaillist", Emaillist);

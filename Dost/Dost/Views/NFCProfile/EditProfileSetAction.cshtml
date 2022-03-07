@@ -193,90 +193,16 @@
                             <div class="custom-tab-1">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                        <a href="#social-media" data-toggle="tab" class="nav-link active show">Social Media</a>
+                                    <li class="nav-item">
+                                        <a href="#chats" data-toggle="tab" class="nav-link active show">Contact</a>
                                     </li>
+                                     
                                     <li class="nav-item">
                                         <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="#chats" data-toggle="tab" class="nav-link">Chats</a>
-                                    </li>
+                                  
                                 </ul>
                                 <div class="tab-content">
-                                    <div id="social-media" class="tab-pane fade active show">
-                                        <div class="my-post-content pt-3">
-                                            <div class="post-input">
-                                                <textarea name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea>
-                                                <a href="javascript:void(0);" class="btn btn-primary light px-3" data-toggle="modal" data-target="#linkModal"><i class="fa fa-link m-0"></i> </a>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="linkModal">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Social Links</h5>
-                                                                <button type="button" class="close" data-dismiss="modal">
-                                                                    <span>&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <a class="btn-social facebook" href="javascript:void(0)"><i class="fa fa-facebook"></i></a>
-                                                                <a class="btn-social google-plus" href="javascript:void(0)"><i class="fa fa-google-plus"></i></a>
-                                                                <a class="btn-social linkedin" href="javascript:void(0)"><i class="fa fa-linkedin"></i></a>
-                                                                <a class="btn-social instagram" href="javascript:void(0)"><i class="fa fa-instagram"></i></a>
-                                                                <a class="btn-social twitter" href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
-                                                                <a class="btn-social youtube" href="javascript:void(0)"><i class="fa fa-youtube"></i></a>
-                                                                <a class="btn-social whatsapp" href="javascript:void(0)"><i class="fa fa-whatsapp"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <a href="javascript:void(0);" class="btn btn-primary light mr-1 px-3" data-toggle="modal" data-target="#cameraModal"><i class="fa fa-camera m-0"></i> </a>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="cameraModal">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Upload images</h5>
-                                                                <button type="button" class="close" data-dismiss="modal">
-                                                                    <span>&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="input-group mb-3">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">Upload</span>
-                                                                    </div>
-                                                                    <div class="custom-file">
-                                                                        <input type="file" class="custom-file-input">
-                                                                        <label class="custom-file-label">Choose file</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#postModal">Post</a>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="postModal">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Post</h5>
-                                                                <button type="button" class="close" data-dismiss="modal">
-                                                                    <span>&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <textarea name="textarea" id="textarea2" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea>
-                                                                <a class="btn btn-primary btn-rounded" href="javascript:void(0)">Post</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                          
-                                        </div>
-                                    </div>
                                     <div id="about-me" class="tab-pane fade">
                                         <div class="profile-about-me">
                                             <div class="pt-4 border-bottom-1 pb-3">
@@ -303,7 +229,7 @@
                                                                     <div class="col-xl-12 col-lg-12 form-group">
                                                                         <div class="mb-1">
                                                                             <!-- <label>Add More skill</label> -->
-                                                                            <input type="text" class="form-control" placeholder="Type Your Skills">
+                                                                            <input type="text" class="form-control" placeholder="Type Your Skills" id="txtSkill">
                                                                         </div>
                                                                     </div>
 
@@ -312,7 +238,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Add</button>
+                                                            <button type="button" class="btn btn-primary" onclick="return AddSkill();">Add</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -399,7 +325,7 @@
 
                                                 <div class="card-body">
                                                     <div class="table-responsive">
-                                                        <table class="table style-1" id="ListDatatableView">
+                                                        <table class="table style-1" id="">
                                                             <thead>
                                                                 <tr>
                                                                     <th><i class="fa fa-star achiv"></th>
@@ -457,11 +383,14 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    <button type="button" class="btn btn-primary">Save</button>
                                                 </div>
                                             </div>
+                                         
+
                                         </div>
                                     </div>
-                                    <div id="chats" class="tab-pane fade">
+                                    <div id="chats" class="tab-pane fade active show">
                                         <div class="pt-3">
                                             <div class="settings-form">
                                                 <h4 class="text-primary">Contact Us</h4>
@@ -549,4 +478,26 @@
         </div>
     </div>
 </div>
+<script>
+    function AddSkill()
+    {
+        var Fk_UserId = $('#Fk_UserId').val();
+        $.ajax({
+            url: '/NFCProfile/SaveSkill',
+            type: "GET",
+            dataType: "JSON",
+            data: { Skill: $("#txtSkill").val() },
+            success: function (data) {
+                debugger;
+                if (data.Result == "Yes") {
+                  
+                }
+                else {
+                  
+                }
 
+
+            }
+        });
+    }
+</script>

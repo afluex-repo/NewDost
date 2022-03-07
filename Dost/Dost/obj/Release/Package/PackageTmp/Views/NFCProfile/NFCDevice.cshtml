@@ -1,0 +1,313 @@
+﻿@model Dost.Models.Master
+
+@{
+    ViewBag.Title = "NFCDevice";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <!-- Add Project -->
+        <div class="modal fade" id="addProjectSidebar">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create Project</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label class="text-black font-w500">Project Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-black font-w500">Deadline</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-black font-w500">Client Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary">CREATE</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Hi, welcome back!</h4>
+                    @*<span>Statistics</span>*@
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">NFC</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">NFC Device</a></li>
+                </ol>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row">
+            @*@if (Model != null)
+                {
+                    if (Model.lst != null)
+                    {
+                        foreach (var Item in Model.lst)
+                        {*@
+
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card" style="background-color:#FF4C41">
+                    <div class="card-body  p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="fa fa-credit-card-alt"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                @*@if (@Item.Color == "#FF4C41")
+                                    {*@
+                                @*if (Session["UserNFCCode"] != null && Session["UserNFCCode"].ToString() != "na")
+                                    {
+                                        @*<p class="mb-1"><a href="/NFCProfile/SetActionDashboard" class="text-white text-activate">Activated</a></p>
+                                    }
+                                    else
+                                    {*@
+                                <p class="mb-1"><a href="" class="text-white text-activate" data-toggle="modal" data-target="#ModalCenter">Activate</a></p>
+                                @*//}*@
+                                @*}
+                                    else
+                                    {
+                                        <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                    }*@
+                                <h4 class="text-white">Business Card</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*}
+                }*@
+            @* else
+                            {
+                                <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                        <div class="widget-stat card" style="background-color:#FF4C41">
+                            <div class="card-body  p-4">
+                                <div class="media">
+                                    <span class="mr-3">
+                                        <i class="fa fa-credit-card-alt"></i>
+                                    </span>
+                                    <div class="media-body text-white text-right">
+                                        <p class="mb-1"><a href="/Shop/Product" class="text-white text-activate">Purchase</a></p>
+
+                                        <h4 class="text-white">Business Card</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }*@
+            <div class="modal fade" id="ModalCenter">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Business Card</h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-left">
+
+                            <div class="form-row ">
+                                <div class="col-xl-6 col-lg-6 form-group">
+                                    <div class="mb-1">
+                                        <label>I already have a card</label>
+                                        @if (Session["UserNFCCode"].ToString() != "" && Session["UserNFCCode"].ToString() != null && Session["UserNFCCode"].ToString()!="na")
+                                        {
+                                            <a href="/nfc/Profile?id=@Session["UserNFCCode"].ToString()" class="btn btn-primary">Go</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/Home/NFCActivation" class="btn btn-primary">Go</a>
+                                        }
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row ">
+                                <div class="col-xl-6 col-lg-6 form-group">
+                                    <div class="mb-1">
+                                        <label>I want to buy</label>
+                                        <a href="/Shop/Product" class="btn btn-primary">Buy</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card bg-success">
+                    <div class="card-body p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="las la-dog"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                <h4 class="text-white">Animal Tags</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card bg-info">
+                    <div class="card-body p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="las la-home"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                <h4 class="text-white">House  Tags</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card bg-primary">
+                    <div class="card-body p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="las la-shopping-basket"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                <h4 class="text-white">Shop Tags</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card bg-warning">
+                    <div class="card-body p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="las la-monument"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                <h4 class="text-white">Monument Tags</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card bg-primary">
+                    <div class="card-body  p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="las la-industry"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                <h4 class="text-white">Property Tags</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card bg-secondary">
+                    <div class="card-body p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="fa fa-address-card"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                <h4 class="text-white">Student IDs</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card bg-danger ">
+                    <div class="card-body p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="las la-paste"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                <h4 class="text-white">Project Tags</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card bg-success">
+                    <div class="card-body p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="fa fa-gift"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                <h4 class="text-white">Product Tags</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card bg-info">
+                    <div class="card-body p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="la la-users"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                <p class="mb-1"><a href="#" class="text-white text-activate">Activate</a></p>
+                                <h4 class="text-white">Public Tags</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+                <div class="widget-stat card bg-warning">
+                    <div class="card-body p-4">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="la la-user"></i>
+                            </span>
+                            <div class="media-body text-white text-right">
+                                <p class="mb-1"><a href="#" class="text-activate text-white">Activate</a></p>
+                                <h4 class="text-white">Common Tags</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

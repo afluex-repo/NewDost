@@ -87,6 +87,9 @@
             line-height: .75em;
             vertical-align: -15%;
         }
+        .social-graph-wrapper{
+            padding: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -147,9 +150,10 @@
 
                                             </div>
                                             <div class="profile-details">
-                                                <div class="profile-name px-3 pt-2">
+                                                <div class="profile-name px-3 pt-2" style="white-space: nowrap">
                                                     <h4 class="text-primary mb-0">@Model.Name</h4>
-                                                    <p>@Model.Designation</p>
+                                                    <p class="mb-0">@Model.Designation</p>
+                                                    <p>Comapny</p>
                                                 </div>
                                                 <div class="profile-email px-2 pt-2">
                                                     @*<h4 class="text-muted mb-0">@Model.Email</h4>
@@ -164,8 +168,8 @@
                                                             <li class="dropdown-item"><i class="fa fa-ban text-primary mr-2"></i> Block</li>
                                                         </ul>
                                                     </div>*@
-                                                <div class="pt-2 ml-auto" style="width: 70%">
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                                <div class="pt-2 ml-auto" >
+                                                    <p class="summary">@Model.Summary</p>
                                                 </div>
                                                 
                                             </div>
@@ -344,7 +348,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                       <div class="col-xl-12">
+                                       @*<div class="col-xl-12">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <div class="profile-blog">
@@ -354,7 +358,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                             <div class="col-xl-12">
                                                 <div class="card">
                                                     <div class="card-body">
@@ -364,12 +368,14 @@
                                                                 <video width="100%" height="170" controls muted autoplay>
                                                                     <source src="~/images/profile/intro.mp4" type="video/mp4" />
                                                                 </video>
+                                                                @*<div class="embed-responsive embed-responsive-16by9">
+                                                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/watch?v=J0CRgCBDJRw" allowfullscreen></iframe>
+                                                                </div>*@
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
                                     </div>
                                 </div>
                                 <div class="col-xl-8">
@@ -526,7 +532,7 @@
                                                                         @*<h4 class="text-primary">Contact Us</h4>*@
 
                                                                         <div class="row mt-4">
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
                                                                                 <div class="card">
                                                                                     <div class="social-graph-wrapper widget-phone">
                                                                                         <span class="s-icon"><i class="fa fa-phone fa-lg"></i></span>
@@ -534,7 +540,7 @@
 
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
                                                                                 <div class="card">
                                                                                     <div class="social-graph-wrapper widget-email">
                                                                                         <span class="s-icon"><i class="fa fa-envelope fa-lg"></i></span>
@@ -542,7 +548,7 @@
 
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
                                                                                 <div class="card">
                                                                                     <div class="social-graph-wrapper widget-whatsapp">
                                                                                         <span class="s-icon"><i class="fa fa-whatsapp fa-lg"></i></span>
@@ -550,7 +556,7 @@
 
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
                                                                                 <div class="card">
                                                                                     <div class="social-graph-wrapper widget-facebook">
                                                                                         <span class="s-icon"><i class="fa fa-facebook fa-lg"></i></span>
@@ -559,7 +565,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
                                                                                 <div class="card">
                                                                                     <div class="social-graph-wrapper widget-telegram">
                                                                                         <span class="s-icon"><i class="fa fa-telegram fa-lg"></i></span>
@@ -567,7 +573,7 @@
 
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
                                                                                 <div class="card">
                                                                                     <div class="social-graph-wrapper widget-instagram">
                                                                                         <span class="s-icon"><i class="fa fa-instagram fa-lg"></i></span>
@@ -575,7 +581,7 @@
 
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
                                                                                 <div class="card">
                                                                                     <div class="social-graph-wrapper widget-linkedin">
                                                                                         <span class="s-icon"><i class="fa fa-linkedin fa-lg"></i></span>
@@ -584,7 +590,7 @@
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-xs-3">
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
                                                                                 <div class="card">
                                                                                     <div class="social-graph-wrapper widget-twitter">
                                                                                         <span class="s-icon"><i class="fa fa-twitter fa-lg"></i></span>
