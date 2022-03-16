@@ -68,7 +68,7 @@ namespace Dost.Controllers
             ViewBag.Mobile = Mobile;
             if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "")
             {
-               model.Code = Session["NFCCode"].ToString();
+                model.Code = Session["NFCCode"].ToString();
             }
             if (Session["UserNFCCode"].ToString() != "na")
             {
@@ -153,12 +153,12 @@ namespace Dost.Controllers
             }
             NFCModel objn = new NFCModel();
             objn.Code = model.Code;
-            DataSet dsProfile= objn.GetNFCProfileData();
+            DataSet dsProfile = objn.GetNFCProfileData();
             if (dsProfile != null && dsProfile.Tables.Count > 0 && dsProfile.Tables[0].Rows.Count > 0)
             {
                 if (Convert.ToBoolean(ds1.Tables[0].Rows[0]["IsProfileTurnedOff"]) == true)
                 {
-                   
+
                 }
                 else
                 {
@@ -168,7 +168,7 @@ namespace Dost.Controllers
             }
             if (dsProfile != null && dsProfile.Tables.Count > 1)
             {
-                if(dsProfile.Tables[1].Rows.Count>0)
+                if (dsProfile.Tables[1].Rows.Count > 0)
                 {
                     List<NFCContent> NfcContentList = new List<NFCContent>();
 
@@ -266,10 +266,11 @@ namespace Dost.Controllers
                     UpdateBusinessProfileForMobile para = new UpdateBusinessProfileForMobile();
                     int FK_NFCProfileId = 0;
                     int IsIncluded = 0;
+                    int IsPrimary = 0;
                     DataTable dtcontact = new DataTable();
                     dtcontact.Columns.Add("FK_NFCProfileId");
                     dtcontact.Columns.Add("IsIncluded");
-
+                    dtcontact.Columns.Add("IsPrimary");
                     if (model.ContactList != null)
                     {
                         model.ContactList = model.ContactList[0].Split(',');
@@ -278,15 +279,24 @@ namespace Dost.Controllers
                         {
                             if (model.ContactList[i] != "")
                             {
+                                if (model.PrimaryNumber == model.ContactList[i])
+                                {
+                                    IsPrimary = 1;
+                                }
+                                else
+                                {
+                                    IsPrimary = 0;
+                                }
                                 FK_NFCProfileId = Convert.ToInt32(model.ContactList[i]);
                                 IsIncluded = 1;
-                                dtcontact.Rows.Add(FK_NFCProfileId, IsIncluded);
+                                dtcontact.Rows.Add(FK_NFCProfileId, IsIncluded, IsPrimary);
                             }
                         }
                     }
                     DataTable dtEmail = new DataTable();
                     dtEmail.Columns.Add("FK_NFCProfileId");
                     dtEmail.Columns.Add("IsIncluded");
+                    dtEmail.Columns.Add("IsPrimary");
                     if (model.EmailList != null)
                     {
                         model.EmailList = model.EmailList[0].Split(',');
@@ -295,15 +305,24 @@ namespace Dost.Controllers
                         {
                             if (model.EmailList[i] != "")
                             {
+                                if (model.PrimaryEmail == model.EmailList[i])
+                                {
+                                    IsPrimary = 1;
+                                }
+                                else
+                                {
+                                    IsPrimary = 0;
+                                }
                                 FK_NFCProfileId = Convert.ToInt32(model.EmailList[i]);
                                 IsIncluded = 1;
-                                dtEmail.Rows.Add(FK_NFCProfileId, IsIncluded);
+                                dtEmail.Rows.Add(FK_NFCProfileId, IsIncluded, IsPrimary);
                             }
                         }
                     }
                     DataTable dtWebLink = new DataTable();
                     dtWebLink.Columns.Add("FK_NFCProfileId");
                     dtWebLink.Columns.Add("IsIncluded");
+                    dtWebLink.Columns.Add("IsPrimary");
                     if (model.WebLinkList != null)
                     {
                         model.WebLinkList = model.WebLinkList[0].Split(',');
@@ -312,15 +331,24 @@ namespace Dost.Controllers
                         {
                             if (model.WebLinkList[i] != "")
                             {
+                                if (model.PrimaryWebLink == model.WebLinkList[i])
+                                {
+                                    IsPrimary = 1;
+                                }
+                                else
+                                {
+                                    IsPrimary = 0;
+                                }
                                 FK_NFCProfileId = Convert.ToInt32(model.WebLinkList[i]);
                                 IsIncluded = 1;
-                                dtWebLink.Rows.Add(FK_NFCProfileId, IsIncluded);
+                                dtWebLink.Rows.Add(FK_NFCProfileId, IsIncluded, IsPrimary);
                             }
                         }
                     }
                     DataTable dtSocialMedia = new DataTable();
                     dtSocialMedia.Columns.Add("FK_NFCProfileId");
                     dtSocialMedia.Columns.Add("IsIncluded");
+                    dtSocialMedia.Columns.Add("IsPrimary");
                     if (model.SocialLink != null)
                     {
                         model.SocialLink = model.SocialLink[0].Split(',');
@@ -330,9 +358,17 @@ namespace Dost.Controllers
                         {
                             if (model.SocialLink[i] != "")
                             {
+                                if (model.PrimarySocial == model.SocialLink[i])
+                                {
+                                    IsPrimary = 1;
+                                }
+                                else
+                                {
+                                    IsPrimary = 0;
+                                }
                                 FK_NFCProfileId = Convert.ToInt32(model.SocialLink[i]);
                                 IsIncluded = 1;
-                                dtSocialMedia.Rows.Add(FK_NFCProfileId, IsIncluded);
+                                dtSocialMedia.Rows.Add(FK_NFCProfileId, IsIncluded, IsPrimary);
                             }
 
                         }
@@ -907,7 +943,15 @@ namespace Dost.Controllers
                 if (ds.Tables[0].Rows[0][0].ToString() == "1")
                 {
                     obj.Result = "Success";
-                    obj.Message = "Profile updated successfully";
+                    if (func == "Remove")
+                    {
+                        obj.Message = "Removed successfully";
+                    }
+                    else
+                    {
+                        obj.Message = "Profile updated successfully";
+                    }
+
                 }
                 else
                 {
@@ -940,6 +984,7 @@ namespace Dost.Controllers
                 id = id.Replace(" ", "+");
                 var desc = Crypto.DecryptNFC(id);
                 obj.Code = desc;
+                objProfile.Code = id;
                 DataSet ds = obj.CheckNFCCode();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
@@ -948,39 +993,138 @@ namespace Dost.Controllers
                         DataSet ds1 = obj.GetNFCProfileData();
                         if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
                         {
+                            objProfile.PK_ProfileId = ds1.Tables[0].Rows[0]["PK_ProfileId"].ToString();
                             objProfile.Name = ds1.Tables[0].Rows[0]["Name"].ToString();
                             objProfile.Email = ds1.Tables[0].Rows[0]["PrimaryEmail"].ToString();
-                            objProfile.DOB = ds1.Tables[0].Rows[0]["DOB"].ToString();
-                            objProfile.Mobile = ds1.Tables[0].Rows[0]["Mobile"].ToString();
-                            objProfile.ProfilePic = ds1.Tables[0].Rows[0]["ProfilePic"].ToString();
-                            objProfile.Gender = ds1.Tables[0].Rows[0]["Sex"].ToString();
-                            objProfile.PK_UserId = ds1.Tables[0].Rows[0]["PK_UserId"].ToString();
-                            objProfile.Summary = ds1.Tables[0].Rows[0]["Summary"].ToString();
-                            objProfile.BusinessName = ds1.Tables[0].Rows[0]["BusinessName"].ToString();
+                            //objProfile.DOB = ds1.Tables[0].Rows[0]["DOB"].ToString();
+                            //objProfile.Mobile = ds1.Tables[0].Rows[0]["Mobile"].ToString();
+                            //objProfile.ProfilePic = ds1.Tables[0].Rows[0]["ProfilePic"].ToString();
+                            //objProfile.Gender = ds1.Tables[0].Rows[0]["Sex"].ToString();
+                            //objProfile.PK_UserId = ds1.Tables[0].Rows[0]["PK_UserId"].ToString();
+                            //objProfile.Summary = ds1.Tables[0].Rows[0]["Summary"].ToString();
+                            //objProfile.BusinessName = ds1.Tables[0].Rows[0]["BusinessName"].ToString();
                             objProfile.Designation = ds1.Tables[0].Rows[0]["Designation"].ToString();
-                            objProfile.UserCode = ds1.Tables[0].Rows[0]["UserCode"].ToString();
-                            objProfile.Leg = ds1.Tables[0].Rows[0]["NFCProfileLeg"].ToString();
+                            //objProfile.UserCode = ds1.Tables[0].Rows[0]["UserCode"].ToString();
+                            //objProfile.Leg = ds1.Tables[0].Rows[0]["NFCProfileLeg"].ToString();
                             Session["SponsorId"] = ds1.Tables[0].Rows[0]["LoginId"].ToString();
                             objProfile.ProfilePic = ds1.Tables[0].Rows[0]["ProfilePic"].ToString();
-                        }
-                        if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[1].Rows.Count > 0)
-                        {
-                            List<NFCContent> NfcContentList = new List<NFCContent>();
-
-                            foreach (DataRow row in ds1.Tables[1].Rows)
+                            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[1].Rows.Count > 0)
                             {
-                                if (row["Type"].ToString() == "Email")
+                                List<NFCContent> NfcContentList = new List<NFCContent>();
+
+                                foreach (DataRow row in ds1.Tables[1].Rows)
                                 {
-                                    objProfile.Email = row["Content"].ToString();
+                                    if (row["Type"].ToString() == "Email")
+                                    {
+                                        objProfile.Email = row["Content"].ToString();
+                                    }
+                                    NfcContentList.Add(new NFCContent()
+                                    {
+                                        Content = row["Content"].ToString(),
+                                        Type = row["Type"].ToString(),
+                                        IsWhatsApp = row["IsWhatsapp"].ToString(),
+                                        IsPrimary = row["IsPrimary"].ToString()
+                                    });
                                 }
-                                NfcContentList.Add(new NFCContent()
-                                {
-                                    Content = row["Content"].ToString(),
-                                    Type = row["Type"].ToString(),
-                                    IsWhatsApp = row["IsWhatsapp"].ToString()
-                                });
+                                objProfile.NfcContentList = NfcContentList;
                             }
-                            objProfile.NfcContentList = NfcContentList;
+                            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[1].Rows.Count > 0)
+                            {
+                                List<NFCProfileModel> lst = new List<NFCProfileModel>();
+
+                                foreach (DataRow row in ds1.Tables[1].Rows)
+                                {
+                                    if (row["Type"].ToString() == "ContactNo")
+                                    {
+                                        lst.Add(new NFCProfileModel()
+                                        {
+                                            Pk_NfcProfileId = Convert.ToInt32(row["PK_NFcProfileId"]),
+                                            Mobile = row["Content"].ToString(),
+                                            IsPrimaryNumber = Convert.ToBoolean(row["IsPrimary"]),
+                                            Type = row["Type"].ToString()
+                                        });
+                                    }
+                                    if (row["Type"].ToString() == "Email")
+                                    {
+                                        lst.Add(new NFCProfileModel()
+                                        {
+                                            Pk_NfcProfileId = Convert.ToInt32(row["PK_NFcProfileId"]),
+                                            Email = row["Content"].ToString(),
+                                            IsPrimaryEmail = Convert.ToBoolean(row["IsPrimary"]),
+                                            Type = row["Type"].ToString()
+                                        });
+                                    }
+                                    if (row["Type"].ToString() == "SocialMedia")
+                                    {
+                                        lst.Add(new NFCProfileModel()
+                                        {
+                                            Pk_NfcProfileId = Convert.ToInt32(row["PK_NFcProfileId"]),
+                                            SocialMedia = row["Content"].ToString(),
+                                            IsPrimarySocial = Convert.ToBoolean(row["IsPrimary"]),
+                                            Type = row["Type"].ToString()
+                                        });
+                                    }
+                                    if (row["Type"].ToString() == "WebLink")
+                                    {
+                                        lst.Add(new NFCProfileModel()
+                                        {
+                                            Pk_NfcProfileId = Convert.ToInt32(row["PK_NFcProfileId"]),
+                                            WebLink = row["Content"].ToString(),
+                                            IsPrimaryWebLink = Convert.ToBoolean(row["IsPrimary"]),
+                                            Type = row["Type"].ToString()
+                                        });
+                                    }
+                                }
+                                objProfile.lst = lst;
+                            }
+                            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[3].Rows.Count > 0)
+                            {
+                                List<UserSkill> lstSkill = new List<UserSkill>();
+
+                                foreach (DataRow row in ds1.Tables[3].Rows)
+                                {
+                                    UserSkill objSkill = new UserSkill();
+                                    objSkill.Pk_SkillId = row["PK_SkillId"].ToString();
+                                    objSkill.Skill = row["Skill"].ToString();
+                                    lstSkill.Add(objSkill);
+                                }
+                                objProfile.lstSkill = lstSkill;
+                            }
+                            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[4].Rows.Count > 0)
+                            {
+                                List<UserLanguage> lstLanguage = new List<UserLanguage>();
+
+                                foreach (DataRow row in ds1.Tables[4].Rows)
+                                {
+                                    UserLanguage objLanguage = new UserLanguage();
+                                    objLanguage.Pk_LanguageId = row["PK_LanguageId"].ToString();
+                                    objLanguage.Language = row["Language"].ToString();
+                                    lstLanguage.Add(objLanguage);
+                                }
+                                objProfile.lstLanguage = lstLanguage;
+                            }
+                            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[5].Rows.Count > 0)
+                            {
+                                List<UserAchievement> lstAchievement = new List<UserAchievement>();
+
+                                foreach (DataRow row in ds1.Tables[5].Rows)
+                                {
+                                    UserAchievement objA = new UserAchievement();
+                                    objA.Pk_AchievementId = row["PK_AchievementId"].ToString();
+                                    objA.Achievement = row["Achievement"].ToString();
+                                    lstAchievement.Add(objA);
+                                }
+                                objProfile.lstAchievement = lstAchievement;
+                            }
+                            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[6].Rows.Count > 0)
+                            {
+                                objProfile.Description = ds1.Tables[6].Rows[0]["Description"].ToString();
+                                objProfile.BannerImage = ds1.Tables[6].Rows[0]["BannerImage"].ToString();
+                            }
+                        }
+                        else
+                        {
+                            return RedirectToAction("ProfileUpdate", "NFCProfile");
                         }
                         ViewBag.ISActivated = true;
                         Session["NFCCode"] = id;
@@ -998,7 +1142,7 @@ namespace Dost.Controllers
                 }
                 else
                 {
-                    ViewBag.NFCResopnse = "Wrong NFC Code";
+                    //ViewBag.NFCResopnse = "Wrong NFC Code";
                 }
                 //}
             }
@@ -1008,10 +1152,233 @@ namespace Dost.Controllers
             }
             return View(objProfile);
         }
-        public ActionResult SaveSkill(string Skill)
+        public ActionResult SaveSkill(string Skill, string PK_ProfileId)
+        {
+            UserSkill model = new UserSkill();
+            try
+            {
+                model.Skill = Skill;
+                model.FK_UserId = Session["Pk_userId"].ToString();
+                model.PK_BusinessProfileId = PK_ProfileId;
+                DataSet ds = model.SaveSkill();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        model.Response = "1";
+                        model.Message = "Skill added successfully";
+                    }
+                    else
+                    {
+                        model.Response = "0";
+                        model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                model.Response = "0";
+                model.Message = ex.Message;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SaveLanguage(string Language, string PK_ProfileId)
+        {
+            UserLanguage model = new UserLanguage();
+            try
+            {
+                model.Language = Language;
+                model.FK_UserId = Session["Pk_userId"].ToString();
+                model.PK_BusinessProfileId = PK_ProfileId;
+                DataSet ds = model.SaveLanguage();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        model.Response = "1";
+                        model.Message = "Language added successfully";
+                    }
+                    else
+                    {
+                        model.Response = "0";
+                        model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                model.Response = "0";
+                model.Message = ex.Message;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SaveAchievement(string Achievement, string PK_ProfileId)
+        {
+            UserAchievement model = new UserAchievement();
+            try
+            {
+                model.Achievement = Achievement;
+                model.FK_UserId = Session["Pk_userId"].ToString();
+                model.PK_BusinessProfileId = PK_ProfileId;
+                DataSet ds = model.SaveAchievement();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        model.Response = "1";
+                        model.Message = "Achievement added successfully";
+                    }
+                    else
+                    {
+                        model.Response = "0";
+                        model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                model.Response = "0";
+                model.Message = ex.Message;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult DeleteAchievement(string Id, string Code)
+        {
+            UserAchievement model = new UserAchievement();
+            model.Pk_AchievementId = Id;
+            model.FK_UserId = Session["Pk_userId"].ToString();
+            DataSet ds = model.DeleteAchievement();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                {
+                    model.Response = "1";
+                    model.Message = "Achievement deleted successfully";
+                }
+                else
+                {
+                    model.Response = "0";
+                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            return RedirectToAction("EditProfileSetAction", "NFCProfile", new { id = Code });
+        }
+        public ActionResult SaveAboutMe(string Description, string PK_ProfileId)
         {
             NFCProfileModel model = new NFCProfileModel();
-            return View();
+            try
+            {
+                model.Description = Description;
+                model.FK_UserId = Session["Pk_userId"].ToString();
+                model.PK_ProfileId = PK_ProfileId;
+                DataSet ds = model.SaveAboutMe();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        model.Result = "1";
+                        model.Message = "About me added successfully";
+                    }
+                    else
+                    {
+                        model.Result = "0";
+                        model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                model.Result = "0";
+                model.Message = ex.Message;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult UpdateBannerImage(string PK_ProfileId)
+        {
+            NFCProfileModel obj = new NFCProfileModel();
+            if (Request.Files.Count > 0)
+            {
+                HttpFileCollectionBase files = Request.Files;
+                HttpPostedFileBase file = files[0];
+                obj.PK_ProfileId = PK_ProfileId;
+                obj.FK_UserId = Session["Pk_userId"].ToString();
+                obj.BannerImage = "/images/BannerImage/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                file.SaveAs(Path.Combine(Server.MapPath(obj.BannerImage)));
+                DataSet ds = obj.UpdateBannerImage();
+
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        obj.Result = "1";
+                        obj.BannerImage = obj.BannerImage;
+                    }
+                    else
+                    {
+                        obj.Result = "0";
+                        obj.BannerImage = null;
+                    }
+                }
+            }
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SetPrimary(string Pk_NfcProfileId, string IsChecked, string PK_ProfileId)
+        {
+            NFCProfileModel model = new NFCProfileModel();
+            try
+            {
+                model.Pk_NfcProfileId = Convert.ToInt32(Pk_NfcProfileId);
+                model.FK_UserId = Session["Pk_userId"].ToString();
+                model.PK_ProfileId = PK_ProfileId;
+                model.IsPrimaryNumber = Convert.ToBoolean(IsChecked);
+                DataSet ds = model.SetPrimaryNumber();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                    {
+                        model.Result = "1";
+                        model.Message = "Primary Number set successfully";
+                    }
+                    else
+                    {
+                        model.Result = "0";
+                        model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                model.Result = "0";
+                model.Message = ex.Message;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        //public ActionResult GenerateQr()
+        //{
+        //    string str = "https://dost.click/NFC/Profile?id=l6qSz972yBlOFLa3cOWQgg==";
+        //    var url = string.Format("http://chart.apis.google.com/chart?cht=qr&chs={1}x{2}&chl={0}", str, "500", "500");
+        //    WebResponse response = default(WebResponse);
+        //    Stream remoteStream = default(Stream);
+        //    StreamReader readStream = default(StreamReader);
+        //    WebRequest request = WebRequest.Create(url);
+        //    response = request.GetResponse();
+        //    remoteStream = response.GetResponseStream();
+        //    readStream = new StreamReader(remoteStream);
+        //    System.Drawing.Image img = System.Drawing.Image.FromStream(remoteStream);
+        //    string Filepath = @"D:\Other\";
+        //    Filepath = Filepath.TrimEnd('\r', '\n');
+        //    var InvalidCharacters = Path.GetInvalidFileNameChars();
+        //    string GetInvalidCharactersRemovedString = new string(img.fil
+        //      .Where(x => !invalidChars.Contains(x))
+        //      .ToArray());
+        //    img.Save(Filepath + str + ".png");
+        //    response.Close();
+        //    remoteStream.Close();
+        //    readStream.Close();
+        //    string msg = "The QR Code generated successfully";
+        //    return Json(msg, JsonRequestBehavior.AllowGet);
+        //}
     }
+
 }

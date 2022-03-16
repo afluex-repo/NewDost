@@ -831,7 +831,7 @@ namespace Dost.Models
     {
         public int Pk_NfcProfileId { get; set; }
         public int IsIncluded { get; set; }
-
+        public int IsChecked { get; set; }
     }
     public class EmailList1
     {

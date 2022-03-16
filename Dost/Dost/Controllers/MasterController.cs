@@ -1684,15 +1684,15 @@ namespace Dost.Controllers
                     TempData["ServiceMaster"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["ServiceMaster"] = ex.Message;
             }
             return RedirectToAction("ServiceMaster");
         }
-          
-    }
-        #endregion
 
+    }
+    #endregion
+        
 
 }

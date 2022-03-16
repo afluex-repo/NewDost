@@ -83,6 +83,28 @@ namespace Dost.Models
         public string ColorCodeRedirection { get; set; }
         public string LogId { get; set; }
         public string DecryptedCode { get; set; }
+        public List<UserSkill> lstSkill { get; set; }
+        public List<UserLanguage> lstLanguage { get; set; }
+        public List<UserAchievement> lstAchievement { get; set; }
+        public string BannerImage { get; set; }
+        public string PrimaryNumber { get; set; }
+        public string PrimaryEmail { get; set; }
+        public string PrimarySocial { get; set; }
+        public string PrimaryWebLink { get; set; }
+        public bool IsPrimaryNumber { get; set; }
+        public bool IsPrimaryEmail { get; set; }
+        public bool IsPrimarySocial { get; set; }
+        public bool IsPrimaryWebLink { get; set; }
+        public DataSet SaveAboutMe()
+        {
+            SqlParameter[] para ={
+                new SqlParameter ("@PK_ProfileId",PK_ProfileId),
+                new SqlParameter("@FK_UserId",FK_UserId),
+                new SqlParameter("@Description",Description)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveAboutMe", para);
+            return ds;
+        }
         public DataSet UpdateProfilePic()
         {
             SqlParameter[] para ={
@@ -361,7 +383,27 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetUrlForRedirection", para);
             return ds;
         }
-     
+        public DataSet UpdateBannerImage()
+        {
+            SqlParameter[] para ={
+                new SqlParameter ("@FK_UserId",FK_UserId),
+                new SqlParameter ("@PK_ProfileId",PK_ProfileId),
+                new SqlParameter("@BannerImage",BannerImage)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateBannerImage", para);
+            return ds;
+        }
+        public DataSet SetPrimaryNumber()
+        {
+            SqlParameter[] para ={
+                new SqlParameter ("@FK_UserId",FK_UserId),
+                new SqlParameter ("@PK_ProfileId",PK_ProfileId),
+                new SqlParameter("@FK_NFCProfileId",Pk_NfcProfileId),
+                new SqlParameter("@IsChecked",IsPrimaryNumber)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SetPrimaryNumber", para);
+            return ds;
+        }
     }
     public class NFCContent
     {
@@ -371,6 +413,7 @@ namespace Dost.Models
         public string PK_NFCProfileId { get; set; }
         public string IsIncluded { get; set; }
         public string IsRedirect { get; set; }
+        public string IsPrimary { get; set; }
     }
     public class NFCData
     {
@@ -561,6 +604,72 @@ namespace Dost.Models
             //End
             builder.AppendLine("END:VCARD");
             return builder.ToString();
+        }
+    }
+    public class UserSkill
+    {
+        public string Response { get; set; }
+        public string Message { get; set; }
+        public string Pk_SkillId { get; set; }
+        public string Skill { get; set; }
+        public string FK_UserId { get; set; }
+        public string PK_BusinessProfileId { get; set; }
+        public DataSet SaveSkill()
+        {
+            SqlParameter[] para ={
+                  new SqlParameter ("@FK_UserId",FK_UserId),
+                  new SqlParameter ("@Skill",Skill),
+                  new SqlParameter ("@PK_BusinessProfileId",PK_BusinessProfileId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveSkill", para);
+            return ds;
+        }
+    }
+    public class UserLanguage
+    {
+        public string Response { get; set; }
+        public string Message { get; set; }
+        public string Pk_LanguageId { get; set; }
+        public string Language { get; set; }
+        public string FK_UserId { get; set; }
+        public string PK_BusinessProfileId { get; set; }
+        public DataSet SaveLanguage()
+        {
+            SqlParameter[] para ={
+                  new SqlParameter ("@FK_UserId",FK_UserId),
+                  new SqlParameter ("@Language",Language),
+                  new SqlParameter ("@PK_BusinessProfileId",PK_BusinessProfileId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveLanguage", para);
+            return ds;
+        }
+    }
+    public class UserAchievement
+    {
+        public string Response { get; set; }
+        public string Message { get; set; }
+        public string Pk_AchievementId { get; set; }
+        public string Achievement { get; set; }
+        public string FK_UserId { get; set; }
+        public string PK_BusinessProfileId { get; set; }
+        public DataSet SaveAchievement()
+        {
+            SqlParameter[] para ={
+                  new SqlParameter ("@FK_UserId",FK_UserId),
+                  new SqlParameter ("@Achievement",Achievement),
+                  new SqlParameter ("@PK_BusinessProfileId",PK_BusinessProfileId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveAchievement", para);
+            return ds;
+        }
+        public DataSet DeleteAchievement()
+        {
+            SqlParameter[] para ={
+                  new SqlParameter ("@FK_UserId",FK_UserId),
+                  new SqlParameter ("@Pk_AchievementId",Pk_AchievementId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteAchievement", para);
+            return ds;
         }
     }
 }
