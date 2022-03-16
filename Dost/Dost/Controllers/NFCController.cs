@@ -152,6 +152,51 @@ namespace Dost.Controllers
                             }
                             objProfile.NfcContentList = NfcContentList;
                         }
+                        if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[3].Rows.Count > 0)
+                        {
+                            List<UserSkill> lstSkill = new List<UserSkill>();
+
+                            foreach (DataRow row in ds1.Tables[3].Rows)
+                            {
+                                UserSkill objSkill = new UserSkill();
+                                objSkill.Pk_SkillId = row["PK_SkillId"].ToString();
+                                objSkill.Skill = row["Skill"].ToString();
+                                lstSkill.Add(objSkill);
+                            }
+                            objProfile.lstSkill = lstSkill;
+                        }
+                        if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[4].Rows.Count > 0)
+                        {
+                            List<UserLanguage> lstLanguage = new List<UserLanguage>();
+
+                            foreach (DataRow row in ds1.Tables[4].Rows)
+                            {
+                                UserLanguage objLanguage = new UserLanguage();
+                                objLanguage.Pk_LanguageId = row["PK_LanguageId"].ToString();
+                                objLanguage.Language = row["Language"].ToString();
+                                lstLanguage.Add(objLanguage);
+                            }
+                            objProfile.lstLanguage = lstLanguage;
+                        }
+                        if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[5].Rows.Count > 0)
+                        {
+                            List<UserAchievement> lstAchievement = new List<UserAchievement>();
+
+                            foreach (DataRow row in ds1.Tables[5].Rows)
+                            {
+                                UserAchievement objA = new UserAchievement();
+                                objA.Pk_AchievementId = row["PK_AchievementId"].ToString();
+                                objA.Achievement = row["Achievement"].ToString();
+                                lstAchievement.Add(objA);
+                            }
+                            objProfile.lstAchievement = lstAchievement;
+                        }
+                        if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[6].Rows.Count > 0)
+                        {
+                           
+                            objProfile.Description = ds1.Tables[6].Rows[0]["Description"].ToString();
+                            objProfile.BannerImage = ds1.Tables[6].Rows[0]["BannerImage"].ToString();
+                        }
                         ViewBag.ISActivated = true;
                         Session["NFCCode"] = id;
                         Session["NFCActivated"] = "true";

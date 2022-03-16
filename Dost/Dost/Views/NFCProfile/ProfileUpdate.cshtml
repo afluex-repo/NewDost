@@ -218,7 +218,7 @@
                                                                                                 <div class="text-center">
                                                                                                     <div class="my-profile">
                                                                                                         <img src="@Item.ProfilePic" alt="" class="rounded" id="output1">
-                                                                                                        <a class="file_active" onclick="getFile()" for="upfile"><i class="fa fa-pencil" aria-hidden="true"></i><input id="upfile" type="file" value="upload" style="display: none" /></a>
+                                                                                                        <a class="file_active" onclick="getFile();" for="upfile"><i class="fa fa-pencil" aria-hidden="true"></i><input id="upfile" type="file" value="upload" style="display: none" /></a>
 
                                                                                                     </div>
 
@@ -273,7 +273,9 @@
                                                                                         <div class="col-xl-6 col-lg-6 form-group">
                                                                                             <div class="mb-3">
                                                                                                 <label>Mobile Number</label>
-                                                                                                @Html.DropDownListFor(m => m.ContactList, new SelectList(ViewBag.Mobile, "Value", "Text"), new { @class = "js-example-placeholder-multiple Mobile_" + @i + "", @multiple = "multiple" })
+                                                                                                @Html.DropDownListFor(m => m.ContactList, new SelectList(ViewBag.Mobile, "Value", "Text"), new { @class = "js-example-placeholder-multiple Mobile_" + @i + "", @multiple = "multiple", })
+                                                                                                @*<input type="checkbox" onchange="return setPrimary(@i,'PrimaryContact_');" />Is Primary
+                                                                                                <input type="hidden" class="PrimaryNumber_@i" name="PrimaryNumber" />*@
                                                                                                 <div class="selectedMobile" style="display:none">
                                                                                                 </div>
                                                                                             </div>
@@ -284,6 +286,8 @@
                                                                                                 <div class="form-group">
                                                                                                     <label>Emails</label>
                                                                                                     @Html.DropDownListFor(m => m.EmailList, new SelectList(ViewBag.ddlEmail, "Value", "Text"), new { @class = "js-example-placeholder-multiple Email_" + @i + "", @multiple = "multiple" })
+                                                                                                    @*<input type="checkbox" onchange="return setPrimary(@i,'PrimaryEmail_');" />Is Primary
+                                                                                                    <input type="hidden" class="PrimaryEmail__@i" name="PrimaryEmail" />*@
                                                                                                     <div class="selectedEmail2" style="display:none">
                                                                                                     </div>
                                                                                                 </div>
@@ -296,6 +300,8 @@
                                                                                                 <div class="form-group">
                                                                                                     <label>Social Media</label>
                                                                                                     @Html.DropDownListFor(m => m.SocialLink, new SelectList(ViewBag.SocialMedia, "Value", "Text"), new { @class = "js-example-placeholder-multiple SocialMedia_" + @i + "", @multiple = "multiple" })
+                                                                                                    @*<input type="checkbox" onchange="return setPrimary(@i,'PrimarySocial_');" />Is Primary
+                                                                                                    <input type="hidden" class="PrimarySocial_@i" name="PrimarySocial" />*@
                                                                                                     <div class="selectedSocial" style="display:none">
                                                                                                     </div>
                                                                                                 </div>
@@ -307,6 +313,8 @@
                                                                                                 <div class="form-group">
                                                                                                     <label>Web/App Urls</label>
                                                                                                     @Html.DropDownListFor(m => m.WebLink, new SelectList(ViewBag.WebLink, "Value", "Text"), new { @class = "js-example-placeholder-multiple WebLink_" + @i + "", @multiple = "multiple" })
+                                                                                                    @*<input type="checkbox" onchange="return setPrimary(@i,'PrimaryWebLink_');" />Is Primary
+                                                                                                    <input type="hidden" class="PrimaryWebLink_@i" name="PrimaryWebLink" />*@
                                                                                                     <div class="selectedWebLink" style="display:none">
                                                                                                     </div>
                                                                                                 </div>
@@ -323,12 +331,16 @@
                                                                                     </div>
 
                                                                                     <div class="row">
-                                                                                        <div class="col-xl-12 col-lg-12 text-center">
+                                                                                        <div class="col-xl-6 col-lg-6 text-center">
                                                                                             <input class="btn btn-success mb-2 px-5" type="button" value="UPDATE" onclick="return SaveBusinessContact('@i')" id="btnBusinessContact" name="btnBusinessContact" data-profile="@Item.PK_ProfileId" />
+                                                                                        </div>
+                                                                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-center ">
+                                                                                            <button type="button" class="btn btn-danger mb-2 px-5" onclick="UpdateRedirectionUrl('Remove',@i);">REMOVE</button>
                                                                                         </div>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
+                                                                            
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -604,8 +616,8 @@
                                                 <label class="mr-sm-2 mt-1" style="white-space: nowrap;">Link :</label>
                                             </div>
                                             <div class="col-lg-10 col-md-10 col-sm-12 my-1 d-flex">
-                                                <div class="input-group input-group-sm">
-                                                    <input type="text" class="form-control input-default" readonly value="https://dost.click/NFC/Profile?id=@Model.Code">
+                                                <div class="input-group input-group-sm copy">
+                                                    <input id="txtcopy" type="text" class="form-control input-default" readonly value="https://dost.click/NFC/Profile?id=@Model.Code">
 
                                                     <button type="button" class="close h-100 ml-2">
                                                         <span><i class="fa fa-files-o"></i></span>
@@ -623,7 +635,7 @@
                                     <div class="text-center">
                                         <div class="post-input">
                                             <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#linkModal">Share Profile</button>
-                                            <a href="/NFCProfile/EditProfileSetAction?Id=@Model.PK_UserId" class="btn btn-primary text-center">Edit Profile</a>
+                                            <a href="/NFCProfile/EditProfileSetAction?Id=@Model.Code" class="btn btn-primary text-center">Edit Profile</a>
                                             <div class="modal fade" id="linkModal">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
@@ -704,6 +716,13 @@
                                                                     <a class="btn-social youtube" href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube"></i></a>
                                                                 }
                                                             }
+                                                            <div class="input-group input-group-sm copy">
+                                                                <input id="txtcopy" type="hidden" class="form-control input-default" readonly value="https://dost.click/NFC/Profile?id=@Model.Code">
+
+                                                                <button type="button" class="close h-100 ml-2">
+                                                                    <span><i class="fa fa-files-o"></i></span>
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1475,6 +1494,10 @@
             formData.append("BusinessName", $('.CompanyName_' + index + '').val());
             formData.append("Designation", $('.Designation_' + index + '').val());
             formData.append("Description", $('.Remarks_' + index + '').val());
+            //formData.append("PrimaryNumber", $('.PrimaryNumber_' + index + '').val());
+            //formData.append("PrimaryEmail", $('.PrimaryEmail_' + index + '').val());
+            //formData.append("PrimarySocial", $('.PrimarySocial_' + index + '').val());
+            //formData.append("PrimaryWebLink", $('.PrimaryWebLink_' + index + '').val());
             debugger;
             $.ajax({
                 type: 'POST',
@@ -1596,5 +1619,35 @@
             tapToDismiss: !1
         })
     }
-    $(".date").datepicker();
+    function setPrimary(Index, Type) {
+        debugger;
+        if (Type == "PrimaryContact_") {
+            $(".PrimaryNumber_" + Index).val($("#ContactList option:selected").val());
+        }
+        if (Type == "PrimaryEmail_") {
+            $(".PrimaryEmail_" + Index).val($("#EmailList option:selected").val());
+        }
+        if (Type == "PrimaryWebLink_") {
+            $(".PrimaryWebLink_" + Index).val($("#WebLink option:selected").val());
+        }
+        if (Type == "PrimarySocial_") {
+            $(".PrimarySocial_" + Index).val($("#SocialLink option:selected").val());
+        }
+    }
+    $(".DOB_3").datepicker();
+</script>
+<script>
+    (function () {
+        debugger;
+        var copyButton = document.querySelector('.copy button');
+        var copyInput = document.querySelector('.copy input');
+        copyButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            var text = copyInput.select();
+            document.execCommand('copy');
+        });
+        copyInput.addEventListener('click', function () {
+            this.select();
+        });
+    })();
 </script>
