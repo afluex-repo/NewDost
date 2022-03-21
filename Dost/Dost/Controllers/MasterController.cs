@@ -1691,8 +1691,231 @@ namespace Dost.Controllers
             return RedirectToAction("ServiceMaster");
         }
 
+
+        public ActionResult TransactionLimit(string Id)
+        {
+            #region Bind ddlTransaction
+            Master obj1 = new Master();
+
+            if (Id != null)
+            {
+                obj1.TransactionLimitId = Id;
+                DataSet ds = obj1.GetTransactionLimitDetails();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    obj1.TransactionLimitId = ds.Tables[0].Rows[0]["PK_TransactionLimitId"].ToString();
+                    obj1.FK_TransactionId = ds.Tables[0].Rows[0]["FK_TransactionId"].ToString();
+                    obj1.Amount = ds.Tables[0].Rows[0]["Amount"].ToString();
+                    obj1.Percentage = ds.Tables[0].Rows[0]["Percentage"].ToString();
+                }
+            }
+
+            int count = 0;
+            List<SelectListItem> ddlTransaction = new List<SelectListItem>();
+            DataSet ds1 = obj1.GetTransactionNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlTransaction.Add(new SelectListItem { Value = "0", Text = "Select Transaction" });
+                    }
+                    ddlTransaction.Add(new SelectListItem { Value = r["PK_TransactionId"].ToString(), Text = r["TransactionName"].ToString() });
+                    count = count + 1;
+                }
+                ViewBag.ddlTransaction = ddlTransaction;
+            }
+            #endregion
+            return View(obj1);
+        }
+
+        [HttpPost]
+        [OnAction(ButtonName = "BtnTransactionLimit")]
+        [ActionName("TransactionLimit")]
+        public ActionResult TransactionLimit(Master model)
+        {
+            try
+            {
+                if (model.TransactionLimitId==null)
+                {
+                    model.AddedBy = Session["Pk_AdminId"].ToString();
+                    DataSet ds = model.SaveTransactionLimit();
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        TempData["TransactionLimit"] = "Transaction limit save successfully";
+                    }
+                    else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
+                    {
+                        TempData["TransactionLimit"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
+                    }
+                }
+                else
+                {
+                    model.AddedBy = Session["Pk_AdminId"].ToString();
+                    DataSet ds = model.UpdateTransactionLimit();
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        TempData["TransactionLimit"] = "Transaction limit update successfully";
+                    }
+                    else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
+                    {
+                        TempData["TransactionLimit"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["TransactionLimit"] = ex.Message;
+            }
+            return RedirectToAction("TransactionLimit", "Master");
+        }
+
+
+
+
+        //[HttpPost]
+        //[OnAction(ButtonName = "BtnUpdate")]
+        //[ActionName("TransactionLimit")]
+        //public ActionResult UpdateTransactionLimit(Master model)
+        //{
+        //    try
+        //    {
+        //        model.AddedBy = Session["Pk_AdminId"].ToString();
+        //        DataSet ds = model.UpdateTransactionLimit();
+        //        if (ds != null && ds.Tables[0].Rows.Count > 0)
+        //        {
+        //            TempData["TransactionLimit"] = "Transaction limit update successfully";
+        //        }
+        //        else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
+        //        {
+        //            TempData["TransactionLimit"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TempData["TransactionLimit"] = ex.Message;
+        //    }
+        //    return RedirectToAction("TransactionLimit", "Master");
+        //}
+
+
+
+
+
+
+        public ActionResult TransactionLimitList()
+        {
+            Master model = new Master();
+            List<Master> lst = new List<Master>();
+            DataSet ds = model.GetTransactionLimitDetails();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Master obj = new Master();
+                    obj.TransactionLimitId = r["PK_TransactionLimitId"].ToString();
+                    obj.TransactionName = r["TransactionName"].ToString();
+                    obj.Amount = r["Amount"].ToString();
+                    obj.Percentage = r["Percentage"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstTransactionLimit = lst;
+            }
+            #region Bind ddlTransaction
+            Master obj1 = new Master();
+
+            int count = 0;
+            List<SelectListItem> ddlTransaction = new List<SelectListItem>();
+            DataSet ds1 = obj1.GetTransactionNameDetails();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlTransaction.Add(new SelectListItem { Value = "0", Text = "Select Transaction" });
+                    }
+                    ddlTransaction.Add(new SelectListItem { Value = r["PK_TransactionId"].ToString(), Text = r["TransactionName"].ToString() });
+                    count = count + 1;
+                }
+                ViewBag.ddlTransaction = ddlTransaction;
+            }
+            #endregion
+            return View(model);
+        }
+
+        //[HttpPost]
+        //[OnAction(ButtonName = "btnSearch")]
+        //[ActionName("TransactionLimitList")]
+        //public ActionResult TransactionLimitList(Master model)
+        //{
+        //    List<Master> lst = new List<Master>();
+        //    DataSet ds = model.GetTransactionLimitDetails();
+        //    if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        //    {
+        //        foreach (DataRow r in ds.Tables[0].Rows)
+        //        {
+        //            Master obj = new Master();
+        //            obj.TransactionLimitId = r["PK_TransactionLimitId"].ToString();
+        //            obj.TransactionName = r["TransactionName"].ToString();
+        //            obj.Amount = r["Amount"].ToString();
+        //            obj.Percentage = r["Percentage"].ToString();
+        //            lst.Add(obj);
+        //        }
+        //        model.lstTransactionLimit = lst;
+        //    }
+        //    #region Bind ddlTransaction
+        //    Master obj1 = new Master();
+
+        //    int count = 0;
+        //    List<SelectListItem> ddlTransaction = new List<SelectListItem>();
+        //    DataSet ds1 = obj1.GetTransactionNameDetails();
+        //    if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+        //    {
+        //        foreach (DataRow r in ds1.Tables[0].Rows)
+        //        {
+        //            if (count == 0)
+        //            {
+        //                ddlTransaction.Add(new SelectListItem { Value = "0", Text = "Select Transaction" });
+        //            }
+        //            ddlTransaction.Add(new SelectListItem { Value = r["PK_TransactionId"].ToString(), Text = r["TransactionName"].ToString() });
+        //            count = count + 1;
+        //        }
+        //        ViewBag.ddlTransaction = ddlTransaction;
+        //    }
+        //    #endregion
+        //    return View(model);
+        //}
+
+
+        public ActionResult Deletetransactionlimit(string Id)
+        {
+            try
+            {
+                Master model = new Master();
+                model.TransactionLimitId = Id;
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.DeleteTransactionLimit();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    TempData["TransactionLimit"] = "Transaction limit deleted successfully";
+                }
+                else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
+                {
+                    TempData["TransactionLimit"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["TransactionLimit"] = ex.Message;
+            }
+            return RedirectToAction("TransactionLimitList", "Master");
+        }
+
     }
+
     #endregion
-        
+
 
 }

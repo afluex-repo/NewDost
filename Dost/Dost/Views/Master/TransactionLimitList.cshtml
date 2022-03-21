@@ -1,0 +1,95 @@
+﻿@model Dost.Models.Master
+
+@{
+    ViewBag.Title = "TransactionLimitList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Master
+                </a>
+            </li>
+            <li class="active">
+                Transaction Limit List
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("TransactionLimitList", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+    <span style="color: red">
+        @TempData["TransactionLimit"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Transaction Limit List
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            @*<label>Transaction</label>
+                            @Html.DropDownListFor(m => m.FK_TransactionId, new SelectList(ViewBag.ddlTransaction, "Value", "Text"), new { @class = "form-control" })*@
+                        </div>
+                        <div class="col-sm-4">
+                            @*<input type="submit" style="margin-top:20px;" id="btnSearch" class="btn btn-success" name="btnSearch" value="Search" />*@
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="/Master/TransactionLimit" style="margin-top:20px; border:100%;" class="btn btn-primary">Add New</a>
+                        </div>
+                    </div>
+                    <br /><br /><br />
+                    <div class="row">
+                        <div class="col-md-12 table-responsive">
+                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Transaction</th>
+                                        <th>Amount</th>
+                                        <th>Percentage</th>
+                                        <th>Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstTransactionLimit != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.lstTransactionLimit)
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.TransactionName</td>
+                                                    <td>@Item.Amount</td>
+                                                    <td>@Item.Percentage</td>
+                                                    <td>
+                                                        <a href="/Master/Deletetransactionlimit?Id=@Item.TransactionLimitId" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this transaction limit?');">Delete</a>
+                                                        <a href="/Master/TransactionLimit?Id=@Item.TransactionLimitId" class="btn btn-success btn-sm">Edit</a>
+                                                    </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+

@@ -3789,6 +3789,8 @@
     <Content Include="Views\NFCProfile\EditProfileSetAction.cshtml" />
     <Content Include="Views\Home\ConfirmActivationPage.cshtml" />
     <Content Include="Views\NFC\Profile - Copy.cshtml" />
+    <Content Include="Views\Master\TransactionLimit.cshtml" />
+    <Content Include="Views\Master\TransactionLimitList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
