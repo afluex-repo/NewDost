@@ -151,44 +151,52 @@ namespace Dost.Controllers
                 DataSet dsUser = obj.AddToCartList();
                 if (dsUser.Tables != null && dsUser.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow dr in dsUser.Tables[0].Rows)
+                    if (dsUser.Tables[0].Rows[0][0].ToString()=="0")
                     {
-                        Shop model = new Shop();
-                        model.ProductName = dr["EventName"].ToString();
-                        model.OfferPrice = dr["OfferPrice"].ToString();
-                        model.BV = dr["TotalReferalBV"].ToString();
-                        model.ProductCode = dr["productcode"].ToString();
-                        model.EventDescription = dr["EventDescription"].ToString();
-                        model.EventImage = dr["EventImage"].ToString();
-                        model.NoOfSeats = dr["TotalItem"].ToString();
-                        model.Brand = dr["Brand"].ToString();
-                        model.TotalPrice = dr["TotalPrice"].ToString();
-                        model.PK_EventId = dr["Pk_Eventid"].ToString();
-                        //model.DeliverCharge = dr["DeliveryCharges"].ToString();
-                        model.IGST = dr["IGST"].ToString();
-                        lstproduct.Add(model);
+                        TempData["Msg"] = dsUser.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        return RedirectToAction("ProductDescription", "Shop");
                     }
-                    if (dsUser.Tables[2].Rows.Count > 0)
+                    else
                     {
-                        foreach (DataRow dr in dsUser.Tables[2].Rows)
+                        foreach (DataRow dr in dsUser.Tables[0].Rows)
                         {
                             Shop model = new Shop();
-                            model.CouponName = dr["Coupon"].ToString();
-                            model.CouponCode = dr["CouponCode"].ToString();
-                            model.TotalPrice = dr["Price"].ToString();
-                            lstCoupon.Add(model);
+                            model.ProductName = dr["EventName"].ToString();
+                            model.OfferPrice = dr["OfferPrice"].ToString();
+                            model.BV = dr["TotalReferalBV"].ToString();
+                            model.ProductCode = dr["productcode"].ToString();
+                            model.EventDescription = dr["EventDescription"].ToString();
+                            model.EventImage = dr["EventImage"].ToString();
+                            model.NoOfSeats = dr["TotalItem"].ToString();
+                            model.Brand = dr["Brand"].ToString();
+                            model.TotalPrice = dr["TotalPrice"].ToString();
+                            model.PK_EventId = dr["Pk_Eventid"].ToString();
+                            //model.DeliverCharge = dr["DeliveryCharges"].ToString();
+                            model.IGST = dr["IGST"].ToString();
+                            lstproduct.Add(model);
                         }
-                    }
+                        if (dsUser.Tables[2].Rows.Count > 0)
+                        {
+                            foreach (DataRow dr in dsUser.Tables[2].Rows)
+                            {
+                                Shop model = new Shop();
+                                model.CouponName = dr["Coupon"].ToString();
+                                model.CouponCode = dr["CouponCode"].ToString();
+                                model.TotalPrice = dr["Price"].ToString();
+                                lstCoupon.Add(model);
+                            }
+                        }
 
-                    obj.lstproduct = lstproduct;
-                    obj.lstcoupon = lstCoupon;
-                    ViewBag.TotalItem = dsUser.Tables[1].Rows[0]["TotalItem"].ToString();
-                    ViewBag.TotalReferalBV = double.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
-                    ViewBag.TotalPrice = double.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString()).ToString("");
-                    ViewBag.GST = double.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2");
-                    ViewBag.DeliveryCharge = dsUser.Tables[0].Rows[0]["DeliveryCharges"].ToString();
-                    ViewBag.TotalAmount = (decimal.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()) + decimal.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()) + Convert.ToDecimal(dsUser.Tables[0].Rows[0]["DeliveryCharges"]) + decimal.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString())).ToString();
-                    obj.UserName = Session["LoginId"].ToString();
+                        obj.lstproduct = lstproduct;
+                        obj.lstcoupon = lstCoupon;
+                        ViewBag.TotalItem = dsUser.Tables[1].Rows[0]["TotalItem"].ToString();
+                        ViewBag.TotalReferalBV = double.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()).ToString("n2");
+                        ViewBag.TotalPrice = double.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString()).ToString("");
+                        ViewBag.GST = double.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()).ToString("n2");
+                        ViewBag.DeliveryCharge = dsUser.Tables[0].Rows[0]["DeliveryCharges"].ToString();
+                        ViewBag.TotalAmount = (decimal.Parse(dsUser.Tables[0].Compute("sum(TotalReferalBV)", "").ToString()) + decimal.Parse(dsUser.Tables[0].Compute("sum(IGST)", "").ToString()) + Convert.ToDecimal(dsUser.Tables[0].Rows[0]["DeliveryCharges"]) + decimal.Parse(dsUser.Tables[0].Compute("sum(TotalPrice)", "").ToString())).ToString();
+                        obj.UserName = Session["LoginId"].ToString();
+                    }
                 }
                 return View(obj);
             }
@@ -207,7 +215,6 @@ namespace Dost.Controllers
                 dt.Columns.Add("ProductAmount", typeof(string));
                 dt.Columns.Add("NoofItems", typeof(string));
                 dt.Columns.Add("Pk_EventId", typeof(string));
-
                 string hdrows = Request["hdRows"].ToString();
                 for (int i = 1; i <= int.Parse(hdrows) - 1; i++)
                 {
@@ -217,14 +224,12 @@ namespace Dost.Controllers
                     string Pk_EventId = Request["PK_EventId_" + i].ToString();
                     DataRow dr = dt.NewRow();
                     dr = dt.NewRow();
-
                     dr["ProductName"] = ProductName;
                     dr["ProductAmount"] = TotalPrice;
                     dr["NoofItems"] = NoofItems;
                     dr["Pk_EventId"] = Pk_EventId;
                     dt.Rows.Add(dr);
                 }
-
                 obj1.dtproductitem = dt;
                 obj1.WalletBalance = Request["walletbalance"].ToString();
                 obj1.TotalPrice = Request["totalamount"].ToString();
@@ -233,6 +238,7 @@ namespace Dost.Controllers
                 obj1.BV = Request["totalBV"].ToString();
                 obj1.DeliveryCharge = Request["totalBV"].ToString();
                 obj1.Gst = Request["totalBV"].ToString();
+                
                 DataSet ds = obj1.SaveEventDetails();
                 if (ds != null && ds.Tables.Count > 0)
                 {
@@ -295,7 +301,7 @@ namespace Dost.Controllers
             try
             {
                 Common model = new Common();
-                model.Pincode = Pincode;
+                model.PinCode = Pincode;
 
                 #region GetStateCity
                 DataSet dsStateCity = model.GetStateCity();
@@ -420,7 +426,7 @@ namespace Dost.Controllers
         public ActionResult DeleteAddress(string Id)
         {
             Shop model = new Shop();
-            model.AddressId = Id;
+            model.PK_AddressId = Id;
             model.Fk_UserId = Session["Pk_userId"].ToString();
             DataSet ds = model.DeleteAddress();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -451,7 +457,7 @@ namespace Dost.Controllers
                         OrderDate = row["OrderDate"].ToString(),
                         TotalPrice = row["TotalPrice"].ToString(),
                         Status = row["Status"].ToString(),
-
+                        Address = row["Address"].ToString(),
                     });
                 }
                 model.lstproduct = lst;

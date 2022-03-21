@@ -22,6 +22,7 @@ namespace Dost.Models
         public string Long { get; set; }
         public string ZipCode { get; set; }
         public string Location { get; set; }
+        public string LogId { get; set; }
         public string Device { get; set; }
         public DataSet CheckNFCCode()
         {
@@ -34,8 +35,8 @@ namespace Dost.Models
         public DataSet GetNFCProfileData()
         {
             SqlParameter[] para ={
-                new SqlParameter ("@NFCCode",Code)
-
+                new SqlParameter ("@NFCCode",Code),
+                  new SqlParameter ("@LogId",LogId)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetNFCProfileData", para);
             return ds;

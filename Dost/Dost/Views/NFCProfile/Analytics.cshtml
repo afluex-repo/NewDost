@@ -1,0 +1,230 @@
+﻿
+@{
+    ViewBag.Title = "Analytics";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <!-- Add Project -->
+        <div class="modal fade" id="addProjectSidebar">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create Project</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label class="text-black font-w500">Project Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-black font-w500">Deadline</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-black font-w500">Client Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary">CREATE</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6">
+                <div class="welcome-text">
+                    <h4>Hi, welcome back!</h4>
+                    <span>Analytics</span>
+                </div>
+            </div>
+            <div class="col-sm-6 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Analytics</a></li>
+                </ol>
+            </div>
+        </div>
+        <!-- row -->
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <h2>Coming Soon</h2>
+                    @*<div class="col-lg-6 col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Download Analysis</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="flotBar1" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Gender Analysis</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="flotBar2" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Link Clicks</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="flotLine1" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Lead Analysis</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="flotLine2" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Age Group Analysis</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="flotLine3" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Geographical Analysis</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="flotArea1" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Referral Analysis</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="flotArea2" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Realtime Analysis</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="flotRealtime1" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Realtime Chart</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="flotRealtime2" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://cdn.jsdelivr.net/jquery.flot/0.8.4/jquery.flot.min.js"></script>
+<script src="~/vendor/global/global.min.js"></script>
+<script src="~/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="~/vendor/chart.js/Chart.bundle.min.js"></script>
+<script src="~/vendor/flot/jquery.flot.js"></script>
+<script src="~/vendor/flot/jquery.flot.pie.js"></script>
+<script src="~/vendor/flot/jquery.flot.resize.js"></script>
+<script src="~/vendor/flot-spline/jquery.flot.spline.min.js"></script>
+<script src="./js/custom.min.js"></script>
+
+<script>
+    (function ($) {
+        "use strict"
+
+        var dzChartlist = function () {
+            var flotBar1 = function () {
+                debugger;
+                $.plot("#flotBar1", [{
+                    data: [[1, 1], [2, 3], [3, 2], [4, 4], [5, 5], [6, 6], [0, 7]]
+                }], {
+                    series: {
+                        bars: {
+                            show: true,
+                            lineWidth: 0,
+                            fillColor: '#EB8153'
+                        }
+                    },
+                    grid: {
+                        borderWidth: 0,
+                        borderColor: 'transparent'
+                    },
+                    yaxis: {
+                        tickColor: 'transparent',
+                        font: {
+                            color: '#fff',
+                            size: 10
+                        }
+                    },
+                    xaxis: { ticks: [[1, "Mon"], [2, "Tue"], [3, "Wed"], [4, "Thu"], [5, "Fri"], [6, "Sat"], [7, "Sun"]] }
+                });
+            }
+            return {
+                init: function () {
+                },
+
+
+                load: function () {
+                    flotBar1();
+                    //flotBar2();
+                    //flotLine1();
+                    //flotLine2();
+                    //flotLine3();
+                    //flotArea1();
+                    //flotArea2();
+                    //flotLine4();
+                    //flotRealtime1();
+                    //flotRealtime2();
+                },
+
+                resize: function () {
+                }
+            }
+
+        }();
+
+        jQuery(window).on('load', function () {
+
+            dzChartlist.load();
+        });
+
+        jQuery(window).on('resize', function () {
+            dzChartlist.resize();
+        });
+    })(jQuery);
+</script>

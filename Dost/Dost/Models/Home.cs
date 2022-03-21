@@ -9,6 +9,8 @@ namespace Dost.Models
 {
     public class Home
     {
+        internal List<Home> lst { get; set; }
+
         public List<Home> lstMenu { get; set; }
         public List<Home> lstsubmenu { get; set; }
         public string AddedBy { get; set; }
@@ -48,6 +50,13 @@ namespace Dost.Models
         public string SubMenuName { get;  set; }
         public string UnderPlaceId { get;  set; }
         public string Code { get;  set; }
+        public string RequestId { get;  set; }
+        public string DisplayName { get;  set; }
+        public string Category { get;  set; }
+        public string ToDate { get;  set; }
+        public string Status { get;  set; }
+        public string Mode { get; set; }
+   
         #endregion
         #region Login
         public DataSet Login()
@@ -121,9 +130,33 @@ namespace Dost.Models
                                      new SqlParameter("@Password",Password),
                                      new SqlParameter("@OTP",OTP),
                                      new SqlParameter("@Email",Email),
-                                     new SqlParameter("@UnderPlaceId",UnderPlaceId)
+                                     new SqlParameter("@UnderPlaceId",UnderPlaceId),
+                                      new SqlParameter("@Mode",Mode)
                                    };
             DataSet ds = DBHelper.ExecuteQuery("Registration_New_Web", para);
+            return ds;
+        }
+        public DataSet RequestedNFCList()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("RequestedNFCList");
+            return ds;
+        }
+        public DataSet AcceptRequest()
+        {
+            SqlParameter[] para = {
+                new SqlParameter("@RequestId",RequestId),
+                new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("AcceptRequest", para);
+            return ds;
+        }
+        public DataSet CancelRequest()
+        {
+            SqlParameter[] para = {
+                new SqlParameter("@RequestId",RequestId),
+                 new SqlParameter("@AddedBy",AddedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("CancelRequest", para);
             return ds;
         }
         public DataSet CheckOTP()

@@ -1,0 +1,649 @@
+﻿@model Dost.Models.NFCProfileModel
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Zenix - Crypto Admin Dashboard" />
+    <meta property="og:title" content="Zenix - Crypto Admin Dashboard" />
+    <meta property="og:description" content="Zenix - Crypto Admin Dashboard" />
+    <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png" />
+    <meta name="format-detection" content="telephone=no">
+    <title>Dost</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/dfavicon.png">
+    <link rel="stylesheet" href="~/vendor/chartist/css/chartist.min.css">
+    <link href="~/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="~/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <style type="text/css">
+        .social-graph-wrapper.widget-whatsapp {
+            background-color: #04c165;
+        }
+
+        .social-graph-wrapper.widget-telegram {
+            background-color: #25a3e1;
+        }
+
+        .social-graph-wrapper.widget-instagram {
+            background-image: linear-gradient(to right, #1882e8, #c40866);
+        }
+
+        .s-icon a {
+            /*background-color: #eb8153;*/
+            border-radius: 5px;
+            margin: 0px auto;
+            width: 35px;
+            height: 35px;
+            line-height: 33px;
+            display: inline-block;
+            text-align: center;
+            color: white;
+            display: inline-block;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+        }
+
+        @@media (max-width: 575.98px) {
+            .photo-content .cover-photo {
+                min-height: 110px;
+            }
+        }
+
+        .col-xl-12.col-xxl-12.col-sm-12.social {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .summary {
+            margin-bottom: -8px;
+            display: -webkit-inline-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 30px;
+        }
+
+        .fa-lg {
+            font-size: 1.58em;
+            line-height: .75em;
+            vertical-align: -15%;
+        }
+    </style>
+</head>
+<body>
+
+    <!--*******************
+        Preloader start
+        ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+        ********************-->
+    <!--**********************************
+        Main wrapper start
+        ***********************************-->
+    <div class="container">
+
+
+        <!--**********************************
+        Content body start
+        ***********************************-->
+        @{
+            if (ViewBag.ISActivated == true)
+            {
+                <div class="content-profile">
+                    <div class="container-fluid">
+
+                        <!-- row -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="profile card card-body px-3 pt-3 pb-0">
+                                    <div class="profile-head">
+                                        <div class="photo-content">
+                                            <div class="cover-photo"></div>
+                                        </div>
+                                        <div class="profile-info">
+                                            <div class="profile-photo">
+                                                @if (Model != null)
+                                                {
+                                                    <input type="hidden" id="LogId" name="LogId" value="@Model.LogId" />
+                                                    if (Model.ProfilePic != null)
+                                                    {
+                                                        <img src="@Model.ProfilePic" class="img-fluid rounded-circle" alt="">
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                                                }
+
+                                            </div>
+                                            <div class="profile-details">
+                                                <div class="profile-name px-3 pt-2">
+                                                    <h4 class="text-primary mb-0">@Model.Name</h4>
+                                                    <p>@Model.Designation</p>
+                                                </div>
+                                                <div class="profile-email px-2 pt-2">
+                                                    <h4 class="text-muted mb-0">@Model.Email</h4>
+                                                    <p class="summary">@Model.Summary</p>
+                                                </div>
+                                                @*<div class="dropdown ml-auto">
+                                                        <a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li class="dropdown-item"><i class="fa fa-user-circle text-primary mr-2"></i> View profile</li>
+                                                            <li class="dropdown-item"><i class="fa fa-users text-primary mr-2"></i> Add to close friends</li>
+                                                            <li class="dropdown-item"><i class="fa fa-plus text-primary mr-2"></i> Add to group</li>
+                                                            <li class="dropdown-item"><i class="fa fa-ban text-primary mr-2"></i> Block</li>
+                                                        </ul>
+                                                    </div>*@
+                                                <div class="pt-2 ml-auto">
+                                                    <a href="javascript:void(0);" class="btn btn-primary mb-1 mr-1" id="btnAddToContacts">Add Contact</a>
+                                                    <a href="/Home/Signup?Pid=@Dost.Models.Crypto.Encrypt(Model.UserCode)" class="btn btn-primary mb-1">Sign Up</a>
+                                                </div>
+                                                <div class="modal fade" id="sendMessageModal">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Sign</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form class="comment-form">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group">
+                                                                                <label class="text-black font-w600">Name <span class="required">*</span></label>
+                                                                                <input type="text" class="form-control" value="Author" name="Author" placeholder="Author">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group">
+                                                                                <label class="text-black font-w600">Email <span class="required">*</span></label>
+                                                                                <input type="text" class="form-control" value="Email" placeholder="Email" name="Email">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label class="text-black font-w600">Comment</label>
+                                                                                <textarea rows="8" class="form-control" name="comment" placeholder="Comment"></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group mb-0">
+                                                                                <input type="submit" value="Post Comment" class="submit btn btn-primary" name="submit">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row mt-4">
+                                                    <div class="col-xl-12 col-xxl-12 col-sm-12 social">
+                                                        @if (Model != null)
+                                                        {
+
+                                                            if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "Email").Any())
+                                                            {
+                                                                foreach (var item in Model.NfcContentList.Where(x => x.Type == "Email").ToList())
+                                                                {
+
+                                                                    <div class="col-xl-2 col-xxl-2 col-sm-2">
+                                                                        <div class="card">
+                                                                            <div class="">
+                                                                                <span class="s-icon"><a href="javascript:void(0)" target="_blank" style="background:#871505"><i class="fa fa-envelope fa-lg"></i></a></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        }
+                                                        <div class="col-xl-2 col-xxl-2 col-sm-2">
+                                                            <div class="card">
+                                                                <div class="">
+                                                                    <span class="s-icon"><a href="javascript:void(0)" target="_blank" style="background:#6e69f5"><i class="fa fa-address-card fa-lg" id="SaveContactCard"></i></a></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @if (Model != null)
+                                                        {
+                                                            if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "ContactNo").Any())
+                                                            {
+                                                                foreach (var item in Model.NfcContentList.Where(x => x.Type == "ContactNo").ToList())
+                                                                {
+                                                                    if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
+                                                                    {
+                                                                        <div class="col-xl-2 col-xxl-2 col-sm-2">
+                                                                            <div class="card">
+                                                                                <div class="">
+                                                                                    <span class="s-icon"><a href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank" style="background:#42f560"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        @if (Model != null)
+                                                        {
+                                                            if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "SocialMedia").Any())
+                                                            {
+                                                                foreach (var item in Model.NfcContentList.Where(x => x.Type == "SocialMedia").ToList())
+                                                                {
+
+                                                                    <div class="col-xl-2 col-xxl-2 col-sm-2">
+                                                                        <div class="card">
+                                                                            <div class="">
+                                                                                @if (item.Content.Contains("facebook") || item.Content.Contains("fb"))
+                                                                                {
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank" style="background:#4267B2"><i class="fa fa-facebook fa-lg"></i></a></span>
+                                                                                }
+                                                                                @if (item.Content.Contains("telegram") || item.Content.Contains("telegram"))
+                                                                                {
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank" style="background:#6e69f5"><i class="fa fa-telegram fa-lg"></i></a></span>
+                                                                                }
+                                                                                @if (item.Content.Contains("instagram") || item.Content.Contains("insta"))
+                                                                                {
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank" style="background:#E1306C"><i class="fa fa-instagram fa-lg"></i></a></span>
+                                                                                }
+                                                                                @if (item.Content.Contains("linkedin") || item.Content.Contains("link"))
+                                                                                {
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank" style="background:#E1306C"><i class="fa fa-instagram fa-lg"></i></a></span>
+                                                                                }
+                                                                                @if (item.Content.Contains("twitter") || item.Content.Contains("tw"))
+                                                                                {
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank" style="background:#1DA1F2"><i class="fa fa-twitter fa-lg"></i></a></span>
+                                                                                }
+                                                                                @if (item.Content.Contains("youtube") || item.Content.Contains("utube"))
+                                                                                {
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank" style="background:#FF0000"><i class="fa fa-youtube fa-lg"></i></a></span>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                }
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="profile-tab">
+                                            <div class="custom-tab-1">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="nav-item">
+                                                        <a href="#chats" data-toggle="tab" class="nav-link">Chats</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
+                                                    </li>
+                                                  
+                                                    <li class="nav-item">
+                                                        <a href="#broadcast" data-toggle="tab" class="nav-link">Broadcast</a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    
+                                                    <div id="about-me" class="tab-pane fade">
+                                                        <div class="profile-about-me">
+                                                            <div class="pt-4 border-bottom-1 pb-3">
+                                                                <h4 class="text-primary">About Me</h4>
+                                                                <textarea name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-skills mb-5">
+                                                            <h4 class="text-primary mb-2">Skills</h4>
+                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Admin</a>
+                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Dashboard</a>
+                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Photoshop</a>
+                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Bootstrap</a>
+                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Responsive</a>
+                                                            <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Crypto</a>
+                                                        </div>
+                                                        <div class="profile-lang  mb-5">
+                                                            <h4 class="text-primary mb-2">Language</h4>
+                                                            <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> English</a>
+                                                            <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-fr"></i> French</a>
+                                                            <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-bd"></i> Bangla</a>
+                                                        </div>
+                                                        <div class="profile-personal-info">
+                                                            <h4 class="text-primary mb-4">Achievements</h4>
+                                                            <div class="card">
+
+                                                                <div class="card-body">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table style-1" id="ListDatatableView">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th><i class="fa fa-star achiv"></th>
+                                                                                    <th>Achievements</th>
+
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <h6><i class="fa fa-star achiv"></i></h6>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="media style-1">
+                                                                                            <div class="media-body">
+                                                                                                <span>An Olympic silver medal is a remarkable achievement for one so young.</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </td>
+
+
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <h6><i class="fa fa-star achiv"></i></h6>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="media style-1">
+                                                                                            <div class="media-body">
+                                                                                                <span>An Olympic silver medal is a remarkable achievement. </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="chats" class="tab-pane fade active show">
+                                                        <div class="pt-3">
+                                                            <div class="settings-form">
+                                                                <h4 class="text-primary">Contact Us</h4>
+
+                                                                <div class="row mt-4">
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-facebook">
+                                                                                <span class="s-icon"><i class="fa fa-facebook fa-lg"></i></span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-whatsapp">
+                                                                                <span class="s-icon"><i class="fa fa-whatsapp fa-lg"></i></span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-telegram">
+                                                                                <span class="s-icon"><i class="fa fa-telegram fa-lg"></i></span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-instagram">
+                                                                                <span class="s-icon"><i class="fa fa-instagram fa-lg"></i></span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-linkedin">
+                                                                                <span class="s-icon"><i class="fa fa-linkedin fa-lg"></i></span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-twitter">
+                                                                                <span class="s-icon"><i class="fa fa-twitter fa-lg"></i></span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="broadcast" class="tab-pane fade">
+                                                        <div class="pt-3">
+                                                            <div class="settings-form">
+                                                                <h4 class="text-primary">Account Setting</h4>
+                                                                <form>
+                                                                    <div class="form-row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>Email</label>
+                                                                            <input type="email" placeholder="Email" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>Password</label>
+                                                                            <input type="password" placeholder="Password" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Address</label>
+                                                                        <input type="text" placeholder="1234 Main St" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Address 2</label>
+                                                                        <input type="text" placeholder="Apartment, studio, or floor" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>City</label>
+                                                                            <input type="text" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-4">
+                                                                            <label>State</label>
+                                                                            <select class="form-control default-select" id="inputState">
+                                                                                <option selected="">Choose...</option>
+                                                                                <option>Option 1</option>
+                                                                                <option>Option 2</option>
+                                                                                <option>Option 3</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-2">
+                                                                            <label>Zip</label>
+                                                                            <input type="text" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="checkbox" class="custom-control-input" id="gridCheck">
+                                                                            <label class="custom-control-label" for="gridCheck"> Check me out</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button class="btn btn-primary" type="submit">
+                                                                        Sign
+                                                                        in
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="replyModal">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Post Reply</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form>
+                                                                <textarea class="form-control" rows="4">Message</textarea>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Reply</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Session["NFCCode"] != null)
+                        {
+                            <input type="hidden" value="@Session["NFCCode"]" id="hdfCode" />
+                        }
+                    </div>
+                </div>
+            }
+            else if (ViewBag.NFCResopnse == "Wrong NFC Code")
+            {
+                <h4 class="text-center" style="color:red">@ViewBag.NFCResopnse </h4>
+            }
+            else
+            {
+                <div class="authincation h-100">
+                    <div class="container h-100">
+                        <div class="row justify-content-center h-100 align-items-center">
+                            <div class="col-md-6">
+                                <div class="authincation-content">
+                                    <div class="row no-gutters">
+                                        <div class="col-xl-12">
+                                            <div class="auth-form">
+                                                <h4 class="text-center mb-4">Welcome to Dost NFC Zone</h4>
+                                                <div class="text-center mb-3">
+                                                    <img src="~/images/nfc_logo.png" alt="" style="width:100px;">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="mb-1"><strong>If you are already a user please sign in to activate your NFC Card or Sign up Now</strong></label>
+
+                                                </div>
+                                                <div class="text-center">
+                                                    <input type="submit" class="btn btn-primary btn-block" value="Sign In" onclick="return funSignIn();">
+                                                </div>
+                                                <div class="new-account mt-3">
+                                                    <p>New User? <a class="text-primary" href="/Home/Signup">Create an Account</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        <!--**********************************
+            Content body end
+            ***********************************-->
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+        ***********************************-->
+    <!--**********************************
+        Scripts
+        ***********************************-->
+    <!-- Required vendors -->
+    <script src="~/vendor/global/global.min.js"></script>
+    <script src="~/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/vendor/chart.js/Chart.bundle.min.js"></script>
+
+    <!-- Chart piety plugin files -->
+    <script src="~/vendor/peity/jquery.peity.min.js"></script>
+
+    <!-- Apex Chart -->
+    <script src="~/vendor/apexchart/apexchart.js"></script>
+
+    <!-- Chart sparkline plugin files -->
+    <script src="~/vendor/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/js/plugins-init/sparkline-init.js"></script>
+
+    <!-- Dashboard 1 -->
+    <script src="~/js/dashboard/dashboard-1.js"></script>
+    <script src="~/vendor/owl-carousel/owl.carousel.js"></script>
+    <script src="~/js/custom.min.js"></script>
+    <script src="~/js/deznav-init.js"></script>
+    @*<script src="~/js/demo.js"></script>*@
+    <!-- <script src="js/styleSwitcher.js"></script> -->
+    <script>
+        jQuery(document).ready(function () {
+            setTimeout(function () {
+                dezSettingsOptions.version = 'dark';
+                new dezSettings(dezSettingsOptions);
+            }, 100)
+        });
+        function funSignIn() {
+            window.location.href = "/Home/Login";
+        }
+        $('#btnAddToContacts').click(function () {
+            debugger;
+            var id = $("#hdfCode").val();
+            var LogId = $("#LogId").val();
+            // id = getUrlParameter('id');
+            window.location.href = "/nfc/SaveVCF?id=" + id + "&LogId = " + LogId;
+        })
+        $("#SaveContactCard").click(function () {
+            debugger;
+            var id = $("#hdfCode").val();
+            var LogId = $("#LogId").val();
+            // id = getUrlParameter('id');
+            window.location.href = "/nfc/SaveVCF?id=" + id + "&LogId = " + LogId;
+        })
+    </script>
+
+
+</body>
+</html>

@@ -29,7 +29,7 @@
 {
     <div class="content-body">
         <div class="container-fluid">
-            <div class="form-head mb-sm-5 mb-3 d-flex align-items-center flex-wrap">
+            <div class="form-head mb-sm-5 d-flex align-items-center flex-wrap">
                 <h2 class="font-w600 mb-0 mr-auto mb-2 text-black">My Wallet</h2>
                 <a href="javascript:void(0);" class="btn btn-outline-secondary mr-3 mb-2"><i class="las la-calendar scale5 mr-2"></i>Filter Periode</a>
                 <a href="javascript:void(0);" class="btn btn-secondary mb-2">+ Add Wallet</a>
@@ -148,7 +148,7 @@
                                                                                         <div class="col-xl-6 col-lg-6 form-group">
                                                                                             <div class="mb-3">
                                                                                                 <label class="mb-1 text-white fs-14">Login Id </label>
-                                                                                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id", @onchange = "getmembername(this);", @Readonly = "true" })
+                                                                                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id", @onchange = "getmembername(this);", @Readonly = "true", @id = "Login_Id" })
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-xl-6 col-lg-6 form-group">
@@ -176,13 +176,13 @@
                                                                                     <div class="row">
                                                                                         <div class="col-xl-6 col-lg-6 form-group" id="bankname" style="display: none">
                                                                                             <div class="mb-3">
-                                                                                                <label class="mb-1 text-white fs-14">Bank Name <span class="text-danger">*</span></label>
+                                                                                                <label class="mb-1 text-white fs-14" id="lblbank">Bank Name </label><span class="text-danger">*</span>
                                                                                                 @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @placeholder = "Bank Name" })
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-xl-6 col-lg-6 form-group" id="chequeno" style="display: none">
                                                                                             <div class="mb-3">
-                                                                                                <label class="mb-1 text-white fs-14">Transaction No  <span class="text-danger">*</span></label>
+                                                                                                <label class="mb-1 text-white fs-14" id="lbltno">Transaction No  </label><span class="text-danger">*</span>
                                                                                                 @Html.TextBoxFor(m => m.DDChequeNo, new { @class = "form-control", @placeholder = "Transaction No" })
                                                                                             </div>
                                                                                         </div>
@@ -191,7 +191,7 @@
                                                                                     <div class="form-row">
                                                                                         <div class="col-xl-6 col-lg-6 form-group" id="chequdate" style="display: none">
                                                                                             <div class="mb-3">
-                                                                                                <label class="mb-1 text-white fs-14">Transaction Date <span class="text-danger">*</span></label>
+                                                                                                <label class="mb-1 text-white fs-14" id="lbltno">Transaction Date </label><span class="text-danger">*</span>
                                                                                                 @Html.TextBoxFor(m => m.DDChequeDate, new { @class = "form-control", @placeholder = "Transaction Date" })
                                                                                             </div>
                                                                                         </div>
@@ -205,7 +205,7 @@
                                                                                     </div>
                                                                                     <div class="row">
                                                                                         <div class="col-xl-12 col-lg-12 text-right">
-                                                                                            <input class="btn btn-primary mb-2 px-5" id="btnAddFund" name="btnAddFund" onclick="return validateform()" type="submit" value="Wallet Request" />
+                                                                                            <input class="btn btn-primary mb-2 px-5" id="btnAddFund" name="btnAddFund" onclick="return validateform();" type="submit" value="Wallet Request" />
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -316,34 +316,34 @@
                                             </div>
                                         </div>
                                         @*<div class="col-xl-6 col-lg-12 col-xxl-12 mb-lg-0 mb-3">
-                                            <p>Monthly Limits</p>
-                                            <div class="row">
-                                                <div class="col-sm-4 mb-sm-0 mb-4 text-center">
-                                                    <div class="d-inline-block position-relative donut-chart-sale mb-3">
-                                                        <span class="donut1" data-peity='{ "fill": ["rgb(255, 104, 38)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>5/8</span>
-                                                        <small>66%</small>
+                                                <p>Monthly Limits</p>
+                                                <div class="row">
+                                                    <div class="col-sm-4 mb-sm-0 mb-4 text-center">
+                                                        <div class="d-inline-block position-relative donut-chart-sale mb-3">
+                                                            <span class="donut1" data-peity='{ "fill": ["rgb(255, 104, 38)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>5/8</span>
+                                                            <small>66%</small>
+                                                        </div>
+                                                        <h5 class="fs-18 text-black">Withdraw Limit</h5>
+                                                        <span>$10,000</span>
                                                     </div>
-                                                    <h5 class="fs-18 text-black">Withdraw Limit</h5>
-                                                    <span>$10,000</span>
-                                                </div>
-                                                <div class="col-sm-4 mb-sm-0 mb-4 text-center">
-                                                    <div class="d-inline-block position-relative donut-chart-sale mb-3">
-                                                        <span class="donut1" data-peity='{ "fill": ["rgb(29, 198, 36)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>4/9</span>
-                                                        <small>31%</small>
+                                                    <div class="col-sm-4 mb-sm-0 mb-4 text-center">
+                                                        <div class="d-inline-block position-relative donut-chart-sale mb-3">
+                                                            <span class="donut1" data-peity='{ "fill": ["rgb(29, 198, 36)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>4/9</span>
+                                                            <small>31%</small>
+                                                        </div>
+                                                        <h5 class="fs-18 text-black">Transfer Limit</h5>
+                                                        <span>$500</span>
                                                     </div>
-                                                    <h5 class="fs-18 text-black">Transfer Limit</h5>
-                                                    <span>$500</span>
-                                                </div>
-                                                <div class="col-sm-4 text-center">
-                                                    <div class="d-inline-block position-relative donut-chart-sale mb-3">
-                                                        <span class="donut1" data-peity='{ "fill": ["rgb(158, 158, 158)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>2/8</span>
-                                                        <small>7%</small>
+                                                    <div class="col-sm-4 text-center">
+                                                        <div class="d-inline-block position-relative donut-chart-sale mb-3">
+                                                            <span class="donut1" data-peity='{ "fill": ["rgb(158, 158, 158)", "rgba(240, 240, 240)"],   "innerRadius": 40, "radius": 10}'>2/8</span>
+                                                            <small>7%</small>
+                                                        </div>
+                                                        <h5 class="fs-18 text-black">Wallet Limit</h5>
+                                                        <span>$100</span>
                                                     </div>
-                                                    <h5 class="fs-18 text-black">Wallet Limit</h5>
-                                                    <span>$100</span>
                                                 </div>
-                                            </div>
-                                        </div>*@
+                                            </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -399,9 +399,13 @@
                                                                     {
                                                                         <td>
                                                                             <span>
-                                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                @*<svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                                     <rect width="63" height="63" rx="14" fill="#71B945" />
                                                                                     <path d="M40.6186 32.7207L40.6186 32.7207L40.6353 39.6289C40.6354 39.6328 40.6354 39.6363 40.6353 39.6396M40.6186 32.7207L40.1353 39.6341L40.6353 39.635C40.6353 39.6481 40.6347 39.6583 40.6345 39.6627L40.6344 39.6642C40.6346 39.6609 40.6351 39.652 40.6353 39.6407C40.6353 39.6403 40.6353 39.64 40.6353 39.6396M40.6186 32.7207C40.6167 31.9268 39.9717 31.2847 39.1777 31.2866C38.3838 31.2885 37.7417 31.9336 37.7436 32.7275L37.7436 32.7275L37.7519 36.1563M40.6186 32.7207L37.7519 36.1563M40.6353 39.6396C40.6329 40.4282 39.9931 41.0705 39.2017 41.0726C39.2 41.0726 39.1983 41.0727 39.1965 41.0727L39.1944 41.0727L39.1773 41.0726L32.2834 41.056L32.2846 40.556L32.2834 41.056C31.4897 41.054 30.8474 40.4091 30.8494 39.615C30.8513 38.8211 31.4964 38.179 32.2903 38.1809L32.2903 38.1809L35.719 38.1892L22.5364 25.0066C21.975 24.4452 21.975 23.5351 22.5364 22.9737C23.0978 22.4123 24.0079 22.4123 24.5693 22.9737L37.7519 36.1563M40.6353 39.6396C40.6353 39.6376 40.6353 39.6356 40.6353 39.6336L37.7519 36.1563M39.1964 41.0726C39.1957 41.0726 39.1951 41.0726 39.1944 41.0726L39.1964 41.0726Z" fill="white" stroke="white" />
+                                                                                </svg>*@
+                                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect width="63" height="63" rx="14" fill="#625794"></rect>
+                                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white"></path>
                                                                                 </svg>
                                                                             </span>
                                                                         </td>
@@ -410,32 +414,49 @@
                                                                     {
                                                                         <td>
                                                                             <span>
-                                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                @*<svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                                     <rect width="63" height="63" rx="14" fill="#FF5757" />
                                                                                     <path d="M22.1318 30.9043L22.1318 30.9043L22.1151 23.9961C22.1151 23.9922 22.1151 23.9887 22.1152 23.9854M22.1318 30.9043L22.6152 23.9909L22.1152 23.99C22.1152 23.9769 22.1157 23.9667 22.116 23.9623L22.1161 23.9608C22.1159 23.9641 22.1154 23.973 22.1152 23.9843C22.1152 23.9847 22.1152 23.985 22.1152 23.9854M22.1318 30.9043C22.1338 31.6982 22.7788 32.3403 23.5728 32.3384C24.3667 32.3365 25.0088 31.6914 25.0069 30.8975L25.0069 30.8975L24.9986 27.4687M22.1318 30.9043L24.9986 27.4687M22.1152 23.9854C22.1176 23.1968 22.7574 22.5545 23.5488 22.5524C23.5504 22.5524 23.5522 22.5523 23.554 22.5523L23.5561 22.5523L23.5732 22.5524L30.4671 22.569L30.4658 23.069L30.4671 22.569C31.2608 22.571 31.903 23.2159 31.9011 24.01C31.8992 24.8039 31.2541 25.446 30.4602 25.4441L30.4602 25.4441L27.0315 25.4358L40.2141 38.6184C40.7755 39.1798 40.7755 40.0899 40.2141 40.6513C39.6527 41.2127 38.7426 41.2127 38.1812 40.6513L24.9986 27.4687M22.1152 23.9854C22.1152 23.9874 22.1152 23.9894 22.1152 23.9914L24.9986 27.4687M23.5541 22.5524C23.5547 22.5524 23.5554 22.5524 23.5561 22.5524L23.5541 22.5524Z" fill="white" stroke="white" />
+                                                                                </svg>*@
+                                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect width="63" height="63" rx="14" fill="#625794"></rect>
+                                                                                    <path d="M37.2692 38.9908L37.2692 38.9908L32.3961 43.8874C32.3934 43.8902 32.3909 43.8927 32.3885 43.895M37.2692 38.9908L32.0389 43.5375L32.3918 43.8917C32.3825 43.9009 32.3749 43.9078 32.3716 43.9107L32.3705 43.9117C32.373 43.9095 32.3796 43.9036 32.3877 43.8957C32.388 43.8955 32.3883 43.8952 32.3885 43.895M37.2692 38.9908C37.8291 38.4281 37.827 37.5179 37.2643 36.9578C36.7016 36.3978 35.7914 36.3999 35.2314 36.9626L35.2313 36.9627L32.8127 39.393M37.2692 38.9908L32.8127 39.393M32.3885 43.895C31.8292 44.4509 30.9226 44.4526 30.3615 43.8946C30.3603 43.8934 30.3591 43.8922 30.3578 43.8909L30.3563 43.8894L30.3442 43.8773L25.4813 38.9908L25.8357 38.6381L25.4813 38.9908C24.9215 38.4282 24.9234 37.518 25.4862 36.9578C26.049 36.3978 26.9591 36.4 27.5191 36.9627L27.5192 36.9627L29.9377 39.393L29.9377 20.75C29.9377 19.9561 30.5813 19.3125 31.3752 19.3125C32.1692 19.3125 32.8127 19.9561 32.8127 20.75L32.8127 39.393M32.3885 43.895C32.39 43.8935 32.3914 43.8921 32.3928 43.8907L32.8127 39.393M30.3577 43.8908C30.3573 43.8903 30.3568 43.8899 30.3564 43.8894L30.3577 43.8908Z" fill="white" stroke="white"></path>
                                                                                 </svg>
                                                                             </span>
                                                                         </td>
                                                                     }
-                                                                    <td class="wspace-no">
-                                                                        <span class="font-w600 text-black">&nbsp;</span>
-                                                                    </td>
                                                                     @if (Item.DrAmount == "0")
                                                                     {
                                                                         <td>
-                                                                            <span class="font-w600 text-black">₹  @Item.CrAmount</span>
+                                                                            <span class="font-w600 text-black">Credit</span>
                                                                         </td>
                                                                     }
                                                                     else
                                                                     {
                                                                         <td>
-                                                                            <span class="font-w600 text-black">₹  @Item.DrAmount</span>
+                                                                            <span class="font-w600 text-black">Withdraw</span>
+                                                                        </td>
+                                                                    }
+                                                                    <td class="wspace-no">
+                                                                        <span class="font-w600 text-black">&nbsp;</span>
+                                                                    </td>
+                                                                    <td><span class="float-right" href="javascript:void(0);">@Item.Narration</span></td>
+                                                                    @if (Item.DrAmount == "0")
+                                                                    {
+                                                                        <td>
+                                                                            <span class="font-w600 text-black">+₹ @Item.CrAmount</span>
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            <span class="font-w600 text-black">-₹  @Item.DrAmount</span>
                                                                         </td>
                                                                     }
                                                                     <td>
                                                                         <span class="text-black">@Item.AddedOn</span>
                                                                     </td>
-                                                                    <td><span class="float-right" href="javascript:void(0);">@Item.Narration</span></td>
+
                                                                 </tr>
 
 
@@ -451,9 +472,15 @@
                                     </div>
 
                                 </div>
-                                <div class="card-footer border-0 p-0 caret" id="divcaret">
-                                    <a href="/Wallet/Statement" class="btn-link mt-1"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
-                                </div>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstewalletledger != null)
+                                    {
+                                        <div class="card-footer border-0 p-0 caret" id="divcaret">
+                                            <a href="/Wallet/Statement" class="btn-link mt-1"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                        </div>
+                                    }
+                                }
                             </div>
                         </div>
                     </div>
@@ -464,87 +491,78 @@
                             <div class="card">
                                 <div class="card-header d-sm-flex d-block pb-0 border-0">
                                     @*<div>
-                                        <h4 class="fs-20 text-black">Quick Transfer</h4>
-                                        <p class="mb-0 fs-12">Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>*@
+                                            <h4 class="fs-20 text-black">Quick Transfer</h4>
+                                            <p class="mb-0 fs-12">Lorem ipsum dolor sit amet, consectetur</p>
+                                        </div>*@
                                     <div class="dropdown custom-dropdown d-block mt-3 mt-sm-0 mb-0">
-                                        <div class="btn btn-light d-flex align-items-center svg-btn" role="button" data-toggle="dropdown" aria-expanded="false">
+                                        @* <div class="btn btn-light d-flex align-items-center svg-btn" role="button" data-toggle="dropdown" aria-expanded="false">
                                             <!-- <svg class="mr-2" width="25" height="25" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M21 0C9.40213 0 0.00012207 9.40201 0.00012207 20.9999C0.00012207 32.5978 9.40213 41.9998 21 41.9998C32.5979 41.9998 41.9999 32.5978 41.9999 20.9999C41.9867 9.4075 32.5924 0.0132751 21 0ZM28.5 31.5001H16.5002C15.6717 31.5001 15.0001 30.8286 15.0001 30C15.0001 29.929 15.0052 29.8581 15.0152 29.7876L16.1441 21.8843L13.864 22.4547C13.7449 22.4849 13.6227 22.5 13.5 22.5C12.6715 22.4991 12.0009 21.8271 12.0013 20.9985C12.0022 20.311 12.4701 19.7122 13.137 19.5447L16.6018 18.6786L18.015 8.78723C18.1321 7.96692 18.892 7.39746 19.7123 7.51465C20.5327 7.63184 21.1021 8.39172 20.9849 9.21204L19.7444 17.8931L25.1364 16.545C25.9388 16.3403 26.755 16.8251 26.9592 17.6276C27.1638 18.43 26.679 19.2462 25.8766 19.4508C25.872 19.4518 25.8674 19.4531 25.8629 19.454L19.2857 21.0983L18.2287 28.4999H28.5C29.3286 28.4999 30.0001 29.1714 30.0001 30C30.0001 30.8281 29.3286 31.5001 28.5 31.5001Z" fill="#5974D5"/>
                                             </svg> -->
-                                            @*<span class="text-black fs-16">23,511 LTC</span>*@
-                                            @*<i class="fa fa-angle-down text-black scale3 ml-2"></i>*@
-                                        </div>
+                                            <span class="text-black fs-16">23,511 LTC</span>*@
+                                        @*<i class="fa fa-angle-down text-black scale3 ml-2"></i>
+                                            </div>*@
                                         @*<div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item">345,455 ETH</a>
-                                            <a href="#" class="dropdown-item ">789,123 BTH</a>
-                                        </div>*@
+                                                <a href="#" class="dropdown-item">345,455 ETH</a>
+                                                <a href="#" class="dropdown-item ">789,123 BTH</a>
+                                            </div>*@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="form-wrapper">
-                                        <div class="form-group">
-                                            <div class="input-group input-group-lg">
-                                                <div class="input-group-prepend">
-                                                    <button type="button" class="input-group-text dropdown-toggle" data-toggle="dropdown">
-                                                        Amount INR
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a href="#" class="dropdown-item">Amount INR</a>
-                                                        <a href="#" class="dropdown-item">Amount Dost Coin</a>
-                                                    </div>
+                                    <form type="POST" id="form2">
+                                        <div class="form-wrapper">
+                                            <div class="form-group">
+                                                <div>
+                                                    <h4 class="fs-20 text-black">Quick Transfer</h4>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="₹74262">
+                                                <div class="input-group input-group-lg">
+                                                    <div class="input-group-prepend">
+                                                        <button type="button" class="input-group-text dropdown-toggle" data-toggle="dropdown">
+                                                            Amount INR
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a href="#" class="dropdown-item">Amount INR</a>
+                                                            <a href="#" class="dropdown-item">Amount Dost Coin</a>
+                                                        </div>
+                                                    </div>
+                                                    @Html.TextBoxFor(m => m.WalletAmount, new { @class = "form-control", @Placeholder = "0", @onkeypress = "return isNumberKey(event);", @onchange = "return ShowDiv()" })
+                                                    &nbsp;&nbsp;
+                                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @maxlength = "10", @Placeholder = "Mobile No", @onchange = "getmembernamefortransfer(this);", @onkeypress = "return isNumberKey(event);", @style = "display:none" })
+                                                    @*<input type="text" class="form-control" placeholder="">*@
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                     <div class="d-flex mb-3 justify-content-between align-items-center">
                                         <h4 class="text-black fs-20 mb-0">Recent Contacts</h4>
                                         <a href="javascript:void(0);" class="btn-link">View more</a>
                                     </div>
                                     <div class="testimonial-one px-4 owl-right-nav owl-carousel owl-loaded owl-drag">
-                                        <div class="items">
-                                            <div class="text-center">
-                                                <img class="mb-3 rounded" src="images/contacts/Untitled-1.jpg" alt="">
-                                                <h5 class="mb-0"><a class="text-black" href="javascript:void(0);">Samuel</a></h5>
-                                                <span class="fs-12">sam224</span>
-                                            </div>
-                                        </div>
-                                        <div class="items">
-                                            <div class="text-center">
-                                                <img class="mb-3 rounded" src="images/contacts/Untitled-2.jpg" alt="">
-                                                <h5 class="mb-0"><a class="text-black" href="javascript:void(0);">Cindy</a></h5>
-                                                <span class="fs-12">cindyss</span>
-                                            </div>
-                                        </div>
-                                        <div class="items">
-                                            <div class="text-center">
-                                                <img class="mb-3 rounded" src="images/contacts/Untitled-3.jpg" alt="">
-                                                <h5 class="mb-0"><a class="text-black" href="javascript:void(0);">David</a></h5>
-                                                <span class="fs-12">davidxc</span>
-                                            </div>
-                                        </div>
-                                        <div class="items">
-                                            <div class="text-center">
-                                                <img class="mb-3 rounded" src="images/contacts/Untitled-4.jpg" alt="">
-                                                <h5 class="mb-0"><a class="text-black" href="javascript:void(0);">Martha</a></h5>
-                                                <span class="fs-12">marthaa</span>
-                                            </div>
-                                        </div>
-                                        <div class="items">
-                                            <div class="text-center">
-                                                <img class="mb-3 rounded" src="images/contacts/Untitled-5.jpg" alt="">
-                                                <h5 class="mb-0"><a class="text-black" href="javascript:void(0);">Olivia</a></h5>
-                                                <span class="fs-12">oliv62</span>
-                                            </div>
-                                        </div>
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstUser != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.lstUser)
+                                                {
+                                                    <div class="items" onclick="return fillvalue(@Item.Mobile)">
+                                                        <div class="text-center">
+                                                            <img class="mb-3 rounded" src="@Item.ProfilePic" alt="">
+                                                            <h6 class="mb-0" @*style="font-size:0.738rem"*@><a class="text-black" href="javascript:void(0);">@Item.DisplayName</a></h6>
+                                                            <span class="fs-12">@Item.Mobile</span>
+                                                        </div>
+                                                    </div>
+                                                    i = i + 1;
+                                                }
+                                            }
+                                        }
                                     </div>
                                     <div class="row pt-5 align-items-center">
-                                        @*<div class="col-sm-6 mb-2">
-                                            <p class="mb-0 fs-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
-                                        </div>*@
                                         <div class="col-sm-6 mb-2">
-                                            <a href="javascript:void(0);" class="btn btn-secondary d-block">TRANSFER NOW</a>
+                                                <p class="mb-0 fs-14"></p>
+                                            </div>
+                                        <div class="col-sm-6 mb-2">
+                                            <input class="btn btn-secondary d-block btn-lg float-right" onclick="return validateAmountTransfer()" type="button" value="TRANSFER NOW" id="btnQuickTransfer" name="btnQuickTransfer" />
                                         </div>
                                     </div>
                                 </div>
@@ -626,6 +644,14 @@
             e.preventDefault();
         });
     });
+    function ShowDiv() {
+        $('#Mobile').show();
+    }
+    function fillvalue(evt) {
+        debugger;
+        $('#Mobile').val(evt);
+        $('#Mobile').show();
+    }
     $('#DDChequeDate').datepicker({
         dateFormat: 'dd/mm/yy',
     });
@@ -640,11 +666,22 @@
     function getpaymentdetails() {
         debugger;
         var paymentmode = ($("#PaymentMode option:selected").text());
-        if (paymentmode != "Cash") {
+        if (paymentmode != "Cash" && paymentmode != "UPI") {
+
             bankname.style.display = "block";
             chequeno.style.display = "block";
             chequdate.style.display = "block";
             bankbranch.style.display = "block";
+            $("#BankName").attr("placeholder", "Bank Name");
+            $("#lblbank").html('Bank Name');
+        }
+        else if (paymentmode == "UPI") {
+
+            bankname.style.display = "block";
+            chequeno.style.display = "block";
+            chequdate.style.display = "block";
+            $("#BankName").attr("placeholder", "UPI Id");
+            $("#lblbank").html('UPI Id');
         }
         else {
             bankname.style.display = "none";
@@ -666,10 +703,9 @@
             }
             reader.readAsDataURL(event.target.files[0]);
         }
-
-
     }
     function validateform() {
+        debugger;
         $(".errortext").removeClass("errortext");
         if ($('#LoginId').val() == '') {
             $("#LoginId").addClass('errortext');
@@ -703,6 +739,59 @@
                 return false;
             }
         }
+        var formData = new FormData();
+        formData.append("LoginId", $("#Login_Id").val());
+        formData.append("Amount", $("#Amount").val());
+        $.ajax({
+            url: "/Wallet/AddFund",
+            type: "POST",
+            dataType: "JSON",
+            data: { LoginId: $("#Login_Id").val(), Amount: $("#Amount").val(), PaymentMode: $("#PaymentMode").val() },
+            success: function (data) {
+                if (data != null) {
+                    if (data.Result == "Yes") {
+                        toastr.success("Fund requested successfully ", "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                    else {
+                        toastr.error(data.Result, "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                }
+            }
+        });
         //var status = $('#status');
         //var preloader = $('#preloader');
         //var body = $('body');
@@ -764,6 +853,26 @@
             return false;
         }
     }
+    function validateAmountTransfer() {
+        debugger
+        $(".errortext").removeClass("errortext");
+        if ($('#WalletAmount').val() == '') {
+            $("#WalletAmount").addClass('errortext');
+            $('#WalletAmount').focus();
+            return false;
+        }
+        if ($('#WalletAmount').val() == '0') {
+            $('#WalletAmount').val('');
+            $("#WalletAmount").addClass('errortext');
+            $('#WalletAmount').focus();
+            return false;
+        }
+        if ($('#Mobile').val() == '') {
+            $("#Mobile").addClass('errortext');
+            $('#Mobile').focus();
+            return false;
+        }
+    }
     function getmembernamefortransfer() {
         var MobileNo = $('#MobileNo').val();
         $.ajax({
@@ -822,25 +931,70 @@
             $('#WithDrawAmount').focus();
             return false;
         }
+        $.ajax({
+            url: "/Wallet/SavePayoutRequest",
+            type: "POST",
+            dataType: "JSON",
+            data: { LoginId: $("#LoginId").val(), Amount: $("#WithDrawAmount").val() },
+            success: function (data) {
+                if (data != null) {
+                    if (data.Result == "Yes") {
+                        toastr.success("Withdraw requested successfully ", "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                    else {
+                        toastr.error(data.Result, "", {
+                            positionClass: "toast-top-right",
+                            timeOut: 5e3,
+                            closeButton: !0,
+                            debug: !1,
+                            newestOnTop: !0,
+                            progressBar: !0,
+                            preventDuplicates: !0,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        })
+                    }
+                }
+            }
+        });
         return true;
-
     }
-
     function getcFillterDate(TypeDate) {
-        if (TypeDate == "Monthly")
-        {
+        if (TypeDate == "Monthly") {
             $("#Monthly").addClass("active");
             $("#Weekly").removeClass("active");
             $("#Today").removeClass("active");
         }
-        else if (TypeDate == "Weekly")
-        {
+        else if (TypeDate == "Weekly") {
             $("#Weekly").addClass("active");
             $("#Monthly").removeClass("active");
             $("#Today").removeClass("active");
         }
-        else if (TypeDate == "Today")
-        {
+        else if (TypeDate == "Today") {
             $("#Weekly").removeClass("active");
             $("#Monthly").removeClass("active");
             $("#Today").addClass("active");
@@ -855,26 +1009,26 @@
                 debugger;
                 $("#table1").html('');
                 if (data.Result == "Yes") {
-                  
                     if (data.lstewalletledger != null) {
                         for (var i = 0 ; i < data.lstewalletledger.length; i++) {
                             debugger;
-                            if (data.lstewalletledger[i].DrAmount == '0')
-                            {
+                            if (data.lstewalletledger[i].DrAmount == '0') {
                                 $("#table1").append("<tr><td><span><svg width='50' height='50' viewBox='0 0 63 63' fill='none' xmlns='http://www.w3.org/2000/svg'><rect width='63' height='63' rx='14' fill='#71B945' /><path d='M40.6186 32.7207L40.6186 32.7207L40.6353 39.6289C40.6354 39.6328 40.6354 39.6363 40.6353 39.6396M40.6186 32.7207L40.1353 39.6341L40.6353 39.635C40.6353 39.6481 40.6347 39.6583 40.6345 39.6627L40.6344 39.6642C40.6346 39.6609 40.6351 39.652 40.6353 39.6407C40.6353 39.6403 40.6353 39.64 40.6353 39.6396M40.6186 32.7207C40.6167 31.9268 39.9717 31.2847 39.1777 31.2866C38.3838 31.2885 37.7417 31.9336 37.7436 32.7275L37.7436 32.7275L37.7519 36.1563M40.6186 32.7207L37.7519 36.1563M40.6353 39.6396C40.6329 40.4282 39.9931 41.0705 39.2017 41.0726C39.2 41.0726 39.1983 41.0727 39.1965 41.0727L39.1944 41.0727L39.1773 41.0726L32.2834 41.056L32.2846 40.556L32.2834 41.056C31.4897 41.054 30.8474 40.4091 30.8494 39.615C30.8513 38.8211 31.4964 38.179 32.2903 38.1809L32.2903 38.1809L35.719 38.1892L22.5364 25.0066C21.975 24.4452 21.975 23.5351 22.5364 22.9737C23.0978 22.4123 24.0079 22.4123 24.5693 22.9737L37.7519 36.1563M40.6353 39.6396C40.6353 39.6376 40.6353 39.6356 40.6353 39.6336L37.7519 36.1563M39.1964 41.0726C39.1957 41.0726 39.1951 41.0726 39.1944 41.0726L39.1964 41.0726Z' fill='white' stroke='white' /></svg></span></td><td class='wspace-no'><span class='font-w600 text-black'>&nbsp;</span></td><td><span class='font-w600 text-black'>₹ " + data.lstewalletledger[i].CrAmount + "</span></td><td><span class='font-w600 text-black'>₹ " + data.lstewalletledger[i].DrAmount + "</span></td> <td><span class='text-black'>" + data.lstewalletledger[i].AddedOn + "</span></td><td><span class='float-right' href='javascript:void(0);'>" + data.lstewalletledger[i].Narration + "</span></td></tr>");
                             }
                             else {
                                 $("#table1").append("<tr><td><span><svg width='50' height='50' viewBox='0 0 63 63' fill='none' xmlns='http://www.w3.org/2000/svg'><rect width='63' height='63' rx='14' fill='#FF5757' /><path d='M22.1318 30.9043L22.1318 30.9043L22.1151 23.9961C22.1151 23.9922 22.1151 23.9887 22.1152 23.9854M22.1318 30.9043L22.6152 23.9909L22.1152 23.99C22.1152 23.9769 22.1157 23.9667 22.116 23.9623L22.1161 23.9608C22.1159 23.9641 22.1154 23.973 22.1152 23.9843C22.1152 23.9847 22.1152 23.985 22.1152 23.9854M22.1318 30.9043C22.1338 31.6982 22.7788 32.3403 23.5728 32.3384C24.3667 32.3365 25.0088 31.6914 25.0069 30.8975L25.0069 30.8975L24.9986 27.4687M22.1318 30.9043L24.9986 27.4687M22.1152 23.9854C22.1176 23.1968 22.7574 22.5545 23.5488 22.5524C23.5504 22.5524 23.5522 22.5523 23.554 22.5523L23.5561 22.5523L23.5732 22.5524L30.4671 22.569L30.4658 23.069L30.4671 22.569C31.2608 22.571 31.903 23.2159 31.9011 24.01C31.8992 24.8039 31.2541 25.446 30.4602 25.4441L30.4602 25.4441L27.0315 25.4358L40.2141 38.6184C40.7755 39.1798 40.7755 40.0899 40.2141 40.6513C39.6527 41.2127 38.7426 41.2127 38.1812 40.6513L24.9986 27.4687M22.1152 23.9854C22.1152 23.9874 22.1152 23.9894 22.1152 23.9914L24.9986 27.4687M23.5541 22.5524C23.5547 22.5524 23.5554 22.5524 23.5561 22.5524L23.5541 22.5524Z' fill='white' stroke='white' /></svg></span></td><td class='wspace-no'><span class='font-w600 text-black'>&nbsp;</span></td><td><span class='font-w600 text-black'>₹ " + data.lstewalletledger[i].CrAmount + "</span></td><td><span class='font-w600 text-black'>₹ " + data.lstewalletledger[i].DrAmount + "</span></td> <td><span class='text-black'>" + data.lstewalletledger[i].AddedOn + "</span></td><td><span class='float-right' href='javascript:void(0);'>" + data.lstewalletledger[i].Narration + "</span></td></tr>");
                             }
-
                         }
+                    }
+                    else {
+                        $("#table1").append("<tr><td><span class='text-black'>No Record Found</span></td></tr>");
+                        $("#divcaret").hide();
                     }
                 }
                 else {
                     $("#table1").append("<tr><td><span class='text-black'>No Record Found</span></td></tr>");
                     $("#divcaret").hide();
                 }
-               
                 //else {
                 //    $("#First_NM").val('');
                 //    $("#Pan_Card").val('');
@@ -884,9 +1038,59 @@
                 //    alert(data.Result);
 
                 //}
-
-
             }
         });
     }
+
+    $("#btnQuickTransfer").click(function () {
+        debugger;
+        $.ajax({
+            url: '/Wallet/QuickTransferEwallet',
+            type: "POST",
+            dataType: "JSON",
+            data: { Mobile: $("#Mobile").val(), Amount: $("#WalletAmount").val() },
+            success: function (data) {
+                if (data.Result == "Yes") {
+                    toastr.success("Amount transferred successfully ", "", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    })
+                }
+                else {
+                    toastr.error(data.Result, "", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5e3,
+                        closeButton: !0,
+                        debug: !1,
+                        newestOnTop: !0,
+                        progressBar: !0,
+                        preventDuplicates: !0,
+                        onclick: null,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: !1
+                    })
+                }
+            }
+        });
+    })
 </script>

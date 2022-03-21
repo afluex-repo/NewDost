@@ -51,7 +51,16 @@ namespace Dost.Models
         public string EventName { get; set; }
         public string ErrorMessage { get; set; }
         public string UserCode { get; set; }
+        public List<Dashboard> lstUser { get; set; }
+        public string WalletAmount { get; set; }
+        public string Mobile { get; set; }
+        public HttpPostedFileBase fileProfilePicture { get; set; }
         #endregion
+        public DataSet userlist()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetUserforTransaction");
+            return ds;
+        }
         public DataSet GetDigiWalletBalance()
         {
             SqlParameter[] para = {

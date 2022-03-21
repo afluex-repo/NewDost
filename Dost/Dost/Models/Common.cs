@@ -17,11 +17,12 @@ namespace Dost.Models
         public string Fk_SponsorId1 { get; set; }
         public string ReferBy { get; set; }
         public string Result { get; set; }
-        public string Pincode { get; set; }
+        //public string Pincode { get; set; }
         public string DisplayName { get; set; }
         public string AddedOn { get; set; }
         public string Leg1 { get; set; }
         public string IsAcceptanceTNC { get; set; }
+        public string LoginId { get; set; }
         public static string GenerateRandom()
         {
             Random r = new Random();
@@ -116,7 +117,7 @@ namespace Dost.Models
         }
         public DataSet GetStateCity()
         {
-            SqlParameter[] para = { new SqlParameter("@Pincode", Pincode) };
+            SqlParameter[] para = { new SqlParameter("@Pincode", PinCode) };
             DataSet ds = DBHelper.ExecuteQuery("GetStateCity", para);
             return ds;
         }
@@ -166,7 +167,7 @@ namespace Dost.Models
         public DataSet GetMemberDetails()
         {
             SqlParameter[] para = {
-                                      new SqlParameter("@Id", ReferBy),
+                                      new SqlParameter("@LoginId", ReferBy),
 
                                   };
             DataSet ds = DBHelper.ExecuteQuery("GetMemberName", para);
@@ -415,6 +416,8 @@ namespace Dost.Models
         public string City { get; set; }
 
         public string State { get; set; }
+        public string PinCode { get; internal set; }
+
         //public string FK_UserId { get; set; }
 
         //public string FK_CardTypeId { get; set; }

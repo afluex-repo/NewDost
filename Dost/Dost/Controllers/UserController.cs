@@ -17,6 +17,7 @@ namespace Dost.Controllers
         public ActionResult UserDashboard()
         {
             Dashboard obj = new Dashboard();
+            TempData["LoginResponse"] = "";
             List<Dashboard> lstinvestment = new List<Dashboard>();
             obj.Fk_UserId = Session["Pk_UserId"].ToString();
             DataSet ds = obj.GetAssociateDashboard();
@@ -578,8 +579,8 @@ namespace Dost.Controllers
                         TempData["Wallet"] = "Yes";
                         try
                         {
-                            string str = "Rs. " + obj.Amount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
-                            string str2 = "You have received Rs. " + obj.Amount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
+                            string str = "Rs. " + obj.TransferAmount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
+                            string str2 = "You have received Rs. " + obj.TransferAmount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
                             BLSMS.sendSMSUpdated(str, obj.SenderMobile);
                             BLSMS.sendSMSUpdated(str2, obj.ReceiverMobile);
                         }
@@ -591,8 +592,8 @@ namespace Dost.Controllers
                         {
                             string Subject1 = "Wallet Transfer";
                             string Subject2 = "Fund Received";
-                            string MailBody1 = "INR " + obj.Amount + " has been successfully transferred from your DOST wallet to user " + obj.ReceiverName + ".<br><br>For any issue please reach us through email or through DOST helpline.";
-                            string MailBody2 = "INR " + obj.Amount + " has been successfully credited into your DOST wallet from the user " + obj.SenderName + "<br><br>For any issue please reach us through email or through DOST helpline.";
+                            string MailBody1 = "INR " + obj.TransferAmount + " has been successfully transferred from your DOST wallet to user " + obj.ReceiverName + ".<br><br>For any issue please reach us through email or through DOST helpline.";
+                            string MailBody2 = "INR " + obj.TransferAmount + " has been successfully credited into your DOST wallet from the user " + obj.SenderName + "<br><br>For any issue please reach us through email or through DOST helpline.";
                             BLMail.SendTransactionMail(obj.SenderName, MailBody1, Subject1, obj.SenderEmail);
                             BLMail.SendTransactionMail(obj.ReceiverName, MailBody2, Subject2, obj.ReceiverEmail);
                         }
@@ -698,7 +699,7 @@ namespace Dost.Controllers
                 obj.Email = dt2.Tables[0].Rows[0]["Email"].ToString();
                 obj.FatherName = dt2.Tables[0].Rows[0]["FatherName"].ToString();
                 obj.Address = dt2.Tables[0].Rows[0]["Address"].ToString();
-                obj.Pincode = dt2.Tables[0].Rows[0]["Pincode"].ToString();
+                obj.PinCode = dt2.Tables[0].Rows[0]["Pincode"].ToString();
 
                 obj.DOB = dt2.Tables[0].Rows[0]["DOB"].ToString();
                 obj.NameH = dt2.Tables[0].Rows[0]["NameH"].ToString();
@@ -770,7 +771,7 @@ namespace Dost.Controllers
                 obj.Email = dt3.Tables[0].Rows[0]["Email"].ToString();
                 obj.FatherName = dt3.Tables[0].Rows[0]["FatherName"].ToString();
                 obj.Address = dt3.Tables[0].Rows[0]["Address"].ToString();
-                obj.Pincode = dt3.Tables[0].Rows[0]["Pincode"].ToString();
+                obj.PinCode = dt3.Tables[0].Rows[0]["Pincode"].ToString();
 
                 obj.DOB = dt3.Tables[0].Rows[0]["DOB"].ToString();
                 obj.NameH = dt3.Tables[0].Rows[0]["NameH"].ToString();
@@ -856,9 +857,28 @@ namespace Dost.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
-
         #endregion
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            TempData["LoginResponse"] = "";
+            return RedirectToAction("Login", "Home");
+        }
+        public ActionResult GetSponserDetails(string ReferBy)
+        {
+            Common obj = new Common();
+            obj.ReferBy = ReferBy;
+            DataSet ds = obj.GetMemberDetails();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
 
+                obj.DisplayName = ds.Tables[0].Rows[0]["FullName"].ToString();
+                obj.Fk_SponsorId1 = ds.Tables[0].Rows[0]["SponsorId"].ToString();
+                obj.Result = "Yes";
+
+            }
+            else { obj.Result = "Invalid SponsorId"; }
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
     }
 }

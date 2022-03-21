@@ -1,0 +1,107 @@
+﻿@model Dost.Models.Master
+@{
+    ViewBag.Title = "EventList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Master
+                </a>
+            </li>
+            <li class="active">
+                Event List
+            </li>
+
+        </ol>
+
+
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("EventList", "Master", FormMethod.Post, new { @id = "form1", name = "formKYC" }))
+{
+    <span style="color: red">
+        @TempData["Event"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Event List
+
+
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 table-responsive">
+                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Name</th>
+                                        <th>Location</th>
+                                        <th>Event Description</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>No. of Seats</th>
+                                        <th>Binary (%)</th>
+                                        <th>Referral (%)</th>
+                                        <th>Offer</th>
+                                        <th>Image</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lst != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.lst)
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.EventName</td>
+                                                    <td>@Item.EventLocation</td>
+                                                    <td>@Item.EventDescription</td>
+                                                    <td>@Item.StartDate</td>
+                                                    <td>@Item.EndDate</td>
+                                                    <td>@Item.NoOfSeats</td>
+                                                    <td>@Item.BinaryPercent</td>
+                                                    <td>@Item.ReferralPercent</td>
+                                                    <td>@Item.OfferName</td>
+                                                    <td><img src="@Item.EventImage" height="100" width="100"/></td>
+                                                    <td>
+                                                        <a href="/Master/AddEvent?EventId=@Item.PK_EventId" class="btn btn-info btn-sm">Edit</a>
+                                                        <a href="/Master/DeleteEvent?EventId=@Item.PK_EventId" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this event?');" name="btnDelete">Delete</a>
+                                                    </td>
+
+                                                </tr>
+
+                                                i++;
+                                            }
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+

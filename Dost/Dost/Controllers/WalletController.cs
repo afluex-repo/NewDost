@@ -54,9 +54,7 @@ namespace Dost.Controllers
                     if (dsBal.Tables[2].Rows.Count > 0)
                     {
                         ViewBag.FranchiseeBalance = dsBal.Tables[2].Rows[0]["Balance"].ToString();
-
                     }
-
                 }
                 #region Walletledger
                 List<Wallet> lst = new List<Wallet>();
@@ -79,6 +77,21 @@ namespace Dost.Controllers
                     }
                     obj.lstewalletledger = lst;
                 }
+                List<Dashboard> lstuser = new List<Dashboard>();
+                obj.Fk_UserId = Session["Pk_UserId"].ToString();
+                DataSet dsUser = obj.userlist();
+                if (dsUser.Tables != null && dsUser.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dsUser.Tables[0].Rows)
+                    {
+                        Dashboard model1 = new Dashboard();
+                        model1.DisplayName = dr["Name"].ToString();
+                        model1.ProfilePic = dr["Profile"].ToString();
+                        model1.Mobile = dr["LoginId"].ToString();
+                        lstuser.Add(model1);
+                    }
+                    obj.lstUser = lstuser;
+                }
                 #endregion
             }
             catch (Exception)
@@ -89,17 +102,18 @@ namespace Dost.Controllers
             return View(obj);
         }
         [HttpPost]
-        [ActionName("Wallet")]
-        [OnAction(ButtonName = "btnAddFund")]
-        public ActionResult AddFund(Wallet obj, HttpPostedFileBase fileProfilePicture)
+        public ActionResult AddFund(string LoginId, string Amount, string PaymentMode)
         {
-
+            Wallet obj = new Wallet();
             try
             {
-                if (fileProfilePicture != null && fileProfilePicture.ContentLength > 0)
+                obj.LoginId = LoginId;
+                obj.Amount = Amount;
+                obj.PaymentMode = PaymentMode;
+                if (obj.fileProfilePicture != null && obj.fileProfilePicture.ContentLength > 0)
                 {
-                    obj.DocumentImg = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(fileProfilePicture.FileName);
-                    fileProfilePicture.SaveAs(Path.Combine(Server.MapPath(obj.DocumentImg)));
+                    obj.DocumentImg = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(obj.fileProfilePicture.FileName);
+                    obj.fileProfilePicture.SaveAs(Path.Combine(Server.MapPath(obj.DocumentImg)));
                 }
                 obj.LoginId = Session["Loginid"].ToString();
                 obj.AddedBy = Session["Pk_UserId"].ToString();
@@ -109,23 +123,22 @@ namespace Dost.Controllers
                 {
                     if (ds.Tables[0].Rows[0]["MSG"].ToString() == "1")
                     {
-                        TempData["Ewallet"] = "Wallet Requested Successfully.";
-                        TempData["Wallet"] = "Yes";
+                        //TempData["Ewallet"] = "Wallet Requested Successfully.";
+                        obj.Result = "Yes";
                     }
                     else
                     {
-                        TempData["Ewallet"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-
-
+                        //TempData["Ewallet"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        obj.Result = "No";
                     }
                 }
             }
             catch (Exception ex)
             {
-                TempData["Ewallet"] = ex.Message;
-
+                //TempData["Ewallet"] = ex.Message;
+                obj.Result = ex.Message;
             }
-            return RedirectToAction("Wallet", "Wallet");
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         [ActionName("Wallet")]
@@ -150,8 +163,8 @@ namespace Dost.Controllers
                         TempData["Wallet"] = "Yes";
                         try
                         {
-                            string str = "Rs. " + obj.Amount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
-                            string str2 = "You have received Rs. " + obj.Amount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
+                            string str = "Rs. " + obj.TransferAmount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
+                            string str2 = "You have received Rs. " + obj.TransferAmount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
                             BLSMS.sendSMSUpdated(str, obj.SenderMobile);
                             BLSMS.sendSMSUpdated(str2, obj.ReceiverMobile);
                         }
@@ -187,39 +200,97 @@ namespace Dost.Controllers
             return RedirectToAction("Wallet", "Wallet");
 
         }
-        [HttpPost]
-        [ActionName("Wallet")]
-        [OnAction(ButtonName = "btnWithdraw")]
-        public ActionResult SavePayoutRequest(Wallet obj)
+        public ActionResult SavePayoutRequest(string LoginId, string Amount)
         {
+            Wallet obj = new Wallet();
             try
             {
-
+                obj.LoginId = LoginId;
+                obj.WithDrawAmount = Amount;
                 obj.AddedBy = Session["Pk_UserId"].ToString();
                 DataSet ds = obj.SavePayoutRequest();
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["MSG"].ToString() == "1")
                     {
-                        TempData["Wallet"] = "Yes";
-                        TempData["EWallet"] = "Withdrawl Request Save Successfully.";
+                        obj.Result = "Yes";
+                        //TempData["EWallet"] = "Withdrawl Request Save Successfully.";
                     }
                     else if (ds.Tables[0].Rows[0]["ErrorMessage"].ToString() == "Account Details are not yet updated. Please update your account details.")
                     {
-                        TempData["EWallet"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
                     }
                     else
                     {
-                        TempData["EWallet"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
                     }
                 }
             }
             catch (Exception ex)
             {
-                TempData["EWallet"] = ex.Message;
+                obj.Result = ex.Message;
 
             }
-            return RedirectToAction("Wallet", "Wallet");
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult QuickTransferEwallet(string Mobile, string Amount)
+        {
+            Wallet obj = new Wallet();
+            try
+            {
+                obj.MobileNo = Mobile;
+                obj.TransferAmount = Amount;
+                obj.AddedBy = Session["Pk_UserId"].ToString();
+                DataSet ds = obj.TransferEwalletToEwallet();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0]["MSG"].ToString() == "1")
+                    {
+                        obj.ReceiverMobile = ds.Tables[0].Rows[0]["ToMobileNo"].ToString();
+                        obj.SenderMobile = ds.Tables[0].Rows[0]["FromMobileNo"].ToString();
+                        obj.ReceiverName = ds.Tables[0].Rows[0]["ToName"].ToString();
+                        obj.SenderName = ds.Tables[0].Rows[0]["FromName"].ToString();
+                        obj.SenderEmail = ds.Tables[0].Rows[0]["FromEmail"].ToString();
+                        obj.ReceiverEmail = ds.Tables[0].Rows[0]["ToEmail"].ToString();
+                        obj.Result = "Yes";
+                        try
+                        {
+                            string str = "Rs. " + obj.TransferAmount + " has been successfully transferred to the user " + obj.ReceiverName + " from your DOST Wallet. Thanks Team - DOST Inc.";
+                            string str2 = "You have received Rs. " + obj.TransferAmount + " from the user " + obj.SenderName + " in your DOST Wallet. Team - DOST INC";
+                            BLSMS.sendSMSUpdated(str, obj.SenderMobile);
+                            BLSMS.sendSMSUpdated(str2, obj.ReceiverMobile);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                        try
+                        {
+                            string Subject1 = "Wallet Transfer";
+                            string Subject2 = "Fund Received";
+                            string MailBody1 = "INR " + obj.TransferAmount + " has been successfully transferred from your DOST wallet to user " + obj.ReceiverName + ".<br><br>For any issue please reach us through email or through DOST helpline.";
+                            string MailBody2 = "INR " + obj.TransferAmount + " has been successfully credited into your DOST wallet from the user " + obj.SenderName + "<br><br>For any issue please reach us through email or through DOST helpline.";
+                            BLMail.SendTransactionMail(obj.SenderName, MailBody1, Subject1, obj.SenderEmail);
+                            BLMail.SendTransactionMail(obj.ReceiverName, MailBody2, Subject2, obj.ReceiverEmail);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        obj.Result = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Result = ex.Message;
+
+            }
+            return Json(obj, JsonRequestBehavior.AllowGet);
+
         }
         public ActionResult GetMemberNameByMobileNo(string LoginId)
         {
