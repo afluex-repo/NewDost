@@ -1,0 +1,288 @@
+﻿@model Dost.Models.NFCData
+@{
+    ViewBag.Title = "AllotNFC";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/assets/bundles/datatables/datatables.min.css">
+<link rel="stylesheet" href="~/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    NFC
+                </a>
+            </li>
+            <li class="active">
+                Allot NFC
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("AllotNFC", "Admin", FormMethod.Post, new { @id = "form1", name = "formKYC" }))
+{
+    <input type="hidden" value="@TempData["NFC"]" id="hdfResponse" />
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Allot NFC
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 table-responsive">
+                            <label class="col-sm-1 col-form-label">Select </label>
+                            <div class="col-sm-3">
+                                <select class="form-control" id="ddl">
+                                    <option value="">--Select--</option>
+                                    <option value="1">One by One</option>
+                                    <option value="2">Select All</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 table-responsive">
+                            <p style="color:red">@TempData["Msg"]</p>
+                            @Html.HiddenFor(m => m.Result)
+                            <table id="example231" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Check</th>
+                                        <th>S No.</th>
+                                        <th hidden="hidden"></th>
+                                        @*<th>User Name</th>
+                                            <th>Mobile No</th>
+                                            <th>Email</th>*@
+                                        <th>Code</th>
+                                        @*<th>Action</th>*@
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lst != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.lst)
+                                            {
+                                                <tr class="text-left row-select">
+                                                    <td class="check">
+                                                        <input type="checkbox" name="chknfc" />
+                                                    </td>
+                                                    <td class="@i" id="SrNo">@i</td>
+                                                    <td hidden="hidden" class="PK_NFCId">@Item.PK_NFCId</td>
+                                                    @*<td class="Name_@i">@Item.Name</td>
+                                                        <td class="MobileNo_@i">@Item.MobileNo</td>
+                                                        <td class="Email_@i">@Item.Email</td>*@
+                                                    <td class="Code">@Item.Code</td>
+                                                    @* <td>
+                                                            @if (Item.NFCStatus == "Not Alloted")
+                                                            {
+                                                                <button type="button" class="btn btn-primary" data-target="#staticBackdrop" data-toggle="modal" onclick="Show(@i);">
+                                                                    Allot
+                                                                </button>
+                                                            }
+                                                        else
+                                                                {
+                                                                    <a href="/Admin/CancelAllotment?PK_NFCId=@Item.PK_NFCId" class="btn btn-danger">Cancel</a>
+                                                                }
+                                                            </td>*@
+
+                                                </tr>
+
+                                                i++;
+                                            }
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                            <button value="Allot" type="button" id="btnAllot" data-target="#staticBackdrop" data-toggle="modal" class="btn btn-primary">Allot</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+<div class="modal fade bd-example-modal-lg staticBackdrop" data-backdrop="static" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Allot NFC</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Allot to<span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Distributor Id", @onchange = "getmembername(this);" })
+                                    @Html.ValidationMessageFor(m => m.LoginId)
+                                    <input type="hidden" id="hiddencode" />
+                                    <input type="hidden" id="hdfNFCId" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Name</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control", @Placeholder = "Distributor Name", @id = "txtname", @readonly = "readonly" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="AllotNFC();">Allot</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/AssociateFolder/js/jquery.js"></script>
+<script src="~/assets/bundles/datatables/datatables.min.js"></script>
+<script src="~/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+@*<script>
+        $('#example23').DataTable({
+            dom: "Bfrtip",
+            "autoWidth": true,
+            buttons: ["csv", "excel", "pdf", "print"],
+            columnDefs: [{ sortable: false, targets: [2, 3] }],
+        });
+    </script>*@
+<script>
+    $(window).on('load', function () {
+        var res = $("#hdfResponse").val();
+
+        if (res != "" && res != null) {
+            alert(res);
+        }
+
+    })
+
+    function Show(index) {
+        debugger;
+        var Code = $('.Code_' + index).text();
+        var PK_NFCId = $('.PK_NFCId_' + index).text();
+        $('#hdfNFCId').val(PK_NFCId);
+        $('#hiddencode').val(Code);
+    }
+    function getmembername() {
+        var LoginId = $('#LoginId').val();
+        $.ajax({
+            url: '/Admin/GetDistributorDetails',
+            type: "GET",
+            dataType: "JSON",
+            data: { LoginId: LoginId },
+            success: function (data) {
+                if (data.Result == "Yes") {
+                    //$('#txtname').html(data.DisplayName);
+                    $('#txtname').val(data.DisplayName);
+                    //divname.style.display = "block";
+                }
+                else if (data.Result == "No") {
+                    alert("Not a valid Distributor");
+                    $("#LoginId").addClass('errortext');
+                    $('#txtname').val("");
+                    $('#LoginId').val("");
+                    $('#LoginId').focus();
+                }
+                else {
+                    alert("Not a valid Distributor");
+                    $("#LoginId").addClass('errortext');
+                    $('#txtname').html("");
+                    $('#LoginId').val("");
+                    $('#LoginId').focus();
+                }
+            }
+        });
+    }
+    function AllotNFC() {
+        debugger;
+        // var PK_NFCId = $('#hdfNFCId').val();
+        var LoginId = $('#LoginId').val();
+        var count = 1;
+        var checkboxes = $('input[type=checkbox]:checked').length;
+        // var Code = $('#hiddencode').val();
+        $('.row-select input:checked').each(function () {
+            var NFCId, Code;
+            NFCId = $(this).closest('tr').find('.PK_NFCId').html();
+            Code = $(this).closest('tr').find('.Code').html();
+            $.ajax({
+                url: '/Admin/NFCAllotment',
+                type: "GET",
+                dataType: "JSON",
+                data: { LoginId: LoginId, Code: Code, PK_NFCId: NFCId, Count: count, TotalCount: checkboxes },
+                success: function (data) {
+                    if (data.Result == "Yes") {
+                        $("#Result").val(data.Result);
+                        res = "1";
+                    } else {
+                        $("#Result").val(data.Result);
+                    }
+                }
+            });
+            count++;
+        })
+        debugger;
+        var r = $("#Result").val();
+        if (r == "Yes") {
+            $('#staticBackdrop').modal('hide')
+            $('#hiddencode').val();
+            $('#txtname').val("");
+            $('#LoginId').val("");
+            window.location.href = '@Url.Action("AllotNFC", "Admin")'
+        }
+        else if (r == "No") {
+            $('#staticBackdrop').modal('hide')
+            $("#LoginId").addClass('errortext');
+            $('#txtname').val("");
+            $('#LoginId').val("");
+            $('#LoginId').focus();
+            window.location.href = '@Url.Action("AllotNFC", "Admin")';
+        }
+        else {
+            $('#staticBackdrop').modal('hide')
+            $('#hiddencode').val();
+            $('#txtname').val("");
+            $('#LoginId').val("");
+            window.location.href = '@Url.Action("AllotNFC", "Admin")'
+        }
+    }
+    $('#ddl').change(function () {
+        var r = $("#ddl").val();
+        if (r == "2") {
+            $('.row-select input').each(function () {
+                $(this).prop('checked', true);
+
+            })
+        }
+        else {
+            $('.row-select input').each(function () {
+                $(this).prop('checked', false);
+            })
+        }
+    })
+    $("#example231").dataTable({
+        "pageLength": 100,
+    });
+</script>

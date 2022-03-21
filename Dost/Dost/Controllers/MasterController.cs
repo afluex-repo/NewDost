@@ -14,6 +14,170 @@ namespace Dost.Controllers
     public class MasterController : AdminBaseController
     {
         // GET: Master
+        public ActionResult Category(string Id)
+        {
+            clsCategory model = new clsCategory();
+            if (Id != null)
+            {
+                try
+                {
+                    model.Pk_SubCategoryId = Convert.ToInt32(Id);
+                    model.Pk_SubCategoryId = model.Pk_SubCategoryId == 0 ? null : model.Pk_SubCategoryId;
+                    if (model.Pk_SubCategoryId != 0)
+                    {
+                        DataSet ds = model.CategoryList();
+                        if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                        {
+                            //Pk_CategoryId,Icon,Name,IsDeleted	,AddedBy,AddedOn
+                            model.Pk_SubCategoryId = Convert.ToInt32(ds.Tables[0].Rows[0]["Pk_SubCategoryId"]);
+                            model.Icon = ds.Tables[0].Rows[0]["Icon"].ToString();
+                            model.Name = ds.Tables[0].Rows[0]["Name"].ToString();
+                            TempData["Image"] = ds.Tables[0].Rows[0]["Icon"].ToString();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Category(HttpPostedFileBase fileUploaderControl, clsCategory model)
+        {
+            model.AddedBy = Convert.ToInt32(Session["Pk_AdminId"]);
+            try
+            {
+                model.Pk_SubCategoryId = model.Pk_SubCategoryId;
+                if (Convert.ToInt32(model.Pk_SubCategoryId) == 0 || model.Pk_SubCategoryId.ToString() == null)
+                {
+                    //Get the file name
+                    if (fileUploaderControl != null)
+                    {
+                        string filename = System.IO.Path.GetFileName(fileUploaderControl.FileName);
+                        //Save the file in server Images folder
+                        fileUploaderControl.SaveAs(Server.MapPath("~/UploadCategoryIcon/" + filename));
+                        string filepathtosave = "/UploadCategoryIcon/" + filename;
+                        model.Icon = filepathtosave;
+                    }
+                    DataSet ds = model.SaveCategory();
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            model.Name = "";
+                            TempData["Subscription"] = "Sub Category Saved Successfully";
+                            ModelState.Clear();
+                        }
+                        else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                        {
+                            TempData["Subscription"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                            ModelState.Clear();
+                        }
+                    }
+                }
+                else
+                {
+                    if (fileUploaderControl != null)
+                    {
+                        string filename = System.IO.Path.GetFileName(fileUploaderControl.FileName);
+                        //Save the file in server Images folder
+                        fileUploaderControl.SaveAs(Server.MapPath("~/UploadCategoryIcon/" + filename));
+                        string filepathtosave = "/UploadCategoryIcon/" + filename;
+                        model.Icon = filepathtosave;
+                    }
+                    model.UpdatedBy = Convert.ToInt32(Session["Pk_AdminId"]);
+                    DataSet ds = model.UpdateCategory();
+
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            model.Name = "";
+                            TempData["Subscription"] = "Sub Category Update Successfully";
+                            ModelState.Clear();
+                        }
+                        else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                        {
+                            TempData["Subscription"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Offer"] = ex.Message;
+            }
+            return View(model);
+        }
+
+        public ActionResult CategoryList(clsCategory model)
+        {
+            List<clsCategory> lstoffer = new List<clsCategory>();
+            model.Pk_SubCategoryId = model.Pk_SubCategoryId == 0 ? null : model.Pk_SubCategoryId;
+            DataSet ds = model.CategoryList();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    clsCategory obj = new clsCategory();
+                    obj.Pk_SubCategoryId = Convert.ToInt32(r["Pk_SubCategoryId"]);
+                    obj.Name = r["Name"].ToString();
+                    obj.Icon = r["Icon"].ToString();
+                    obj.AddedOn = r["AddedOn"].ToString();
+                    lstoffer.Add(obj);
+                }
+                model.lst = lstoffer;
+            }
+            return View(model);
+        }
+
+        public ActionResult DeletSubCategory(int Id)
+        {
+            string FormName = "";
+            string Controller = "";
+
+            clsCategory model = new clsCategory();
+            model.DeletedBy = Convert.ToInt32(Session["Pk_AdminId"]);
+            if (Id != 0)
+            {
+                try
+                {
+                    model.Pk_SubCategoryId = Id;
+                    DataSet ds = model.DeleteSubCategory();
+                    if (ds != null && ds.Tables.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                        {
+                            TempData["Subcategory"] = "Sub Category Deleted Successfully";
+                            FormName = "CategoryList";
+                            Controller = "Master";
+                        }
+                        else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                        {
+                            TempData["Subcategory"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                            FormName = "CategoryList";
+                            Controller = "Master";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["NFC"] = ex.Message;
+                    FormName = "CategoryList";
+                    Controller = "Master";
+
+                }
+            }
+            return RedirectToAction(FormName, Controller);
+        }
+
         #region NFC
         public ActionResult NFC(string NfcId)
         {
@@ -845,10 +1009,10 @@ namespace Dost.Controllers
         }
         #endregion
 
-        public ActionResult CouponMaster( string Id)
+        public ActionResult CouponMaster(string Id)
         {
             Master model = new Master();
-            if(Id!=null)
+            if (Id != null)
             {
                 model.PK_CouponId = Id;
                 DataSet ds = model.SelectCouponList();
@@ -865,7 +1029,7 @@ namespace Dost.Controllers
                 }
 
             }
-          
+
             #region Bind Coupon Type
             int count = 0;
             List<SelectListItem> ddlCouponType = new List<SelectListItem>();
@@ -895,10 +1059,10 @@ namespace Dost.Controllers
         {
             try
             {
-                if (model.PK_CouponId==null)
+                if (model.PK_CouponId == null)
                 {
                     model.AddedBy = Session["Pk_AdminId"].ToString();
-                    model.ValidityDate = string.IsNullOrEmpty(model.ValidityDate) ? null : Common.ConvertToSystemDate(model.ValidityDate, "dd/MM/yyyy");                  
+                    model.ValidityDate = string.IsNullOrEmpty(model.ValidityDate) ? null : Common.ConvertToSystemDate(model.ValidityDate, "dd/MM/yyyy");
                     DataSet ds = model.SaveCoupon();
 
                     if (ds != null && ds.Tables[0].Rows.Count > 0)
@@ -913,7 +1077,8 @@ namespace Dost.Controllers
                         }
                     }
                 }
-                else {
+                else
+                {
 
                     model.AddedBy = Session["Pk_AdminId"].ToString();
                     model.ValidityDate = string.IsNullOrEmpty(model.ValidityDate) ? null : Common.ConvertToSystemDate(model.ValidityDate, "dd/MM/yyyy");
@@ -931,7 +1096,7 @@ namespace Dost.Controllers
                         }
                     }
 
-                }   
+                }
             }
             catch (Exception ex)
             {
@@ -992,8 +1157,8 @@ namespace Dost.Controllers
             return View(model);
         }
 
-        
- 
+
+
         public ActionResult DeleteCoupon(string Id)
         {
             try
@@ -1277,9 +1442,7 @@ namespace Dost.Controllers
 
             return RedirectToAction("ServiceMaster");
         }
-
-<<<<<<< HEAD
-        public ActionResult CouponTypeMaster( string Id)
+        public ActionResult CouponTypeMaster(string Id)
         {
             Master model = new Master();
             if (Id != null)
@@ -1300,7 +1463,7 @@ namespace Dost.Controllers
         {
             try
             {
-                if(model.CouponTypeId==null)
+                if (model.CouponTypeId == null)
                 {
                     model.AddedBy = Session["Pk_AdminId"].ToString();
                     DataSet ds = model.SaveCouponType();
@@ -1332,7 +1495,7 @@ namespace Dost.Controllers
                         }
                     }
                 }
-          
+
             }
             catch (Exception ex)
             {
@@ -1342,7 +1505,7 @@ namespace Dost.Controllers
         }
 
 
-       
+
         public ActionResult CouponTypeList()
         {
             //Master model = new Master();
@@ -1393,7 +1556,23 @@ namespace Dost.Controllers
                 model.CouponTypeId = Id;
                 model.AddedBy = Session["Pk_AdminId"].ToString();
                 DataSet ds = model.DeleteCouponType();
-=======
+                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                {
+                    TempData["CouponType"] = "Coupon type deleted successfully";
+                }
+                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                {
+                    TempData["CouponType"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["CouponType"] = ex.Message;
+            }
+            return RedirectToAction("CouponTypeList", "Master");
+        }
+
+
         public ActionResult InActive(string Pk_ServiceId)
         {
             Master model = new Master();
@@ -1495,42 +1674,25 @@ namespace Dost.Controllers
                     }
                 }
                 DataSet ds = model.UpdateServiceMaster();
->>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
-                    if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
-                    {
-<<<<<<< HEAD
-                        TempData["CouponType"] = "Coupon type deleted successfully";
-                    }
-                    else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
-                    {
-                        TempData["CouponType"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-=======
-                        TempData["ServiceMaster"] = "Updated Successfully";
-                    }
-                    else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
-                    {
-                        TempData["ServiceMaster"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
->>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
-                    }
+
+                    TempData["ServiceMaster"] = "Updated Successfully";
+                }
+                else if (ds.Tables[0].Rows[0]["MSG"].ToString() == "0")
+                {
+                    TempData["ServiceMaster"] = ds.Tables[0].Rows[0]["ERROR"].ToString();
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-<<<<<<< HEAD
-                TempData["CouponType"] = ex.Message;
-            }
-            return RedirectToAction("CouponTypeList", "Master");
-        }
-        
-=======
                 TempData["ServiceMaster"] = ex.Message;
             }
             return RedirectToAction("ServiceMaster");
         }
-        #endregion
->>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
+          
     }
+        #endregion
+
 
 }

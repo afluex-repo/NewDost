@@ -380,8 +380,6 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("DeleteCoupon", para);
             return ds;
         }
-
-<<<<<<< HEAD
         public DataSet SaveCouponType()
         {
             SqlParameter[] para =
@@ -404,9 +402,6 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateCouponType", para);
             return ds;
         }
-
-        
-=======
         #region Servicetypemaster
         public DataSet ServiceTypeMasterList()
         {
@@ -561,8 +556,6 @@ namespace Dost.Models
             return ds;
         }
         #endregion
->>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
-
 
         public DataSet SelectCouponTypeList()
         {
@@ -588,5 +581,66 @@ namespace Dost.Models
         }
         
 
+    }
+
+
+    public class clsCategory
+    {
+        public int? Pk_SubCategoryId { get; set; }
+        public string Icon { get; set; }
+        public string Name { get; set; }
+        public string IsDeleted { get; set; }
+        public int AddedBy { get; set; }
+        public string AddedOn { get; set; }
+        public int UpdatedBy { get; set; }
+        public string UpdatedOn { get; set; }
+        public int DeletedBy { get; set; }
+        public string DeletedOn { get; set; }
+        public List<clsCategory> Ist { get; set; }
+        public List<clsCategory> lst { get; set; }
+        public DataSet SaveCategory()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Icon",Icon),
+                new SqlParameter("@Name",Name),
+                 new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("AddtblSubCategory", para);
+            return ds;
+        }
+        public DataSet UpdateCategory()
+        {
+            SqlParameter[] para =
+            {
+            new SqlParameter("@Pk_SubCategoryId",Pk_SubCategoryId),
+                new SqlParameter("@Icon",Icon),
+                new SqlParameter("@Name",Name),
+                 new SqlParameter("@UpdatedBy",UpdatedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateSubCategory", para);
+            return ds;
+        }
+
+        public DataSet CategoryList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_SubCategoryId",Pk_SubCategoryId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetSubCateoryList", para);
+            return ds;
+        }
+
+        public DataSet DeleteSubCategory()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Pk_SubCategoryId",Pk_SubCategoryId),
+                new SqlParameter("@DeletedBy",DeletedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteSubcategory", para);
+            return ds;
+        }
     }
 }

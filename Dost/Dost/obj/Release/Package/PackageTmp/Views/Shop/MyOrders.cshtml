@@ -1,0 +1,139 @@
+﻿@model Dost.Models.Shop
+
+@{
+    ViewBag.Title = "MyOrders";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+<div class="content-body">
+    <div class="container-fluid">
+        <!-- Add Project -->
+        <div class="modal fade" id="addProjectSidebar">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create Project</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label class="text-black font-w500">Project Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-black font-w500">Deadline</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-black font-w500">Client Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary">CREATE</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4></h4>
+                    <p class="mb-0"></p>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Shop</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Purchase and Order</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="align-middle">
+                                            S.No.
+                                            @*<div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkAll">
+                                                    <label class="custom-control-label" for="checkAll"></label>
+                                                </div>*@
+                                        </th>
+                                        <th class="align-middle">Product</th>
+                                        <th class="align-middle pr-7">Date</th>
+                                        <th class="align-middle" style="min-width: 12.5rem;">Delivered To</th>
+                                        <th class="align-middle text-right">Status</th>
+                                        <th class="align-middle text-right">Amount</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="orders">
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstproduct != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var item in Model.lstproduct)
+                                            {
+                                                <tr class="btn-reveal-trigger">
+                                                    <td class="py-2">
+                                                        @i
+                                                        @*<div class="custom-control custom-checkbox checkbox-success">
+                                                                <input type="checkbox" class="custom-control-input" id="checkbox">
+                                                                <label class="custom-control-label" for="checkbox"></label>
+                                                            </div>*@
+                                                    </td>
+                                                    <td class="py-2">
+                                                        <strong>
+                                                            @item.ProductName
+                                                        </strong>
+                                                    </td>
+                                                    <td class="py-2">@item.OrderDate</td>
+                                                    <td class="py-2">
+                                                        @item.Address
+                                                        @*<p class="mb-0 text-500">Via Flat Rate</p>*@
+                                                    </td>
+                                                    @if (item.Status == "1")
+                                                    {
+                                                        <td class="py-2 text-right">
+                                                            Delivered
+                                                        </td>
+                                                    }
+                                                    else if (item.Status == "0")
+                                                    {
+                                                        <td class="py-2 text-right">
+                                                            Ordered
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="py-2 text-right">
+                                                            failed
+                                                        </td>
+                                                    }
+                                                    <td class="py-2 text-right">
+                                                        @item.TotalPrice
+                                                    </td>
+
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

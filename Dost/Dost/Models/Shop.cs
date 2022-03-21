@@ -56,8 +56,10 @@ namespace Dost.Models
         public string Gst { get; set; }
         public List<AddressBook> lstAddressBook { get; set; }
         public string City { get; set; }
+        public string OrderDate { get; set; }
+        public string Status { get; set; }
         #region
-      
+
         public List<productimagelst> lstProductImage { get; set; }
 
         #endregion
@@ -202,7 +204,27 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("ApplyCoupon", para);
             return ds;
         }
+        public DataSet DeleteAddress()
+        {
+            SqlParameter[] para =
+            {
+                 new SqlParameter("@FK_UserId",Fk_UserId),
+                new SqlParameter("@PK_AddressId",AddressId)
 
+
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteAddress", para);
+            return ds;
+        }
+        public DataSet GetOrders()
+        {
+            SqlParameter[] para =
+            {
+                 new SqlParameter("@FK_UserId",Fk_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetOrders", para);
+            return ds;
+        }
     }
     public class AddressBook
     {

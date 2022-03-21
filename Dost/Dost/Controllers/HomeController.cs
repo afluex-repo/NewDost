@@ -196,7 +196,7 @@ namespace Dost.Controllers
                             Session["UserId"] = model.FK_UserId;
                             try
                             {
-                                string msg = BLSMS.sendSMSUpdated(Message, model.MobileNo);
+                                string msg = BLSMS.sendSMSUpdated(Message, model.Mobile);
                             }
                             catch (Exception ex)
                             {
@@ -1027,7 +1027,7 @@ namespace Dost.Controllers
             }
             else if(Session["UserNFCCode"].ToString() != "")
             {
-                return RedirectToAction("Profile", "home", new { @id = Session["UserNFCCode"].ToString() });
+                return RedirectToAction("Profile", "NFC", new { @id = Session["UserNFCCode"].ToString() });
             }
             else
             {
@@ -1125,6 +1125,9 @@ namespace Dost.Controllers
             //return RedirectToAction(FormName,Controller);
             //return View();
         }
-
+        public ActionResult DecryptPass(string id)
+        {
+            return Json(Crypto.Decrypt(id), JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -1,0 +1,354 @@
+﻿@model Dost.Models.Master
+@{
+    ViewBag.Title = "ProductMaster";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Master
+                </a>
+            </li>
+            <li class="active">
+                Product Master
+            </li>
+
+        </ol>
+
+
+    </div>
+</div>
+<br />
+<!-- /.row -->
+@using (Html.BeginForm("ProductMaster", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <span style="color: red">
+        @TempData["Product"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Product Master
+
+
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Product Name <span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.ProductName, new { @placeholder = "Product Name", @class = "form-control" })
+                                    @Html.HiddenFor(m => m.ProductID)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Product Price <span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.ProductPrice, new { @placeholder = "Product Price", @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">IGST <span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.IGST, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">CGST <span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.CGST, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">SGST <span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.SGST, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Binary Perc(%)<span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.BinaryPercent, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Quantity<span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Brand</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.Brand, new { @class = "form-control"})
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">BV <span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.BV, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Product Image <span style="color: red">*</span></label>
+                                <div class="col-sm-9">
+                                   <input type="file" id="productimage" name="productimage"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Remarks</label>
+                                <div class="col-sm-9">
+                                    @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                                @if (Model.ProductID == null)
+                                {
+                                    <input type="submit" id="btnSaveProduct" class="btn btn-success" name="btnSaveProduct" value="Save" onclick="return saveProduct();" />
+                                }
+                                else
+                                {
+                                    <input type="submit" id="btnUpdateProduct" class="btn btn-success" name="btnUpdateProduct" value="Update" onclick="return updateProduct();" />
+                                    @*<a type="submit" id="btnUpdateProduct" class="btn btn-success" name="btnUpdateProduct" value="Update" onclick="return updateProduct();" href="/Master/ProductList">Update</a>*@
+                                }
+
+                            <a class="btn btn-primary" href="/Master/ProductList">Back To List</a>
+                               
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+            <!-- /.panel -->
+        </div>
+    </div>
+}
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+<script>
+    function validate() {
+        $(".errortext").removeClass("errortext");
+        if ($('#ProductName').val() == '') {
+            $("#ProductName").addClass('errortext');
+            $('#ProductName').focus();
+            return false;
+        }
+        if ($('#ProductPrice').val() == '') {
+            $("#ProductPrice").addClass('errortext');
+            $('#ProductPrice').focus();
+            return false;
+        }
+        if ($('#IGST').val() == '') {
+            $("#IGST").addClass('errortext');
+            $('#IGST').focus();
+            return false;
+        }
+        if ($('#CGST').val() == '') {
+            $("#CGST").addClass('errortext');
+            $('#CGST').focus();
+            return false;
+        }
+        if ($('#SGST').val() == '') {
+            $("#SGST").addClass('errortext');
+            $('#SGST').focus();
+            return false;
+        }
+        if ($('#BinaryPercent').val() == '') {
+            $("#BinaryPercent").addClass('errortext');
+            $('#BinaryPercent').focus();
+            return false;
+        }
+
+
+    }
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    function getMemberDetails(obj) {
+
+        $.ajax({
+            url: '/Transactions/GetMemberDetails',
+            type: 'GET',
+            dataType: 'JSON',
+            data: { 'LoginID': $(obj).val() },
+            success: function (response) {
+                if (response.Result == "Yes") {
+
+                    $('#txtMemberName').val(response.DisplayName);
+                }
+                else {
+
+                    $('#txtLoginID').val('');
+                    $('#txtMemberName').val('');
+                    alert(response.Result);
+                }
+            }
+        })
+    }
+
+    function saveProduct() {
+        $(".errortext").removeClass("errortext");
+        if ($('#ProductName').val() == '') {
+            $("#ProductName").addClass('errortext');
+            $('#ProductName').focus();
+            return false;
+        }
+        if ($('#ProductPrice').val() == '') {
+            $("#ProductPrice").addClass('errortext');
+            $('#ProductPrice').focus();
+            return false;
+        }
+        if ($('#IGST').val() == '') {
+            $("#IGST").addClass('errortext');
+            $('#IGST').focus();
+            return false;
+        }
+        if ($('#CGST').val() == '') {
+            $("#CGST").addClass('errortext');
+            $('#CGST').focus();
+            return false;
+        }
+        if ($('#SGST').val() == '') {
+            $("#SGST").addClass('errortext');
+            $('#SGST').focus();
+            return false;
+        }
+        if ($('#BinaryPercent').val() == '') {
+            $("#BinaryPercent").addClass('errortext');
+            $('#BinaryPercent').focus();
+            return false;
+        }
+      
+        if ($('#Quantity').val() == '') {
+            $("#Quantity").addClass('errortext');
+            $('#Quantity').focus();
+            return false;
+        }
+        if ($('#BV').val() == '') {
+            $("#BV").addClass('errortext');
+            $('#BV').focus();
+            return false;
+        }
+        if ($('#productimage').val() == '') {
+            $("#productimage").addClass('errortext');
+            $('#productimage').focus();
+            return false;
+        }
+    }
+
+    function updateProduct() {
+        $(".errortext").removeClass("errortext");
+        if ($('#ProductName').val() == '') {
+            $("#ProductName").addClass('errortext');
+            $('#ProductName').focus();
+            return false;
+        }
+        if ($('#ProductPrice').val() == '') {
+            $("#ProductPrice").addClass('errortext');
+            $('#ProductPrice').focus();
+            return false;
+        }
+        if ($('#IGST').val() == '') {
+            $("#IGST").addClass('errortext');
+            $('#IGST').focus();
+            return false;
+        }
+        if ($('#CGST').val() == '') {
+            $("#CGST").addClass('errortext');
+            $('#CGST').focus();
+            return false;
+        }
+        if ($('#SGST').val() == '') {
+            $("#SGST").addClass('errortext');
+            $('#SGST').focus();
+            return false;
+        }
+        if ($('#BinaryPercent').val() == '') {
+            $("#BinaryPercent").addClass('errortext');
+            $('#BinaryPercent').focus();
+            return false;
+        }
+        if ($('#DirectPercent').val() == '') {
+            $("#DirectPercent").addClass('errortext');
+            $('#DirectPercent').focus();
+            return false;
+        }
+        if ($('#ROIPercent').val() == '') {
+            $("#ROIPercent").addClass('errortext');
+            $('#ROIPercent').focus();
+            return false;
+        }
+        if ($('#Quantity').val() == '') {
+            $("#Quantity").addClass('errortext');
+            $('#Quantity').focus();
+            return false;
+        }
+        if ($('#BV').val() == '') {
+            $("#BV").addClass('errortext');
+            $('#BV').focus();
+            return false;
+        }
+
+        @*$.ajax({
+            url: "/Master/UpdateProduct",
+            Type: "Get",
+            DataType: "JSON",
+            data: { ProductID: $("#ProductID").val(), ProductName: $("#ProductName").val(), ProductPrice: $("#ProductPrice").val(), IGST: $("#IGST").val(), CGST: $("#CGST").val(), SGST: $("#SGST").val(), BinaryPercent: $("#BinaryPercent").val(), DirectPercent: $("#DirectPercent").val(), ROIPercent: $("#ROIPercent").val(), BV: $("#BV").val() },
+            success: function (data) {
+                alert(data.Result);
+                window.location.href = '@Url.Action("ProductList", "Master")';
+
+            }
+
+        });*@
+
+    }
+
+</script>

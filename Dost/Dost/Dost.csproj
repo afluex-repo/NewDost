@@ -93,6 +93,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivator, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -127,6 +131,10 @@
     </Reference>
     <Reference Include="System.Web.Http.WebHost">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -2500,6 +2508,12 @@
     <Content Include="js\plugins-init\toastr-init.js" />
     <Content Include="js\plugins-init\widgets-script-init.js" />
     <Content Include="js\settings.js" />
+    <Content Include="KYCDocuments\4dad357b-cfff-4d46-b296-09248a9e6dd5.jpg" />
+    <Content Include="KYCDocuments\65d660fc-1397-4c5f-8dca-7c7df3e9896b.jpg" />
+    <Content Include="KYCDocuments\6a904613-82d6-40aa-bc33-fcbdbed7f8c6.jpg" />
+    <Content Include="KYCDocuments\7ae9bcb5-f7cd-40f1-8c73-c222144035fc.jpg" />
+    <Content Include="KYCDocuments\86f0898f-8044-4db7-ac37-e660aebddcf3.jpg" />
+    <Content Include="KYCDocuments\f7921b4c-4ad3-46a5-98ce-bcb03b5108c9.png" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scss\main.css" />
@@ -3014,7 +3028,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AdminBaseController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminReportsController.cs" />
@@ -3023,6 +3039,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\NFCController.cs" />
+    <Compile Include="Controllers\NFCProfileController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WalletController.cs" />
@@ -3290,7 +3307,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\User\UserDashboard.cshtml" />
     <Content Include="Views\User\UserProfile.cshtml" />
-    <Content Include="Views\NFC\ProfileUpdate.cshtml" />
+    <Content Include="Views\NFCProfile\ProfileUpdate.cshtml" />
     <Content Include="Views\Wallet\Wallet.cshtml" />
     <Content Include="Views\Wallet\Statement.cshtml" />
     <Content Include="obj\Release\Package\PackageTmp\Views\User\UserDashboard.cshtml" />
@@ -3392,6 +3409,7 @@
     <Content Include="icons\themify-icons\fonts\themify.woff" />
     <Content Include="icons\themify-icons\fonts\themify9f24.eot" />
     <Content Include="icons\themify-icons\fonts\themifyd41d.eot" />
+    <None Include="Properties\PublishProfiles\Dost.pubxml" />
     <None Include="Properties\PublishProfiles\NewDost.pubxml" />
     <Content Include="Views\Home\index.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
@@ -3402,7 +3420,7 @@
     <Content Include="Views\Home\Registration.cshtml" />
     <Content Include="Views\Home\ResetPassword.cshtml" />
     <Content Include="Views\Home\SignUp.cshtml" />
-    <Content Include="Views\NFC\SetAction.cshtml" />
+    <Content Include="Views\NFCProfile\SetAction.cshtml" />
     <Content Include="Views\Wallet\TransferEwalletToEwallet.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
@@ -3628,17 +3646,60 @@
     <Content Include="Views\Master\ProductImage.cshtml" />
     <Content Include="Views\Master\CouponMaster.cshtml" />
     <Content Include="Views\Master\CouponList.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Master\CouponTypeMaster.cshtml" />
-    <Content Include="Views\Master\CouponTypeList.cshtml" />
-=======
     <Content Include="Views\Master\ServiceMaster.cshtml" />
     <Content Include="Views\Master\ServiceTypeMaster.cshtml" />
-    <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\NFC\Profile.cshtml" />
     <Content Include="Views\Home\NFCActivation.cshtml" />
-    <Content Include="Views\NFC\NFCDevice.cshtml" />
-    <Content Include="Views\NFC\SetActionDashboard.cshtml" />
->>>>>>> 89da4ad7924d4f735f01384ed329baec7cb903ee
+    <Content Include="Views\NFCProfile\NFCDevice.cshtml" />
+    <Content Include="Views\NFCProfile\SetActionDashboard.cshtml" />
+    <Content Include="Views\Admin\_Tree.cshtml" />
+    <Content Include="Views\Admin\AddDigiWallet.cshtml" />
+    <Content Include="Views\Admin\AddFranchiseWallet.cshtml" />
+    <Content Include="Views\Admin\AdvancePayment.cshtml" />
+    <Content Include="Views\Admin\AdvancePaymentReport.cshtml" />
+    <Content Include="Views\Admin\AllotedNFCList.cshtml" />
+    <Content Include="Views\Admin\AllotNFC.cshtml" />
+    <Content Include="Views\Admin\ApproveUPI.cshtml" />
+    <Content Include="Views\Admin\AssociateListForKYC.cshtml" />
+    <Content Include="Views\Admin\BinaryTree.cshtml" />
+    <Content Include="Views\Admin\ChangeNFCCode.cshtml" />
+    <Content Include="Views\Admin\ConfirmRegistration.cshtml" />
+    <Content Include="Views\Admin\CreatePin.cshtml" />
+    <Content Include="Views\Admin\DistributorRegistration.cshtml" />
+    <Content Include="Views\Admin\GenerateNFCCode.cshtml" />
+    <Content Include="Views\Admin\NFCPurchaseHistory.cshtml" />
+    <Content Include="Views\Admin\PaidPayout.cshtml" />
+    <Content Include="Views\Admin\PayPayout.cshtml" />
+    <Content Include="Views\Admin\ProductMaster.cshtml" />
+    <Content Include="Views\Admin\PurchaseandOrder.cshtml" />
+    <Content Include="Views\Admin\Registration.cshtml" />
+    <Content Include="Views\Admin\RequestNFCList.cshtml" />
+    <Content Include="Views\Admin\SubscriptionPurchaseHistory.cshtml" />
+    <Content Include="Views\Admin\TopUpByPin.cshtml" />
+    <Content Include="Views\Admin\UnusedPins.cshtml" />
+    <Content Include="Views\Admin\UsedPins.cshtml" />
+    <Content Include="Views\Shop\MyAddresses.cshtml" />
+    <Content Include="Views\Shop\MyOrders.cshtml" />
+    <Content Include="Views\Accounts\AdminDigiCoinLedger.cshtml" />
+    <Content Include="Views\Accounts\ApproveEwalletRequest.cshtml" />
+    <Content Include="Views\Accounts\ApproveFranchiseewalletRequest.cshtml" />
+    <Content Include="Views\Accounts\ApprovepayoutRequest.cshtml" />
+    <Content Include="Views\Accounts\FranchiseWalletLedger.cshtml" />
+    <Content Include="Views\Accounts\ProductTopUp.cshtml" />
+    <Content Include="Views\Accounts\RetopUp.cshtml" />
+    <Content Include="Views\Accounts\Topup.cshtml" />
+    <Content Include="Views\Master\Category.cshtml" />
+    <Content Include="Views\Master\CategoryList.cshtml" />
+    <Content Include="Views\Master\CouponTypeList.cshtml" />
+    <Content Include="Views\Master\CouponTypeMaster.cshtml" />
+    <Content Include="Views\Master\GalleryMaster.cshtml" />
+    <Content Include="Views\Master\NewsList.cshtml" />
+    <Content Include="Views\Master\EventList.cshtml" />
+    <Content Include="Views\Master\CodeMaster.cshtml" />
+    <Content Include="Views\Master\AddNews.cshtml" />
+    <Content Include="Views\Master\NfcCode.cshtml" />
+    <Content Include="Views\Master\SubscriptionList.cshtml" />
+    <Content Include="Views\Master\SubscriptionMaster.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3666,9 +3727,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>61327</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:61327/</IISUrl>
+          <IISUrl>http://localhost:63466/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
