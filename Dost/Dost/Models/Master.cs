@@ -60,7 +60,7 @@ namespace Dost.Models
         public List<SelectListItem> ddlCouponType { get; set; }
         public string PK_CouponId { get; set; }
         public string CouponTypeId { get; set; }
-        
+
         public string CouponType { get; set; }
         public string Pk_CouponTypeId { get; set; }
         public string Coupon { get; set; }
@@ -70,7 +70,7 @@ namespace Dost.Models
         public string RangeTo { get; set; }
         public List<Master> lstCoupon { get; set; }
         public List<Master> lstCouponType { get; set; }
-        
+
 
         public string MainServiceType { get; set; }
         public string Preority { get; set; }
@@ -90,13 +90,24 @@ namespace Dost.Models
         public string IsDeleted { get; set; }
         public string Color { get; set; }
         public string EncCode { get; set; }
-        public string UserCode { get;  set; }
-        public string LoginId { get;  set; }
-        public string Status { get;  set; }
-        public string InvoiceNo { get;  set; }
-        public string ActivationDate { get;  set; }
-        public string FromDate { get;  set; }
-        public string ToDate { get;  set; }
+        public string UserCode { get; set; }
+        public string LoginId { get; set; }
+        public string Status { get; set; }
+        public string InvoiceNo { get; set; }
+        public string ActivationDate { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+
+        public string FK_TransactionId { get; set; }
+        public string TransactionLimitId { get; set; }
+        public string TransactionName { get; set; }
+        public string Amount { get; set; }
+        public string Percentage { get; set; }
+        public List<Master> ddlTransaction { get; set; }
+        public List<Master> lstTransactionLimit { get; set; }
+
+
+
 
         public DataSet categorylist()
         {
@@ -611,6 +622,64 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("UpdateInvoiceStatus", para);
             return ds;
         }
+        public DataSet SaveTransactionLimit()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@FK_TransactionId",FK_TransactionId),
+                 new SqlParameter("@Amount",Amount),
+                  new SqlParameter("@Percentage",Percentage),
+                new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("SaveTransactionLimit", para);
+            return ds;
+        }
+
+        public DataSet GetTransactionNameDetails()
+        {
+            DataSet ds = DBHelper.ExecuteQuery("GetTransactionNameDetails");
+            return ds;
+        }
+        public DataSet GetTransactionLimitDetails()
+        {
+            SqlParameter[] para =
+          {
+                new SqlParameter("@FK_TransactionId",FK_TransactionId),
+                 new SqlParameter("@PK_TransactionLimitId",TransactionLimitId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetTransactionLimitDetails", para);
+            return ds;
+        }
+
+
+
+
+        public DataSet UpdateTransactionLimit()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@PK_TransactionLimitId",TransactionLimitId),
+                new SqlParameter("@FK_TransactionId",FK_TransactionId),
+                 new SqlParameter("@Amount",Amount),
+                  new SqlParameter("@Percentage",Percentage),
+                new SqlParameter("@AddedBy",AddedBy)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateTransactionLimit", para);
+            return ds;
+        }
+        
+
+        public DataSet DeleteTransactionLimit()
+        {
+            SqlParameter[] para =
+          {
+                new SqlParameter("@PK_TransactionLimitId",TransactionLimitId),
+                new SqlParameter("@AddedBy",AddedBy) 
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteTransactionLimit", para);
+            return ds;
+        }
+
     }
 
 
@@ -672,5 +741,6 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("DeleteSubcategory", para);
             return ds;
         }
+
     }
 }

@@ -124,3 +124,4 @@ E:\Repository\NewDost\Dost\Dost\bin\PdfSharp.dll
 E:\Repository\NewDost\Dost\Dost\bin\zxing.dll
 E:\Repository\NewDost\Dost\Dost\bin\zxing.presentation.dll
 E:\Repository\NewDost\Dost\Dost\bin\IronBarCode.xml
+E:\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
