@@ -288,3 +288,23 @@ D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\zxing.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\zxing.presentation.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronBarCode.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
+E:\Divya\repository\NewDost\Dost\Dost\bin\Babel.Licensing.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\BitMiracle.LibTiff.NET.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\BouncyCastle.Crypto.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\DotNetZip.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronBarCode.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronPdf.Pdfium.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronPdf.Pdfium.Domain.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronSoftware.Analytics.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronSoftware.Common.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronSoftware.Deployment.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronSoftware.IronConfigurationManager.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronSoftware.Licenses.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronSoftware.Logger.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronSoftware.Standard.Aforge.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\NativeLibraryLoader.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\Newtonsoft.Json.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\PdfSharp.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\zxing.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\zxing.presentation.dll
+E:\Divya\repository\NewDost\Dost\Dost\bin\IronBarCode.xml
