@@ -51,222 +51,80 @@ D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.pdb
-E:\Mona\NewDost\Dost\Dost\bin\ApplicationInsights.config
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\csc.exe
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.dll
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\Microsoft.CSharp.Core.targets
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\Microsoft.VisualBasic.Core.targets
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\System.Collections.Immutable.dll
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\System.Reflection.Metadata.dll
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\vbc.exe
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe
-E:\Mona\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe.config
-E:\Mona\NewDost\Dost\Dost\bin\Dost.dll.config
-E:\Mona\NewDost\Dost\Dost\bin\Dost.dll
-E:\Mona\NewDost\Dost\Dost\bin\Dost.pdb
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.AI.Agent.Intercept.dll
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.dll
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.AI.PerfCounterCollector.dll
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.dll
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.AI.Web.dll
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.dll
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.dll
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.Web.Infrastructure.dll
-E:\Mona\NewDost\Dost\Dost\bin\Swashbuckle.Core.dll
-E:\Mona\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.dll
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Helpers.dll
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Http.dll
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.dll
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Mvc.dll
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Razor.dll
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.dll
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Webpages.dll
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.dll
-E:\Mona\NewDost\Dost\Dost\bin\WebActivator.dll
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.xml
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.xml
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.AI.Web.xml
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.xml
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.xml
-E:\Mona\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Razor.xml
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Webpages.xml
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.xml
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.xml
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Helpers.xml
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Mvc.xml
-E:\Mona\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.xml
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Http.xml
-E:\Mona\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
-E:\Mona\NewDost\Dost\Dost\obj\Debug\Dost.dll
-E:\Mona\NewDost\Dost\Dost\obj\Debug\Dost.pdb
-E:\Mona\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\ApplicationInsights.config
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\csc.exe
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\Microsoft.CSharp.Core.targets
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\Microsoft.VisualBasic.Core.targets
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\System.Collections.Immutable.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\System.Reflection.Metadata.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\vbc.exe
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe.config
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Dost.dll.config
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Dost.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Dost.pdb
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.AI.Agent.Intercept.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.AI.PerfCounterCollector.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.AI.Web.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.Web.Infrastructure.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Swashbuckle.Core.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Helpers.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Http.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Mvc.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Razor.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Webpages.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\WebActivator.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.AI.Web.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Razor.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Webpages.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Helpers.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Mvc.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Http.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
-G:\reenapro\Repo\NewDost\Dost\Dost\obj\Debug\Dost.dll
-G:\reenapro\Repo\NewDost\Dost\Dost\obj\Debug\Dost.pdb
-G:\reenapro\Repo\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\ApplicationInsights.config
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\csc.exe
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\Microsoft.CSharp.Core.targets
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\Microsoft.VisualBasic.Core.targets
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\System.Collections.Immutable.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\System.Reflection.Metadata.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\vbc.exe
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe.config
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Dost.dll.config
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Dost.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Dost.pdb
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.AI.Agent.Intercept.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.AI.PerfCounterCollector.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.AI.Web.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.Web.Infrastructure.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Swashbuckle.Core.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Helpers.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Http.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Mvc.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Razor.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Webpages.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\WebActivator.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.AI.Web.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Razor.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Webpages.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Helpers.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Mvc.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Http.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\obj\Debug\Dost.dll
-D:\Mona Afluex\NewDost24Jan\NewDost\Dost\Dost\obj\Debug\Dost.pdb
-E:\Divya\repository\NewDost\Dost\Dost\bin\ApplicationInsights.config
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\csc.exe
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CSharp.Core.targets
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.VisualBasic.Core.targets
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\System.Collections.Immutable.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\System.Reflection.Metadata.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\vbc.exe
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe
-E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe.config
-E:\Divya\repository\NewDost\Dost\Dost\bin\Dost.dll.config
-E:\Divya\repository\NewDost\Dost\Dost\bin\Dost.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Dost.pdb
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.AI.Agent.Intercept.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.AI.PerfCounterCollector.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.AI.Web.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.Web.Infrastructure.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Swashbuckle.Core.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Helpers.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Http.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Mvc.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Razor.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Webpages.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\WebActivator.dll
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.AI.Web.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Razor.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Webpages.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Helpers.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Mvc.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
-E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
-E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
-E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
-E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+E:\Repository\NewDost\Dost\Dost\bin\ApplicationInsights.config
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\csc.exe
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\System.Collections.Immutable.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\System.Reflection.Metadata.dll
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\vbc.exe
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe
+E:\Repository\NewDost\Dost\Dost\bin\roslyn\VBCSCompiler.exe.config
+E:\Repository\NewDost\Dost\Dost\bin\Dost.dll.config
+E:\Repository\NewDost\Dost\Dost\bin\Dost.dll
+E:\Repository\NewDost\Dost\Dost\bin\Dost.pdb
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.Agent.Intercept.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.Web.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.Web.Infrastructure.dll
+E:\Repository\NewDost\Dost\Dost\bin\Swashbuckle.Core.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Helpers.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Http.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Mvc.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Razor.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.dll
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.dll
+E:\Repository\NewDost\Dost\Dost\bin\WebActivator.dll
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.xml
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.Web.xml
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.xml
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.xml
+E:\Repository\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Razor.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Helpers.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Mvc.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
+E:\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
+E:\Repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
+E:\Repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+E:\Repository\NewDost\Dost\Dost\bin\Babel.Licensing.dll
+E:\Repository\NewDost\Dost\Dost\bin\BitMiracle.LibTiff.NET.dll
+E:\Repository\NewDost\Dost\Dost\bin\BouncyCastle.Crypto.dll
+E:\Repository\NewDost\Dost\Dost\bin\DotNetZip.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronBarCode.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronPdf.Pdfium.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronPdf.Pdfium.Domain.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronSoftware.Analytics.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronSoftware.Common.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronSoftware.Deployment.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronSoftware.IronConfigurationManager.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronSoftware.Licenses.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronSoftware.Logger.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronSoftware.Standard.Aforge.dll
+E:\Repository\NewDost\Dost\Dost\bin\NativeLibraryLoader.dll
+E:\Repository\NewDost\Dost\Dost\bin\Newtonsoft.Json.dll
+E:\Repository\NewDost\Dost\Dost\bin\PdfSharp.dll
+E:\Repository\NewDost\Dost\Dost\bin\zxing.dll
+E:\Repository\NewDost\Dost\Dost\bin\zxing.presentation.dll
+E:\Repository\NewDost\Dost\Dost\bin\IronBarCode.xml
+E:\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Babel.Licensing.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\BitMiracle.LibTiff.NET.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\BouncyCastle.Crypto.dll

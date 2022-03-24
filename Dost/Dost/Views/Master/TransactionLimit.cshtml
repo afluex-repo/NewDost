@@ -1,0 +1,122 @@
+﻿@model Dost.Models.Master
+
+@{
+    ViewBag.Title = "TransactionLimit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Master
+                </a>
+            </li>
+            <li class="active">
+                Transaction Limit
+            </li>
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("TransactionLimit", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <span style="color: red">
+        @TempData["TransactionLimit"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Transaction Limit
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="hidden" id="TransactionLimitId" name="TransactionLimitId" value="@Model.TransactionLimitId" />
+                            <div class="form-group">
+                                <label>Transaction<span style="color: red">*</span></label>
+                                    @Html.DropDownListFor(m => m.FK_TransactionId, new SelectList(ViewBag.ddlTransaction, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Amount<span style="color: red">*</span></label>
+                             
+                                    @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @placeholder = "Amount", @onkeypress = "return isNumberOrDecimal(event);" })
+                             
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Percentage<span style="color: red">*</span></label>
+                              
+                                    @Html.TextBoxFor(m => m.Percentage, new { @class = "form-control", @placeholder = "Percentage", @onkeypress = "return isNumberOrDecimal(event);" })
+                             
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="submit" id="BtnTransactionLimit" class="btn btn-success" name="BtnTransactionLimit" value="Submit" onclick="return validate();" />
+                                <a class="btn btn-primary" href="/Master/TransactionLimitList">Back To List</a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+
+<script>
+    var TransactionLimitId = $("#TransactionLimitId").val();
+    if (TransactionLimitId != 0) {
+        $("#BtnTransactionLimit").val("Update");
+    }
+
+
+    function validate() {
+        $(".errortext").removeClass("errortext");
+        if ($('#FK_TransactionId').val() == '0') {
+            $("#FK_TransactionId").addClass('errortext');
+            $('#FK_TransactionId').focus();
+            return false;
+        }
+        if ($('#Amount').val() == '') {
+            $("#Amount").addClass('errortext');
+            $('#Amount').focus();
+            return false;
+        }
+        if ($('#Percentage').val() == '') {
+            $("#Percentage").addClass('errortext');
+            $('#Percentage').focus();
+            return false;
+        }
+    }
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
