@@ -82,11 +82,11 @@
         margin: 20px;
         color: var(--primary) !important;
     }
-    @@media screen and (min-width: 1024px){
+    /*@@media screen and (min-width: 1024px){
     .profile-description.px-2.pt-2 {
     width: 70%;
 }
-    }
+    }*/
 </style>
 
 <div class="content-body">
@@ -176,11 +176,11 @@
 
                             </div>
                             <div class="profile-details">
-                                <div class="profile-name px-3 pt-2">
-                                    <h4 class="text-primary mb-0">@Model.Name</h4>
+                                <div class="profile-name px-3 pt-2" >
+                                    <h4 class="text-primary mb-0" style="white-space: nowrap">@Model.Name</h4>
                                     <p>@Model.Designation</p>
                                 </div>
-                                <div class="profile-description px-2 pt-2">
+                                <div class="profile-description px-2 pt-2 w-100">
                                     @*<h4 class="text-muted mb-0">@Model.Email</h4>
                                     <p>Email</p>*@
                                     <textarea class="form-control mr-2" placeholder="Type your details..."></textarea>
