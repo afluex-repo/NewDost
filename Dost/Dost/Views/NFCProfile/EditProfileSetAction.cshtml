@@ -59,7 +59,15 @@
     .social-graph-wrapper.widget-email {
         background-color: #f04336;
     }
-   
+
+    .social-graph-wrapper.widget-website {
+        background-image: linear-gradient(to right, #29abde, #006cb8);
+    }
+
+    .social-graph-wrapper.widget-map {
+        background-color: #f71c1e;
+    }
+
     .fa-lg {
         font-size: 1.58em;
         line-height: .75em;
@@ -73,6 +81,11 @@
     .cover-photo i {
         margin: 20px;
         color: var(--primary) !important;
+    }
+    @@media screen and (min-width: 1024px){
+    .profile-description.px-2.pt-2 {
+    width: 70%;
+}
     }
 </style>
 
@@ -167,9 +180,10 @@
                                     <h4 class="text-primary mb-0">@Model.Name</h4>
                                     <p>@Model.Designation</p>
                                 </div>
-                                <div class="profile-email px-2 pt-2">
-                                    <h4 class="text-muted mb-0">@Model.Email</h4>
-                                    <p>Email</p>
+                                <div class="profile-description px-2 pt-2">
+                                    @*<h4 class="text-muted mb-0">@Model.Email</h4>
+                                    <p>Email</p>*@
+                                    <textarea class="form-control mr-2" placeholder="Type your details..."></textarea>
                                 </div>
                                 <input type="hidden" id="PK_ProfileId" value="@Model.PK_ProfileId" />
                                 <input type="hidden" id="Code" value="@Model.Code" />
@@ -491,163 +505,406 @@
                                         <div class="pt-3">
                                             <div class="settings-form">
                                                 <div class="row mt-4">
-                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-phone">
                                                                 <span class="s-icon"><a href="#" target="_blank" data-toggle="modal" data-target="#phone"><i class="fa fa-phone fa-lg"></i></a></span>
                                                             </div>
-                                                            <div id="phone">
-                                                               <input type="checkbox" style="margin:10px"/>Show  <input type="checkbox" style="margin:10px"/>hide
-                                                                <select class="form-control">
+                                                            <div class="phone-detail">
+                                                                @*<div class="d-flex justify-content-between my-2">
+                                                                    <button class="btn btn-primary mr-2">
+                                                                        Show
+                                                                    </button>
+                                                                    <button class="btn btn-secondary">
+                                                                        Hide
+                                                                    </button>
+
+                                                                </div>*@
+                                                                <div class="row my-2">
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-success">
+                                                                            <input type="checkbox" class="custom-control-input" id="phones">
+                                                                            <label class="custom-control-label" for="phones">Show</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-danger">
+                                                                            <input type="checkbox" class="custom-control-input" id="phoneh">
+                                                                            <label class="custom-control-label" for="phoneh">Hide</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select class="form-control default-select">
                                                                     <option>--Select--</option>
                                                                     <option>8808098724</option>
                                                                 </select>
-                                                                <br />
-                                                                <input type="submit" id="btnUpdate" class="btn btn-primary mb-2 px-5" name="btnUpdate" value="Update">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-whatsapp">
                                                                 <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
                                                             </div>
+                                                            <div class="whatsapp-detail">
+                                                                <div class="row my-2">
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-success">
+                                                                            <input type="checkbox" class="custom-control-input" id="whatsapps">
+                                                                            <label class="custom-control-label" for="whatsapps">Show</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-danger">
+                                                                            <input type="checkbox" class="custom-control-input" id="whatsapph">
+                                                                            <label class="custom-control-label" for="whatsapph">Hide</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select class="form-control default-select">
+                                                                    <option>--Select--</option>
+                                                                    <option>8808098724</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-email">
                                                                 <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-envelope fa-lg"></i></a></span>
                                                             </div>
+                                                            <div class="phone-email">
+                                                                <div class="row my-2">
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-success">
+                                                                            <input type="checkbox" class="custom-control-input" id="emails">
+                                                                            <label class="custom-control-label" for="emails">Show</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-danger">
+                                                                            <input type="checkbox" class="custom-control-input" id="emailh">
+                                                                            <label class="custom-control-label" for="emailh">Hide</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select class="form-control default-select">
+                                                                    <option>--Select--</option>
+                                                                    <option>testjdj@test.com</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-facebook">
                                                                 <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
                                                             </div>
+                                                            <div class="facebook-detail">
+                                                                <div class="row my-2">
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-success">
+                                                                            <input type="checkbox" class="custom-control-input" id="facebooks">
+                                                                            <label class="custom-control-label" for="facebooks">Show</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-danger">
+                                                                            <input type="checkbox" class="custom-control-input" id="requiredh">
+                                                                            <label class="custom-control-label" for="requiredh">Hide</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select class="form-control default-select">
+                                                                    <option>--Select--</option>
+                                                                    <option>www.facebook.com/rewtr?new</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                        <div class="card">
+                                                            <div class="social-graph-wrapper widget-instagram">
+                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></span>
+                                                            </div>
+                                                            <div class="intagram-detail">
+                                                                <div class="row my-2">
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-success">
+                                                                            <input type="checkbox" class="custom-control-input" id="instagrams">
+                                                                            <label class="custom-control-label" for="instagrams">Show</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-danger">
+                                                                            <input type="checkbox" class="custom-control-input" id="instagramh">
+                                                                            <label class="custom-control-label" for="instagramh">Hide</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select class="form-control default-select">
+                                                                    <option>--Select--</option>
+                                                                    <option>instagramurl__</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                        <div class="card">
+                                                            <div class="social-graph-wrapper widget-twitter">
+                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
+                                                            </div>
+                                                            <div class="twitter-detail">
+                                                                <div class="row my-2">
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-success">
+                                                                            <input type="checkbox" class="custom-control-input" id="twitters">
+                                                                            <label class="custom-control-label" for="twitters">Show</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-danger">
+                                                                            <input type="checkbox" class="custom-control-input" id="twitterh">
+                                                                            <label class="custom-control-label" for="twitterh">Hide</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select class="form-control default-select">
+                                                                    <option>--Select--</option>
+                                                                    <option>twitterurl___</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                        <div class="card">
+                                                            <div class="social-graph-wrapper widget-telegram">
+                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-telegram fa-lg"></i></a></span>
+                                                            </div>
+                                                            <div class="telegram-detail">
+                                                                <div class="row my-2">
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-success">
+                                                                            <input type="checkbox" class="custom-control-input" id="telegrams">
+                                                                            <label class="custom-control-label" for="telegrams">Show</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-danger">
+                                                                            <input type="checkbox" class="custom-control-input" id="telegramh">
+                                                                            <label class="custom-control-label" for="telegramh">Hide</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select class="form-control default-select">
+                                                                    <option>--Select--</option>
+                                                                    <option>telegramurl__</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                        <div class="card">
+                                                            <div class="social-graph-wrapper widget-linkedin">
+                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></span>
+                                                            </div>
+                                                            <div class="linkdin-detail">
+                                                                <div class="row my-2">
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-success">
+                                                                            <input type="checkbox" class="custom-control-input" id="linkedins">
+                                                                            <label class="custom-control-label" for="linkedins">Show</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-danger">
+                                                                            <input type="checkbox" class="custom-control-input" id="linkedinh">
+                                                                            <label class="custom-control-label" for="linkedinh">Hide</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select class="form-control default-select">
+                                                                    <option>--Select--</option>
+                                                                    <option>linkdinurl__</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                        <div class="card">
+                                                            <div class="social-graph-wrapper widget-website">
+                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-globe fa-lg"></i></a></span>
+                                                            </div>
+                                                            <div class="website-detail">
+                                                                <div class="row my-2">
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-success">
+                                                                            <input type="checkbox" class="custom-control-input" id="websites">
+                                                                            <label class="custom-control-label" for="websites">Show</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-danger">
+                                                                            <input type="checkbox" class="custom-control-input" id="websiteh">
+                                                                            <label class="custom-control-label" for="websiteh">Hide</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select class="form-control default-select">
+                                                                    <option>--Select--</option>
+                                                                    <option>https://dost.click</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                        <div class="card">
+                                                            <div class="social-graph-wrapper widget-map">
+                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-map-marker fa-lg"></i></a></span>
+                                                            </div>
+                                                            <div class="map-detail">
+                                                                <div class="row my-2">
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-success">
+                                                                            <input type="checkbox" class="custom-control-input" id="locations">
+                                                                            <label class="custom-control-label" for="locations">Show</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="custom-control custom-checkbox mb-3 checkbox-danger">
+                                                                            <input type="checkbox" class="custom-control-input" id="locationh">
+                                                                            <label class="custom-control-label" for="locationh">Hide</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    </div>
+                                                                    <select class="form-control default-select">
+                                                                        <option>--Select--</option>
+                                                                        <option>Lucknow, India</option>
+                                                                    </select>
+                                                                </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <input type="submit" id="btnUpdate" class="btn btn-primary mb-2 px-5" name="btnUpdate" value="Update">
+                                            </div>
 
-                                                @*<div class="row mt-4">
-                                                        @if (Model != null)
+                                            @*<div class="row mt-4">
+                                                    @if (Model != null)
+                                                    {
+                                                        if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "ContactNo").Any())
                                                         {
-                                                            if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "ContactNo").Any())
+                                                            foreach (var item in Model.NfcContentList)
                                                             {
-                                                                foreach (var item in Model.NfcContentList)
+                                                                if (item.Type == "ContactNo" && item.IsPrimary=="True")
                                                                 {
-                                                                    if (item.Type == "ContactNo" && item.IsPrimary=="True")
+                                                                    if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
                                                                     {
-                                                                        if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
-                                                                        {
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-whatsapp">
-                                                                                        <span class="s-icon"><a href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
-                                                                                    </div>
+                                                                        <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                                            <div class="card">
+                                                                                <div class="social-graph-wrapper widget-whatsapp">
+                                                                                    <span class="s-icon"><a href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
                                                                                 </div>
                                                                             </div>
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-whatsapp">
-                                                                                        <span class="s-icon"><a href="" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        }
-                                                                    }
-                                                                    else if (item.Type == "SocialMedia" && item.IsPrimary=="True")
-                                                                    {
-                                                                        if (item.Content.ToLower().Contains("fb") || item.Content.ToLower().Contains("facebook"))
-                                                                        {
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-facebook">
-                                                                                        <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        }
-                                                                        if (item.Content.ToLower().Contains("telegram") || item.Content.ToLower().Contains("telegram"))
-                                                                        {
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-telegram">
-                                                                                        <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-telegram fa-lg"></i></a></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        }
-                                                                        if (item.Content.ToLower().Contains("instagram") || item.Content.ToLower().Contains("insta"))
-                                                                        {
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-instagram">
-                                                                                        <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        }
-                                                                        if (item.Content.ToLower().Contains("linkedin") || item.Content.ToLower().Contains("linkedin"))
-                                                                        {
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-linkedin">
-                                                                                        <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        }
-                                                                        if (item.Content.ToLower().Contains("twitter") || item.Content.ToLower().Contains("tw"))
-                                                                        {
-                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                <div class="card">
-                                                                                    <div class="social-graph-wrapper widget-twitter">
-                                                                                        <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        }
+                                                                        </div>
                                                                     }
                                                                     else
                                                                     {
-
+                                                                        <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                                            <div class="card">
+                                                                                <div class="social-graph-wrapper widget-whatsapp">
+                                                                                    <span class="s-icon"><a href="" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     }
+                                                                }
+                                                                else if (item.Type == "SocialMedia" && item.IsPrimary=="True")
+                                                                {
+                                                                    if (item.Content.ToLower().Contains("fb") || item.Content.ToLower().Contains("facebook"))
+                                                                    {
+                                                                        <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                                            <div class="card">
+                                                                                <div class="social-graph-wrapper widget-facebook">
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    if (item.Content.ToLower().Contains("telegram") || item.Content.ToLower().Contains("telegram"))
+                                                                    {
+                                                                        <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                                            <div class="card">
+                                                                                <div class="social-graph-wrapper widget-telegram">
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-telegram fa-lg"></i></a></span>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    if (item.Content.ToLower().Contains("instagram") || item.Content.ToLower().Contains("insta"))
+                                                                    {
+                                                                        <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                                            <div class="card">
+                                                                                <div class="social-graph-wrapper widget-instagram">
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></span>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    if (item.Content.ToLower().Contains("linkedin") || item.Content.ToLower().Contains("linkedin"))
+                                                                    {
+                                                                        <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                                            <div class="card">
+                                                                                <div class="social-graph-wrapper widget-linkedin">
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></span>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    if (item.Content.ToLower().Contains("twitter") || item.Content.ToLower().Contains("tw"))
+                                                                    {
+                                                                        <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
+                                                                            <div class="card">
+                                                                                <div class="social-graph-wrapper widget-twitter">
+                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+
                                                                 }
                                                             }
                                                         }
-                                                    </div>*@
-                                            </div>
+                                                    }
+                                                </div>*@
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="replyModal">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Post Reply</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <textarea class="form-control" rows="4">Message</textarea>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Reply</button>
-                                        </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="replyModal">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Post Reply</h5>
+                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <textarea class="form-control" rows="4">Message</textarea>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Reply</button>
                                     </div>
                                 </div>
                             </div>
@@ -657,6 +914,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <script src="~/vendor/jquery/jquery.min.js"></script>
 <script>
