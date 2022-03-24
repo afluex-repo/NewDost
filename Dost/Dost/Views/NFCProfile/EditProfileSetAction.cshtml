@@ -59,7 +59,7 @@
     .social-graph-wrapper.widget-email {
         background-color: #f04336;
     }
-
+   
     .fa-lg {
         font-size: 1.58em;
         line-height: .75em;
@@ -397,7 +397,7 @@
                                                 <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-fr"></i> French</a>
                                                 <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-bd"></i> Bangla</a>*@
                                         </div>
-                                        
+
                                         <div class="profile-personal-info">
                                             <h4 class="text-primary mb-4">Achievements<span class="add_more" data-toggle="modal" data-target="#achievementModalCenter">+</span></h4>
                                             <!-- Modal -->
@@ -490,263 +490,142 @@
                                     <div id="chats" class="tab-pane fade active show">
                                         <div class="pt-3">
                                             <div class="settings-form">
-                                                <div class="profile-lang  mb-5">
-                                                    <h4 class="text-primary mb-2">Primary Number</h4>
-                                                    <!-- modal -->
-                                                    @if (Model != null)
-                                                    {
-                                                        if (Model.lst != null)
-                                                        {
-                                                            foreach (var item in Model.lst)
-                                                            {
-                                                                if (item.Type == "ContactNo")
-                                                                {
-                                                                    if (item.IsPrimaryNumber == true)
-                                                                    {
-                                                                        <input type="checkbox" id="chk_@item.Pk_NfcProfileId" onchange="return SetPrimary(@item.Pk_NfcProfileId,$(this));" checked />
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <input type="checkbox" onchange="return SetPrimary(@item.Pk_NfcProfileId,$(this));" />
-                                                                    }
-                                                                    <a href="javascript:void(0);" id="chk_@item.Pk_NfcProfileId" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> @item.Mobile</a>
-                                                                }
-
-                                                            }
-                                                        }
-                                                    }
-
-                                                </div>
-                                                <div class="profile-lang  mb-5">
-                                                    <h4 class="text-primary mb-2">Primary Email</h4>
-                                                    <!-- modal -->
-                                                    @if (Model != null)
-                                                    {
-                                                        if (Model.lst != null)
-                                                        {
-                                                            foreach (var item in Model.lst)
-                                                            {
-                                                                if (item.Type == "Email")
-                                                                {
-                                                                    if (item.IsPrimaryEmail == true)
-                                                                    {
-                                                                        <input type="checkbox" onchange="return SetPrimary(@item.Pk_NfcProfileId,$(this));" checked />
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <input type="checkbox" onchange="return SetPrimary(@item.Pk_NfcProfileId,$(this));" />
-                                                                    }
-                                                                    <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> @item.Email</a>
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-
-
-                                                </div>
-                                                <div class="profile-lang  mb-5">
-                                                    <h4 class="text-primary mb-2">Primary Social</h4>
-                                                    <!-- modal -->
-                                                    @if (Model != null)
-                                                    {
-                                                        if (Model.lst != null)
-                                                        {
-                                                            foreach (var item in Model.lst)
-                                                            {
-                                                                if (item.Type == "SocialMedia")
-                                                                {
-                                                                    if (item.IsPrimarySocial == true)
-                                                                    {
-                                                                        <input type="checkbox" onchange="return SetPrimary(@item.Pk_NfcProfileId,$(this));" checked />
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <input type="checkbox" onchange="return SetPrimary(@item.Pk_NfcProfileId,$(this));" />
-                                                                    }
-                                                                    <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> @item.SocialMedia</a>
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-
-
-                                                </div>
-                                                <div class="profile-lang  mb-5">
-                                                    <h4 class="text-primary mb-2">Primary Web Link</h4>
-                                                    <!-- modal -->
-                                                    @if (Model != null)
-                                                    {
-                                                        if (Model.lst != null)
-                                                        {
-                                                            foreach (var item in Model.lst)
-                                                            {
-                                                                if (item.Type == "WebLink")
-                                                                {
-                                                                    if (item.IsPrimaryWebLink == true)
-                                                                    {
-                                                                        <input type="checkbox" onchange="return SetPrimary(@item.Pk_NfcProfileId,$(this));" checked />
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <input type="checkbox" onchange="return SetPrimary(@item.Pk_NfcProfileId,$(this));" />
-                                                                    }
-                                                                    <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> @item.WebLink</a>
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                </div>
                                                 <div class="row mt-4">
-                                                    @if (Model != null)
-                                                    {
-                                                        if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "ContactNo").Any())
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                        <div class="card">
+                                                            <div class="social-graph-wrapper widget-phone">
+                                                                <span class="s-icon"><a href="#" target="_blank" data-toggle="modal" data-target="#phone"><i class="fa fa-phone fa-lg"></i></a></span>
+                                                            </div>
+                                                            <div id="phone">
+                                                               <input type="checkbox" style="margin:10px"/>Show  <input type="checkbox" style="margin:10px"/>hide
+                                                                <select class="form-control">
+                                                                    <option>--Select--</option>
+                                                                    <option>8808098724</option>
+                                                                </select>
+                                                                <br />
+                                                                <input type="submit" id="btnUpdate" class="btn btn-primary mb-2 px-5" name="btnUpdate" value="Update">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                        <div class="card">
+                                                            <div class="social-graph-wrapper widget-whatsapp">
+                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                        <div class="card">
+                                                            <div class="social-graph-wrapper widget-email">
+                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-envelope fa-lg"></i></a></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                        <div class="card">
+                                                            <div class="social-graph-wrapper widget-facebook">
+                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                @*<div class="row mt-4">
+                                                        @if (Model != null)
                                                         {
-                                                            foreach (var item in Model.NfcContentList)
+                                                            if (Model.NfcContentList != null && Model.NfcContentList.Count > 0 && Model.NfcContentList.Where(x => x.Type == "ContactNo").Any())
                                                             {
-                                                                if (item.Type == "ContactNo" && item.IsPrimary=="True")
+                                                                foreach (var item in Model.NfcContentList)
                                                                 {
-                                                                    if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
+                                                                    if (item.Type == "ContactNo" && item.IsPrimary=="True")
                                                                     {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-whatsapp">
-                                                                                    <span class="s-icon"><a href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                                        if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
+                                                                        {
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-whatsapp">
+                                                                                        <span class="s-icon"><a href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-whatsapp">
+                                                                                        <span class="s-icon"><a href="" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                    }
+                                                                    else if (item.Type == "SocialMedia" && item.IsPrimary=="True")
+                                                                    {
+                                                                        if (item.Content.ToLower().Contains("fb") || item.Content.ToLower().Contains("facebook"))
+                                                                        {
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-facebook">
+                                                                                        <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        if (item.Content.ToLower().Contains("telegram") || item.Content.ToLower().Contains("telegram"))
+                                                                        {
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-telegram">
+                                                                                        <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-telegram fa-lg"></i></a></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        if (item.Content.ToLower().Contains("instagram") || item.Content.ToLower().Contains("insta"))
+                                                                        {
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-instagram">
+                                                                                        <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        if (item.Content.ToLower().Contains("linkedin") || item.Content.ToLower().Contains("linkedin"))
+                                                                        {
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-linkedin">
+                                                                                        <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        if (item.Content.ToLower().Contains("twitter") || item.Content.ToLower().Contains("tw"))
+                                                                        {
+                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                <div class="card">
+                                                                                    <div class="social-graph-wrapper widget-twitter">
+                                                                                        <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        }
                                                                     }
                                                                     else
                                                                     {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-whatsapp">
-                                                                                    <span class="s-icon"><a href="" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                }
-                                                                else if (item.Type == "SocialMedia" && item.IsPrimary=="True")
-                                                                {
-                                                                    if (item.Content.ToLower().Contains("fb") || item.Content.ToLower().Contains("facebook"))
-                                                                    {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-facebook">
-                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
-                                                                                </div>
 
-                                                                            </div>
-                                                                        </div>
                                                                     }
-                                                                    else
-                                                                    {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-facebook">
-                                                                                    <span class="s-icon"><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                    if (item.Content.ToLower().Contains("telegram") || item.Content.ToLower().Contains("telegram"))
-                                                                    {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-telegram">
-                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-telegram fa-lg"></i></a></span>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-telegram">
-                                                                                    <span class="s-icon"><a href="https://web.telegram.org/z/" target="_blank"><i class="fa fa-telegram fa-lg"></i></a></span>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                    if (item.Content.ToLower().Contains("instagram") || item.Content.ToLower().Contains("insta"))
-                                                                    {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-instagram">
-                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></span>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-instagram">
-                                                                                    <span class="s-icon"><a href="https://www.instagram.com/?hl=en" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></span>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                    if (item.Content.ToLower().Contains("linkedin") || item.Content.ToLower().Contains("linkedin"))
-                                                                    {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-linkedin">
-                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></span>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-linkedin">
-                                                                                    <span class="s-icon"><a href="https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></span>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                    if (item.Content.ToLower().Contains("twitter") || item.Content.ToLower().Contains("tw"))
-                                                                    {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-twitter">
-                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                            <div class="card">
-                                                                                <div class="social-graph-wrapper widget-twitter">
-                                                                                    <span class="s-icon"><a href="https://twitter.com/login" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                }
-                                                                else
-                                                                {
-
                                                                 }
                                                             }
                                                         }
-                                                    }
-                                                </div>
+                                                    </div>*@
                                             </div>
                                         </div>
                                     </div>

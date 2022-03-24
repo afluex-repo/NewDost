@@ -139,7 +139,8 @@ namespace Dost.Controllers
                                 {
                                     Content = row["Content"].ToString(),
                                     Type = row["Type"].ToString(),
-                                    IsWhatsApp = row["IsWhatsapp"].ToString()
+                                    IsWhatsApp = row["IsWhatsapp"].ToString(),
+                                    IsPrimary = row["IsPrimary"].ToString()
                                 });
                             }
 
