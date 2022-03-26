@@ -95,6 +95,8 @@ namespace Dost.Models
         public bool IsPrimaryEmail { get; set; }
         public bool IsPrimarySocial { get; set; }
         public bool IsPrimaryWebLink { get; set; }
+        public int IsPrimary { get; set; }
+        public string IsDisplay { get; set; }
         public DataSet SaveAboutMe()
         {
             SqlParameter[] para ={
@@ -399,7 +401,8 @@ namespace Dost.Models
                 new SqlParameter ("@FK_UserId",FK_UserId),
                 new SqlParameter ("@PK_ProfileId",PK_ProfileId),
                 new SqlParameter("@FK_NFCProfileId",Pk_NfcProfileId),
-                new SqlParameter("@IsChecked",IsPrimaryNumber)
+                new SqlParameter("@IsChecked",IsPrimaryNumber),
+                 new SqlParameter("@IsWhatsapp",IsWhatsapp)
             };
             DataSet ds = DBHelper.ExecuteQuery("SetPrimaryNumber", para);
             return ds;
@@ -530,16 +533,19 @@ namespace Dost.Models
         public List<string> WebLinks { get; set; }
         public List<string> Emails { get; set; }
         public List<string> Contacts { get; set; }
+        public List<string> OtherContacts { get; set; }
         public List<string> SocialLinks { get; set; }
         public byte[] Image { get; set; }
         public override string ToString()
         {
             var builder = new StringBuilder();
+ 
             builder.AppendLine("BEGIN:VCARD");
-            builder.AppendLine("VERSION:3.0");
+            builder.AppendLine("VERSION:2.1");
             // Name 
             //builder.AppendLine("N:" + LastName + ";" + FirstName);
             // Full name 
+            builder.AppendLine("N:" + FirstName + " " + LastName);
             builder.AppendLine("FN:" + FirstName + " " + LastName);
             //builder.AppendLine("TITLE:" + "");
             if (!string.IsNullOrEmpty(Note))
@@ -559,7 +565,9 @@ namespace Dost.Models
                 builder.AppendLine("TITLE:" + Designation);
 
             if (!string.IsNullOrEmpty(Mobile))
-                builder.AppendLine("TEL;TYPE=Personal:" + Mobile);
+                builder.AppendLine("TEL;TYPE=WORK:" + Mobile);
+            if (!string.IsNullOrEmpty(Mobile))
+                builder.AppendLine("TEL;TYPE=HOME:" + Mobile);
             if (!string.IsNullOrEmpty(OfficialEmail))
                 builder.AppendLine("EMAIL;TYPE=Official:" + OfficialEmail);
             if (!string.IsNullOrEmpty(PersonalEmail))
@@ -579,6 +587,20 @@ namespace Dost.Models
                 foreach (var url in SocialLinks)
                 {
                     builder.AppendLine("URL:" + url);
+                }
+            }
+            if (Contacts != null && Contacts.Count > 0)
+            {
+                foreach (var url in Contacts)
+                {
+                    builder.AppendLine("TEL:" + url);
+                }
+            }
+            if (OtherContacts != null && OtherContacts.Count > 0)
+            {
+                foreach (var url in OtherContacts)
+                {
+                    builder.AppendLine("TEL:" + url);
                 }
             }
             if (Contacts != null && Contacts.Count > 0)

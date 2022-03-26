@@ -1041,6 +1041,7 @@ namespace Dost.Controllers
                                             Pk_NfcProfileId = Convert.ToInt32(row["PK_NFcProfileId"]),
                                             Mobile = row["Content"].ToString(),
                                             IsPrimaryNumber = Convert.ToBoolean(row["IsPrimary"]),
+                                            IsDisplay = row["IsDisplay"].ToString(),
                                             Type = row["Type"].ToString()
                                         });
                                     }
@@ -1051,6 +1052,7 @@ namespace Dost.Controllers
                                             Pk_NfcProfileId = Convert.ToInt32(row["PK_NFcProfileId"]),
                                             Email = row["Content"].ToString(),
                                             IsPrimaryEmail = Convert.ToBoolean(row["IsPrimary"]),
+                                            IsDisplay = row["IsDisplay"].ToString(),
                                             Type = row["Type"].ToString()
                                         });
                                     }
@@ -1061,6 +1063,7 @@ namespace Dost.Controllers
                                             Pk_NfcProfileId = Convert.ToInt32(row["PK_NFcProfileId"]),
                                             SocialMedia = row["Content"].ToString(),
                                             IsPrimarySocial = Convert.ToBoolean(row["IsPrimary"]),
+                                            IsDisplay = row["IsDisplay"].ToString(),
                                             Type = row["Type"].ToString()
                                         });
                                     }
@@ -1071,6 +1074,7 @@ namespace Dost.Controllers
                                             Pk_NfcProfileId = Convert.ToInt32(row["PK_NFcProfileId"]),
                                             WebLink = row["Content"].ToString(),
                                             IsPrimaryWebLink = Convert.ToBoolean(row["IsPrimary"]),
+                                            IsDisplay = row["IsDisplay"].ToString(),
                                             Type = row["Type"].ToString()
                                         });
                                     }
@@ -1323,16 +1327,38 @@ namespace Dost.Controllers
             }
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult SetPrimary(string[] Pk_NfcProfileId, string IsChecked, string PK_ProfileId)
+        public ActionResult SetPrimary(NFCProfileModel model)
         {
-            NFCProfileModel model = new NFCProfileModel();
             try
             {
-                model.Pk_NfcProfileId = Convert.ToInt32(Pk_NfcProfileId);
+                DataSet ds = new DataSet();
                 model.FK_UserId = Session["Pk_userId"].ToString();
-                model.PK_ProfileId = PK_ProfileId;
-                model.IsPrimaryNumber = Convert.ToBoolean(IsChecked);
-                DataSet ds = model.SetPrimaryNumber();
+                if (model.Mobile != null && model.Mobile != "0" && model.Mobile != "")
+                {
+                    model.Pk_NfcProfileId = Convert.ToInt32(model.Mobile);
+                    model.IsPrimaryNumber = true;
+                    model.IsWhatsapp = true;
+                }
+                if (model.ContactList != null)
+                {
+                    model.ContactList = model.ContactList[0].Split(',');
+                    int i = 0;
+                   
+                    for (i = 0; i < model.ContactList.Length; i++)
+                    {
+                        if (model.ContactList[i] != "" && model.ContactList[i] != "0")
+                        {
+                            model.IsPrimaryNumber = true;
+                        }
+                        else
+                        {
+                            model.IsPrimaryNumber = false;
+                        }
+                        model.Pk_NfcProfileId = Convert.ToInt32(model.ContactList[i]);
+                       
+                        ds = model.SetPrimaryNumber();
+                    }
+                }
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")

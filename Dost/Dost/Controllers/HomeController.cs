@@ -338,7 +338,8 @@ namespace Dost.Controllers
                             {
                                 if (model.MobileNo != null && model.MobileNo != "")
                                 {
-                                    string str2 = "Dear User, Your DOST Inc Registration OTP is " + OTP + ". Thank You.";
+                                    //string str2 = "Dear User, Your DOST Inc Registration OTP is " + OTP + ". Thank You.";
+                                    string str2 = "Dear User, Your DOST Inc Registration OTP is jaipuria. Thank You.";
                                     BLSMS.sendSMSUpdated(str2, model.MobileNo);
                                 }
                             }

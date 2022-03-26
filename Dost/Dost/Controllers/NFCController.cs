@@ -353,6 +353,7 @@ namespace Dost.Controllers
                                 if (objProfile.NfcContentList != null && objProfile.NfcContentList.Count > 0)
                                 {
                                     List<string> Contacts = new List<string>();
+                                    List<string> OtherContacts = new List<string>();
                                     List<string> Email = new List<string>();
                                     List<string> Weblinks = new List<string>();
                                     List<string> SocialLinks = new List<string>();
@@ -366,9 +367,13 @@ namespace Dost.Controllers
                                         {
                                             Weblinks.Add(item.Content);
                                         }
-                                        else if (item.Type == "ContactNo")
+                                        else if (item.Type == "ContactNo" && Convert.ToBoolean(item.IsPrimary)==true)
                                         {
                                             Contacts.Add(item.Content);
+                                        }
+                                        else if (item.Type == "ContactNo" && Convert.ToBoolean(item.IsPrimary) == false)
+                                        {
+                                            OtherContacts.Add(item.Content);
                                         }
                                         else if (item.Type == "Email")
                                         {
@@ -382,6 +387,10 @@ namespace Dost.Controllers
                                     if (Contacts != null && Contacts.Count > 0)
                                     {
                                         myCard.Contacts = Contacts;
+                                    }
+                                    if (OtherContacts != null && OtherContacts.Count > 0)
+                                    {
+                                        myCard.OtherContacts = OtherContacts;
                                     }
                                     if (Email != null && Email.Count > 0)
                                     {
