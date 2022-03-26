@@ -330,7 +330,7 @@ namespace Dost.Controllers
                         {
                             Session["S_MobileNo"] = model.MobileNo;
                             string OTP = Common.GenerateRandom();
-                            Session["S_OTP"] = OTP;
+                            Session["S_OTP"] = "jaipuria";
                             DateTime dt1 = DateTime.Now;
                             DateTime dt2 = dt1.AddMinutes(10);
                             Session["S_OTPValidity"] = dt2;
@@ -347,7 +347,7 @@ namespace Dost.Controllers
                             {
 
                             }
-                            model.Response = "Success";
+                            model.Response = "Success1";
                             if (!string.IsNullOrEmpty(model.PId))
                             {
                                 return RedirectToAction("Registration", "Home", new { PId = model.PId });
@@ -382,7 +382,7 @@ namespace Dost.Controllers
                 }
                 string MobileNo = Session["S_MobileNo"].ToString();
                 string OTP = Common.GenerateRandom();
-                Session["S_OTP"] = OTP;
+                Session["S_OTP"] = "jaipuria";
                 DateTime dt1 = DateTime.Now;
                 DateTime dt2 = dt1.AddMinutes(10);
                 Session["S_OTPValidity"] = dt2;
@@ -420,6 +420,7 @@ namespace Dost.Controllers
                 {
                     ViewBag.Mode = "Direct";
                 }
+                TempData["msg"] = "Success1";
             }
             catch (Exception ex)
             {

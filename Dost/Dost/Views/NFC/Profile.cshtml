@@ -24,6 +24,10 @@
     <link href="~/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
     <style type="text/css">
+        .container{
+        padding-right: 0;
+    padding-left: 0;
+    }
         .social-graph-wrapper.widget-whatsapp {
             background-color: #04c165;
         }
@@ -66,10 +70,29 @@
         }
 
         @@media (max-width: 575.98px) {
+            .profile .profile-photo {
+        width: 100%;
+    }
             .photo-content .cover-photo {
-                min-height: 110px;
+                min-height: 200px;
             }
+            ul.profile_nav {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.profile-tab .nav-item .nav-link {
+    white-space: nowrap;
+    margin-right: 0;
+}
+ul.nav{
+    flex-wrap: inherit;
+}
         }
+        .profile-tab .nav-item .nav-link {
+    margin-right: 0;
+}
 
         .col-xl-12.col-xxl-12.col-sm-12.social {
             display: grid;
@@ -94,6 +117,7 @@
         .social-graph-wrapper {
             padding: 20px 0;
         }
+        
     </style>
 </head>
 <body>
@@ -371,7 +395,7 @@
                                                 </div>
                                             </div>
                                         </div>*@
-                                    <div class="col-xl-12">
+                                    <div class="col-xl-12 d-none d-md-block">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="profile-interest">
@@ -395,16 +419,17 @@
                                     <div class="card-body">
                                         <div class="profile-tab">
                                             <div class="custom-tab-1">
-                                                <ul class="nav nav-tabs">
+                                                <ul class="nav nav-tabs profile_nav">
                                                     @*<li class="nav-item">
                                                             <a href="#social-media" data-toggle="tab" class="nav-link active show">Social Media</a>
                                                         </li>*@
                                                     <li class="nav-item">
-                                                        <a href="#contacts" data-toggle="tab" class="nav-link">Connect with me</a>
+                                                        <a href="#about-me" data-toggle="tab" class="nav-link active show">About Me</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
+                                                        <a href="#contacts" data-toggle="tab" class="nav-link">Connect with me</a>
                                                     </li>
+                                                
                                                     @*<li class="nav-item">
                                                             <a href="#broadcast" data-toggle="tab" class="nav-link">Broadcast</a>
                                                         </li>*@
@@ -538,7 +563,7 @@
                                                             </div>
                                                         </div>*@
 
-                                                    <div id="contacts" class="tab-pane fade active show">
+                                                    <div id="contacts" class="tab-pane fade">
                                                         <div class="pt-3">
                                                             <div class="settings-form">
 
@@ -638,7 +663,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div id="about-me" class="tab-pane fade">
+                                                    <div id="about-me" class="tab-pane fade active show">
                                                         <div class="profile-about-me">
                                                             <div class="pt-4 border-bottom-1 pb-3">
                                                                 <h4 class="text-primary">About Me</h4>

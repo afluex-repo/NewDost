@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 <style type="text/css">
+    
     .owl-item.active:focus-within {
         /*box-shadow: 6px 12px 11px 4px #724a9e;*/
         box-shadow: 8px -14px 20px 2px #8039d88f;
@@ -82,6 +83,30 @@
         margin: 20px;
         color: var(--primary) !important;
     }
+    @@media only screen and (max-width: 575px){
+    .profile .profile-photo {
+        width: 100%;
+    }
+            .photo-content .cover-photo {
+                min-height: 200px;
+            }
+            ul.profile_nav {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.profile-tab .nav-item .nav-link {
+    white-space: nowrap;
+    margin-right: 0;
+}
+ul.nav{
+    flex-wrap: inherit;
+}
+}
+    .profile-tab .nav-item .nav-link {
+    margin-right: 0;
+}
 </style>
 
 <div class="content-body">
@@ -178,7 +203,7 @@
                                 <div class="profile-description px-2 pt-2 w-100">
                                     @*<h4 class="text-muted mb-0">@Model.Email</h4>
                                         <p>Email</p>*@
-                                    <textarea class="form-control mr-2" placeholder="Type your details..."></textarea>
+                                    <textarea class="form-control mr-2" placeholder="Type your details...">@Model.Summary</textarea>
                                 </div>
                                 <input type="hidden" id="PK_ProfileId" value="@Model.PK_ProfileId" />
                                 <input type="hidden" id="Code" value="@Model.Code" />
@@ -266,7 +291,7 @@
                                 </div>
                             </div>
                         </div>*@
-                    <div class="col-xl-12">
+                    <div class="col-xl-12 d-none d-md-block">
                         <div class="card">
                             <div class="card-body">
                                 <div class="profile-interest">
@@ -290,7 +315,7 @@
                     <div class="card-body">
                         <div class="profile-tab">
                             <div class="custom-tab-1">
-                                <ul class="nav nav-tabs">
+                                <ul class="nav nav-tabs profile_nav">
                                     <li class="nav-item">
                                     <li class="nav-item">
                                         <a href="#about-me" data-toggle="tab" class="nav-link active show">About Me</a>

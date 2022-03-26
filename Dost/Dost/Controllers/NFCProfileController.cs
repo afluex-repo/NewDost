@@ -1001,7 +1001,7 @@ namespace Dost.Controllers
                             //objProfile.ProfilePic = ds1.Tables[0].Rows[0]["ProfilePic"].ToString();
                             //objProfile.Gender = ds1.Tables[0].Rows[0]["Sex"].ToString();
                             //objProfile.PK_UserId = ds1.Tables[0].Rows[0]["PK_UserId"].ToString();
-                            //objProfile.Summary = ds1.Tables[0].Rows[0]["Summary"].ToString();
+                            objProfile.Summary = ds1.Tables[0].Rows[0]["Summary"].ToString();
                             //objProfile.BusinessName = ds1.Tables[0].Rows[0]["BusinessName"].ToString();
                             objProfile.Designation = ds1.Tables[0].Rows[0]["Designation"].ToString();
                             //objProfile.UserCode = ds1.Tables[0].Rows[0]["UserCode"].ToString();
