@@ -1323,7 +1323,7 @@ namespace Dost.Controllers
             }
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult SetPrimary(string Pk_NfcProfileId, string IsChecked, string PK_ProfileId)
+        public ActionResult SetPrimary(string[] Pk_NfcProfileId, string IsChecked, string PK_ProfileId)
         {
             NFCProfileModel model = new NFCProfileModel();
             try
