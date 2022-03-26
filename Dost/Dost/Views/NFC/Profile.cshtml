@@ -11,10 +11,10 @@
     <meta name="author" content="" />
     <meta name="robots" content="" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Zenix - Crypto Admin Dashboard" />
-    <meta property="og:title" content="Zenix - Crypto Admin Dashboard" />
-    <meta property="og:description" content="Zenix - Crypto Admin Dashboard" />
-    <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png" />
+    <meta name="description" content="@Model.Summary" />
+    <meta property="og:title" content="@Model.Name" />
+    <meta property="og:description" content="@Model.Designation" />
+    <meta property="og:image" content="https://dost.click/@Model.ProfilePic" />
     <meta name="format-detection" content="telephone=no">
     <title>Dost</title>
     <!-- Favicon icon -->
@@ -161,7 +161,7 @@
 
                                             </div>
                                             <div class="profile-details">
-                                                <div class="profile-name px-3 pt-2" style="white-space: nowrap">
+                                                <div class="profile-name px-3 pt-2">
                                                     <h4 class="text-primary mb-0">@Model.Name</h4>
                                                     <input type="hidden" id="hdfName" value="@Model.Name" />
                                                     <p class="mb-0">@Model.Designation</p>

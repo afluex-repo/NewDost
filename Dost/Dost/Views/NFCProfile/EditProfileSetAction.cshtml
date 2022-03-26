@@ -82,7 +82,6 @@
         margin: 20px;
         color: var(--primary) !important;
     }
-   
 </style>
 
 <div class="content-body">
@@ -172,13 +171,13 @@
 
                             </div>
                             <div class="profile-details">
-                                <div class="profile-name px-3 pt-2" >
+                                <div class="profile-name px-3 pt-2">
                                     <h4 class="text-primary mb-0" style="white-space: nowrap">@Model.Name</h4>
                                     <p>@Model.Designation</p>
                                 </div>
                                 <div class="profile-description px-2 pt-2 w-100">
                                     @*<h4 class="text-muted mb-0">@Model.Email</h4>
-                                    <p>Email</p>*@
+                                        <p>Email</p>*@
                                     <textarea class="form-control mr-2" placeholder="Type your details..."></textarea>
                                 </div>
                                 <input type="hidden" id="PK_ProfileId" value="@Model.PK_ProfileId" />
@@ -504,62 +503,88 @@
                                                     <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-phone">
-                                                                <span class="s-icon"><a href="#" target="_blank" data-toggle="modal" data-target="#phone"><i class="fa fa-phone fa-lg"></i></a></span>
+                                                                <span class="s-icon"><a href="javascript:void(0)" onclick="return Show('call')"><i class="fa fa-phone fa-lg"></i></a></span>
                                                             </div>
-                                                            <div class="phone-detail">
+                                                            <div class="phone-detail" id="call" style="display:none">
                                                                 @*<div class="d-flex justify-content-between my-2">
-                                                                    <button class="btn btn-primary mr-2">
-                                                                        Show
-                                                                    </button>
-                                                                    <button class="btn btn-secondary">
-                                                                        Hide
-                                                                    </button>
+                                                                        <button class="btn btn-primary mr-2">
+                                                                            Show
+                                                                        </button>
+                                                                        <button class="btn btn-secondary">
+                                                                            Hide
+                                                                        </button>
 
-                                                                </div>*@
+                                                                    </div>*@
                                                                 <div class="row my-2">
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-success">
-                                                                            <input type="checkbox" class="custom-control-input" id="phones">
+                                                                            <input type="checkbox" class="custom-control-input" id="phones" onclick="return ShowHideDropDown('ddlcall','show');">
                                                                             <label class="custom-control-label" for="phones">Show</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="phoneh">
+                                                                            <input type="checkbox" class="custom-control-input" id="phoneh" onclick="return ShowHideDropDown('ddlcall','hide');">
                                                                             <label class="custom-control-label" for="phoneh">Hide</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select class="form-control default-select">
-                                                                    <option>--Select--</option>
-                                                                    <option>8808098724</option>
-                                                                </select>
+                                                                <div class="new d-none" id="ddlcall">
+                                                                    <select class="form-control default-select" id="ddlcall">
+                                                                        <option value="0">--Select--</option>
+                                                                        @if (Model != null)
+                                                                        {
+                                                                            if (Model.lst != null)
+                                                                            {
+                                                                                foreach (var item in Model.lst)
+                                                                                {
+                                                                                    if (item.Type == "ContactNo")
+                                                                                    {
+                                                                                        <option value="@item.Pk_NfcProfileId">@item.Mobile</option>
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-whatsapp">
-                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                                <span class="s-icon"><a href="javascript:void(0)" onclick="return Show('whatsapp')"><i class="fa fa-whatsapp fa-lg"></i></a></span>
                                                             </div>
-                                                            <div class="whatsapp-detail">
+                                                            <div class="whatsapp-detail" id="whatsapp" style="display:none">
                                                                 <div class="row my-2">
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-success">
-                                                                            <input type="checkbox" class="custom-control-input" id="whatsapps">
+                                                                            <input type="checkbox" class="custom-control-input" id="whatsapps" onclick="return ShowHideDropDown('ddlwhatsapp', 'hide');">
                                                                             <label class="custom-control-label" for="whatsapps">Show</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="whatsapph">
+                                                                            <input type="checkbox" class="custom-control-input" id="whatsapph" onclick="return ShowHideDropDown('ddlwhatsapp', 'hide');">
                                                                             <label class="custom-control-label" for="whatsapph">Hide</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select class="form-control default-select">
-                                                                    <option>--Select--</option>
-                                                                    <option>8808098724</option>
+                                                                <select class="form-control default-select" id="ddlwhatsapp" style="display:none">
+                                                                    <option value="0">--Select--</option>
+                                                                    @if (Model != null)
+                                                                    {
+                                                                        if (Model.lst != null)
+                                                                        {
+                                                                            foreach (var item in Model.lst)
+                                                                            {
+                                                                                if (item.Type == "ContactNo")
+                                                                                {
+                                                                                    <option value="@item.Pk_NfcProfileId">@item.Mobile</option>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -567,26 +592,38 @@
                                                     <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-email">
-                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-envelope fa-lg"></i></a></span>
+                                                                <span class="s-icon"><a href="javascript:void(0)" onclick="return Show('email')"><i class="fa fa-envelope fa-lg"></i></a></span>
                                                             </div>
-                                                            <div class="phone-email">
+                                                            <div class="phone-email" id="email" style="display:none">
                                                                 <div class="row my-2">
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-success">
-                                                                            <input type="checkbox" class="custom-control-input" id="emails">
+                                                                            <input type="checkbox" class="custom-control-input" id="emails" onclick="return ShowHideDropDown('ddlemail', 'show');">
                                                                             <label class="custom-control-label" for="emails">Show</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="emailh">
+                                                                            <input type="checkbox" class="custom-control-input" id="emailh" onclick="return ShowHideDropDown('ddlemail', 'hide');">
                                                                             <label class="custom-control-label" for="emailh">Hide</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select class="form-control default-select">
-                                                                    <option>--Select--</option>
-                                                                    <option>testjdj@test.com</option>
+                                                                <select class="form-control default-select email_" id="ddlemail">
+                                                                    <option value="0">--Select--</option>
+                                                                    @if (Model != null)
+                                                                    {
+                                                                        if (Model.lst != null)
+                                                                        {
+                                                                            foreach (var item in Model.lst)
+                                                                            {
+                                                                                if (item.Type == "Email")
+                                                                                {
+                                                                                    <option value="@item.Pk_NfcProfileId">@item.Email</option>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -594,26 +631,41 @@
                                                     <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-facebook">
-                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
+                                                                <span class="s-icon"><a href="javascript:void(0)" onclick="return Show('facebook')"><i class="fa fa-facebook fa-lg"></i></a></span>
                                                             </div>
-                                                            <div class="facebook-detail">
+                                                            <div class="facebook-detail" id="facebook" style="display:none">
                                                                 <div class="row my-2">
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-success">
-                                                                            <input type="checkbox" class="custom-control-input" id="facebooks">
+                                                                            <input type="checkbox" class="custom-control-input" id="facebooks" onclick="return ShowHideDropDown('ddlfacebook', 'show');">
                                                                             <label class="custom-control-label" for="facebooks">Show</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="requiredh">
+                                                                            <input type="checkbox" class="custom-control-input" id="requiredh" onclick="return ShowHideDropDown('ddlfacebook', 'hide');">
                                                                             <label class="custom-control-label" for="requiredh">Hide</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select class="form-control default-select">
-                                                                    <option>--Select--</option>
-                                                                    <option>www.facebook.com/rewtr?new</option>
+                                                                <select class="form-control default-select facebook_" id="ddlfacebook">
+                                                                    <option value="0">--Select--</option>
+                                                                    @if (Model != null)
+                                                                    {
+                                                                        if (Model.lst != null)
+                                                                        {
+                                                                            foreach (var item in Model.lst)
+                                                                            {
+                                                                                if (item.Type == "SocialMedia")
+                                                                                {
+                                                                                    if (item.SocialMedia.ToLower().Contains("fb") || item.SocialMedia.ToLower().Contains("facebook"))
+                                                                                    {
+                                                                                        <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -621,26 +673,41 @@
                                                     <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-instagram">
-                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></span>
+                                                                <span class="s-icon"><a href="javascript:void(0)" onclick="return Show('instagram')"><i class="fa fa-instagram fa-lg"></i></a></span>
                                                             </div>
-                                                            <div class="intagram-detail">
+                                                            <div class="intagram-detail" id="instagram" style="display:none">
                                                                 <div class="row my-2">
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-success">
-                                                                            <input type="checkbox" class="custom-control-input" id="instagrams">
+                                                                            <input type="checkbox" class="custom-control-input" id="instagrams" onclick="return ShowHideDropDown('ddlinstagram', 'show');">
                                                                             <label class="custom-control-label" for="instagrams">Show</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="instagramh">
+                                                                            <input type="checkbox" class="custom-control-input" id="instagramh" onclick="return ShowHideDropDown('ddlinstagram', 'hide');">
                                                                             <label class="custom-control-label" for="instagramh">Hide</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select class="form-control default-select">
-                                                                    <option>--Select--</option>
-                                                                    <option>instagramurl__</option>
+                                                                <select class="form-control default-select instagram_" id="ddlinstagram">
+                                                                    <option value="0">--Select--</option>
+                                                                    @if (Model != null)
+                                                                    {
+                                                                        if (Model.lst != null)
+                                                                        {
+                                                                            foreach (var item in Model.lst)
+                                                                            {
+                                                                                if (item.Type == "SocialMedia")
+                                                                                {
+                                                                                    if (item.SocialMedia.ToLower().Contains("insta") || item.SocialMedia.ToLower().Contains("instagram"))
+                                                                                    {
+                                                                                        <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -648,26 +715,41 @@
                                                     <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-twitter">
-                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
+                                                                <span class="s-icon"><a href="javascript:void(0)" onclick="return Show('twitter')"><i class="fa fa-twitter fa-lg"></i></a></span>
                                                             </div>
-                                                            <div class="twitter-detail">
+                                                            <div class="twitter-detail" id="twitter" style="display:none">
                                                                 <div class="row my-2">
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-success">
-                                                                            <input type="checkbox" class="custom-control-input" id="twitters">
+                                                                            <input type="checkbox" class="custom-control-input" id="twitters" onclick="return ShowHideDropDown('ddltwitter', 'show');">
                                                                             <label class="custom-control-label" for="twitters">Show</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="twitterh">
+                                                                            <input type="checkbox" class="custom-control-input" id="twitterh" onclick="return ShowHideDropDown('ddltwitter', 'hide');">
                                                                             <label class="custom-control-label" for="twitterh">Hide</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select class="form-control default-select">
-                                                                    <option>--Select--</option>
-                                                                    <option>twitterurl___</option>
+                                                                <select class="form-control default-select twitter_" id="ddltwitter">
+                                                                    <option value="0">--Select--</option>
+                                                                    @if (Model != null)
+                                                                    {
+                                                                        if (Model.lst != null)
+                                                                        {
+                                                                            foreach (var item in Model.lst)
+                                                                            {
+                                                                                if (item.Type == "SocialMedia")
+                                                                                {
+                                                                                    if (item.SocialMedia.ToLower().Contains("tw") || item.SocialMedia.ToLower().Contains("twitter"))
+                                                                                    {
+                                                                                        <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -675,26 +757,41 @@
                                                     <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-telegram">
-                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-telegram fa-lg"></i></a></span>
+                                                                <span class="s-icon"><a href="javascript:void(0)" onclick="return Show('telegram')"><i class="fa fa-telegram fa-lg"></i></a></span>
                                                             </div>
-                                                            <div class="telegram-detail">
+                                                            <div class="telegram-detail" id="telegram" style="display:none">
                                                                 <div class="row my-2">
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-success">
-                                                                            <input type="checkbox" class="custom-control-input" id="telegrams">
+                                                                            <input type="checkbox" class="custom-control-input" id="telegrams" onclick="return ShowHideDropDown('ddltelegram', 'show');">
                                                                             <label class="custom-control-label" for="telegrams">Show</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="telegramh">
+                                                                            <input type="checkbox" class="custom-control-input" id="telegramh" onclick="return ShowHideDropDown('ddltelegram', 'hide');">
                                                                             <label class="custom-control-label" for="telegramh">Hide</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select class="form-control default-select">
-                                                                    <option>--Select--</option>
-                                                                    <option>telegramurl__</option>
+                                                                <select class="form-control default-select telegram_" id="ddltelegram">
+                                                                    <option value="0">--Select--</option>
+                                                                    @if (Model != null)
+                                                                    {
+                                                                        if (Model.lst != null)
+                                                                        {
+                                                                            foreach (var item in Model.lst)
+                                                                            {
+                                                                                if (item.Type == "SocialMedia")
+                                                                                {
+                                                                                    if (item.SocialMedia.ToLower().Contains("tel") || item.SocialMedia.ToLower().Contains("telegram"))
+                                                                                    {
+                                                                                        <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -702,26 +799,41 @@
                                                     <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-linkedin">
-                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></span>
+                                                                <span class="s-icon"><a href="javascript:void(0)" onclick="return Show('linkedin')"><i class="fa fa-linkedin fa-lg"></i></a></span>
                                                             </div>
-                                                            <div class="linkdin-detail">
+                                                            <div class="linkdin-detail" id="linkedin" style="display:none">
                                                                 <div class="row my-2">
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-success">
-                                                                            <input type="checkbox" class="custom-control-input" id="linkedins">
+                                                                            <input type="checkbox" class="custom-control-input" id="linkedins" onclick="return ShowHideDropDown('ddllinkedin', 'show');">
                                                                             <label class="custom-control-label" for="linkedins">Show</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="linkedinh">
+                                                                            <input type="checkbox" class="custom-control-input" id="linkedinh" onclick="return ShowHideDropDown('ddllinkedin', 'hide');">
                                                                             <label class="custom-control-label" for="linkedinh">Hide</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select class="form-control default-select">
-                                                                    <option>--Select--</option>
-                                                                    <option>linkdinurl__</option>
+                                                                <select class="form-control default-select linkedin_" id="ddllinkedin">
+                                                                    <option value="0">--Select--</option>
+                                                                    @if (Model != null)
+                                                                    {
+                                                                        if (Model.lst != null)
+                                                                        {
+                                                                            foreach (var item in Model.lst)
+                                                                            {
+                                                                                if (item.Type == "SocialMedia")
+                                                                                {
+                                                                                    if (item.SocialMedia.ToLower().Contains("linkedin"))
+                                                                                    {
+                                                                                        <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -729,26 +841,38 @@
                                                     <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-website">
-                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-globe fa-lg"></i></a></span>
+                                                                <span class="s-icon"><a href="javascript:void(0)" onclick="return Show('website')"><i class="fa fa-globe fa-lg"></i></a></span>
                                                             </div>
-                                                            <div class="website-detail">
+                                                            <div class="website-detail" id="website" style="display:none">
                                                                 <div class="row my-2">
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-success">
-                                                                            <input type="checkbox" class="custom-control-input" id="websites">
+                                                                            <input type="checkbox" class="custom-control-input" id="websites" onclick="return ShowHideDropDown('ddlwebsite', 'show');">
                                                                             <label class="custom-control-label" for="websites">Show</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="websiteh">
+                                                                            <input type="checkbox" class="custom-control-input" id="websiteh" onclick="return ShowHideDropDown('ddlwebsite', 'hide');">
                                                                             <label class="custom-control-label" for="websiteh">Hide</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select class="form-control default-select">
-                                                                    <option>--Select--</option>
-                                                                    <option>https://dost.click</option>
+                                                                <select class="form-control default-select website_" id="ddlwebsite">
+                                                                    <option value="0">--Select--</option>
+                                                                    @if (Model != null)
+                                                                    {
+                                                                        if (Model.lst != null)
+                                                                        {
+                                                                            foreach (var item in Model.lst)
+                                                                            {
+                                                                                if (item.Type == "WebLink")
+                                                                                {
+                                                                                    <option value="@item.Pk_NfcProfileId">@item.WebLink</option>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -756,32 +880,44 @@
                                                     <div class="col-xl-3 col-xxl-3 col-sm-4 col-6">
                                                         <div class="card">
                                                             <div class="social-graph-wrapper widget-map">
-                                                                <span class="s-icon"><a href="#" target="_blank"><i class="fa fa-map-marker fa-lg"></i></a></span>
+                                                                <span class="s-icon"><a href="javascript:void(0)" onclick="return Show('map')"><i class="fa fa-map-marker fa-lg"></i></a></span>
                                                             </div>
-                                                            <div class="map-detail">
+                                                            <div class="map-detail" id="map" style="display:none">
                                                                 <div class="row my-2">
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-success">
-                                                                            <input type="checkbox" class="custom-control-input" id="locations">
+                                                                            <input type="checkbox" class="custom-control-input" id="locations" onclick="return ShowHideDropDown('ddllocation', 'show');">
                                                                             <label class="custom-control-label" for="locations">Show</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="locationh">
+                                                                            <input type="checkbox" class="custom-control-input" id="locationh" onclick="return ShowHideDropDown('ddllocation', 'hide');">
                                                                             <label class="custom-control-label" for="locationh">Hide</label>
                                                                         </div>
                                                                     </div>
-                                                                    </div>
-                                                                    <select class="form-control default-select">
-                                                                        <option>--Select--</option>
-                                                                        <option>Lucknow, India</option>
-                                                                    </select>
                                                                 </div>
+                                                                <select class="form-control default-select map_" id="ddllocation">
+                                                                    <option value="0">--Select--</option>
+                                                                    @if (Model != null)
+                                                                    {
+                                                                        if (Model.lst != null)
+                                                                        {
+                                                                            foreach (var item in Model.lst)
+                                                                            {
+                                                                                if (item.Type == "WebLink")
+                                                                                {
+                                                                                    <option value="@item.Pk_NfcProfileId">@item.WebLink</option>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <input type="submit" id="btnUpdate" class="btn btn-primary mb-2 px-5" name="btnUpdate" value="Update">
+                                                <input type="button" id="btnUpdate" class="btn btn-primary mb-2 px-5" name="btnUpdate" value="Update" onclick="return UpdateSocialMediaStatus">
                                             </div>
 
                                             @*<div class="row mt-4">
@@ -911,13 +1047,87 @@
         </div>
     </div>
 </div>
-</div>
+
 <script src="~/vendor/jquery/jquery.min.js"></script>
 <script>
 
     var PK_ProfileId = $("#PK_ProfileId").val();
     function getBanner() {
         document.getElementById("fBanner").click();
+    }
+    function Show(str) {
+        if (str == "call") {
+            $("#call").show();
+        }
+        else if (str == "whatsapp") {
+            $("#whatsapp").show();
+        }
+        else if (str == "facebook") {
+            $("#facebook").show();
+        }
+        else if (str == "email") {
+            $("#email").show();
+        }
+        else if (str == "instagram") {
+            $("#instagram").show();
+        }
+        else if (str == "twitter") {
+            $("#twitter").show();
+        }
+        else if (str == "telegram") {
+            $("#telegram").show();
+        }
+        else if (str == "linkedin") {
+            $("#linkedin").show();
+        }
+        else if (str == "website") {
+            $("#website").show();
+        }
+        else if (str == "map") {
+            $("#map").show();
+        }
+        else {
+
+        }
+    }
+    function ShowHideDropDown(str, fun) {
+        debugger;
+        if (fun == "show") {
+            $("#" + str).removeClass("d-none");
+        }
+        else if (fun == "hide") {
+            $("#" + str).addClass("d-none");
+        }
+        //else if (str == "whatsapp") {
+        //    $("#whatsapp").show();
+        //}
+        //else if (str == "facebook") {
+        //    $("#facebook").show();
+        //}
+        //else if (str == "email") {
+        //    $("#email").show();
+        //}
+        //else if (str == "instagram") {
+        //    $("#instagram").show();
+        //}
+        //else if (str == "twitter") {
+        //    $("#twitter").show();
+        //}
+        //else if (str == "telegram") {
+        //    $("#telegram").show();
+        //}
+        //else if (str == "linkedin") {
+        //    $("#linkedin").show();
+        //}
+        //else if (str == "website") {
+        //    $("#website").show();
+        //}
+        //else if (str == "map") {
+        //    $("#map").show();
+        //}
+        //else {
+
+        //}
     }
     function AddSkill() {
         debugger;
@@ -1076,7 +1286,33 @@
             }
         }
     });
+    function UpdateSocialMediaStatus() {
+        debugger;
+        var ContactList = [];
+        $('.default-select').find('option:selected').each(function () {
+            list = ContactList.push($(this).val());;
+        });
+        $.ajax({
+            url: '/NFCProfile/UpdateSocialMediaStatus',
+            type: "GET",
+            dataType: "JSON",
+            data: { Pk_NfcProfileId: ContactList, IsChecked: IsChecked, PK_ProfileId: PK_ProfileId },
+            success: function (data) {
+                debugger;
+                if (data != null) {
+                    if (data.Result == "1") {
+                        SuccessAlert(data.Message);
+                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                    }
+                    else {
+                        ErrorAlert(data.Message);
+                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                    }
+                }
+            }
+        });
 
+    }
     function SuccessAlert(Message) {
         toastr.success(Message, "", {
             timeOut: 5e3,

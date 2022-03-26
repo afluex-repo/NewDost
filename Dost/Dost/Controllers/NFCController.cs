@@ -337,15 +337,15 @@ namespace Dost.Controllers
                                 BusinessName = objProfile.BusinessName,
                                 Designation = objProfile.Designation,
                                 Note = objProfile.Summary,
-                                //Organization = "",
-                                //JobTitle = "",
-                                //Zip = objProfile.PinCode,
-                                //StreetAddress = objProfile.Address,
-                                //City = objProfile.City,
-                                //CountryName = "India",
-                                //Phone = objProfile.Mobile,
-                                //Mobile = objProfile.Mobile,
-                                //OfficialEmail = objProfile.Email
+                                Organization = "",
+                                JobTitle = "",
+                                Zip = objProfile.PinCode,
+                                StreetAddress = objProfile.Address,
+                                City = objProfile.City,
+                                CountryName = "India",
+                                Phone = objProfile.Mobile,
+                                Mobile = objProfile.Mobile,
+                                OfficialEmail = objProfile.Email
                             };
                             try
                             {
