@@ -265,7 +265,7 @@
                                                                                         <div class="col-xl-6 col-lg-6 form-group">
                                                                                             <div class="mb-3">
                                                                                                 <label>Date of Birth</label>
-                                                                                                @Html.TextBoxFor(m => m.DOB, new { @class = "form-control date DOB_" + @i + "", @Placeholder = "DOB", @readonly = true })
+                                                                                                @Html.TextBoxFor(m => m.DOB, new { @class = "form-control DOB_" + @i + "", @Placeholder = "DOB",@type="date" })
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -275,7 +275,7 @@
                                                                                                 <label>Mobile Number</label>
                                                                                                 @Html.DropDownListFor(m => m.ContactList, new SelectList(ViewBag.Mobile, "Value", "Text"), new { @class = "js-example-placeholder-multiple Mobile_" + @i + "", @multiple = "multiple", })
                                                                                                 @*<input type="checkbox" onchange="return setPrimary(@i,'PrimaryContact_');" />Is Primary
-                                                                                                <input type="hidden" class="PrimaryNumber_@i" name="PrimaryNumber" />*@
+                                                                                                    <input type="hidden" class="PrimaryNumber_@i" name="PrimaryNumber" />*@
                                                                                                 <div class="selectedMobile" style="display:none">
                                                                                                 </div>
                                                                                             </div>
@@ -287,7 +287,7 @@
                                                                                                     <label>Emails</label>
                                                                                                     @Html.DropDownListFor(m => m.EmailList, new SelectList(ViewBag.ddlEmail, "Value", "Text"), new { @class = "js-example-placeholder-multiple Email_" + @i + "", @multiple = "multiple" })
                                                                                                     @*<input type="checkbox" onchange="return setPrimary(@i,'PrimaryEmail_');" />Is Primary
-                                                                                                    <input type="hidden" class="PrimaryEmail__@i" name="PrimaryEmail" />*@
+                                                                                                        <input type="hidden" class="PrimaryEmail__@i" name="PrimaryEmail" />*@
                                                                                                     <div class="selectedEmail2" style="display:none">
                                                                                                     </div>
                                                                                                 </div>
@@ -301,7 +301,7 @@
                                                                                                     <label>Social Media</label>
                                                                                                     @Html.DropDownListFor(m => m.SocialLink, new SelectList(ViewBag.SocialMedia, "Value", "Text"), new { @class = "js-example-placeholder-multiple SocialMedia_" + @i + "", @multiple = "multiple" })
                                                                                                     @*<input type="checkbox" onchange="return setPrimary(@i,'PrimarySocial_');" />Is Primary
-                                                                                                    <input type="hidden" class="PrimarySocial_@i" name="PrimarySocial" />*@
+                                                                                                        <input type="hidden" class="PrimarySocial_@i" name="PrimarySocial" />*@
                                                                                                     <div class="selectedSocial" style="display:none">
                                                                                                     </div>
                                                                                                 </div>
@@ -314,7 +314,7 @@
                                                                                                     <label>Web/App Urls</label>
                                                                                                     @Html.DropDownListFor(m => m.WebLink, new SelectList(ViewBag.WebLink, "Value", "Text"), new { @class = "js-example-placeholder-multiple WebLink_" + @i + "", @multiple = "multiple" })
                                                                                                     @*<input type="checkbox" onchange="return setPrimary(@i,'PrimaryWebLink_');" />Is Primary
-                                                                                                    <input type="hidden" class="PrimaryWebLink_@i" name="PrimaryWebLink" />*@
+                                                                                                        <input type="hidden" class="PrimaryWebLink_@i" name="PrimaryWebLink" />*@
                                                                                                     <div class="selectedWebLink" style="display:none">
                                                                                                     </div>
                                                                                                 </div>
@@ -340,7 +340,7 @@
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
-                                                                            
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -717,12 +717,12 @@
                                                                 }
                                                             }
                                                             @*<div class="input-group input-group-sm copy">
-                                                                <input id="txtcopy" type="hidden" class="form-control input-default" readonly value="https://dost.click/NFC/Profile?id=@Model.Code">
+                                                                    <input id="txtcopy" type="hidden" class="form-control input-default" readonly value="https://dost.click/NFC/Profile?id=@Model.Code">
 
-                                                                <button type="button" class="close h-100 ml-2">
-                                                                    <span><i class="fa fa-files-o"></i></span>
-                                                                </button>
-                                                            </div>*@
+                                                                    <button type="button" class="close h-100 ml-2">
+                                                                        <span><i class="fa fa-files-o"></i></span>
+                                                                    </button>
+                                                                </div>*@
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1005,6 +1005,7 @@
         $("#divProfile").show();
         $("#hdfProfile").val(ProfileId);
     }
+  
     $("#btnProfileAdd").click(function () {
         if (window.FormData !== undefined) {
             var fileData = new FormData();
@@ -1018,7 +1019,6 @@
                 processData: false,
                 data: fileData,
                 success: function (data) {
-                    debugger;
                     var obj = jQuery.parseJSON(data);
                     $("#Flag").val('');
                     if (obj == "Success") {
@@ -1049,7 +1049,6 @@
         $("#Flag").val("Profile");
     });
     $("#btnContact").click(function () {
-        debugger;
         if ($("#Content").val() == '') {
             $("#Content").addClass('errortext');
             $('#Content').focus();
@@ -1079,7 +1078,6 @@
         ProfileUpdatePost();
     });
     $("#btnSocialMedia").click(function () {
-        debugger;
         if ($("#ContentSocialMedia").val() == '') {
             $("#ContentSocialMedia").addClass('errortext');
             $('#ContentSocialMedia').focus();
@@ -1111,13 +1109,11 @@
         });
     }
     function ProfileUpdatePost() {
-        debugger;
         $.ajax({
             url: '@Url.Action("ProfileUpdate", "NFCProfile")',
             type: 'POST',
             data: $("#form1").serialize(),
             success: function (data) {
-                debugger;
                 var obj = jQuery.parseJSON(data);
                 $("#Flag").val('');
                 if (obj == "Success") {
@@ -1179,7 +1175,6 @@
         });
     });
     window.GetBusinessProfile = function (Id, index) {
-        debugger;
         $("#hdfProfile").val(Id);
         $.ajax({
             type: "GET",
@@ -1188,7 +1183,6 @@
             url: '@Url.Action("GetBusinessProfile", "NFCProfile")',
             data: { PK_ProfileId: Id },
             success: function (data) {
-                debugger;
                 var cl = "";
                 if (data != null) {
                     var obj = jQuery.parseJSON(data);
@@ -1255,22 +1249,18 @@
                             var selectedSocial = new Array();
                             var selectedWebLink = new Array();
                             $.each($('.selectedEmail2 button[type=button]'), function (i, v) {
-                                debugger;
                                 selectedEmail2[i] = $(this).attr('data-emailid');
                                 $('.Email_' + index).val(selectedEmail2).trigger('change');
                             });
                             $.each($('.selectedMobile button[type=button]'), function (i, v) {
-                                debugger;
                                 selectedMobile[i] = $(this).attr('data-mobileid');
                                 $('.Mobile_' + index).val(selectedMobile).trigger('change');
                             });
                             $.each($('.selectedSocial button[type=button]'), function (i, v) {
-                                debugger;
                                 selectedSocial[i] = $(this).attr('data-socialid');
                                 $('.SocialMedia_' + index).val(selectedSocial).trigger('change');
                             });
                             $.each($('.selectedWebLink button[type=button]'), function (i, v) {
-                                debugger;
                                 selectedWebLink[i] = $(this).attr('data-weblinkid');
                                 $('.WebLink_' + index).val(selectedWebLink).trigger('change');
                             });
@@ -1358,7 +1348,6 @@
         var image = document.getElementById('output1');
         image.src = URL.createObjectURL(event.target.files[0]);
         $("#MyProfileImage").attr("src", image.src);
-        debugger;
         var fileUpload = $("#upfile").get(0);
         var files = fileUpload.files;
         var formData = new FormData();
@@ -1394,7 +1383,6 @@
     $("#up1file").change(function (event) {
         var image = document.getElementById('ProfileImage');
         image.src = URL.createObjectURL(event.target.files[0]);
-        debugger;
         var fileUpload = $("#up1file").get(0);
         var files = fileUpload.files;
         var formData = new FormData();
@@ -1429,7 +1417,6 @@
         })
     })
     function ShowConctact(ProfileId, index) {
-        debugger;
         GetBusinessProfile(ProfileId, index);
     }
     function Redirect(ProfileId, index) {
@@ -1498,7 +1485,6 @@
             //formData.append("PrimaryEmail", $('.PrimaryEmail_' + index + '').val());
             //formData.append("PrimarySocial", $('.PrimarySocial_' + index + '').val());
             //formData.append("PrimaryWebLink", $('.PrimaryWebLink_' + index + '').val());
-            debugger;
             $.ajax({
                 type: 'POST',
                 url: "ProfileUpdate",
@@ -1506,7 +1492,6 @@
                 processData: false,
                 data: formData,
                 success: function (response) {
-                    debugger;
                     var obj = jQuery.parseJSON(response);
                     if (obj = "Success") {
                         SuccessAlert("Profile Updated successfully");
@@ -1523,7 +1508,6 @@
         }
     };
     function GetUrl(index) {
-        debugger;
         var Type = $("#ddlUrl_" + index + " :selected").val();
         var PK_ProfileId = $("#hdfProfile").val();
         $.ajax({
@@ -1535,7 +1519,6 @@
             dataType: "json",
             aysnc: false,
             success: function (data) {
-                debugger;
                 if (data != null) {
                     $("#ddlWebLink_" + index).html('');
                     var obj = jQuery.parseJSON(data)
@@ -1551,7 +1534,6 @@
         });
     }
     function UpdateRedirectionUrl(func, index) {
-        debugger;
         var PK_NFCProfileId = $("#ddlWebLink_" + index + " :selected").val();
         var PK_ProfileId = $("#hdfProfile").val();
         $.ajax({
@@ -1563,7 +1545,6 @@
             dataType: "json",
             aysnc: false,
             success: function (data) {
-                debugger;
                 if (data != null) {
                     if (data.Result == "Success") {
 
@@ -1620,7 +1601,6 @@
         })
     }
     function setPrimary(Index, Type) {
-        debugger;
         if (Type == "PrimaryContact_") {
             $(".PrimaryNumber_" + Index).val($("#ContactList option:selected").val());
         }
@@ -1634,11 +1614,10 @@
             $(".PrimarySocial_" + Index).val($("#SocialLink option:selected").val());
         }
     }
-    $(".DOB_3").datepicker();
+    $(".date").datepicker();
 </script>
 <script>
     (function () {
-        debugger;
         var copyButton = document.querySelector('.copy button');
         var copyInput = document.querySelector('.copy input');
         copyButton.addEventListener('click', function (e) {

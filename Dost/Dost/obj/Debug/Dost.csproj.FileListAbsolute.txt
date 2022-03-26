@@ -145,7 +145,6 @@ D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\PdfSharp.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\zxing.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\zxing.presentation.dll
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\IronBarCode.xml
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\Divya\repository\NewDost\Dost\Dost\bin\ApplicationInsights.config
 E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\csc.exe
 E:\Divya\repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
