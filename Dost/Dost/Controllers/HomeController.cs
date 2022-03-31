@@ -330,7 +330,7 @@ namespace Dost.Controllers
                         {
                             Session["S_MobileNo"] = model.MobileNo;
                             string OTP = Common.GenerateRandom();
-                            Session["S_OTP"] = "jaipuria";
+                            Session["S_OTP"] = OTP;
                             DateTime dt1 = DateTime.Now;
                             DateTime dt2 = dt1.AddMinutes(10);
                             Session["S_OTPValidity"] = dt2;
@@ -338,8 +338,8 @@ namespace Dost.Controllers
                             {
                                 if (model.MobileNo != null && model.MobileNo != "")
                                 {
-                                    //string str2 = "Dear User, Your DOST Inc Registration OTP is " + OTP + ". Thank You.";
-                                    string str2 = "Dear User, Your DOST Inc Registration OTP is jaipuria. Thank You.";
+                                    string str2 = "Dear User, Your DOST Inc Registration OTP is " + OTP + ". Thank You.";
+                                    //string str2 = "Dear User, Your DOST Inc Registration OTP is jaipuria. Thank You.";
                                     BLSMS.sendSMSUpdated(str2, model.MobileNo);
                                 }
                             }
@@ -382,7 +382,7 @@ namespace Dost.Controllers
                 }
                 string MobileNo = Session["S_MobileNo"].ToString();
                 string OTP = Common.GenerateRandom();
-                Session["S_OTP"] = "jaipuria";
+                Session["S_OTP"] = OTP;
                 DateTime dt1 = DateTime.Now;
                 DateTime dt2 = dt1.AddMinutes(10);
                 Session["S_OTPValidity"] = dt2;
@@ -420,7 +420,6 @@ namespace Dost.Controllers
                 {
                     ViewBag.Mode = "Direct";
                 }
-                TempData["msg"] = "Success1";
             }
             catch (Exception ex)
             {

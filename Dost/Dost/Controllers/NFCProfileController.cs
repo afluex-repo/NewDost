@@ -109,6 +109,42 @@ namespace Dost.Controllers
             }
             ViewBag.WebLink = WebLink;
             #endregion WebLink
+            #region ddlWhatsappList
+            int count6 = 0;
+            List<SelectListItem> ddlWhatsapp = new List<SelectListItem>();
+            DataSet dsWh = model.GetWhatsappList();
+            if (dsWh != null && dsWh.Tables.Count > 0 && dsWh.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in dsWh.Tables[0].Rows)
+                {
+                    if (count6 == 0)
+                    {
+                        ddlWhatsapp.Add(new SelectListItem { Text = "Select Whatsapp No.", Value = "0" });
+                    }
+                    ddlWhatsapp.Add(new SelectListItem { Text = r["Content"].ToString(), Value = r["Pk_NfcProfileId"].ToString() });
+                    count6 = count6 + 1;
+                }
+            }
+            ViewBag.ddlWhatsapp = ddlWhatsapp;
+            #endregion
+            #region ddlLocationList
+            int count7 = 0;
+            List<SelectListItem> ddlLocation = new List<SelectListItem>();
+            DataSet dsL = model.GetLocationList();
+            if (dsL != null && dsL.Tables.Count > 0 && dsL.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in dsL.Tables[0].Rows)
+                {
+                    if (count7 == 0)
+                    {
+                        ddlLocation.Add(new SelectListItem { Text = "Select Location", Value = "0" });
+                    }
+                    ddlLocation.Add(new SelectListItem { Text = r["Content"].ToString(), Value = r["Pk_NfcProfileId"].ToString() });
+                    count7 = count7 + 1;
+                }
+            }
+            ViewBag.ddlLocation = ddlLocation;
+            #endregion
             string[] colorContact = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D" };
             string[] colorRedirection = { "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
             var i = 0;
@@ -152,20 +188,20 @@ namespace Dost.Controllers
                 model.lst = lstUerProfile;
             }
             NFCModel objn = new NFCModel();
-            objn.Code = model.Code;
+            objn.Code = Crypto.DecryptNFC(model.Code);
             DataSet dsProfile = objn.GetNFCProfileData();
-            if (dsProfile != null && dsProfile.Tables.Count > 0 && dsProfile.Tables[0].Rows.Count > 0)
-            {
-                if (Convert.ToBoolean(ds1.Tables[0].Rows[0]["IsProfileTurnedOff"]) == true)
-                {
+            //if (dsProfile != null && dsProfile.Tables.Count > 0 && dsProfile.Tables[0].Rows.Count > 0)
+            //{
+            //    if (Convert.ToBoolean(ds1.Tables[0].Rows[0]["IsProfileTurnedOff"]) == true)
+            //    {
 
-                }
-                else
-                {
-                    model.Name = ds1.Tables[0].Rows[0]["Name"].ToString();
-                    model.Email = ds1.Tables[0].Rows[0]["PrimaryEmail"].ToString();
-                }
-            }
+            //    }
+            //    else
+            //    {
+            //        model.Name = ds1.Tables[0].Rows[0]["Name"].ToString();
+            //        model.Email = ds1.Tables[0].Rows[0]["PrimaryEmail"].ToString();
+            //    }
+            //}
             if (dsProfile != null && dsProfile.Tables.Count > 1)
             {
                 if (dsProfile.Tables[1].Rows.Count > 0)
@@ -279,14 +315,7 @@ namespace Dost.Controllers
                         {
                             if (model.ContactList[i] != "")
                             {
-                                if (model.PrimaryNumber == model.ContactList[i])
-                                {
-                                    IsPrimary = 1;
-                                }
-                                else
-                                {
-                                    IsPrimary = 0;
-                                }
+                                IsPrimary = 0;
                                 FK_NFCProfileId = Convert.ToInt32(model.ContactList[i]);
                                 IsIncluded = 1;
                                 dtcontact.Rows.Add(FK_NFCProfileId, IsIncluded, IsPrimary);
@@ -305,14 +334,7 @@ namespace Dost.Controllers
                         {
                             if (model.EmailList[i] != "")
                             {
-                                if (model.PrimaryEmail == model.EmailList[i])
-                                {
-                                    IsPrimary = 1;
-                                }
-                                else
-                                {
-                                    IsPrimary = 0;
-                                }
+                                IsPrimary = 0;
                                 FK_NFCProfileId = Convert.ToInt32(model.EmailList[i]);
                                 IsIncluded = 1;
                                 dtEmail.Rows.Add(FK_NFCProfileId, IsIncluded, IsPrimary);
@@ -331,14 +353,7 @@ namespace Dost.Controllers
                         {
                             if (model.WebLinkList[i] != "")
                             {
-                                if (model.PrimaryWebLink == model.WebLinkList[i])
-                                {
-                                    IsPrimary = 1;
-                                }
-                                else
-                                {
-                                    IsPrimary = 0;
-                                }
+                                IsPrimary = 0;
                                 FK_NFCProfileId = Convert.ToInt32(model.WebLinkList[i]);
                                 IsIncluded = 1;
                                 dtWebLink.Rows.Add(FK_NFCProfileId, IsIncluded, IsPrimary);
@@ -358,14 +373,7 @@ namespace Dost.Controllers
                         {
                             if (model.SocialLink[i] != "")
                             {
-                                if (model.PrimarySocial == model.SocialLink[i])
-                                {
-                                    IsPrimary = 1;
-                                }
-                                else
-                                {
-                                    IsPrimary = 0;
-                                }
+                                IsPrimary = 0;
                                 FK_NFCProfileId = Convert.ToInt32(model.SocialLink[i]);
                                 IsIncluded = 1;
                                 dtSocialMedia.Rows.Add(FK_NFCProfileId, IsIncluded, IsPrimary);
@@ -373,10 +381,54 @@ namespace Dost.Controllers
 
                         }
                     }
+                    DataTable dtWhatsapp = new DataTable();
+                    dtWhatsapp.Columns.Add("FK_NFCProfileId");
+                    dtWhatsapp.Columns.Add("IsIncluded");
+                    dtWhatsapp.Columns.Add("IsPrimary");
+                    if (model.WhatsappList != null)
+                    {
+                        model.WhatsappList = model.WhatsappList[0].Split(',');
+                        int i = 0;
+
+                        for (i = 0; i < model.WhatsappList.Length; i++)
+                        {
+                            if (model.WhatsappList[i] != "")
+                            {
+
+                                IsPrimary = 0;
+                                FK_NFCProfileId = Convert.ToInt32(model.WhatsappList[i]);
+                                IsIncluded = 1;
+                                dtWhatsapp.Rows.Add(FK_NFCProfileId, IsIncluded, IsPrimary);
+                            }
+
+                        }
+                    }
+                    DataTable dtLocation = new DataTable();
+                    dtLocation.Columns.Add("FK_NFCProfileId");
+                    dtLocation.Columns.Add("IsIncluded");
+                    dtLocation.Columns.Add("IsPrimary");
+                    if (model.LocationList != null)
+                    {
+                        model.LocationList = model.LocationList[0].Split(',');
+                        int i = 0;
+
+                        for (i = 0; i < model.LocationList.Length; i++)
+                        {
+                            if (model.LocationList[i] != "")
+                            {
+                                IsPrimary = 0;
+                                FK_NFCProfileId = Convert.ToInt32(model.LocationList[i]);
+                                IsIncluded = 1;
+                                dtLocation.Rows.Add(FK_NFCProfileId, IsIncluded, IsPrimary);
+                            }
+                        }
+                    }
                     model.dtcontact = dtcontact;
                     model.dtemail = dtEmail;
                     model.dtweblink = dtWebLink;
                     model.dtsocial = dtSocialMedia;
+                    model.dtwhatsapp = dtWhatsapp;
+                    model.dtlocation = dtLocation;
                     model.FK_UserId = Session["Pk_userId"].ToString();
                     DataSet ds = model.UpdateProfileInfo();
                     if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -581,6 +633,100 @@ namespace Dost.Controllers
                             {
 
                                 model.Message = "Social Media Link not saved successfully";
+                            }
+                        }
+                    }
+                    if (model.Flag == "Location")
+                    {
+                        TempData["FlagResponse"] = "Location";
+                        model.Type = "Location";
+                        model.Content = model.ContentLocation;
+                        if (model.Status == "U")
+                        {
+                            DataSet ds = model.UpdateNfc();
+                            if (ds != null && ds.Tables.Count > 0)
+                            {
+                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                                {
+                                    model.Result = "Success";
+                                    model.Message = "Location updated successfully";
+                                }
+                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                                {
+                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                                }
+                            }
+                            else
+                            {
+                                model.Message = "Location not updated successfully";
+                            }
+                        }
+                        else
+                        {
+                            model.Content = model.ContentLocation;
+                            DataSet ds = model.SaveUpdateContactNoNfc();
+                            if (ds != null && ds.Tables.Count > 0)
+                            {
+                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                                {
+                                    model.Result = "Success";
+                                    model.Message = "Location saved successfully";
+                                }
+                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                                {
+                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                                }
+                            }
+                            else
+                            {
+                                model.Message = "Location not saved successfully";
+                            }
+                        }
+                    }
+                    if (model.Flag == "Whatsapp")
+                    {
+                        TempData["FlagResponse"] = "Whatsapp";
+                        model.Type = "Whatsapp";
+                        model.Content = model.ContentWhatsapp;
+                        if (model.Status == "U")
+                        {
+                            DataSet ds = model.UpdateNfc();
+                            if (ds != null && ds.Tables.Count > 0)
+                            {
+                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                                {
+                                    model.Result = "Success";
+                                    model.Message = "Whatsapp no. updated successfully";
+                                }
+                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                                {
+                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                                }
+                            }
+                            else
+                            {
+                                model.Message = "Whatsapp no. not updated successfully";
+                            }
+                        }
+                        else
+                        {
+                            model.Content = model.ContentWhatsapp;
+                            DataSet ds = model.SaveUpdateContactNoNfc();
+                            if (ds != null && ds.Tables.Count > 0)
+                            {
+                                if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                                {
+                                    model.Result = "Success";
+                                    model.Message = "Whatsapp no. saved successfully";
+                                }
+                                else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                                {
+                                    model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                                }
+                            }
+                            else
+                            {
+                                model.Message = "Whatsapp no. not saved successfully";
                             }
                         }
                     }
@@ -1078,6 +1224,28 @@ namespace Dost.Controllers
                                             Type = row["Type"].ToString()
                                         });
                                     }
+                                    if (row["Type"].ToString() == "Whatsapp")
+                                    {
+                                        lst.Add(new NFCProfileModel()
+                                        {
+                                            Pk_NfcProfileId = Convert.ToInt32(row["PK_NFcProfileId"]),
+                                            Mobile = row["Content"].ToString(),
+                                            IsPrimaryNumber = Convert.ToBoolean(row["IsPrimary"]),
+                                            IsDisplay = row["IsDisplay"].ToString(),
+                                            Type = row["Type"].ToString()
+                                        });
+                                    }
+                                    if (row["Type"].ToString() == "Location")
+                                    {
+                                        lst.Add(new NFCProfileModel()
+                                        {
+                                            Pk_NfcProfileId = Convert.ToInt32(row["PK_NFcProfileId"]),
+                                            WebLink = row["Content"].ToString(),
+                                            IsPrimaryNumber = Convert.ToBoolean(row["IsPrimary"]),
+                                            IsDisplay = row["IsDisplay"].ToString(),
+                                            Type = row["Type"].ToString()
+                                        });
+                                    }
                                 }
                                 objProfile.lst = lst;
                             }
@@ -1333,7 +1501,7 @@ namespace Dost.Controllers
             {
                 DataSet ds = new DataSet();
                 model.FK_UserId = Session["Pk_userId"].ToString();
-                if (model.Mobile != null && model.Mobile != "0" && model.Mobile != "")
+                if (model.Mobile != null && model.Mobile != "0" && model.Mobile != "" && model.Mobile != "undefined")
                 {
                     model.Pk_NfcProfileId = Convert.ToInt32(model.Mobile);
                     model.IsPrimaryNumber = true;
@@ -1343,20 +1511,42 @@ namespace Dost.Controllers
                 {
                     model.ContactList = model.ContactList[0].Split(',');
                     int i = 0;
-                   
+
                     for (i = 0; i < model.ContactList.Length; i++)
                     {
                         if (model.ContactList[i] != "" && model.ContactList[i] != "0")
                         {
+                            model.IsDislpayValue = true;
                             model.IsPrimaryNumber = true;
+                            model.Pk_NfcProfileId = Convert.ToInt32(model.ContactList[i]);
+                            if (model.ContactList[i] == model.Mobile)
+                            {
+                                model.IsWhatsapp = true;
+                            }
+                            else
+                            {
+                                model.IsWhatsapp = false;
+                            }
+                            ds = model.SetPrimaryNumber();
                         }
-                        else
+                    }
+                    for (i = 0; i < model.HideContacts.Length; i++)
+                    {
+                        if (model.HideContacts[i] != "" && model.HideContacts[i] != "0")
                         {
+                            model.IsDislpayValue = false;
                             model.IsPrimaryNumber = false;
+                            model.Pk_NfcProfileId = Convert.ToInt32(model.HideContacts[i]);
+                            if (model.HideContacts[i] == model.Mobile)
+                            {
+                                model.IsWhatsapp = true;
+                            }
+                            else
+                            {
+                                model.IsWhatsapp = false;
+                            }
+                            ds = model.SetPrimaryNumber();
                         }
-                        model.Pk_NfcProfileId = Convert.ToInt32(model.ContactList[i]);
-                       
-                        ds = model.SetPrimaryNumber();
                     }
                 }
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -1364,7 +1554,7 @@ namespace Dost.Controllers
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
                     {
                         model.Result = "1";
-                        model.Message = "Primary Number set successfully";
+                        model.Message = "Primary value set successfully";
                     }
                     else
                     {

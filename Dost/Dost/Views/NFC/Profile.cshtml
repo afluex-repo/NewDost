@@ -24,10 +24,11 @@
     <link href="~/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
     <style type="text/css">
-        .container{
-        padding-right: 0;
-    padding-left: 0;
-    }
+        .container {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
         .social-graph-wrapper.widget-whatsapp {
             background-color: #04c165;
         }
@@ -47,7 +48,13 @@
         .social-graph-wrapper.widget-email {
             background-color: #f04336;
         }
+         .social-graph-wrapper.widget-website {
+        background-image: linear-gradient(to right, #29abde, #006cb8);
+    }
 
+    .social-graph-wrapper.widget-map {
+        background-color: #f71c1e;
+    }
         .s-icon a {
             /*background-color: #eb8153;*/
             border-radius: 5px;
@@ -71,28 +78,33 @@
 
         @@media (max-width: 575.98px) {
             .profile .profile-photo {
-        width: 100%;
-    }
+                width: 100%;
+            }
+
             .photo-content .cover-photo {
                 min-height: 200px;
             }
+
             ul.profile_nav {
-    display: flex;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-.profile-tab .nav-item .nav-link {
-    white-space: nowrap;
-    margin-right: 0;
-}
-ul.nav{
-    flex-wrap: inherit;
-}
+                display: flex;
+                width: 100%;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+
+            .profile-tab .nav-item .nav-link {
+                white-space: nowrap;
+                margin-right: 0;
+            }
+
+            ul.nav {
+                flex-wrap: inherit;
+            }
         }
+
         .profile-tab .nav-item .nav-link {
-    margin-right: 0;
-}
+            margin-right: 0;
+        }
 
         .col-xl-12.col-xxl-12.col-sm-12.social {
             display: grid;
@@ -117,7 +129,6 @@ ul.nav{
         .social-graph-wrapper {
             padding: 20px 0;
         }
-        
     </style>
 </head>
 <body>
@@ -196,7 +207,7 @@ ul.nav{
                                                         <p class="summary">@Model.Summary</p>*@
                                                 </div>
                                                 @*<div class="dropdown ml-auto">
-                                                        <a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
+                                                        <a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded=true><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
                                                         <ul class="dropdown-menu dropdown-menu-right">
                                                             <li class="dropdown-item"><i class="fa fa-user-circle text-primary mr-2"></i> View profile</li>
                                                             <li class="dropdown-item"><i class="fa fa-users text-primary mr-2"></i> Add to close friends</li>
@@ -427,9 +438,9 @@ ul.nav{
                                                         <a href="#about-me" data-toggle="tab" class="nav-link active show">About Me</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="#contacts" data-toggle="tab" class="nav-link">Connect with me</a>
+                                                        <a href="#contacts" data-toggle="tab" class="nav-link active show">Connect with me</a>
                                                     </li>
-                                                
+
                                                     @*<li class="nav-item">
                                                             <a href="#broadcast" data-toggle="tab" class="nav-link">Broadcast</a>
                                                         </li>*@
@@ -563,7 +574,7 @@ ul.nav{
                                                             </div>
                                                         </div>*@
 
-                                                    <div id="contacts" class="tab-pane fade">
+                                                    <div id="contacts" class="tab-pane fade active show">
                                                         <div class="pt-3">
                                                             <div class="settings-form">
 
@@ -574,7 +585,20 @@ ul.nav{
                                                                         {
                                                                             foreach (var item in Model.NfcContentList)
                                                                             {
-                                                                                if (item.Type == "ContactNo" && item.IsPrimary=="True")
+                                                                                if (item.Type == "ContactNo" && item.IsDisplay == true)
+                                                                                {
+                                                                                    if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
+                                                                                    {
+                                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                            <div class="card">
+                                                                                                <div class="social-graph-wrapper widget-phone">
+                                                                                                    <span class="s-icon"><a href="tel:@item.Content" target="_blank"><i class="fa fa-phone fa-lg"></i></a></span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    }
+                                                                                }
+                                                                                else if (item.Type == "Whatsapp" && item.IsDisplay == true)
                                                                                 {
                                                                                     if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
                                                                                     {
@@ -587,7 +611,7 @@ ul.nav{
                                                                                         </div>
                                                                                     }
                                                                                 }
-                                                                                else if (item.Type == "SocialMedia" && item.IsPrimary=="True")
+                                                                                else if (item.Type == "SocialMedia" && item.IsDisplay == true)
                                                                                 {
 
                                                                                     if (item.Content.ToLower().Contains("fb") || item.Content.ToLower().Contains("facebook"))
@@ -649,6 +673,39 @@ ul.nav{
                                                                                             </div>
                                                                                         </div>
                                                                                     }
+                                                                                }
+                                                                                else if (item.Type == "Email" && item.IsDisplay == true)
+                                                                                {
+                                                                                    
+                                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                            <div class="card">
+                                                                                                <div class="social-graph-wrapper widget-email">
+                                                                                                    <span class="s-icon"><a href="mailto:@item.Content?subject= Dost &amp;body=" target="_blank"><i class="fa fa-envelope fa-lg"></i></a></span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                }
+                                                                                else if (item.Type == "WebLink" && item.IsDisplay == true)
+                                                                                {
+
+                                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                        <div class="card">
+                                                                                            <div class="social-graph-wrapper widget-website">
+                                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-globe fa-lg"></i></a></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                else if (item.Type == "Location" && item.IsDisplay == true)
+                                                                                {
+
+                                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                        <div class="card">
+                                                                                            <div class="social-graph-wrapper widget-map">
+                                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-map-marker fa-lg"></i></a></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 }
                                                                                 else
                                                                                 {

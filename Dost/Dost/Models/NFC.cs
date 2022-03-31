@@ -15,6 +15,8 @@ namespace Dost.Models
     {
         public List<NFCContent> NfcContentList { get; set; }
         public string ContentSocialMedia { get; set; }
+        public string ContentLocation { get; set; }
+        public string ContentWhatsapp { get; set; }
         public string SocialMedia { get; set; }
         public string IsAcceptanceTNC { get; set; }
         public string Status { get; set; }
@@ -70,14 +72,19 @@ namespace Dost.Models
         public string ProfileType { get; set; }
         public string CardImage { get; set; }
         public string Remarks { get; set; }
+        public string[] LocationList { get; set; }
+        public string[] WhatsappList { get; set; }
         public string[] ContactList { get; set; }
         public string[] EmailList { get; set; }
         public string[] WebLinkList { get; set; }
         public string[] SocialLink { get; set; }
+        public string[] HideContacts { get; set; }
         public DataTable dtcontact { get; set; }
         public DataTable dtemail { get; set; }
         public DataTable dtweblink { get; set; }
         public DataTable dtsocial { get; set; }
+        public DataTable dtwhatsapp { get; set; }
+        public DataTable dtlocation { get; set; }
         public string ActiveStatus { get; set; }
         public string ColorCodeContact { get; set; }
         public string ColorCodeRedirection { get; set; }
@@ -95,8 +102,10 @@ namespace Dost.Models
         public bool IsPrimaryEmail { get; set; }
         public bool IsPrimarySocial { get; set; }
         public bool IsPrimaryWebLink { get; set; }
+        public bool IsDislpayValue { get; set; }
         public int IsPrimary { get; set; }
         public string IsDisplay { get; set; }
+        
         public DataSet SaveAboutMe()
         {
             SqlParameter[] para ={
@@ -178,6 +187,24 @@ namespace Dost.Models
                 new SqlParameter("@Fk_UserId",PK_UserId)
             };
             DataSet ds = DBHelper.ExecuteQuery("GetWebLinkList", para);
+            return ds;
+        }
+        public DataSet GetWhatsappList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_UserId",PK_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetWhatsappList", para);
+            return ds;
+        }
+        public DataSet GetLocationList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@Fk_UserId",PK_UserId)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetLocationList", para);
             return ds;
         }
         public DataSet InsertBusinessInfo()
@@ -371,7 +398,10 @@ namespace Dost.Models
                   new SqlParameter("@dtcontact",dtcontact),
                   new SqlParameter("@dtemail",dtemail),
                   new SqlParameter("@dtweblink",dtweblink),
-                  new SqlParameter("@dtsocial",dtsocial)
+                  new SqlParameter("@dtsocial",dtsocial),
+                   new SqlParameter("@dtwhatsapp",dtwhatsapp),
+                  new SqlParameter("@dtlocation",dtlocation)
+
             };
             DataSet ds = DBHelper.ExecuteQuery("UpdateBusinessInfoNew", para);
             return ds;
@@ -402,7 +432,8 @@ namespace Dost.Models
                 new SqlParameter ("@PK_ProfileId",PK_ProfileId),
                 new SqlParameter("@FK_NFCProfileId",Pk_NfcProfileId),
                 new SqlParameter("@IsChecked",IsPrimaryNumber),
-                 new SqlParameter("@IsWhatsapp",IsWhatsapp)
+                 new SqlParameter("@IsWhatsapp",IsWhatsapp),
+                    new SqlParameter("@IsDisplay",IsDislpayValue)
             };
             DataSet ds = DBHelper.ExecuteQuery("SetPrimaryNumber", para);
             return ds;
@@ -417,6 +448,7 @@ namespace Dost.Models
         public string IsIncluded { get; set; }
         public string IsRedirect { get; set; }
         public string IsPrimary { get; set; }
+        public bool IsDisplay { get; set; }
     }
     public class NFCData
     {
