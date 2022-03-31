@@ -96,6 +96,7 @@ namespace BusinessLayer
             //refer to parameters to complete correct url string
 
             StreamWriter myWriter = null;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             HttpWebRequest objRequest = (HttpWebRequest)WebRequest.Create(url);
 
             objRequest.Method = "POST";

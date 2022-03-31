@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 <style type="text/css">
-    
     .owl-item.active:focus-within {
         /*box-shadow: 6px 12px 11px 4px #724a9e;*/
         box-shadow: 8px -14px 20px 2px #8039d88f;
@@ -83,30 +82,36 @@
         margin: 20px;
         color: var(--primary) !important;
     }
-    @@media only screen and (max-width: 575px){
-    .profile .profile-photo {
-        width: 100%;
+
+    @@media only screen and (max-width: 575px) {
+        .profile .profile-photo {
+            width: 100%;
+        }
+
+        .photo-content .cover-photo {
+            min-height: 200px;
+        }
+
+        ul.profile_nav {
+            display: flex;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .profile-tab .nav-item .nav-link {
+            white-space: nowrap;
+            margin-right: 0;
+        }
+
+        ul.nav {
+            flex-wrap: inherit;
+        }
     }
-            .photo-content .cover-photo {
-                min-height: 200px;
-            }
-            ul.profile_nav {
-    display: flex;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-.profile-tab .nav-item .nav-link {
-    white-space: nowrap;
-    margin-right: 0;
-}
-ul.nav{
-    flex-wrap: inherit;
-}
-}
+
     .profile-tab .nav-item .nav-link {
-    margin-right: 0;
-}
+        margin-right: 0;
+    }
 </style>
 
 <div class="content-body">
@@ -318,14 +323,14 @@ ul.nav{
                                 <ul class="nav nav-tabs profile_nav">
                                     <li class="nav-item">
                                     <li class="nav-item">
-                                        <a href="#about-me" data-toggle="tab" class="nav-link active show">About Me</a>
+                                        <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#chats" data-toggle="tab" class="nav-link">Connect with me</a>
+                                        <a href="#chats" data-toggle="tab" class="nav-link active show">Connect with me</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div id="about-me" class="tab-pane fade active show">
+                                    <div id="about-me" class="tab-pane fade">
                                         <div class="profile-about-me">
                                             <div class="pt-4 border-bottom-1 pb-3">
                                                 <h4 class="text-primary">About Me</h4>
@@ -519,7 +524,7 @@ ul.nav{
 
                                         </div>
                                     </div>
-                                    <div id="chats" class="tab-pane fade">
+                                    <div id="chats" class="tab-pane fade active show">
                                         <div class="pt-3">
                                             <div class="settings-form">
                                                 <div class="row mt-4">
@@ -563,7 +568,7 @@ ul.nav{
                                                                                 {
                                                                                     if (item.Type == "ContactNo")
                                                                                     {
-                                                                                        <option value="@item.Pk_NfcProfileId">@item.Mobile</option>
+                                                                                        <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.Mobile</option>
                                                                                     }
                                                                                 }
                                                                             }
@@ -594,7 +599,7 @@ ul.nav{
                                                                     </div>
                                                                 </div>
                                                                 <div class="new d-none" id="ddlwhatsapp">
-                                                                    <select class="form-control default-select" id="ddlwhatsapp" style="display:none">
+                                                                    <select class="form-control default-select" style="display:none">
                                                                         <option value="0">--Select--</option>
                                                                         @if (Model != null)
                                                                         {
@@ -602,9 +607,9 @@ ul.nav{
                                                                             {
                                                                                 foreach (var item in Model.lst)
                                                                                 {
-                                                                                    if (item.Type == "ContactNo")
+                                                                                    if (item.Type == "Whatsapp")
                                                                                     {
-                                                                                        <option value="@item.Pk_NfcProfileId">@item.Mobile</option>
+                                                                                        <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.Mobile</option>
                                                                                     }
                                                                                 }
                                                                             }
@@ -645,7 +650,7 @@ ul.nav{
                                                                                 {
                                                                                     if (item.Type == "Email")
                                                                                     {
-                                                                                        <option value="@item.Pk_NfcProfileId">@item.Email</option>
+                                                                                        <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.Email</option>
                                                                                     }
                                                                                 }
                                                                             }
@@ -670,7 +675,7 @@ ul.nav{
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="requiredh" onclick="return ShowHideDropDown('ddlfacebook', 'hide', 'facebooks');" checked>
+                                                                            <input type="checkbox" class="custom-control-input" id="requiredh" onclick="return ShowHideDropDown('ddlfacebook', 'hide', 'facebooks');">
                                                                             <label class="custom-control-label" for="requiredh">Hide</label>
                                                                         </div>
                                                                     </div>
@@ -688,7 +693,7 @@ ul.nav{
                                                                                     {
                                                                                         if (item.SocialMedia.ToLower().Contains("fb") || item.SocialMedia.ToLower().Contains("facebook"))
                                                                                         {
-                                                                                            <option value="@item.Pk_NfcProfileId" selected="">@item.SocialMedia</option>
+                                                                                            <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.SocialMedia</option>
                                                                                         }
                                                                                     }
                                                                                 }
@@ -732,7 +737,7 @@ ul.nav{
                                                                                     {
                                                                                         if (item.SocialMedia.ToLower().Contains("insta") || item.SocialMedia.ToLower().Contains("instagram"))
                                                                                         {
-                                                                                            <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                            <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.SocialMedia</option>
                                                                                         }
                                                                                     }
                                                                                 }
@@ -820,7 +825,7 @@ ul.nav{
                                                                                     {
                                                                                         if (item.SocialMedia.ToLower().Contains("tel") || item.SocialMedia.ToLower().Contains("telegram"))
                                                                                         {
-                                                                                            <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                            <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.SocialMedia</option>
                                                                                         }
                                                                                     }
                                                                                 }
@@ -864,7 +869,7 @@ ul.nav{
                                                                                     {
                                                                                         if (item.SocialMedia.ToLower().Contains("linkedin"))
                                                                                         {
-                                                                                            <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                            <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.SocialMedia</option>
                                                                                         }
                                                                                     }
                                                                                 }
@@ -906,7 +911,7 @@ ul.nav{
                                                                                 {
                                                                                     if (item.Type == "WebLink")
                                                                                     {
-                                                                                        <option value="@item.Pk_NfcProfileId">@item.WebLink</option>
+                                                                                        <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.WebLink</option>
                                                                                     }
                                                                                 }
                                                                             }
@@ -931,7 +936,7 @@ ul.nav{
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="locationh" onclick="return ShowHideDropDown('ddllocation', 'hide', 'locations');" checked>
+                                                                            <input type="checkbox" class="custom-control-input" id="locationh" onclick="return ShowHideDropDown('ddllocation', 'hide', 'locations');">
                                                                             <label class="custom-control-label" for="locationh">Hide</label>
                                                                         </div>
                                                                     </div>
@@ -945,9 +950,9 @@ ul.nav{
                                                                             {
                                                                                 foreach (var item in Model.lst)
                                                                                 {
-                                                                                    if (item.Type == "WebLink")
+                                                                                    if (item.Type == "Location")
                                                                                     {
-                                                                                        <option value="@item.Pk_NfcProfileId">@item.WebLink</option>
+                                                                                        <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.WebLink</option>
                                                                                     }
                                                                                 }
                                                                             }
@@ -1135,10 +1140,12 @@ ul.nav{
         debugger;
         if (fun == "show") {
             $("#" + str).removeClass("d-none");
+            $("#" + str + " option:selected").removeAttr("disabled");
             $('input[id="' + id + '"]').prop('checked', false);
         }
         else if (fun == "hide") {
             $("#" + str).addClass("d-none");
+            $("#" + str + " option:selected").attr('disabled', 'disabled');
             $('input[id="' + id + '"]').prop('checked', false);
         }
         //else if (str == "whatsapp") {
@@ -1332,13 +1339,18 @@ ul.nav{
     function UpdateSocialMediaStatus() {
         debugger;
         var ContactList = [];
+        var HideList = [];
         $('.default-select').find('option:selected').each(function () {
             list = ContactList.push($(this).val());;
         });
+        $('.default-select').find('option:disabled').each(function () {
+            list = HideList.push($(this).val());;
+        });
         var formData = new FormData();
         formData.append("ContactList", ContactList);
+        formData.append("HideContacts", HideList);
         formData.append("PK_ProfileId", PK_ProfileId);
-        formData.append("Mobile", $("#ddlphone").val());
+        formData.append("Mobile", $("#ddlwhatsapp option:selected").val());
         $.ajax({
             type: "POST",
             url: '/NFCProfile/SetPrimary',
@@ -1350,11 +1362,11 @@ ul.nav{
                 if (data != null) {
                     if (data.Result == "1") {
                         SuccessAlert(data.Message);
-                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+
                     }
                     else {
                         ErrorAlert(data.Message);
-                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+
                     }
                 }
             },
@@ -1382,6 +1394,7 @@ ul.nav{
             hideMethod: "fadeOut",
             tapToDismiss: !1
         })
+        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
     }
     function ErrorAlert(Message) {
         toastr.error(Message, "", {
@@ -1402,5 +1415,98 @@ ul.nav{
             hideMethod: "fadeOut",
             tapToDismiss: !1
         })
+        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
     }
+</script>
+<script>
+    $(document).ready(function () {
+        if ($("#ddlcall option:selected").val() != "0") {
+            $("#phones").attr('checked', 'checked');
+            $("#ddlcall").removeClass('d-none');
+        }
+        else {
+            $("#phoneh").attr('checked', 'checked');
+            $("#ddlcall").addClass('d-none');
+        }
+        if ($("#ddlwhatsapp option:selected").val() != "0") {
+            $("#whatsapps").attr('checked', 'checked');
+            $("#ddlwhatsapp").removeClass('d-none');
+        }
+        else {
+            $("#whatsapph").attr('checked', 'checked');
+            $("#ddlwhatsapp").addClass('d-none');
+        }
+        if ($("#ddlemail option:selected").val() != "0") {
+            $("#emails").attr('checked', 'checked');
+            $("#ddlemail").removeClass('d-none');
+        }
+        else {
+            $("#emailh").attr('checked', 'checked');
+            $("#ddlemail").addClass('d-none');
+        }
+        if ($("#ddlfacebook option:selected").val() != "0") {
+            $("#facebooks").attr('checked', 'checked');
+            $("#ddlfacebook").removeClass('d-none');
+        }
+        else {
+            $("#requiredh").attr('checked', 'checked');
+            $("#ddlfacebook").addClass('d-none');
+        }
+        if ($("#ddlinstagram option:selected").val() != "0") {
+            $("#instagrams").attr('checked', 'checked');
+            $("#ddlinstagram").removeClass('d-none');
+        }
+        else {
+            $("#instagramh").attr('checked', 'checked');
+            $("#ddlinstagram").addClass('d-none');
+        }
+        if ($("#ddltwitter option:selected").val() != "0") {
+            $("#twitters").attr('checked', 'checked');
+            $("#ddltwitter").removeClass('d-none');
+        }
+        else {
+            $("#twitterh").attr('checked', 'checked');
+            $("#ddltwitter").addClass('d-none');
+        }
+        if ($("#ddltelegram option:selected").val() != "0") {
+            $("#telegrams").attr('checked', 'checked');
+            $("#ddltelegram").removeClass('d-none');
+        }
+        else {
+            $("#telegramh").attr('checked', 'checked');
+            $("#ddltelegram").addClass('d-none');
+        }
+        if ($("#ddllinkedin option:selected").val() != "0") {
+            $("#linkedins").attr('checked', 'checked');
+            $("#ddllinkedin").removeClass('d-none');
+        }
+        else {
+            $("#linkedinh").attr('checked', 'checked');
+            $("#ddllinkedin").addClass('d-none');
+        }
+        if ($("#ddllinkedin option:selected").val() != "0") {
+            $("#linkedins").attr('checked', 'checked');
+            $("#ddllinkedin").removeClass('d-none');
+        }
+        else {
+            $("#linkedinh").attr('checked', 'checked');
+            $("#ddllinkedin").addClass('d-none');
+        }
+        if ($("#ddlwebsite option:selected").val() != "0") {
+            $("#websites").attr('checked', 'checked');
+            $("#ddlwebsite").removeClass('d-none');
+        }
+        else {
+            $("#websiteh").attr('checked', 'checked');
+            $("#ddlwebsite").addClass('d-none');
+        }
+        if ($("#ddllocation option:selected").val() != "0") {
+            $("#locations").attr('checked', 'checked');
+            $("#ddllocation").removeClass('d-none');
+        }
+        else {
+            $("#locationh").attr('checked', 'checked');
+            $("#ddllocation").addClass('d-none');
+        }
+    })
 </script>
