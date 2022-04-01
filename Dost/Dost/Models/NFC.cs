@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using System.Web.Mvc;
 
 namespace Dost.Models
 {
@@ -62,6 +63,7 @@ namespace Dost.Models
         public string BusinessName { get; set; }
         public string BusinessContact { get; set; }
         public string BusinessMail { get; set; }
+        [AllowHtml]
         public string Description { get; set; }
         public string About { get; set; }
         public bool IsIncluded { get; set; }
