@@ -221,7 +221,7 @@ namespace Dost.Controllers
             }
             catch (System.Exception ex)
             {
-                return RedirectToAction("Login_New", "Home");
+                return RedirectToAction("Login", "Home");
             }
             if (RedirectionLink != "")
             {

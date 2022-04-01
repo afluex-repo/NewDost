@@ -322,19 +322,23 @@
                             <div class="custom-tab-1">
                                 <ul class="nav nav-tabs profile_nav">
                                     <li class="nav-item">
+                                        <a href="#chats" data-toggle="tab" class="nav-link active show">Connect with me</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="#chats" data-toggle="tab" class="nav-link active show">Connect with me</a>
-                                    </li>
+
                                 </ul>
                                 <div class="tab-content">
                                     <div id="about-me" class="tab-pane fade">
                                         <div class="profile-about-me">
                                             <div class="pt-4 border-bottom-1 pb-3">
                                                 <h4 class="text-primary">About Me</h4>
-                                                <input type="text" name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...." textmode="multiline" value="@Model.Description" />
+                                                @*<textarea id="email-compose-editor" class="textarea_editor form-control bg-transparent" rows="15" placeholder="Enter text ..."></textarea>*@
+                                                <div id="emailbody" class="click2edit">@Model.Description</div>
+                                                @Html.HiddenFor(m => m.Description)
+                                                @*@Html.HiddenFor(m => m.Description)*@
+                                                @*<input type="text" name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...." textmode="multiline" value="" />*@
                                                 <p class="mb-2"></p>
                                             </div>
                                         </div>
@@ -607,8 +611,9 @@
                                                                             {
                                                                                 foreach (var item in Model.lst)
                                                                                 {
-                                                                                    if (item.Type == "Whatsapp")
+                                                                                    if (item.Type == "Whatsapp" || item.Type == "ContactNo")
                                                                                     {
+
                                                                                         <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.Mobile</option>
                                                                                     }
                                                                                 }
@@ -895,7 +900,7 @@
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="websiteh" onclick="return ShowHideDropDown('ddlwebsite', 'hide', 'websites');" checked>
+                                                                            <input type="checkbox" class="custom-control-input" id="websiteh" onclick="return ShowHideDropDown('ddlwebsite', 'hide', 'websites');">
                                                                             <label class="custom-control-label" for="websiteh">Hide</label>
                                                                         </div>
                                                                     </div>
@@ -1093,7 +1098,8 @@
         </div>
     </div>
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js" defer></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 <script src="~/vendor/jquery/jquery.min.js"></script>
 <script>
 
@@ -1251,11 +1257,14 @@
         });
     }
     function SaveAboutMe() {
+        debugger;
+        var emailBodyHTML = $('#emailbody').summernote('code');
+        $("#Description").val(emailBodyHTML);
         $.ajax({
+            type: "POST",
             url: '/NFCProfile/SaveAboutMe',
-            type: "GET",
             dataType: "JSON",
-            data: { Description: $("#textarea").val(), PK_ProfileId: PK_ProfileId },
+            data: { Description: $("#Description").val(), PK_ProfileId: PK_ProfileId },
             success: function (data) {
                 debugger;
                 if (data != null) {
@@ -1508,5 +1517,17 @@
             $("#locationh").attr('checked', 'checked');
             $("#ddllocation").addClass('d-none');
         }
+        $('#emailbody').summernote(
+        {
+            height: 150,
+            toolbar: [
+              // [groupName, [list of button]]
+              ['style', ['bold', 'italic', 'underline', 'clear']],
+              ['font', ['strikethrough', 'superscript', 'subscript']],
+              ['fontsize', ['fontsize']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['height', ['height']]
+            ]
+        });
     })
 </script>

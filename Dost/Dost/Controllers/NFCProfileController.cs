@@ -1435,6 +1435,7 @@ namespace Dost.Controllers
             }
             return RedirectToAction("EditProfileSetAction", "NFCProfile", new { id = Code });
         }
+        [HttpPost]
         public ActionResult SaveAboutMe(string Description, string PK_ProfileId)
         {
             NFCProfileModel model = new NFCProfileModel();
