@@ -22,6 +22,9 @@ namespace Dost.Controllers
         // GET: NFC
         public ActionResult ProfileUpdate()
         {
+            string url = "https://dost.click/NFC/Profile?id=H8eoDq2dRNnw2LmzMaZaJQ==";
+            MyURLShortener u = new MyURLShortener();
+            string str = u.MyURLShorten(url);
             #region ddlgender
             List<SelectListItem> ddlgender = Common.BindGender();
             ViewBag.ddlgender = ddlgender;
