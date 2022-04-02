@@ -440,7 +440,7 @@
                                                         <a href="#contacts" data-toggle="tab" class="nav-link active show">Connect with me</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
+                                                        <a href="#about-me" data-toggle="tab" class="nav-link" onclick="return aboutme();">About Me</a>
                                                     </li>
 
 
@@ -732,7 +732,9 @@
                                                             <div class="pt-4 border-bottom-1 pb-3">
                                                                 <h4 class="text-primary">About Me</h4>
                                                                 <p class="mb-2">
-                                                                    @Model.Description
+                                                                    <div id="emailbody" class="click2edit"></div>
+                                                                    @Html.HiddenFor(m => m.EmailBodyHTML)
+                                                                    @*@Model.EmailBodyHTML*@
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -791,6 +793,8 @@
                                                                                                 <td>
                                                                                                     <div class="media style-1">
                                                                                                         <div class="media-body">
+                                                                                                            @*<div id="emailbody"class="click2edit"></div>
+                                                                                                            @Html.HiddenFor(m => m.EmailBodyHTML)*@
                                                                                                             <span>@item.Achievement</span>
                                                                                                         </div>
                                                                                                     </div>
@@ -802,6 +806,7 @@
                                                                                                                 <i class="fa fa-pencil achiv"></i>
                                                                                                             </a>*@
                                                                                                         <a href="/NFCProfile/DeleteAchievement?Id=@item.Pk_AchievementId&Code=@Model.Code" class="ml-2 btn btn-xs px-2 light btn-danger">
+                                                                                                          
                                                                                                             <i class="fa fa-trash-o achiv"></i>
                                                                                                         </a>
                                                                                                     </div>
@@ -903,6 +908,7 @@
                         </div>
                         @if (Session["NFCCode"] != null)
                         {
+                            @*@Html.HiddenFor(m => m.hdfCode)*@
                             <input type="hidden" value="@Session["NFCCode"]" id="hdfCode" />
                         }
                     </div>
@@ -952,6 +958,10 @@
             ***********************************-->
 
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <!--**********************************
         Main wrapper end
         ***********************************-->
@@ -982,7 +992,7 @@
     <!-- <script src="js/styleSwitcher.js"></script> -->
     <script>
         jQuery(document).ready(function () {
-            var name = $("#hdfName").val();
+            var name = $("#hdfCode").val();
             if (name == "" && name != null) {
                 debugger;
                 $('#divcontainer').hide();
@@ -993,6 +1003,20 @@
                 dezSettingsOptions.version = 'dark';
                 new dezSettings(dezSettingsOptions);
             }, 100)
+
+
+        $('#emailbody').summernote(
+        {
+            height: 150,
+            toolbar: [
+              // [groupName, [list of button]]
+              ['style', ['bold', 'italic', 'underline', 'clear']],
+              ['font', ['strikethrough', 'superscript', 'subscript']],
+              ['fontsize', ['fontsize']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['height', ['height']]
+            ]
+        });
         });
         function funSignIn() {
             window.location.href = "/Home/Login";
@@ -1017,11 +1041,38 @@
             document.getElementById("upfile").click();
         }
     </script>
+
     <script type="text/javascript">
         var loadFile_highlights = function (event) {
             var image = document.getElementById('output');
             image.src = URL.createObjectURL(event.target.files[0]);
         };
+    </script>
+    <script>
+        function aboutme() {
+            debugger;
+            var code = $('#hdfCode').val();
+
+            $.ajax({
+                url: '/NFC/GetAboutMe', type: 'post', dataType: 'json',
+                data: { 'code': code },
+                success: function (data) {
+                    $("#divload").css({ 'display': 'none' });
+                    if (data.Result == "1") {
+                        $('#EmailBodyHTML').val(data.Body);
+                        var dd = $("#EmailBodyHTML").val();
+                        $('#emailbody').summernote('code', data.Body);
+                        //$('#EmailBodyHTML1').val(data.Achievement);
+                        //var dd1 = $("#EmailBodyHTML1").val();
+                        //$('#emailbody1').summernote('code', data.Achievement);
+                        
+                    }
+                    else {
+                        alert(data.Result);
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>

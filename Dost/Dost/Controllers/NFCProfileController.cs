@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Drawing;
 using IronBarCode;
+using Dost.Filter;
 
 namespace Dost.Controllers
 {
@@ -151,6 +152,7 @@ namespace Dost.Controllers
             DataSet ds = model.GetNFCProfileData();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
+               
                 model.IsProfileTurnedOff = Convert.ToBoolean(ds.Tables[0].Rows[0]["IsProfileTurnedOff"]);
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
@@ -170,6 +172,8 @@ namespace Dost.Controllers
                     if (obj.Status == "Active")
                     {
                         model.PK_ProfileId = obj.PK_ProfileId;
+                        ViewBag.img = obj.ProfilePic = r["ProfilePic"].ToString();
+
                         model.Leg = obj.Leg;
                     }
                     obj.CardImage = r["CardImage"].ToString();
@@ -204,6 +208,7 @@ namespace Dost.Controllers
             //}
             if (dsProfile != null && dsProfile.Tables.Count > 1)
             {
+            //    ViewBag.ProfilePic = dsProfile.Tables[1].Rows[0]["ProfilePic"].ToString();
                 if (dsProfile.Tables[1].Rows.Count > 0)
                 {
                     List<NFCContent> NfcContentList = new List<NFCContent>();
@@ -1149,7 +1154,7 @@ namespace Dost.Controllers
                             //objProfile.PK_UserId = ds1.Tables[0].Rows[0]["PK_UserId"].ToString();
                             objProfile.Summary = ds1.Tables[0].Rows[0]["Summary"].ToString();
                             //objProfile.BusinessName = ds1.Tables[0].Rows[0]["BusinessName"].ToString();
-                            objProfile.Designation = ds1.Tables[0].Rows[0]["Designation"].ToString();
+                            objProfile.EmailBodyHTML = ds1.Tables[0].Rows[0]["Designation"].ToString();
                             //objProfile.UserCode = ds1.Tables[0].Rows[0]["UserCode"].ToString();
                             //objProfile.Leg = ds1.Tables[0].Rows[0]["NFCProfileLeg"].ToString();
                             Session["SponsorId"] = ds1.Tables[0].Rows[0]["LoginId"].ToString();
@@ -1251,16 +1256,27 @@ namespace Dost.Controllers
                             }
                             if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[3].Rows.Count > 0)
                             {
+                                List<ListSkill> lstTo = new List<ListSkill>();
                                 List<UserSkill> lstSkill = new List<UserSkill>();
 
-                                foreach (DataRow row in ds1.Tables[3].Rows)
+                                 foreach (DataRow row in ds1.Tables[3].Rows)
                                 {
                                     UserSkill objSkill = new UserSkill();
                                     objSkill.Pk_SkillId = row["PK_SkillId"].ToString();
                                     objSkill.Skill = row["Skill"].ToString();
                                     lstSkill.Add(objSkill);
-                                }
-                                objProfile.lstSkill = lstSkill;
+                                    }
+                                //    lstSkill.lstSkill = lstSkill;
+                                //string[]Skill = objSkill.Skill.Split(',');
+                                ////foreach (string sk1 in Skill)
+                                ////{
+                                ////    ListSkill obj1 = new ListSkill();
+                                ////    obj1.Skill = sk1;
+                                ////    lstTo.Add(obj1);
+                                ////}
+                                //    objProfile.lstTo = lstTo;
+                                 
+                                //}
                             }
                             if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[4].Rows.Count > 0)
                             {
@@ -1435,15 +1451,20 @@ namespace Dost.Controllers
             }
             return RedirectToAction("EditProfileSetAction", "NFCProfile", new { id = Code });
         }
+      
+        //[AcceptVerbs(HttpVerbs.Post)]
+        //[ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult SaveAboutMe(string Description, string PK_ProfileId)
+        [ActionName("EditProfileSetAction")]
+        [OnAction(ButtonName = "btnSave")]
+        public ActionResult SaveAboutMe(NFCProfileModel model)//(string EmailBodyHTML, string PK_ProfileId)
         {
-            NFCProfileModel model = new NFCProfileModel();
+            //NFCProfileModel model = new NFCProfileModel();
             try
             {
-                model.Description = Description;
+                //model.EmailBodyHTML = EmailBodyHTML;
                 model.FK_UserId = Session["Pk_userId"].ToString();
-                model.PK_ProfileId = PK_ProfileId;
+             //   model.PK_ProfileId = PK_ProfileId;
                 DataSet ds = model.SaveAboutMe();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
@@ -1464,7 +1485,8 @@ namespace Dost.Controllers
                 model.Result = "0";
                 model.Message = ex.Message;
             }
-            return Json(model, JsonRequestBehavior.AllowGet);
+            // return RedirectToAction("EditProfileSetAction", "NFCProfile");
+            return View(model);
         }
         [HttpPost]
         public ActionResult UpdateBannerImage(string PK_ProfileId)
@@ -1596,6 +1618,8 @@ namespace Dost.Controllers
         //    string msg = "The QR Code generated successfully";
         //    return Json(msg, JsonRequestBehavior.AllowGet);
         //}
+
+
     }
 
 }

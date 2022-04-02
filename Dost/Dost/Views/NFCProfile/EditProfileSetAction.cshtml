@@ -1,8 +1,11 @@
 ﻿@model Dost.Models.NFCProfileModel
+
 @{
     ViewBag.Title = "EditProfileSetAction";
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
+@using (Html.BeginForm("EditProfileSetAction", "NFCProfile", FormMethod.Post, new { @id = "signupForm", enctype = "multipart/form-data" }))
+{
 <style type="text/css">
     .owl-item.active:focus-within {
         /*box-shadow: 6px 12px 11px 4px #724a9e;*/
@@ -115,6 +118,7 @@
 </style>
 
 <div class="content-body">
+
     <div class="container-fluid">
         <!-- Add Project -->
         <div class="modal fade" id="addProjectSidebar">
@@ -188,6 +192,8 @@
                             }
 
                         </div>
+                      
+
                         <div class="profile-info">
                             <div class="profile-photo">
                                 @if (Model.ProfilePic != null && Model.ProfilePic != "")
@@ -210,12 +216,13 @@
                                         <p>Email</p>*@
                                     <textarea class="form-control mr-2" placeholder="Type your details...">@Model.Summary</textarea>
                                 </div>
-                                <input type="hidden" id="PK_ProfileId" value="@Model.PK_ProfileId" />
+                                @Html.HiddenFor(m => m.PK_ProfileId)
+                                @*<input type="hidden" id="PK_ProfileId" value="@Model.PK_ProfileId" />*@
                                 <input type="hidden" id="Code" value="@Model.Code" />
                                 <div class="dropdown ml-auto">
                                     <a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li class="dropdown-item"><a href="/NFC/Profile?id=@Model.Code"><i class="fa fa-user-circle text-primary mr-2"></i> View profile</li></a>
+                                        <li class="dropdown-item"><a href="/NFC/Profile?id=@Model.Code"><i class="fa fa-user-circle text-primary mr-2"></i> View profile</a></li>
                                         @*
                                             <li class="dropdown-item"><i class="fa fa-users text-primary mr-2"></i> Add to close friends</li>
                                             <li class="dropdown-item"><i class="fa fa-plus text-primary mr-2"></i> Add to group</li>
@@ -224,6 +231,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -335,8 +343,10 @@
                                             <div class="pt-4 border-bottom-1 pb-3">
                                                 <h4 class="text-primary">About Me</h4>
                                                 @*<textarea id="email-compose-editor" class="textarea_editor form-control bg-transparent" rows="15" placeholder="Enter text ..."></textarea>*@
-                                                <div id="emailbody" class="click2edit">@Model.Description</div>
-                                                @Html.HiddenFor(m => m.Description)
+                                                <div id="emailbody"><p></p></div>
+                                                @Html.HiddenFor(m => m.EmailBodyHTML)
+                                                @*<div id="emailbody" class="click2edit"></div>*@
+                                              
                                                 @*@Html.HiddenFor(m => m.Description)*@
                                                 @*<input type="text" name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...." textmode="multiline" value="" />*@
                                                 <p class="mb-2"></p>
@@ -360,7 +370,8 @@
                                                                     <div class="col-xl-12 col-lg-12 form-group">
                                                                         <div class="mb-1">
                                                                             <!-- <label>Add More skill</label> -->
-                                                                            <input type="text" class="form-control" placeholder="Type Your Skills" id="txtSkill">
+                                                                           @Html.TextBoxFor(m=>m.Skill , new {  @class="form-control", @placeholder="Type Your Skills"})
+                                                                            <input type="text" class="form-control" placeholder="Type Your Skills" id="txtSkill" hidden="hidden">
                                                                         </div>
                                                                     </div>
 
@@ -376,9 +387,9 @@
                                             </div>
                                             @if (Model != null)
                                             {
-                                                if (Model.lstSkill != null)
+                                                if (Model.lstTo != null)
                                                 {
-                                                    foreach (var item in Model.lstSkill)
+                                                    foreach (var item in Model.lstTo)
                                                     {
                                                         <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">@item.Skill</a>
                                                     }
@@ -521,7 +532,8 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <button type="button" class="btn btn-primary" onclick="return SaveAboutMe();">Save</button>
+                                                    @*<input type="submit" class="btn btn-primary" onclick="return SaveAboutMe();" value="Save" />*@
+                                                    <input type="submit" class="btn btn-primary" name="btnSave" value="Save" onclick="return validateForm();" />
                                                 </div>
                                             </div>
 
@@ -1097,12 +1109,20 @@
             </div>
         </div>
     </div>
+
+
+   
 </div>
+}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js" defer></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 <script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script>
-
+    function validateForm() {
+        var emailBodyHTML = $('#emailbody').summernote('code');
+        $('#EmailBodyHTML').val(emailBodyHTML);
+    }
     var PK_ProfileId = $("#PK_ProfileId").val();
     function getBanner() {
         document.getElementById("fBanner").click();
@@ -1191,7 +1211,7 @@
             url: '/NFCProfile/SaveSkill',
             type: "GET",
             dataType: "JSON",
-            data: { Skill: $("#txtSkill").val(), PK_ProfileId: PK_ProfileId },
+            data: { Skill: $("#Skill").val(), PK_ProfileId: PK_ProfileId },
             success: function (data) {
                 debugger;
                 if (data != null) {
@@ -1259,14 +1279,17 @@
     function SaveAboutMe() {
         debugger;
         var emailBodyHTML = $('#emailbody').summernote('code');
-        $("#Description").val(emailBodyHTML);
+        
+       // var emailBodyHTML = $('#emailbody').summernote('code');
+        $("#EmailBodyHTML").val(emailBodyHTML);
         $.ajax({
-            type: "POST",
+            type: "Post",
             url: '/NFCProfile/SaveAboutMe',
             dataType: "JSON",
-            data: { Description: $("#Description").val(), PK_ProfileId: PK_ProfileId },
-            success: function (data) {
-                debugger;
+            data: { 'EmailBodyHTML':$("#EmailBodyHTML").val(), 'PK_ProfileId': PK_ProfileId },
+                success: function (data)
+            {
+                    debugger;$("#EmailBodyHTML")
                 if (data != null) {
                     if (data.Result == "1") {
                         SuccessAlert(data.Message);

@@ -63,6 +63,7 @@ namespace Dost.Models
         public string BusinessName { get; set; }
         public string BusinessContact { get; set; }
         public string BusinessMail { get; set; }
+       public string Skill { get; set; }
         [AllowHtml]
         public string Description { get; set; }
         public string About { get; set; }
@@ -93,6 +94,7 @@ namespace Dost.Models
         public string LogId { get; set; }
         public string DecryptedCode { get; set; }
         public List<UserSkill> lstSkill { get; set; }
+        public List<ListSkill> lstTo { get; set; }
         public List<UserLanguage> lstLanguage { get; set; }
         public List<UserAchievement> lstAchievement { get; set; }
         public string BannerImage { get; set; }
@@ -107,13 +109,14 @@ namespace Dost.Models
         public bool IsDislpayValue { get; set; }
         public int IsPrimary { get; set; }
         public string IsDisplay { get; set; }
-        
+        [AllowHtml]
+        public string EmailBodyHTML { get; set; }
         public DataSet SaveAboutMe()
         {
             SqlParameter[] para ={
                 new SqlParameter ("@PK_ProfileId",PK_ProfileId),
                 new SqlParameter("@FK_UserId",FK_UserId),
-                new SqlParameter("@Description",Description)
+                new SqlParameter("@Description",EmailBodyHTML)
             };
             DataSet ds = DBHelper.ExecuteQuery("SaveAboutMe", para);
             return ds;
@@ -661,6 +664,10 @@ namespace Dost.Models
             builder.AppendLine("END:VCARD");
             return builder.ToString();
         }
+    }
+    public class ListSkill
+    {
+        public string Skill { get; set; }
     }
     public class UserSkill
     {
