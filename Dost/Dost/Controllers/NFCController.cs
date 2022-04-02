@@ -140,7 +140,8 @@ namespace Dost.Controllers
                                     Content = row["Content"].ToString(),
                                     Type = row["Type"].ToString(),
                                     IsWhatsApp = row["IsWhatsapp"].ToString(),
-                                    IsPrimary = row["IsPrimary"].ToString()
+                                    IsPrimary = row["IsPrimary"].ToString(),
+                                    IsDisplay= Convert.ToBoolean(row["Display"])
                                 });
                             }
 
@@ -220,7 +221,7 @@ namespace Dost.Controllers
             }
             catch (System.Exception ex)
             {
-                return RedirectToAction("Login_New", "Home");
+                return RedirectToAction("Login", "Home");
             }
             if (RedirectionLink != "")
             {
@@ -464,6 +465,32 @@ namespace Dost.Controllers
             });
             //System.Web.HttpContext.Current.Request.QueryString["id"].ToString();
             //return Json("hi", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetAboutMe(string code)
+        {
+            UserAchievement objA = new UserAchievement();
+            NFCModel model = new NFCModel();
+            try
+            {
+                model.LogId = Session["LoginId"].ToString(); 
+                model.Code = Crypto.DecryptNFC(code);
+
+                DataSet ds = model.GetNFCProfileData();
+
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    model.Result = "1";
+
+                    model.Body = ds.Tables[6].Rows[0]["Description"].ToString();
+                    objA.Achievement = ds.Tables[5].Rows[0]["Achievement"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                model.Result = ex.Message;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }

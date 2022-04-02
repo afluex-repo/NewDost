@@ -207,7 +207,7 @@
                                                                 <div class="col-xl-12 col-lg-12">
                                                                     <div class="card">
                                                                         <div class="card-header">
-                                                                            <h4 class="card-title">@Item.ProfileName</h4>
+                                                                       <h4 class="card-title">@Item.ProfileName</h4>
                                                                         </div>
                                                                         <div class="card-body">
                                                                             <div class="basic-form">
@@ -316,6 +316,31 @@
                                                                                                     @*<input type="checkbox" onchange="return setPrimary(@i,'PrimaryWebLink_');" />Is Primary
                                                                                                         <input type="hidden" class="PrimaryWebLink_@i" name="PrimaryWebLink" />*@
                                                                                                     <div class="selectedWebLink" style="display:none">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <label>Whatsapp No</label>
+                                                                                                @Html.DropDownListFor(m => m.WhatsappList, new SelectList(ViewBag.ddlWhatsapp, "Value", "Text"), new { @class = "js-example-placeholder-multiple Whatsapp_" + @i + "", @multiple = "multiple" })
+                                                                                                @*<input type="checkbox" onchange="return setPrimary(@i,'PrimaryContact_');" />Is Primary
+                    <input type="hidden" class="PrimaryNumber_@i" name="PrimaryNumber" />*@
+                                                                                                <div class="selectedWhatsapp" style="display:none">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="col-xl-6 col-lg-6 form-group">
+                                                                                            <div class="mb-3">
+                                                                                                <div class="form-group">
+                                                                                                    <label>Location</label>
+                                                                                                    @Html.DropDownListFor(m => m.LocationList, new SelectList(ViewBag.ddlLocation, "Value", "Text"), new { @class = "js-example-placeholder-multiple Location_" + @i + "", @multiple = "multiple" })
+                                                                                                    @*<input type="checkbox" onchange="return setPrimary(@i,'PrimaryEmail_');" />Is Primary
+                        <input type="hidden" class="PrimaryEmail__@i" name="PrimaryEmail" />*@
+                                                                                                    <div class="selectedLocation" style="display:none">
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -435,7 +460,12 @@
                                         <ul class="nav nav-tabs" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link active" data-toggle="tab" href="#co_nu">
-                                                    Contact Numbers
+                                                    Contact
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#co_wh">
+                                                    Whatsapp
                                                 </a>
                                             </li>
                                             <li class="nav-item">
@@ -451,6 +481,11 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" data-toggle="tab" href="#social">
                                                     Social Media
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#location">
+                                                    Location
                                                 </a>
                                             </li>
                                         </ul>
@@ -593,9 +628,73 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <div class="tab-pane fade" id="co_wh">
+                                        <div class="table-responsive">
+                                            <table class="table shadow-hover card-table border-no tbl-btn short-one" style="white-space:nowrap" id="tblWhatsapp">
+                                                <tbody></tbody>
+                                            </table>
+                                            <table class="table shadow-hover card-table border-no tbl-btn short-one" style="white-space:nowrap">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span>
+                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
+                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
+                                                                </svg>
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="font-w600 text-black">Whatsapp</span>
+                                                        </td>
+                                                        <td colspan="2">
+                                                            <div class="form-group row">
+                                                                <div class="col-lg-12">
+                                                                    @Html.TextBoxFor(m => m.ContentWhatsapp, new { @class = "form-control input-default", @placeholder = "Whatsapp", @maxlength = "10", @minlength = "10", @onkeypress = "return isNumberKey(event);" })
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><button type="button" class="btnAdd" id="btnWhatsapp">Add</button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="location">
+                                        <div class="table-responsive">
+                                            <table class="table shadow-hover card-table border-no tbl-btn short-one" style="white-space:nowrap" id="tblLocation">
+                                                <tbody></tbody>
+                                            </table>
+                                            <table class="table shadow-hover card-table border-no tbl-btn short-one" style="white-space:nowrap">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span>
+                                                                <svg width="50" height="50" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <rect width="63" height="63" rx="14" fill="#625794" />
+                                                                    <path d="M25.4813 24.6343L25.4813 24.6343L30.3544 19.7376C30.3571 19.7348 30.3596 19.7323 30.3619 19.7301M25.4813 24.6343L30.7116 20.0875L30.3587 19.7333C30.368 19.7241 30.3756 19.7172 30.3789 19.7143L30.38 19.7133C30.3775 19.7155 30.3709 19.7214 30.3627 19.7293C30.3625 19.7295 30.3622 19.7298 30.3619 19.7301M25.4813 24.6343C24.9214 25.197 24.9234 26.1071 25.4862 26.6672C26.0489 27.2273 26.9591 27.2251 27.5191 26.6624L27.5192 26.6624L29.9377 24.232M25.4813 24.6343L29.9377 24.232M30.3619 19.7301C30.9212 19.1741 31.8279 19.1724 32.389 19.7304C32.3902 19.7316 32.3914 19.7329 32.3927 19.7341L32.3941 19.7356L32.4062 19.7477L37.2691 24.6342L36.9147 24.9869L37.2692 24.6342C37.829 25.1968 37.8271 26.107 37.2642 26.6672C36.7015 27.2272 35.7914 27.225 35.2314 26.6623L35.2313 26.6623L32.8127 24.232L32.8127 42.875C32.8127 43.6689 32.1692 44.3125 31.3752 44.3125C30.5813 44.3125 29.9377 43.6689 29.9377 42.875L29.9377 24.232M30.3619 19.7301C30.3605 19.7315 30.3591 19.7329 30.3577 19.7343L29.9377 24.232M32.3927 19.7342C32.3932 19.7347 32.3937 19.7351 32.3941 19.7356L32.3927 19.7342Z" fill="white" stroke="white" />
+                                                                </svg>
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="font-w600 text-black">Location</span>
+                                                        </td>
+                                                        <td colspan="2">
+                                                            <div class="form-group row">
+                                                                <div class="col-lg-12">
+                                                                    @Html.TextBoxFor(m => m.ContentLocation, new { @class = "form-control input-default", @placeholder = "Location" })
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><button type="button" class="btnAdd" id="btnLocation">Add</button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-footer border-0 p-0 caret mt-1">
-                                    <a href="coin-details.html" class="btn-link"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                    <a href="javascript:void(0)" class="btn-link"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -608,7 +707,7 @@
                                 <div class="card-body">
                                     <div class="text-center">
                                         <div class="my-profile mb-3">
-                                            <img src="~/images/profile/port.jpg" alt="" style="border: 2px solid white; border-radius: 50%; width: 80px; height: 80px;">
+                                            <img src="@ViewBag.img" alt="" style="border: 2px solid white; border-radius: 50%; width: 80px; height: 80px;">
                                             <h4 class="mt-3 font-w600 text-black mb-0 name-text">@Session["FullName"]</h4>
                                         </div>
                                         <div class="form-row mb-4">
@@ -986,6 +1085,8 @@
         GetProfileData("Email", "#tblEmail");
         GetProfileData("WebLink", "#tblWebLink");
         GetProfileData("SocialMedia", "#tblSocialMedia");
+        GetProfileData("Whatsapp", "#tblWhatsapp");
+        GetProfileData("Location", "#tblLocation");
         $(".js-example-placeholder-multiple").select2({
             placeholder: "Select",
             tokenSeparators: [',', ' '],
@@ -1086,6 +1187,26 @@
         $("#Flag").val("SocialMedia");
         ProfileUpdatePost();
     });
+    $("#btnWhatsapp").click(function () {
+        debugger;
+        if ($("#ContentWhatsapp").val() == '') {
+            $("#ContentWhatsapp").addClass('errortext');
+            $('#ContentWhatsapp').focus();
+            return false;
+        }
+        $("#Flag").val("Whatsapp");
+        ProfileUpdatePost();
+    });
+    $("#btnLocation").click(function () {
+        debugger;
+        if ($("#ContentLocation").val() == '') {
+            $("#ContentLocation").addClass('errortext');
+            $('#ContentLocation').focus();
+            return false;
+        }
+        $("#Flag").val("Location");
+        ProfileUpdatePost();
+    });
     function GetProfilePersonalData() {
         $.ajax({
             type: 'Get',
@@ -1126,6 +1247,8 @@
                     GetProfileData("Email", "#tblEmail");
                     GetProfileData("WebLink", "#tblWebLink");
                     GetProfileData("SocialMedia", "#tblSocialMedia");
+                    GetProfileData("Whatsapp", "#tblWhatsapp");
+                    GetProfileData("Location", "#tblLocation");
                 }
                 else {
                     ErrorAlert("Error while inserting data");
@@ -1183,6 +1306,7 @@
             url: '@Url.Action("GetBusinessProfile", "NFCProfile")',
             data: { PK_ProfileId: Id },
             success: function (data) {
+                debugger
                 var cl = "";
                 if (data != null) {
                     var obj = jQuery.parseJSON(data);
@@ -1236,9 +1360,17 @@
                                     if (obj[1][i].Type == "WebLink") {
                                         $(".selectedWebLink").append("<button type='button' data-weblinkid='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</button>");
                                     }
+                                    if (obj[1][i].Type == "Location") {
+                                        $(".selectedLocation").append("<button type='button' data-locationid='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</button>");
+                                    }
+                                    if (obj[1][i].Type == "Whatsapp") {
+                                        $(".selectedWhatsapp").append("<button type='button' data-whatsappid='" + obj[1][i].PK_NFCProfileId + "'>" + obj[1][i].Content + "</button>");
+                                    }
                                 }
                             }
                             else {
+                                $(".selectedLocation").html("");
+                                $(".selectedWhatsapp").html("");
                                 $(".selectedEmail2").html("");
                                 $(".selectedMobile").html("");
                                 $(".selectedSocial").html("");
@@ -1248,6 +1380,8 @@
                             var selectedMobile = new Array();
                             var selectedSocial = new Array();
                             var selectedWebLink = new Array();
+                            var selectedLocation = new Array();
+                            var selectedWhatsapp = new Array();
                             $.each($('.selectedEmail2 button[type=button]'), function (i, v) {
                                 selectedEmail2[i] = $(this).attr('data-emailid');
                                 $('.Email_' + index).val(selectedEmail2).trigger('change');
@@ -1263,6 +1397,14 @@
                             $.each($('.selectedWebLink button[type=button]'), function (i, v) {
                                 selectedWebLink[i] = $(this).attr('data-weblinkid');
                                 $('.WebLink_' + index).val(selectedWebLink).trigger('change');
+                            });
+                            $.each($('.selectedLocation button[type=button]'), function (i, v) {
+                                selectedLocation[i] = $(this).attr('data-locationid');
+                                $('.Location_' + index).val(selectedLocation).trigger('change');
+                            });
+                            $.each($('.selectedWhatsapp button[type=button]'), function (i, v) {
+                                selectedWhatsapp[i] = $(this).attr('data-whatsappid');
+                                $('.Whatsapp_' + index).val(selectedWhatsapp).trigger('change');
                             });
                             $(".Remarks_" + index).val(obj[0][0].Description);
                             $(".CompanyName_" + index).val(obj[0][0].BusinessName);
@@ -1286,6 +1428,8 @@
                     GetProfileData("Email", "#tblEmail");
                     GetProfileData("WebLink", "#tblWebLink");
                     GetProfileData("SocialMedia", "#tblSocialMedia");
+                    GetProfileData("Whatsapp", "#tblWhatsapp");
+                    GetProfileData("Location", "#tblLocation");
                 }
                 else {
 
@@ -1307,6 +1451,12 @@
         }
         else if (Type == "SocialMedia") {
             InfoType = "Social Media";
+        }
+        else if (Type == "Whatsapp") {
+            InfoType = "Whatsapp";
+        }
+        else if (Type == "Location") {
+            InfoType = "Location";
         }
         else {
 
@@ -1442,6 +1592,8 @@
         var Emaillist = [];
         var SocialLink = [];
         var WebLinkList = [];
+        var WhatsappList = [];
+        var LocationList = [];
         var errorItemCount = 0;
         $('.Mobile_' + index).find('option:selected').each(function () {
             list = ContactList.push($(this).val());;
@@ -1454,6 +1606,12 @@
         });
         $('.WebLink_' + index).find('option:selected').each(function () {
             list = WebLinkList.push($(this).val());;
+        });
+        $('.Whatsapp_' + index).find('option:selected').each(function () {
+            list = WhatsappList.push($(this).val());;
+        });
+        $('.Location_' + index).find('option:selected').each(function () {
+            list = LocationList.push($(this).val());;
         });
         console.log(Emaillist)
         if (Emaillist.length == 0) {
@@ -1473,6 +1631,8 @@
             formData.append("Emaillist", Emaillist);
             formData.append("SocialLink", SocialLink);
             formData.append("WebLinkList", WebLinkList);
+            formData.append("WhatsappList", WhatsappList);
+            formData.append("LocationList", LocationList);
             formData.append("FirstName", $('.FirstName_' + index + '').val());
             formData.append("LastName", $('.LastName_' + index + '').val());
             formData.append("Gender", $('.Gender_' + index + '').val());

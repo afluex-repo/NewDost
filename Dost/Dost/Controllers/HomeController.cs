@@ -79,6 +79,7 @@ namespace Dost.Controllers
                             Session["SponsorName"] = ds.Tables[0].Rows[0]["SponsorName"].ToString();
                             Session["Leg"] = ds.Tables[0].Rows[0]["Leg"].ToString();
                             Session["UserCode"] = ds.Tables[0].Rows[0]["UserCode"].ToString();
+                           // obj.NFCCCode= ds.Tables[0].Rows[0]["UserCode"].ToString();
                             Session["User_Code"] = ds.Tables[0].Rows[0]["UserCode"].ToString().Remove(0, 2);
                             Session["JoiningDate"] = ds.Tables[0].Rows[0]["JoiningDate"].ToString();
                             Session["IsAcceptanceTNC"] = ds.Tables[0].Rows[0]["IsAcceptanceTNC"].ToString();
@@ -330,7 +331,7 @@ namespace Dost.Controllers
                         {
                             Session["S_MobileNo"] = model.MobileNo;
                             string OTP = Common.GenerateRandom();
-                            Session["S_OTP"] = "jaipuria";
+                            Session["S_OTP"] = OTP;
                             DateTime dt1 = DateTime.Now;
                             DateTime dt2 = dt1.AddMinutes(10);
                             Session["S_OTPValidity"] = dt2;
@@ -338,8 +339,8 @@ namespace Dost.Controllers
                             {
                                 if (model.MobileNo != null && model.MobileNo != "")
                                 {
-                                    //string str2 = "Dear User, Your DOST Inc Registration OTP is " + OTP + ". Thank You.";
-                                    string str2 = "Dear User, Your DOST Inc Registration OTP is jaipuria. Thank You.";
+                                    string str2 = "Dear User, Your DOST Inc Registration OTP is " + OTP + ". Thank You.";
+                                    //string str2 = "Dear User, Your DOST Inc Registration OTP is jaipuria. Thank You.";
                                     BLSMS.sendSMSUpdated(str2, model.MobileNo);
                                 }
                             }
@@ -382,7 +383,7 @@ namespace Dost.Controllers
                 }
                 string MobileNo = Session["S_MobileNo"].ToString();
                 string OTP = Common.GenerateRandom();
-                Session["S_OTP"] = "jaipuria";
+                Session["S_OTP"] = OTP;
                 DateTime dt1 = DateTime.Now;
                 DateTime dt2 = dt1.AddMinutes(10);
                 Session["S_OTPValidity"] = dt2;
@@ -420,7 +421,6 @@ namespace Dost.Controllers
                 {
                     ViewBag.Mode = "Direct";
                 }
-                TempData["msg"] = "Success1";
             }
             catch (Exception ex)
             {

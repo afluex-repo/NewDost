@@ -24,10 +24,11 @@
     <link href="~/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
     <style type="text/css">
-        .container{
-        padding-right: 0;
-    padding-left: 0;
-    }
+        .container {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
         .social-graph-wrapper.widget-whatsapp {
             background-color: #04c165;
         }
@@ -46,6 +47,14 @@
 
         .social-graph-wrapper.widget-email {
             background-color: #f04336;
+        }
+
+        .social-graph-wrapper.widget-website {
+            background-image: linear-gradient(to right, #29abde, #006cb8);
+        }
+
+        .social-graph-wrapper.widget-map {
+            background-color: #f71c1e;
         }
 
         .s-icon a {
@@ -71,28 +80,33 @@
 
         @@media (max-width: 575.98px) {
             .profile .profile-photo {
-        width: 100%;
-    }
+                width: 100%;
+            }
+
             .photo-content .cover-photo {
                 min-height: 200px;
             }
+
             ul.profile_nav {
-    display: flex;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-.profile-tab .nav-item .nav-link {
-    white-space: nowrap;
-    margin-right: 0;
-}
-ul.nav{
-    flex-wrap: inherit;
-}
+                display: flex;
+                width: 100%;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+
+            .profile-tab .nav-item .nav-link {
+                white-space: nowrap;
+                margin-right: 0;
+            }
+
+            ul.nav {
+                flex-wrap: inherit;
+            }
         }
+
         .profile-tab .nav-item .nav-link {
-    margin-right: 0;
-}
+            margin-right: 0;
+        }
 
         .col-xl-12.col-xxl-12.col-sm-12.social {
             display: grid;
@@ -117,7 +131,6 @@ ul.nav{
         .social-graph-wrapper {
             padding: 20px 0;
         }
-        
     </style>
 </head>
 <body>
@@ -196,7 +209,7 @@ ul.nav{
                                                         <p class="summary">@Model.Summary</p>*@
                                                 </div>
                                                 @*<div class="dropdown ml-auto">
-                                                        <a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
+                                                        <a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded=true><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
                                                         <ul class="dropdown-menu dropdown-menu-right">
                                                             <li class="dropdown-item"><i class="fa fa-user-circle text-primary mr-2"></i> View profile</li>
                                                             <li class="dropdown-item"><i class="fa fa-users text-primary mr-2"></i> Add to close friends</li>
@@ -424,12 +437,13 @@ ul.nav{
                                                             <a href="#social-media" data-toggle="tab" class="nav-link active show">Social Media</a>
                                                         </li>*@
                                                     <li class="nav-item">
-                                                        <a href="#about-me" data-toggle="tab" class="nav-link active show">About Me</a>
+                                                        <a href="#contacts" data-toggle="tab" class="nav-link active show">Connect with me</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="#contacts" data-toggle="tab" class="nav-link">Connect with me</a>
+                                                        <a href="#about-me" data-toggle="tab" class="nav-link" onclick="return aboutme();">About Me</a>
                                                     </li>
-                                                
+
+
                                                     @*<li class="nav-item">
                                                             <a href="#broadcast" data-toggle="tab" class="nav-link">Broadcast</a>
                                                         </li>*@
@@ -563,7 +577,7 @@ ul.nav{
                                                             </div>
                                                         </div>*@
 
-                                                    <div id="contacts" class="tab-pane fade">
+                                                    <div id="contacts" class="tab-pane fade active show">
                                                         <div class="pt-3">
                                                             <div class="settings-form">
 
@@ -574,20 +588,37 @@ ul.nav{
                                                                         {
                                                                             foreach (var item in Model.NfcContentList)
                                                                             {
-                                                                                if (item.Type == "ContactNo" && item.IsPrimary=="True")
+                                                                                if (item.Type == "ContactNo" && item.IsDisplay == true)
                                                                                 {
                                                                                     if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
                                                                                     {
                                                                                         <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
                                                                                             <div class="card">
-                                                                                                <div class="social-graph-wrapper widget-whatsapp">
-                                                                                                    <span class="s-icon"><a href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                                                                <div class="social-graph-wrapper widget-phone">
+                                                                                                    <span class="s-icon"><a href="tel:@item.Content" target="_blank"><i class="fa fa-phone fa-lg"></i></a></span>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     }
                                                                                 }
-                                                                                else if (item.Type == "SocialMedia" && item.IsPrimary=="True")
+                                                                                 if (item.Type == "ContactNo" || item.Type == "Whatsapp")
+                                                                                {
+                                                                                    if (item.IsDisplay == true)
+                                                                                    {
+
+                                                                                        if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
+                                                                                        {
+                                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                                <div class="card">
+                                                                                                    <div class="social-graph-wrapper widget-whatsapp">
+                                                                                                        <span class="s-icon"><a href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                                else if (item.Type == "SocialMedia" && item.IsDisplay == true)
                                                                                 {
 
                                                                                     if (item.Content.ToLower().Contains("fb") || item.Content.ToLower().Contains("facebook"))
@@ -650,6 +681,39 @@ ul.nav{
                                                                                         </div>
                                                                                     }
                                                                                 }
+                                                                                else if (item.Type == "Email" && item.IsDisplay == true)
+                                                                                {
+
+                                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                        <div class="card">
+                                                                                            <div class="social-graph-wrapper widget-email">
+                                                                                                <span class="s-icon"><a href="mailto:@item.Content?subject= Dost &amp;body=" target="_blank"><i class="fa fa-envelope fa-lg"></i></a></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                else if (item.Type == "WebLink" && item.IsDisplay == true)
+                                                                                {
+
+                                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                        <div class="card">
+                                                                                            <div class="social-graph-wrapper widget-website">
+                                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-globe fa-lg"></i></a></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                                else if (item.Type == "Location" && item.IsDisplay == true)
+                                                                                {
+
+                                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                                        <div class="card">
+                                                                                            <div class="social-graph-wrapper widget-map">
+                                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-map-marker fa-lg"></i></a></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
                                                                                 else
                                                                                 {
 
@@ -663,12 +727,14 @@ ul.nav{
                                                         </div>
                                                     </div>
 
-                                                    <div id="about-me" class="tab-pane fade active show">
+                                                    <div id="about-me" class="tab-pane fade">
                                                         <div class="profile-about-me">
                                                             <div class="pt-4 border-bottom-1 pb-3">
                                                                 <h4 class="text-primary">About Me</h4>
                                                                 <p class="mb-2">
-                                                                    @Model.Description
+                                                                    <div id="emailbody" class="click2edit"></div>
+                                                                    @Html.HiddenFor(m => m.EmailBodyHTML)
+                                                                    @*@Model.EmailBodyHTML*@
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -727,6 +793,8 @@ ul.nav{
                                                                                                 <td>
                                                                                                     <div class="media style-1">
                                                                                                         <div class="media-body">
+                                                                                                            @*<div id="emailbody"class="click2edit"></div>
+                                                                                                            @Html.HiddenFor(m => m.EmailBodyHTML)*@
                                                                                                             <span>@item.Achievement</span>
                                                                                                         </div>
                                                                                                     </div>
@@ -738,6 +806,7 @@ ul.nav{
                                                                                                                 <i class="fa fa-pencil achiv"></i>
                                                                                                             </a>*@
                                                                                                         <a href="/NFCProfile/DeleteAchievement?Id=@item.Pk_AchievementId&Code=@Model.Code" class="ml-2 btn btn-xs px-2 light btn-danger">
+                                                                                                          
                                                                                                             <i class="fa fa-trash-o achiv"></i>
                                                                                                         </a>
                                                                                                     </div>
@@ -839,6 +908,7 @@ ul.nav{
                         </div>
                         @if (Session["NFCCode"] != null)
                         {
+                            @*@Html.HiddenFor(m => m.hdfCode)*@
                             <input type="hidden" value="@Session["NFCCode"]" id="hdfCode" />
                         }
                     </div>
@@ -888,6 +958,10 @@ ul.nav{
             ***********************************-->
 
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <!--**********************************
         Main wrapper end
         ***********************************-->
@@ -918,7 +992,7 @@ ul.nav{
     <!-- <script src="js/styleSwitcher.js"></script> -->
     <script>
         jQuery(document).ready(function () {
-            var name = $("#hdfName").val();
+            var name = $("#hdfCode").val();
             if (name == "" && name != null) {
                 debugger;
                 $('#divcontainer').hide();
@@ -929,6 +1003,20 @@ ul.nav{
                 dezSettingsOptions.version = 'dark';
                 new dezSettings(dezSettingsOptions);
             }, 100)
+
+
+        $('#emailbody').summernote(
+        {
+            height: 150,
+            toolbar: [
+              // [groupName, [list of button]]
+              ['style', ['bold', 'italic', 'underline', 'clear']],
+              ['font', ['strikethrough', 'superscript', 'subscript']],
+              ['fontsize', ['fontsize']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['height', ['height']]
+            ]
+        });
         });
         function funSignIn() {
             window.location.href = "/Home/Login";
@@ -953,11 +1041,38 @@ ul.nav{
             document.getElementById("upfile").click();
         }
     </script>
+
     <script type="text/javascript">
         var loadFile_highlights = function (event) {
             var image = document.getElementById('output');
             image.src = URL.createObjectURL(event.target.files[0]);
         };
+    </script>
+    <script>
+        function aboutme() {
+            debugger;
+            var code = $('#hdfCode').val();
+
+            $.ajax({
+                url: '/NFC/GetAboutMe', type: 'post', dataType: 'json',
+                data: { 'code': code },
+                success: function (data) {
+                    $("#divload").css({ 'display': 'none' });
+                    if (data.Result == "1") {
+                        $('#EmailBodyHTML').val(data.Body);
+                        var dd = $("#EmailBodyHTML").val();
+                        $('#emailbody').summernote('code', data.Body);
+                        //$('#EmailBodyHTML1').val(data.Achievement);
+                        //var dd1 = $("#EmailBodyHTML1").val();
+                        //$('#emailbody1').summernote('code', data.Achievement);
+                        
+                    }
+                    else {
+                        alert(data.Result);
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>

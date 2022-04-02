@@ -340,7 +340,7 @@
                     }
                     else {
                         $(document).ready(function () {
-                            toastr.error("Error while inserting data", "error", {
+                            toastr.error("Please enter correct OTP", "error", {
                                 positionClass: "toast-top-right",
                                 timeOut: 5e3,
                                 closeButton: !0,
@@ -420,6 +420,11 @@
                 return false;
             }
         }
+        $('#txtotp').keypress(function (e) {
+            debugger;
+            if (e.which === 32)
+                return false;
+        })
         function getmobileno(obj) {
             var status = $('#status');
             var preloader = $('#preloader');
@@ -460,7 +465,7 @@
                                 showMethod: "fadeIn",
                                 hideMethod: "fadeOut",
                                 tapToDismiss: !1
-                            })
+                            })      
                         })
                         //alert(response.Result);
                         $("#divload").css({ 'display': 'none' });
@@ -472,12 +477,10 @@
             })
         }
         function isNumberKey(evt) {
-
             var charCode = (evt.which) ? evt.which : event.keyCode;
             if (charCode != 46 && charCode > 31
               && (charCode < 48 || charCode > 57))
                 return false;
-
             return true;
         }
 
@@ -611,7 +614,7 @@
 
 
     </script>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(document).ready(function () {
             debugger
             var res = $("#tst").val();
@@ -663,7 +666,7 @@
                 }
             }
         })
-    </script>
+    </script>*@
     <style>
         .errortext {
             border: 2px solid red !important;

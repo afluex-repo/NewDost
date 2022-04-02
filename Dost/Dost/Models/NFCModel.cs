@@ -24,6 +24,8 @@ namespace Dost.Models
         public string Location { get; set; }
         public string LogId { get; set; }
         public string Device { get; set; }
+        public string Body { get; set; }
+        public string Result { get; set; }
         public DataSet CheckNFCCode()
         {
             SqlParameter[] para ={

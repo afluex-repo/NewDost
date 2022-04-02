@@ -70,6 +70,8 @@ namespace Dost.Models
         public string CouponName { get; set; }
         public string Message { get; set; }
         public string ImageId { get; set; }
+        public string NFCCode { get;  set; }
+        public string URL { get; set; }
         #endregion
         public DataSet productlist()
         {
@@ -79,7 +81,14 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetNFC",para);
             return ds;
         }
-
+        public DataSet UpdateQrImage()
+        {
+            SqlParameter[] para = { new SqlParameter("@NFCCode",NFCCode ),
+                    new SqlParameter("@URL",URL )
+            };
+            DataSet ds = DBHelper.ExecuteQuery("UpdateQrImage", para);
+            return ds;
+        }
         #region get multiple product image list
         public DataSet productimagelist()
         {

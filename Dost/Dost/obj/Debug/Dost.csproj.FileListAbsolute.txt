@@ -219,6 +219,7 @@ E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\ApplicationInsights.config
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\roslyn\csc.exe
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -290,6 +291,19 @@ E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Mvc.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Owin.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.Owin.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Newtonsoft.Json.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.Owin.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\QRCoder.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.pdb
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.xml

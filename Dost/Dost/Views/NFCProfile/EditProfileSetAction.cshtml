@@ -1,10 +1,12 @@
 ﻿@model Dost.Models.NFCProfileModel
+
 @{
     ViewBag.Title = "EditProfileSetAction";
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
+@using (Html.BeginForm("EditProfileSetAction", "NFCProfile", FormMethod.Post, new { @id = "signupForm", enctype = "multipart/form-data" }))
+{
 <style type="text/css">
-    
     .owl-item.active:focus-within {
         /*box-shadow: 6px 12px 11px 4px #724a9e;*/
         box-shadow: 8px -14px 20px 2px #8039d88f;
@@ -83,33 +85,40 @@
         margin: 20px;
         color: var(--primary) !important;
     }
-    @@media only screen and (max-width: 575px){
-    .profile .profile-photo {
-        width: 100%;
+
+    @@media only screen and (max-width: 575px) {
+        .profile .profile-photo {
+            width: 100%;
+        }
+
+        .photo-content .cover-photo {
+            min-height: 200px;
+        }
+
+        ul.profile_nav {
+            display: flex;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .profile-tab .nav-item .nav-link {
+            white-space: nowrap;
+            margin-right: 0;
+        }
+
+        ul.nav {
+            flex-wrap: inherit;
+        }
     }
-            .photo-content .cover-photo {
-                min-height: 200px;
-            }
-            ul.profile_nav {
-    display: flex;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-.profile-tab .nav-item .nav-link {
-    white-space: nowrap;
-    margin-right: 0;
-}
-ul.nav{
-    flex-wrap: inherit;
-}
-}
+
     .profile-tab .nav-item .nav-link {
-    margin-right: 0;
-}
+        margin-right: 0;
+    }
 </style>
 
 <div class="content-body">
+
     <div class="container-fluid">
         <!-- Add Project -->
         <div class="modal fade" id="addProjectSidebar">
@@ -183,6 +192,8 @@ ul.nav{
                             }
 
                         </div>
+                      
+
                         <div class="profile-info">
                             <div class="profile-photo">
                                 @if (Model.ProfilePic != null && Model.ProfilePic != "")
@@ -205,12 +216,13 @@ ul.nav{
                                         <p>Email</p>*@
                                     <textarea class="form-control mr-2" placeholder="Type your details...">@Model.Summary</textarea>
                                 </div>
-                                <input type="hidden" id="PK_ProfileId" value="@Model.PK_ProfileId" />
+                                @Html.HiddenFor(m => m.PK_ProfileId)
+                                @*<input type="hidden" id="PK_ProfileId" value="@Model.PK_ProfileId" />*@
                                 <input type="hidden" id="Code" value="@Model.Code" />
                                 <div class="dropdown ml-auto">
                                     <a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li class="dropdown-item"><a href="/NFC/Profile?id=@Model.Code"><i class="fa fa-user-circle text-primary mr-2"></i> View profile</li></a>
+                                        <li class="dropdown-item"><a href="/NFC/Profile?id=@Model.Code"><i class="fa fa-user-circle text-primary mr-2"></i> View profile</a></li>
                                         @*
                                             <li class="dropdown-item"><i class="fa fa-users text-primary mr-2"></i> Add to close friends</li>
                                             <li class="dropdown-item"><i class="fa fa-plus text-primary mr-2"></i> Add to group</li>
@@ -219,6 +231,7 @@ ul.nav{
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -317,19 +330,25 @@ ul.nav{
                             <div class="custom-tab-1">
                                 <ul class="nav nav-tabs profile_nav">
                                     <li class="nav-item">
-                                    <li class="nav-item">
-                                        <a href="#about-me" data-toggle="tab" class="nav-link active show">About Me</a>
+                                        <a href="#chats" data-toggle="tab" class="nav-link active show">Connect with me</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#chats" data-toggle="tab" class="nav-link">Connect with me</a>
+                                        <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
                                     </li>
+
                                 </ul>
                                 <div class="tab-content">
-                                    <div id="about-me" class="tab-pane fade active show">
+                                    <div id="about-me" class="tab-pane fade">
                                         <div class="profile-about-me">
                                             <div class="pt-4 border-bottom-1 pb-3">
                                                 <h4 class="text-primary">About Me</h4>
-                                                <input type="text" name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...." textmode="multiline" value="@Model.Description" />
+                                                @*<textarea id="email-compose-editor" class="textarea_editor form-control bg-transparent" rows="15" placeholder="Enter text ..."></textarea>*@
+                                                <div id="emailbody"><p></p></div>
+                                                @Html.HiddenFor(m => m.EmailBodyHTML)
+                                                @*<div id="emailbody" class="click2edit"></div>*@
+                                              
+                                                @*@Html.HiddenFor(m => m.Description)*@
+                                                @*<input type="text" name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...." textmode="multiline" value="" />*@
                                                 <p class="mb-2"></p>
                                             </div>
                                         </div>
@@ -351,7 +370,8 @@ ul.nav{
                                                                     <div class="col-xl-12 col-lg-12 form-group">
                                                                         <div class="mb-1">
                                                                             <!-- <label>Add More skill</label> -->
-                                                                            <input type="text" class="form-control" placeholder="Type Your Skills" id="txtSkill">
+                                                                           @Html.TextBoxFor(m=>m.Skill , new {  @class="form-control", @placeholder="Type Your Skills"})
+                                                                            <input type="text" class="form-control" placeholder="Type Your Skills" id="txtSkill" hidden="hidden">
                                                                         </div>
                                                                     </div>
 
@@ -367,9 +387,9 @@ ul.nav{
                                             </div>
                                             @if (Model != null)
                                             {
-                                                if (Model.lstSkill != null)
+                                                if (Model.lstTo != null)
                                                 {
-                                                    foreach (var item in Model.lstSkill)
+                                                    foreach (var item in Model.lstTo)
                                                     {
                                                         <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">@item.Skill</a>
                                                     }
@@ -512,14 +532,15 @@ ul.nav{
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <button type="button" class="btn btn-primary" onclick="return SaveAboutMe();">Save</button>
+                                                    @*<input type="submit" class="btn btn-primary" onclick="return SaveAboutMe();" value="Save" />*@
+                                                    <input type="submit" class="btn btn-primary" name="btnSave" value="Save" onclick="return validateForm();" />
                                                 </div>
                                             </div>
 
 
                                         </div>
                                     </div>
-                                    <div id="chats" class="tab-pane fade">
+                                    <div id="chats" class="tab-pane fade active show">
                                         <div class="pt-3">
                                             <div class="settings-form">
                                                 <div class="row mt-4">
@@ -563,7 +584,7 @@ ul.nav{
                                                                                 {
                                                                                     if (item.Type == "ContactNo")
                                                                                     {
-                                                                                        <option value="@item.Pk_NfcProfileId">@item.Mobile</option>
+                                                                                        <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.Mobile</option>
                                                                                     }
                                                                                 }
                                                                             }
@@ -594,7 +615,7 @@ ul.nav{
                                                                     </div>
                                                                 </div>
                                                                 <div class="new d-none" id="ddlwhatsapp">
-                                                                    <select class="form-control default-select" id="ddlwhatsapp" style="display:none">
+                                                                    <select class="form-control default-select" style="display:none">
                                                                         <option value="0">--Select--</option>
                                                                         @if (Model != null)
                                                                         {
@@ -602,9 +623,10 @@ ul.nav{
                                                                             {
                                                                                 foreach (var item in Model.lst)
                                                                                 {
-                                                                                    if (item.Type == "ContactNo")
+                                                                                    if (item.Type == "Whatsapp" || item.Type == "ContactNo")
                                                                                     {
-                                                                                        <option value="@item.Pk_NfcProfileId">@item.Mobile</option>
+
+                                                                                        <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.Mobile</option>
                                                                                     }
                                                                                 }
                                                                             }
@@ -645,7 +667,7 @@ ul.nav{
                                                                                 {
                                                                                     if (item.Type == "Email")
                                                                                     {
-                                                                                        <option value="@item.Pk_NfcProfileId">@item.Email</option>
+                                                                                        <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.Email</option>
                                                                                     }
                                                                                 }
                                                                             }
@@ -670,7 +692,7 @@ ul.nav{
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="requiredh" onclick="return ShowHideDropDown('ddlfacebook', 'hide', 'facebooks');" checked>
+                                                                            <input type="checkbox" class="custom-control-input" id="requiredh" onclick="return ShowHideDropDown('ddlfacebook', 'hide', 'facebooks');">
                                                                             <label class="custom-control-label" for="requiredh">Hide</label>
                                                                         </div>
                                                                     </div>
@@ -688,7 +710,7 @@ ul.nav{
                                                                                     {
                                                                                         if (item.SocialMedia.ToLower().Contains("fb") || item.SocialMedia.ToLower().Contains("facebook"))
                                                                                         {
-                                                                                            <option value="@item.Pk_NfcProfileId" selected="">@item.SocialMedia</option>
+                                                                                            <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.SocialMedia</option>
                                                                                         }
                                                                                     }
                                                                                 }
@@ -732,7 +754,7 @@ ul.nav{
                                                                                     {
                                                                                         if (item.SocialMedia.ToLower().Contains("insta") || item.SocialMedia.ToLower().Contains("instagram"))
                                                                                         {
-                                                                                            <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                            <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.SocialMedia</option>
                                                                                         }
                                                                                     }
                                                                                 }
@@ -820,7 +842,7 @@ ul.nav{
                                                                                     {
                                                                                         if (item.SocialMedia.ToLower().Contains("tel") || item.SocialMedia.ToLower().Contains("telegram"))
                                                                                         {
-                                                                                            <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                            <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.SocialMedia</option>
                                                                                         }
                                                                                     }
                                                                                 }
@@ -864,7 +886,7 @@ ul.nav{
                                                                                     {
                                                                                         if (item.SocialMedia.ToLower().Contains("linkedin"))
                                                                                         {
-                                                                                            <option value="@item.Pk_NfcProfileId">@item.SocialMedia</option>
+                                                                                            <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.SocialMedia</option>
                                                                                         }
                                                                                     }
                                                                                 }
@@ -890,7 +912,7 @@ ul.nav{
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="websiteh" onclick="return ShowHideDropDown('ddlwebsite', 'hide', 'websites');" checked>
+                                                                            <input type="checkbox" class="custom-control-input" id="websiteh" onclick="return ShowHideDropDown('ddlwebsite', 'hide', 'websites');">
                                                                             <label class="custom-control-label" for="websiteh">Hide</label>
                                                                         </div>
                                                                     </div>
@@ -906,7 +928,7 @@ ul.nav{
                                                                                 {
                                                                                     if (item.Type == "WebLink")
                                                                                     {
-                                                                                        <option value="@item.Pk_NfcProfileId">@item.WebLink</option>
+                                                                                        <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.WebLink</option>
                                                                                     }
                                                                                 }
                                                                             }
@@ -931,7 +953,7 @@ ul.nav{
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="custom-control custom-checkbox mb-3 checkbox-danger">
-                                                                            <input type="checkbox" class="custom-control-input" id="locationh" onclick="return ShowHideDropDown('ddllocation', 'hide', 'locations');" checked>
+                                                                            <input type="checkbox" class="custom-control-input" id="locationh" onclick="return ShowHideDropDown('ddllocation', 'hide', 'locations');">
                                                                             <label class="custom-control-label" for="locationh">Hide</label>
                                                                         </div>
                                                                     </div>
@@ -945,9 +967,9 @@ ul.nav{
                                                                             {
                                                                                 foreach (var item in Model.lst)
                                                                                 {
-                                                                                    if (item.Type == "WebLink")
+                                                                                    if (item.Type == "Location")
                                                                                     {
-                                                                                        <option value="@item.Pk_NfcProfileId">@item.WebLink</option>
+                                                                                        <option value="@item.Pk_NfcProfileId" @item.IsDisplay>@item.WebLink</option>
                                                                                     }
                                                                                 }
                                                                             }
@@ -1087,11 +1109,20 @@ ul.nav{
             </div>
         </div>
     </div>
+
+
+   
 </div>
-
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js" defer></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 <script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script>
-
+    function validateForm() {
+        var emailBodyHTML = $('#emailbody').summernote('code');
+        $('#EmailBodyHTML').val(emailBodyHTML);
+    }
     var PK_ProfileId = $("#PK_ProfileId").val();
     function getBanner() {
         document.getElementById("fBanner").click();
@@ -1135,10 +1166,12 @@ ul.nav{
         debugger;
         if (fun == "show") {
             $("#" + str).removeClass("d-none");
+            $("#" + str + " option:selected").removeAttr("disabled");
             $('input[id="' + id + '"]').prop('checked', false);
         }
         else if (fun == "hide") {
             $("#" + str).addClass("d-none");
+            $("#" + str + " option:selected").attr('disabled', 'disabled');
             $('input[id="' + id + '"]').prop('checked', false);
         }
         //else if (str == "whatsapp") {
@@ -1178,7 +1211,7 @@ ul.nav{
             url: '/NFCProfile/SaveSkill',
             type: "GET",
             dataType: "JSON",
-            data: { Skill: $("#txtSkill").val(), PK_ProfileId: PK_ProfileId },
+            data: { Skill: $("#Skill").val(), PK_ProfileId: PK_ProfileId },
             success: function (data) {
                 debugger;
                 if (data != null) {
@@ -1244,13 +1277,19 @@ ul.nav{
         });
     }
     function SaveAboutMe() {
+        debugger;
+        var emailBodyHTML = $('#emailbody').summernote('code');
+        
+       // var emailBodyHTML = $('#emailbody').summernote('code');
+        $("#EmailBodyHTML").val(emailBodyHTML);
         $.ajax({
+            type: "Post",
             url: '/NFCProfile/SaveAboutMe',
-            type: "GET",
             dataType: "JSON",
-            data: { Description: $("#textarea").val(), PK_ProfileId: PK_ProfileId },
-            success: function (data) {
-                debugger;
+            data: { 'EmailBodyHTML':$("#EmailBodyHTML").val(), 'PK_ProfileId': PK_ProfileId },
+                success: function (data)
+            {
+                    debugger;$("#EmailBodyHTML")
                 if (data != null) {
                     if (data.Result == "1") {
                         SuccessAlert(data.Message);
@@ -1332,13 +1371,18 @@ ul.nav{
     function UpdateSocialMediaStatus() {
         debugger;
         var ContactList = [];
+        var HideList = [];
         $('.default-select').find('option:selected').each(function () {
             list = ContactList.push($(this).val());;
         });
+        $('.default-select').find('option:disabled').each(function () {
+            list = HideList.push($(this).val());;
+        });
         var formData = new FormData();
         formData.append("ContactList", ContactList);
+        formData.append("HideContacts", HideList);
         formData.append("PK_ProfileId", PK_ProfileId);
-        formData.append("Mobile", $("#ddlphone").val());
+        formData.append("Mobile", $("#ddlwhatsapp option:selected").val());
         $.ajax({
             type: "POST",
             url: '/NFCProfile/SetPrimary',
@@ -1350,11 +1394,11 @@ ul.nav{
                 if (data != null) {
                     if (data.Result == "1") {
                         SuccessAlert(data.Message);
-                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+
                     }
                     else {
                         ErrorAlert(data.Message);
-                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+
                     }
                 }
             },
@@ -1382,6 +1426,7 @@ ul.nav{
             hideMethod: "fadeOut",
             tapToDismiss: !1
         })
+        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
     }
     function ErrorAlert(Message) {
         toastr.error(Message, "", {
@@ -1402,5 +1447,110 @@ ul.nav{
             hideMethod: "fadeOut",
             tapToDismiss: !1
         })
+        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
     }
+</script>
+<script>
+    $(document).ready(function () {
+        if ($("#ddlcall option:selected").val() != "0") {
+            $("#phones").attr('checked', 'checked');
+            $("#ddlcall").removeClass('d-none');
+        }
+        else {
+            $("#phoneh").attr('checked', 'checked');
+            $("#ddlcall").addClass('d-none');
+        }
+        if ($("#ddlwhatsapp option:selected").val() != "0") {
+            $("#whatsapps").attr('checked', 'checked');
+            $("#ddlwhatsapp").removeClass('d-none');
+        }
+        else {
+            $("#whatsapph").attr('checked', 'checked');
+            $("#ddlwhatsapp").addClass('d-none');
+        }
+        if ($("#ddlemail option:selected").val() != "0") {
+            $("#emails").attr('checked', 'checked');
+            $("#ddlemail").removeClass('d-none');
+        }
+        else {
+            $("#emailh").attr('checked', 'checked');
+            $("#ddlemail").addClass('d-none');
+        }
+        if ($("#ddlfacebook option:selected").val() != "0") {
+            $("#facebooks").attr('checked', 'checked');
+            $("#ddlfacebook").removeClass('d-none');
+        }
+        else {
+            $("#requiredh").attr('checked', 'checked');
+            $("#ddlfacebook").addClass('d-none');
+        }
+        if ($("#ddlinstagram option:selected").val() != "0") {
+            $("#instagrams").attr('checked', 'checked');
+            $("#ddlinstagram").removeClass('d-none');
+        }
+        else {
+            $("#instagramh").attr('checked', 'checked');
+            $("#ddlinstagram").addClass('d-none');
+        }
+        if ($("#ddltwitter option:selected").val() != "0") {
+            $("#twitters").attr('checked', 'checked');
+            $("#ddltwitter").removeClass('d-none');
+        }
+        else {
+            $("#twitterh").attr('checked', 'checked');
+            $("#ddltwitter").addClass('d-none');
+        }
+        if ($("#ddltelegram option:selected").val() != "0") {
+            $("#telegrams").attr('checked', 'checked');
+            $("#ddltelegram").removeClass('d-none');
+        }
+        else {
+            $("#telegramh").attr('checked', 'checked');
+            $("#ddltelegram").addClass('d-none');
+        }
+        if ($("#ddllinkedin option:selected").val() != "0") {
+            $("#linkedins").attr('checked', 'checked');
+            $("#ddllinkedin").removeClass('d-none');
+        }
+        else {
+            $("#linkedinh").attr('checked', 'checked');
+            $("#ddllinkedin").addClass('d-none');
+        }
+        if ($("#ddllinkedin option:selected").val() != "0") {
+            $("#linkedins").attr('checked', 'checked');
+            $("#ddllinkedin").removeClass('d-none');
+        }
+        else {
+            $("#linkedinh").attr('checked', 'checked');
+            $("#ddllinkedin").addClass('d-none');
+        }
+        if ($("#ddlwebsite option:selected").val() != "0") {
+            $("#websites").attr('checked', 'checked');
+            $("#ddlwebsite").removeClass('d-none');
+        }
+        else {
+            $("#websiteh").attr('checked', 'checked');
+            $("#ddlwebsite").addClass('d-none');
+        }
+        if ($("#ddllocation option:selected").val() != "0") {
+            $("#locations").attr('checked', 'checked');
+            $("#ddllocation").removeClass('d-none');
+        }
+        else {
+            $("#locationh").attr('checked', 'checked');
+            $("#ddllocation").addClass('d-none');
+        }
+        $('#emailbody').summernote(
+        {
+            height: 150,
+            toolbar: [
+              // [groupName, [list of button]]
+              ['style', ['bold', 'italic', 'underline', 'clear']],
+              ['font', ['strikethrough', 'superscript', 'subscript']],
+              ['fontsize', ['fontsize']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['height', ['height']]
+            ]
+        });
+    })
 </script>

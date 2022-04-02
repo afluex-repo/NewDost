@@ -245,6 +245,10 @@ namespace Dost.Controllers
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
                         TempData["product"] = "check out successfully !";
+                        //obj1.NFCCode = ds.Tables[0].Rows[0]["NFCCode"].ToString();
+                        //obj1.URL = "https://dost.click/NFC/Profile?id=" + Crypto.EncryptNFC(ds.Tables[0].Rows[0]["NFCCode"].ToString());
+                        //DataSet ds1 = obj1.UpdateQrImage();
+
                     }
                     else
                     {
