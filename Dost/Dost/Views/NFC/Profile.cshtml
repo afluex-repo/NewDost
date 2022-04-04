@@ -171,11 +171,11 @@
                                         <div class="photo-content">
                                             @if (Model.BannerImage != null && Model.BannerImage != "")
                                             {
-                                                <div class="cover-photo" style="background-image:url(@Model.BannerImage)"></div>
+                                            <div class="cover-photo" style="background-image:url(@Model.BannerImage)"></div>
                                             }
                                             else
                                             {
-                                                <div class="cover-photo" style="background-image:url(../../images/profile/cover.jpg)"></div>
+                                            <div class="cover-photo" style="background-image:url(../../images/profile/cover.jpg)"></div>
                                             }
                                         </div>
                                         <div class="profile-info">
@@ -184,16 +184,16 @@
                                                 {
                                                     if (Model.ProfilePic != null && Model.ProfilePic != "")
                                                     {
-                                                        <img src="@Model.ProfilePic" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
+                                                <img src="@Model.ProfilePic" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
                                                     }
                                                     else
                                                     {
-                                                        <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
+                                                <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
+                                                <img src="~/images/profile/profile.png" class="img-fluid rounded-circle" alt="" style="width: 115px; height: 100px; object-fit: cover;">
                                                 }
 
                                             </div>
@@ -592,29 +592,29 @@
                                                                                 {
                                                                                     if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
                                                                                     {
-                                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                            <div class="card">
-                                                                                                <div class="social-graph-wrapper widget-phone">
-                                                                                                    <span class="s-icon"><a href="tel:@item.Content" target="_blank"><i class="fa fa-phone fa-lg"></i></a></span>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-phone">
+                                                                                <span class="s-icon"><a href="tel:@item.Content" target="_blank"><i class="fa fa-phone fa-lg"></i></a></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                                     }
                                                                                 }
-                                                                                 if (item.Type == "ContactNo" || item.Type == "Whatsapp")
+                                                                                if (item.Type == "ContactNo" || item.Type == "Whatsapp")
                                                                                 {
                                                                                     if (item.IsDisplay == true)
                                                                                     {
 
                                                                                         if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
                                                                                         {
-                                                                                            <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                                <div class="card">
-                                                                                                    <div class="social-graph-wrapper widget-whatsapp">
-                                                                                                        <span class="s-icon"><a href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-whatsapp">
+                                                                                <span class="s-icon"><a href="https://api.whatsapp.com/send?phone=91+@item.Content" target="_blank"><i class="fa fa-whatsapp fa-lg"></i></a></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                                         }
                                                                                     }
                                                                                 }
@@ -623,96 +623,96 @@
 
                                                                                     if (item.Content.ToLower().Contains("fb") || item.Content.ToLower().Contains("facebook"))
                                                                                     {
-                                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                            <div class="card">
-                                                                                                <div class="social-graph-wrapper widget-facebook">
-                                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
-                                                                                                </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-facebook">
+                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
+                                                                            </div>
 
-                                                                                            </div>
-                                                                                        </div>
+                                                                        </div>
+                                                                    </div>
                                                                                     }
 
                                                                                     if (item.Content.ToLower().Contains("telegram") || item.Content.ToLower().Contains("telegram"))
                                                                                     {
-                                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                            <div class="card">
-                                                                                                <div class="social-graph-wrapper widget-telegram">
-                                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-telegram fa-lg"></i></a></span>
-                                                                                                </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-telegram">
+                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-telegram fa-lg"></i></a></span>
+                                                                            </div>
 
-                                                                                            </div>
-                                                                                        </div>
+                                                                        </div>
+                                                                    </div>
                                                                                     }
 
                                                                                     if (item.Content.ToLower().Contains("instagram") || item.Content.ToLower().Contains("insta"))
                                                                                     {
-                                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                            <div class="card">
-                                                                                                <div class="social-graph-wrapper widget-instagram">
-                                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></span>
-                                                                                                </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-instagram">
+                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></span>
+                                                                            </div>
 
-                                                                                            </div>
-                                                                                        </div>
+                                                                        </div>
+                                                                    </div>
                                                                                     }
 
                                                                                     if (item.Content.ToLower().Contains("linkedin") || item.Content.ToLower().Contains("linkedin"))
                                                                                     {
-                                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                            <div class="card">
-                                                                                                <div class="social-graph-wrapper widget-linkedin">
-                                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></span>
-                                                                                                </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-linkedin">
+                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></span>
+                                                                            </div>
 
-                                                                                            </div>
-                                                                                        </div>
+                                                                        </div>
+                                                                    </div>
                                                                                     }
 
                                                                                     if (item.Content.ToLower().Contains("twitter") || item.Content.ToLower().Contains("tw"))
                                                                                     {
-                                                                                        <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                            <div class="card">
-                                                                                                <div class="social-graph-wrapper widget-twitter">
-                                                                                                    <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
-                                                                                                </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-twitter">
+                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
+                                                                            </div>
 
-                                                                                            </div>
-                                                                                        </div>
+                                                                        </div>
+                                                                    </div>
                                                                                     }
                                                                                 }
                                                                                 else if (item.Type == "Email" && item.IsDisplay == true)
                                                                                 {
 
-                                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                        <div class="card">
-                                                                                            <div class="social-graph-wrapper widget-email">
-                                                                                                <span class="s-icon"><a href="mailto:@item.Content?subject= Dost &amp;body=" target="_blank"><i class="fa fa-envelope fa-lg"></i></a></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-email">
+                                                                                <span class="s-icon"><a href="mailto:@item.Content?subject= Dost &amp;body=" target="_blank"><i class="fa fa-envelope fa-lg"></i></a></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                                 }
                                                                                 else if (item.Type == "WebLink" && item.IsDisplay == true)
                                                                                 {
 
-                                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                        <div class="card">
-                                                                                            <div class="social-graph-wrapper widget-website">
-                                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-globe fa-lg"></i></a></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-website">
+                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-globe fa-lg"></i></a></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                                 }
                                                                                 else if (item.Type == "Location" && item.IsDisplay == true)
                                                                                 {
 
-                                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
-                                                                                        <div class="card">
-                                                                                            <div class="social-graph-wrapper widget-map">
-                                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-map-marker fa-lg"></i></a></span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                    <div class="col-xl-3 col-xxl-3 col-sm-3 col-4">
+                                                                        <div class="card">
+                                                                            <div class="social-graph-wrapper widget-map">
+                                                                                <span class="s-icon"><a href="@item.Content" target="_blank"><i class="fa fa-map-marker fa-lg"></i></a></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                                 }
                                                                                 else
                                                                                 {
@@ -732,172 +732,170 @@
                                                             <div class="pt-4 border-bottom-1 pb-3">
                                                                 <h4 class="text-primary">About Me</h4>
                                                                 <p class="mb-2">
-                                                                    <div id="emailbody" class="click2edit"></div>
-                                                                    @Html.HiddenFor(m => m.EmailBodyHTML)
-                                                                    @*@Model.EmailBodyHTML*@
-                                                                </p>
+                                                                    <div id="Body" class="click2edit"></div>
+                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <div class="profile-skills mb-5">
-                                                            <h4 class="text-primary mb-2">Skills</h4>
-                                                            @if (Model != null)
+                                                    </div>
+                                                    <div class="profile-skills mb-5">
+                                                        <h4 class="text-primary mb-2">Skills</h4>
+                                                        @if (Model != null)
+                                                        {
+                                                            if (Model.lstSkill != null)
                                                             {
-                                                                if (Model.lstSkill != null)
+                                                                foreach (var item in Model.lstSkill)
                                                                 {
-                                                                    foreach (var item in Model.lstSkill)
-                                                                    {
-                                                                        <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">@item.Skill</a>
-                                                                    }
+                                                        <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">@item.Skill</a>
                                                                 }
                                                             }
-                                                        </div>
-                                                        <div class="profile-lang  mb-5">
-                                                            <h4 class="text-primary mb-2">Language</h4>
-                                                            @if (Model != null)
+                                                        }
+                                                    </div>
+                                                    <div class="profile-lang  mb-5">
+                                                        <h4 class="text-primary mb-2">Language</h4>
+                                                        @if (Model != null)
+                                                        {
+                                                            if (Model.lstLanguage != null)
                                                             {
-                                                                if (Model.lstLanguage != null)
+                                                                foreach (var item in Model.lstLanguage)
                                                                 {
-                                                                    foreach (var item in Model.lstLanguage)
-                                                                    {
-                                                                        <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> @item.Language</a>
-                                                                    }
+                                                        <a href="javascript:void(0);" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> @item.Language</a>
                                                                 }
                                                             }
-                                                        </div>
-                                                        <div class="profile-personal-info">
-                                                            <h4 class="text-primary mb-4">Achievements</h4>
-                                                            <div class="card">
+                                                        }
+                                                    </div>
+                                                    <div class="profile-personal-info">
+                                                        <h4 class="text-primary mb-4">Achievements</h4>
+                                                        <div class="card">
 
-                                                                <div class="card-body">
-                                                                    <div class="table-responsive">
-                                                                        <table class="table style-1" id="ListDatatableView">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th><i class="fa fa-star achiv"></i></th>
-                                                                                    <th>Achievements</th>
+                                                            <div class="card-body">
+                                                                <div class="table-responsive">
+                                                                    <table class="table style-1" id="ListDatatableView">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th><i class="fa fa-star achiv"></i></th>
+                                                                                <th>Achievements</th>
 
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
 
-                                                                                @if (Model != null)
+                                                                            @if (Model != null)
+                                                                            {
+                                                                                if (Model.lstAchievement != null)
                                                                                 {
-                                                                                    if (Model.lstAchievement != null)
+                                                                                    foreach (var item in Model.lstAchievement)
                                                                                     {
-                                                                                        foreach (var item in Model.lstAchievement)
-                                                                                        {
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <h6><i class="fa fa-star achiv"></i></h6>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <div class="media style-1">
-                                                                                                        <div class="media-body">
-                                                                                                            @*<div id="emailbody"class="click2edit"></div>
-                                                                                                            @Html.HiddenFor(m => m.EmailBodyHTML)*@
-                                                                                                            <span>@item.Achievement</span>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </td>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <h6><i class="fa fa-star achiv"></i></h6>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="media style-1">
+                                                                                        <div class="media-body">
+                                                                                            @*<div id="emailbody"class="click2edit"></div>
+                                                                                                @Html.HiddenFor(m => m.EmailBodyHTML)*@
+                                                                                            <span>@item.Achievement</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
 
-                                                                                                <td>
-                                                                                                    <div class="d-flex action-button">
-                                                                                                        @*<a href="javascript:void(0);" class="btn btn-info btn-xs light px-2">
-                                                                                                                <i class="fa fa-pencil achiv"></i>
-                                                                                                            </a>*@
-                                                                                                        <a href="/NFCProfile/DeleteAchievement?Id=@item.Pk_AchievementId&Code=@Model.Code" class="ml-2 btn btn-xs px-2 light btn-danger">
-                                                                                                          
-                                                                                                            <i class="fa fa-trash-o achiv"></i>
-                                                                                                        </a>
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        }
+                                                                                <td>
+                                                                                    <div class="d-flex action-button">
+                                                                                        @*<a href="javascript:void(0);" class="btn btn-info btn-xs light px-2">
+                                                                                                <i class="fa fa-pencil achiv"></i>
+                                                                                            </a>*@
+                                                                                        <a href="/NFCProfile/DeleteAchievement?Id=@item.Pk_AchievementId&Code=@Model.Code" class="ml-2 btn btn-xs px-2 light btn-danger">
+
+                                                                                            <i class="fa fa-trash-o achiv"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
                                                                                     }
                                                                                 }
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    @*<div id="broadcast" class="tab-pane fade">
-                                                            <div class="pt-3">
-                                                                <div class="settings-form">
-                                                                    <h4 class="text-primary">Account Setting</h4>
-                                                                    <form>
-                                                                        <div class="form-row">
-                                                                            <div class="form-group col-md-6">
-                                                                                <label>Email</label>
-                                                                                <input type="email" placeholder="Email" class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label>Password</label>
-                                                                                <input type="password" placeholder="Password" class="form-control">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>Address</label>
-                                                                            <input type="text" placeholder="1234 Main St" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>Address 2</label>
-                                                                            <input type="text" placeholder="Apartment, studio, or floor" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-row">
-                                                                            <div class="form-group col-md-6">
-                                                                                <label>City</label>
-                                                                                <input type="text" class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group col-md-4">
-                                                                                <label>State</label>
-                                                                                <select class="form-control default-select" id="inputState">
-                                                                                    <option selected="">Choose...</option>
-                                                                                    <option>Option 1</option>
-                                                                                    <option>Option 2</option>
-                                                                                    <option>Option 3</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="form-group col-md-2">
-                                                                                <label>Zip</label>
-                                                                                <input type="text" class="form-control">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <div class="custom-control custom-checkbox">
-                                                                                <input type="checkbox" class="custom-control-input" id="gridCheck">
-                                                                                <label class="custom-control-label" for="gridCheck"> Check me out</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <button class="btn btn-primary" type="submit">
-                                                                            Sign
-                                                                            in
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>*@
                                                 </div>
+
+                                                @*<div id="broadcast" class="tab-pane fade">
+                                                        <div class="pt-3">
+                                                            <div class="settings-form">
+                                                                <h4 class="text-primary">Account Setting</h4>
+                                                                <form>
+                                                                    <div class="form-row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>Email</label>
+                                                                            <input type="email" placeholder="Email" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>Password</label>
+                                                                            <input type="password" placeholder="Password" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Address</label>
+                                                                        <input type="text" placeholder="1234 Main St" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Address 2</label>
+                                                                        <input type="text" placeholder="Apartment, studio, or floor" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>City</label>
+                                                                            <input type="text" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-4">
+                                                                            <label>State</label>
+                                                                            <select class="form-control default-select" id="inputState">
+                                                                                <option selected="">Choose...</option>
+                                                                                <option>Option 1</option>
+                                                                                <option>Option 2</option>
+                                                                                <option>Option 3</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-2">
+                                                                            <label>Zip</label>
+                                                                            <input type="text" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="checkbox" class="custom-control-input" id="gridCheck">
+                                                                            <label class="custom-control-label" for="gridCheck"> Check me out</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button class="btn btn-primary" type="submit">
+                                                                        Sign
+                                                                        in
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>*@
                                             </div>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="replyModal">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Post Reply</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form>
-                                                                <textarea class="form-control" rows="4">Message</textarea>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Reply</button>
-                                                        </div>
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="replyModal">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Post Reply</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <textarea class="form-control" rows="4">Message</textarea>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Reply</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -906,13 +904,14 @@
                                 </div>
                             </div>
                         </div>
-                        @if (Session["NFCCode"] != null)
-                        {
-                            @*@Html.HiddenFor(m => m.hdfCode)*@
-                            <input type="hidden" value="@Session["NFCCode"]" id="hdfCode" />
-                        }
                     </div>
+                    @if (Session["NFCCode"] != null)
+                    {
+                    @*@Html.HiddenFor(m => m.hdfCode)*@
+                    <input type="hidden" value="@Session["NFCCode"]" id="hdfCode" />
+                    }
                 </div>
+
             }
             else if (ViewBag.NFCResopnse == "Wrong NFC Code")
             {
@@ -956,7 +955,6 @@
         <!--**********************************
             Content body end
             ***********************************-->
-
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js" defer></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
@@ -1005,18 +1003,18 @@
             }, 100)
 
 
-        $('#emailbody').summernote(
-        {
-            height: 150,
-            toolbar: [
-              // [groupName, [list of button]]
-              ['style', ['bold', 'italic', 'underline', 'clear']],
-              ['font', ['strikethrough', 'superscript', 'subscript']],
-              ['fontsize', ['fontsize']],
-              ['para', ['ul', 'ol', 'paragraph']],
-              ['height', ['height']]
-            ]
-        });
+            $('#emailbody').summernote(
+            {
+                height: 150,
+                toolbar: [
+                  // [groupName, [list of button]]
+                  //['style', ['bold', 'italic', 'underline', 'clear']],
+                  //['font', ['strikethrough', 'superscript', 'subscript']],
+                  //['fontsize', ['fontsize']],
+                  //['para', ['ul', 'ol', 'paragraph']],
+                  //['height', ['height']]
+                ]
+            });
         });
         function funSignIn() {
             window.location.href = "/Home/Login";
@@ -1057,15 +1055,16 @@
                 url: '/NFC/GetAboutMe', type: 'post', dataType: 'json',
                 data: { 'code': code },
                 success: function (data) {
+                    debugger;
                     $("#divload").css({ 'display': 'none' });
                     if (data.Result == "1") {
-                        $('#EmailBodyHTML').val(data.Body);
-                        var dd = $("#EmailBodyHTML").val();
-                        $('#emailbody').summernote('code', data.Body);
+                        $('#Body').html(data.Body);
+                        //var dd = $("#Description").val();
+                        //$('#Description1').summernote('code', data.Body);
                         //$('#EmailBodyHTML1').val(data.Achievement);
                         //var dd1 = $("#EmailBodyHTML1").val();
                         //$('#emailbody1').summernote('code', data.Achievement);
-                        
+
                     }
                     else {
                         alert(data.Result);

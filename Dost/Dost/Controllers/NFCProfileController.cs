@@ -1383,10 +1383,15 @@ namespace Dost.Controllers
             UserLanguage model = new UserLanguage();
             try
             {
-                model.Language = Language;
                 model.FK_UserId = Session["Pk_userId"].ToString();
                 model.PK_BusinessProfileId = PK_ProfileId;
-                DataSet ds = model.SaveLanguage();
+                DataSet ds = new DataSet();
+                string[] lang = Language.Split(',');
+                for (int i = 0; i < lang.Length; i++)
+                {
+                    model.Language = lang[i];
+                    ds = model.SaveLanguage();
+                }
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
@@ -1435,6 +1440,59 @@ namespace Dost.Controllers
             {
                 model.Response = "0";
                 model.Message = ex.Message;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetUserProfileData(string Code)
+        {
+            NFCModel obj1 = new NFCModel();
+            NFCProfileModel model = new NFCProfileModel();
+            List<UserSkill> lstSkill = new List<UserSkill>();
+            List<UserLanguage> lstLanguage = new List<UserLanguage>();
+            List<UserAchievement> lstAchievement = new List<UserAchievement>();
+            obj1.Code = Crypto.DecryptNFC(Code);
+            obj1.FK_UserId = Session["Pk_UserId"].ToString();
+            DataSet ds = obj1.GetNFCProfileData();
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                model.Result = "1";
+                if (ds.Tables[3].Rows.Count > 0)
+                {
+                    foreach (DataRow r in ds.Tables[3].Rows)
+                    {
+                        UserSkill obj = new UserSkill();
+                        obj.Pk_SkillId = r["PK_SkillId"].ToString();
+                        obj.Skill = r["Skill"].ToString();
+                        lstSkill.Add(obj);
+                    }
+                    model.lstSkill = lstSkill;
+                }
+                if (ds.Tables[4].Rows.Count > 0)
+                {
+                    foreach (DataRow r in ds.Tables[4].Rows)
+                    {
+                        UserLanguage obj = new UserLanguage();
+                        obj.Pk_LanguageId = r["PK_LanguageId"].ToString();
+                        obj.Language = r["Language"].ToString();
+                        lstLanguage.Add(obj);
+                    }
+                    model.lstLanguage = lstLanguage;
+                }
+                if (ds.Tables[5].Rows.Count > 0)
+                {
+                    foreach (DataRow r in ds.Tables[5].Rows)
+                    {
+                        UserAchievement obj = new UserAchievement();
+                        obj.Pk_AchievementId = r["PK_AchievementId"].ToString();
+                        obj.Achievement = r["Achievement"].ToString();
+                        lstAchievement.Add(obj);
+                    }
+                    model.lstAchievement = lstAchievement;
+                }
+                if (ds.Tables[6].Rows.Count > 0)
+                {
+                    model.Description = ds.Tables[6].Rows[0]["Description"].ToString();
+                }
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
