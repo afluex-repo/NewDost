@@ -307,3 +307,4 @@ E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encodi
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\QRCoder.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.pdb
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache

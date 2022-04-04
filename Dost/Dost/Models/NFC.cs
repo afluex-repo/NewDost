@@ -109,6 +109,7 @@ namespace Dost.Models
         public bool IsDislpayValue { get; set; }
         public int IsPrimary { get; set; }
         public string IsDisplay { get; set; }
+        public string Body { get; set; }
         [AllowHtml]
         public string EmailBodyHTML { get; set; }
         public DataSet SaveAboutMe()
