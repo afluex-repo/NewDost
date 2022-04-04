@@ -71,7 +71,9 @@ namespace Dost.Models
         public string Message { get; set; }
         public string ImageId { get; set; }
         public string NFCCode { get;  set; }
+        public string QRImage { get; set; }
         public string URL { get; set; }
+
         #endregion
         public DataSet productlist()
         {
@@ -84,7 +86,7 @@ namespace Dost.Models
         public DataSet UpdateQrImage()
         {
             SqlParameter[] para = { new SqlParameter("@NFCCode",NFCCode ),
-                    new SqlParameter("@URL",URL )
+                    new SqlParameter("@Image",QRImage )
             };
             DataSet ds = DBHelper.ExecuteQuery("UpdateQrImage", para);
             return ds;

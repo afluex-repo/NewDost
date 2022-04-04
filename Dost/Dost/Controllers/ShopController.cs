@@ -6,6 +6,14 @@ using System.Web.Mvc;
 using Dost.Models;
 using System.Data;
 using Dost.Filter;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
+using ZXing;
+using static Dost.Models.GeneratingQRCode;
+using System.Net;
+using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Dost.Controllers
 {
@@ -248,9 +256,16 @@ namespace Dost.Controllers
 
                         obj1.NFCCode = ds.Tables[0].Rows[0]["NFCCode"].ToString();
                         obj1.URL = "https://dost.click/NFC/Profile?id=" + Crypto.EncryptNFC(ds.Tables[0].Rows[0]["NFCCode"].ToString());
+                        QRCodeModel qrcode = new QRCodeModel();
+                       
+                        qrcode.QRCodeImagePath = GenerateQRCode(obj1.URL);
+                        obj1.QRImage = qrcode.QRCodeImagePath;
 
                         DataSet ds1 = obj1.UpdateQrImage();
-
+                        if (ds1.Tables[0].Rows[0][0].ToString() == "1")
+                        {
+                            TempData["product1"] = "QRImage Save successfully !";
+                        }
                     }
                     else
                     {
@@ -267,6 +282,37 @@ namespace Dost.Controllers
 
             return RedirectToAction(FormName, Controller);
         }
+        #region Ganrate QR Image
+        private string GenerateQRCode(string qrcodeText)
+        {
+            Random rnd = new Random();
+            int rndno = rnd.Next(111111, 999999);
+            string folderPath = "/Images/";
+            string imagePath = "/Images/QrCode"+ rndno + ".jpg";
+            // If the directory doesn't exist then create it.
+            if (!Directory.Exists(Server.MapPath(folderPath)))
+            {
+                Directory.CreateDirectory(Server.MapPath(folderPath));
+            }
+
+            var barcodeWriter = new ZXing.BarcodeWriter();
+            barcodeWriter.Format = BarcodeFormat.QR_CODE;
+            var result = barcodeWriter.Write(qrcodeText);
+
+            string barcodePath = Server.MapPath(imagePath);
+            var barcodeBitmap = new Bitmap(result);
+            using (MemoryStream memory = new MemoryStream())
+            {
+                using (FileStream fs = new FileStream(barcodePath, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    barcodeBitmap.Save(memory, ImageFormat.Jpeg);
+                    byte[] bytes = memory.ToArray();
+                    fs.Write(bytes, 0, bytes.Length);
+                }
+            }
+            return imagePath;
+        }
+        #endregion
         public ActionResult UpdateItems(string EventId, string NoOfItems)
         {
             try
@@ -469,6 +515,58 @@ namespace Dost.Controllers
                 model.lstproduct = lst;
             }
             return View(model);
+        }
+
+        public ActionResult GetShortURL()
+        {
+            return View();
+        }
+        public ActionResult ShortURL()
+        {
+            bitly b = new bitly();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ShortURL(GoogleResponse Urls)
+        {
+           System.Threading.Thread.Sleep(1000);
+           Urls.shortUrl = ShrinkURL(Urls.FullUrl);
+           return View(Urls);
+        }
+
+
+        private string ShrinkURL(string strURL)
+        {
+
+            string URL;
+          // URL = "http://tinyurl.com/api-create.php?url=" +
+               URL = "https://dost.click/api-create.php?url=" +
+               strURL.ToLower();
+          
+            System.Net.HttpWebRequest objWebRequest;
+            System.Net.HttpWebResponse objWebResponse;
+
+            System.IO.StreamReader srReader;
+
+            string strHTML;
+
+            objWebRequest = (System.Net.HttpWebRequest)System.Net
+               .WebRequest.Create(URL);
+            objWebRequest.Method = "GET";
+
+            objWebResponse = (System.Net.HttpWebResponse)objWebRequest
+               .GetResponse();
+            srReader = new System.IO.StreamReader(objWebResponse
+               .GetResponseStream());
+
+            strHTML = srReader.ReadToEnd();
+
+            srReader.Close();
+            objWebResponse.Close();
+            objWebRequest.Abort();
+
+            return (strHTML);
+
         }
     }
 }

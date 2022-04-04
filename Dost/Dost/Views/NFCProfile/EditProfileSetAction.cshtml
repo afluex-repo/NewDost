@@ -524,7 +524,7 @@
                                                                                             @*<a href="javascript:void(0);" class="btn btn-info btn-xs light px-2">
                                                                                                     <i class="fa fa-pencil achiv"></i>
                                                                                                 </a>*@
-                                                                                            <a href="/NFCProfile/DeleteAchievement?Id=@item.Pk_AchievementId&Code=@Model.Code" class="ml-2 btn btn-xs px-2 light btn-danger">
+                                                                                            <a href="NFCProfile/DeleteAchievement?id=@item.Pk_AchievementId,Code=@Model.Code" class="ml-2 btn btn-xs px-2 light btn-danger" >
                                                                                                 <i class="fa fa-trash-o achiv"></i>
                                                                                             </a>
                                                                                         </div>
@@ -1222,12 +1222,14 @@
                     if (data.Response == "1") {
                         SuccessAlert(data.Message);
                         $("#skillModalCenter").hide();
-                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                        //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                        GetProfileData();
                     }
                     else {
                         ErrorAlert(data.Message);
                         $("#skillModalCenter").hide();
-                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                        //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                        GetProfileData();
                     }
                 }
             }
@@ -1259,6 +1261,33 @@
             }
         });
     }
+    //function DeleteAchievement(id,code) {
+    //    debugger
+    //    $.ajax({
+    //        url: '/NFCProfile/DeleteAchievement',
+    //        type: "Post",
+    //        dataType: "JSON",
+    //        data: { Id: id, Code: code },
+    //        success: function (data) {
+    //            debugger;
+    //            if (data != null) {
+    //                if (data.Response == "1") {
+    //                    SuccessAlert(data.Message);
+    //                    $("#languageModalCenter").modal('hide');
+    //                    GetProfileData();
+    //                    //window.location.href = "/nfcprofile/editprofilesetaction?id=" + $("#Code").val();
+    //                }
+    //                else {
+    //                    ErrorAlert(data.Message);
+    //                    $("#languageModalCenter").modal('hide');
+    //                    GetProfileData();
+    //                    //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+    //                }
+    //            }
+    //        }
+    //    });
+    //}
+
     function AddAchievement() {
         $.ajax({
             url: '/NFCProfile/SaveAchievement',
@@ -1270,13 +1299,15 @@
                 if (data != null) {
                     if (data.Response == "1") {
                         SuccessAlert(data.Message);
-                        $("#achievementModalCenter").hide();
-                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                        $("#achievementModalCenter").modal('hide');
+                        //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                        GetProfileData();
                     }
                     else {
                         ErrorAlert(data.Message);
-                        $("#achievementModalCenter").hide();
-                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                        $("#achievementModalCenter").modal('hide');
+                        GetProfileData();
+                        //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
                     }
                 }
             }
@@ -1305,11 +1336,11 @@
                                 $("#divskill").append("<a href='javascript:void(0);' class='btn btn-primary light btn-xs mb-1'> " + data.lstSkill[i].Skill + "</a>")
                             }
                         }
-                        if (data.lstAchievement != null) {
-                            for (var i = 0; i < data.lstAchievement.length; i++) {
-                                $("#tblA").append("<a href='javascript:void(0);' class='btn btn-primary light btn-xs mb-1'> " + data.lstSkill[i].Skill + "</a>")
-                            }
-                        }
+                        //if (data.lstAchievement != null) {
+                        //    for (var i = 0; i < data.lstAchievement.length; i++) {
+                        //        $("#tblA").append("<a href='javascript:void(0);' class='btn btn-primary light btn-xs mb-1'> " + data.lstAchievement[i].Achievement + "</a>")
+                        //    }
+                        //}
                     }
                     else {
 
@@ -1318,6 +1349,8 @@
             }
         });
     }
+
+
     function SaveAboutMe() {
         debugger;
         var emailBodyHTML = $('#emailbody').summernote('code');
@@ -1335,12 +1368,13 @@
                     if (data.Result == "1") {
                         SuccessAlert(data.Message);
                         $("#achievementModalCenter").hide();
-
+                        GetProfileData();
                         //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
                     }
                     else {
                         ErrorAlert(data.Message);
                         $("#achievementModalCenter").hide();
+                        GetProfileData();
                         //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
                     }
                 }
@@ -1363,11 +1397,13 @@
                 if (data != null) {
                     if (data.Result == "1") {
                         SuccessAlert(data.Message);
-                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                        //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                        GetProfileData();
                     }
                     else {
                         ErrorAlert(data.Message);
-                        window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                        GetProfileData();
+                        //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
                     }
                 }
             }

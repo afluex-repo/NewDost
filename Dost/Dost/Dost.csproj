@@ -3148,6 +3148,7 @@
     <Compile Include="Controllers\AdminReportsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EmployeeRegistrationController.cs" />
+    <Compile Include="Models\GoogleResponse.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\NFCController.cs" />
@@ -3829,6 +3830,7 @@
     <Content Include="Views\Master\TransactionLimit.cshtml" />
     <Content Include="Views\Master\TransactionLimitList.cshtml" />
     <Content Include="Views\NFCProfile\Generate.cshtml" />
+    <Content Include="Views\Shop\ShortURL.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -155,7 +155,7 @@ namespace Dost.Controllers
             DataSet ds = model.GetNFCProfileData();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-
+                ViewBag.QRImage = ds.Tables[1].Rows[0]["QrImage"].ToString();
                 model.IsProfileTurnedOff = Convert.ToBoolean(ds.Tables[0].Rows[0]["IsProfileTurnedOff"]);
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
@@ -1516,6 +1516,7 @@ namespace Dost.Controllers
                 }
             }
             return RedirectToAction("EditProfileSetAction", "NFCProfile", new { id = Code });
+          //  return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         //[AcceptVerbs(HttpVerbs.Post)]
