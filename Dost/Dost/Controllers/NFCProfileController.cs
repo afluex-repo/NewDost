@@ -23,6 +23,9 @@ namespace Dost.Controllers
         // GET: NFC
         public ActionResult ProfileUpdate()
         {
+            //string url = "https://dost.click/NFC/Profile?id=H8eoDq2dRNnw2LmzMaZaJQ==";
+            //MyURLShortener u = new MyURLShortener();
+            //string str = u.MyURLShorten(url);
             #region ddlgender
             List<SelectListItem> ddlgender = Common.BindGender();
             ViewBag.ddlgender = ddlgender;
@@ -152,7 +155,7 @@ namespace Dost.Controllers
             DataSet ds = model.GetNFCProfileData();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-               
+
                 model.IsProfileTurnedOff = Convert.ToBoolean(ds.Tables[0].Rows[0]["IsProfileTurnedOff"]);
                 foreach (DataRow r in ds.Tables[0].Rows)
                 {
@@ -208,7 +211,7 @@ namespace Dost.Controllers
             //}
             if (dsProfile != null && dsProfile.Tables.Count > 1)
             {
-            //    ViewBag.ProfilePic = dsProfile.Tables[1].Rows[0]["ProfilePic"].ToString();
+                //    ViewBag.ProfilePic = dsProfile.Tables[1].Rows[0]["ProfilePic"].ToString();
                 if (dsProfile.Tables[1].Rows.Count > 0)
                 {
                     List<NFCContent> NfcContentList = new List<NFCContent>();
@@ -1259,13 +1262,13 @@ namespace Dost.Controllers
                                 List<ListSkill> lstTo = new List<ListSkill>();
                                 List<UserSkill> lstSkill = new List<UserSkill>();
 
-                                 foreach (DataRow row in ds1.Tables[3].Rows)
+                                foreach (DataRow row in ds1.Tables[3].Rows)
                                 {
                                     UserSkill objSkill = new UserSkill();
                                     objSkill.Pk_SkillId = row["PK_SkillId"].ToString();
                                     objSkill.Skill = row["Skill"].ToString();
                                     lstSkill.Add(objSkill);
-                                    }
+                                }
                                 //    lstSkill.lstSkill = lstSkill;
                                 //string[]Skill = objSkill.Skill.Split(',');
                                 ////foreach (string sk1 in Skill)
@@ -1275,7 +1278,7 @@ namespace Dost.Controllers
                                 ////    lstTo.Add(obj1);
                                 ////}
                                 //    objProfile.lstTo = lstTo;
-                                 
+
                                 //}
                             }
                             if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[4].Rows.Count > 0)
@@ -1345,10 +1348,15 @@ namespace Dost.Controllers
             UserSkill model = new UserSkill();
             try
             {
-                model.Skill = Skill;
+                DataSet ds = new DataSet();
                 model.FK_UserId = Session["Pk_userId"].ToString();
                 model.PK_BusinessProfileId = PK_ProfileId;
-                DataSet ds = model.SaveSkill();
+                string[] sk = Skill.Split(',');
+                for (int i = 0; i < sk.Length; i++)
+                {
+                    model.Skill = sk[i];
+                    ds = model.SaveSkill();
+                }
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
@@ -1375,10 +1383,15 @@ namespace Dost.Controllers
             UserLanguage model = new UserLanguage();
             try
             {
-                model.Language = Language;
                 model.FK_UserId = Session["Pk_userId"].ToString();
                 model.PK_BusinessProfileId = PK_ProfileId;
-                DataSet ds = model.SaveLanguage();
+                DataSet ds = new DataSet();
+                string[] lang = Language.Split(',');
+                for (int i = 0; i < lang.Length; i++)
+                {
+                    model.Language = lang[i];
+                    ds = model.SaveLanguage();
+                }
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
@@ -1430,6 +1443,59 @@ namespace Dost.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GetUserProfileData(string Code)
+        {
+            NFCModel obj1 = new NFCModel();
+            NFCProfileModel model = new NFCProfileModel();
+            List<UserSkill> lstSkill = new List<UserSkill>();
+            List<UserLanguage> lstLanguage = new List<UserLanguage>();
+            List<UserAchievement> lstAchievement = new List<UserAchievement>();
+            obj1.Code = Crypto.DecryptNFC(Code);
+            obj1.FK_UserId = Session["Pk_UserId"].ToString();
+            DataSet ds = obj1.GetNFCProfileData();
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                model.Result = "1";
+                if (ds.Tables[3].Rows.Count > 0)
+                {
+                    foreach (DataRow r in ds.Tables[3].Rows)
+                    {
+                        UserSkill obj = new UserSkill();
+                        obj.Pk_SkillId = r["PK_SkillId"].ToString();
+                        obj.Skill = r["Skill"].ToString();
+                        lstSkill.Add(obj);
+                    }
+                    model.lstSkill = lstSkill;
+                }
+                if (ds.Tables[4].Rows.Count > 0)
+                {
+                    foreach (DataRow r in ds.Tables[4].Rows)
+                    {
+                        UserLanguage obj = new UserLanguage();
+                        obj.Pk_LanguageId = r["PK_LanguageId"].ToString();
+                        obj.Language = r["Language"].ToString();
+                        lstLanguage.Add(obj);
+                    }
+                    model.lstLanguage = lstLanguage;
+                }
+                if (ds.Tables[5].Rows.Count > 0)
+                {
+                    foreach (DataRow r in ds.Tables[5].Rows)
+                    {
+                        UserAchievement obj = new UserAchievement();
+                        obj.Pk_AchievementId = r["PK_AchievementId"].ToString();
+                        obj.Achievement = r["Achievement"].ToString();
+                        lstAchievement.Add(obj);
+                    }
+                    model.lstAchievement = lstAchievement;
+                }
+                if (ds.Tables[6].Rows.Count > 0)
+                {
+                    model.Description = ds.Tables[6].Rows[0]["Description"].ToString();
+                }
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult DeleteAchievement(string Id, string Code)
         {
             UserAchievement model = new UserAchievement();
@@ -1451,7 +1517,7 @@ namespace Dost.Controllers
             }
             return RedirectToAction("EditProfileSetAction", "NFCProfile", new { id = Code });
         }
-      
+
         //[AcceptVerbs(HttpVerbs.Post)]
         //[ValidateAntiForgeryToken]
         [HttpPost]
@@ -1464,7 +1530,7 @@ namespace Dost.Controllers
             {
                 //model.EmailBodyHTML = EmailBodyHTML;
                 model.FK_UserId = Session["Pk_userId"].ToString();
-             //   model.PK_ProfileId = PK_ProfileId;
+                //   model.PK_ProfileId = PK_ProfileId;
                 DataSet ds = model.SaveAboutMe();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
