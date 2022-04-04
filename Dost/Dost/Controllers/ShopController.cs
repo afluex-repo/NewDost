@@ -13,6 +13,7 @@ using ZXing;
 using static Dost.Models.GeneratingQRCode;
 using System.Net;
 using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Dost.Controllers
 {
@@ -516,28 +517,56 @@ namespace Dost.Controllers
             return View(model);
         }
 
-
-        [HttpPost]
-        public JsonResult GetShortURL(string longUrl)
+        public ActionResult GetShortURL()
         {
-            WebRequest request = WebRequest.Create("https://www.googleapis.com/urlshortener/v1/url?key=YOUR_API_KEY_HERE");
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            string requestData = string.Format(@"{{""longUrl"": ""{0}""}}", longUrl);
-            byte[] requestRawData = Encoding.ASCII.GetBytes(requestData);
-            request.ContentLength = requestRawData.Length;
-            Stream requestStream = request.GetRequestStream();
-            requestStream.Write(requestRawData, 0, requestRawData.Length);
-            requestStream.Close();
+            return View();
+        }
+        public ActionResult ShortURL()
+        {
+            bitly b = new bitly();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ShortURL(GoogleResponse Urls)
+        {
+           System.Threading.Thread.Sleep(1000);
+           Urls.shortUrl = ShrinkURL(Urls.FullUrl);
+           return View(Urls);
+        }
 
-            WebResponse response = request.GetResponse();
-            StreamReader responseReader = new StreamReader(response.GetResponseStream());
-            string responseData = responseReader.ReadToEnd();
-            responseReader.Close();
 
-            var deserializer = new JavaScriptSerializer();
-            var results = deserializer.Deserialize<GoogleResponse>(responseData);
-            return Json(results.Id);
+        private string ShrinkURL(string strURL)
+        {
+
+            string URL;
+          // URL = "http://tinyurl.com/api-create.php?url=" +
+               URL = "https://dost.click/api-create.php?url=" +
+               strURL.ToLower();
+          
+            System.Net.HttpWebRequest objWebRequest;
+            System.Net.HttpWebResponse objWebResponse;
+
+            System.IO.StreamReader srReader;
+
+            string strHTML;
+
+            objWebRequest = (System.Net.HttpWebRequest)System.Net
+               .WebRequest.Create(URL);
+            objWebRequest.Method = "GET";
+
+            objWebResponse = (System.Net.HttpWebResponse)objWebRequest
+               .GetResponse();
+            srReader = new System.IO.StreamReader(objWebResponse
+               .GetResponseStream());
+
+            strHTML = srReader.ReadToEnd();
+
+            srReader.Close();
+            objWebResponse.Close();
+            objWebRequest.Abort();
+
+            return (strHTML);
+
         }
     }
 }

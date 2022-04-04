@@ -219,7 +219,6 @@ E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\ApplicationInsights.config
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\roslyn\csc.exe
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -307,4 +306,19 @@ E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encodi
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\QRCoder.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.pdb
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Owin.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\QRCoder.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.Owin.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.pdb
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Newtonsoft.Json.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.Owin.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache

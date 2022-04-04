@@ -2988,4 +2988,15 @@ namespace Dost.Models
         }
 
     }
+
+    public class Inputshroturl
+    {
+        public string FullUrl { get; set; }
+    }
+
+    public class Outputurl
+    {
+        public string ShortUrl { get; set; }
+    }
+   
 }

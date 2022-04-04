@@ -925,10 +925,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/19/2021 07:04:50</publishTime>
     </File>
     <File Include="bin/Dost.dll">
-      <publishTime>03/07/2022 14:00:02</publishTime>
+      <publishTime>04/02/2022 19:51:02</publishTime>
     </File>
     <File Include="bin/DotNetZip.dll">
       <publishTime>11/18/2020 21:24:28</publishTime>
+    </File>
+    <File Include="bin/Gma.QrCodeNet.Encoding.dll">
+      <publishTime>04/02/2022 19:21:15</publishTime>
     </File>
     <File Include="bin/IronBarCode.dll">
       <publishTime>12/20/2021 23:33:06</publishTime>
@@ -984,6 +987,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>10/29/2021 11:37:01</publishTime>
     </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>04/02/2022 19:21:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.HttpListener.dll">
+      <publishTime>04/02/2022 19:21:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Hosting.dll">
+      <publishTime>04/02/2022 19:21:15</publishTime>
+    </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>10/29/2021 11:37:01</publishTime>
     </File>
@@ -991,10 +1003,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/05/2021 16:30:52</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>11/08/2019 10:56:46</publishTime>
+      <publishTime>06/22/2015 11:06:54</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>04/02/2022 19:21:15</publishTime>
     </File>
     <File Include="bin/PdfSharp.dll">
       <publishTime>12/20/2021 23:33:04</publishTime>
+    </File>
+    <File Include="bin/QRCoder.dll">
+      <publishTime>04/02/2022 19:21:15</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>10/29/2021 11:37:01</publishTime>
@@ -1036,13 +1054,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2017 01:30:56</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
-      <publishTime>10/29/2021 11:37:01</publishTime>
+      <publishTime>12/02/2021 10:29:39</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>10/29/2021 11:37:01</publishTime>
     </File>
     <File Include="bin/System.Web.Http.dll">
-      <publishTime>10/29/2021 11:37:01</publishTime>
+      <publishTime>04/02/2022 19:21:15</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.Owin.dll">
+      <publishTime>04/02/2022 19:21:15</publishTime>
     </File>
     <File Include="bin/System.Web.Http.WebHost.dll">
       <publishTime>10/29/2021 11:37:01</publishTime>
@@ -7609,7 +7630,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/02/2021 12:45:59</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>03/07/2022 13:59:00</publishTime>
+      <publishTime>04/02/2022 19:21:27</publishTime>
     </File>
     <File Include="scripts/ai.0.22.9-build00167.js">
       <publishTime>10/29/2021 11:37:00</publishTime>
@@ -10576,13 +10597,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/11/2021 12:38:26</publishTime>
     </File>
     <File Include="Views/Home/Registration.cshtml">
-      <publishTime>03/03/2022 19:03:18</publishTime>
+      <publishTime>03/30/2022 18:47:16</publishTime>
     </File>
     <File Include="Views/Home/ResetPassword.cshtml">
       <publishTime>12/20/2021 18:27:14</publishTime>
     </File>
     <File Include="Views/Home/SignUp.cshtml">
-      <publishTime>12/20/2021 18:06:48</publishTime>
+      <publishTime>03/26/2022 18:42:19</publishTime>
     </File>
     <File Include="Views/Master/AddEvent.cshtml">
       <publishTime>12/02/2021 10:29:36</publishTime>
@@ -10591,7 +10612,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/02/2021 10:29:36</publishTime>
     </File>
     <File Include="Views/Master/Banner.cshtml">
-      <publishTime>12/02/2021 10:29:36</publishTime>
+      <publishTime>04/02/2022 19:21:15</publishTime>
     </File>
     <File Include="Views/Master/BannerList.cshtml">
       <publishTime>12/02/2021 10:29:36</publishTime>
@@ -10630,7 +10651,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/02/2021 10:29:36</publishTime>
     </File>
     <File Include="Views/Master/NFC.cshtml">
-      <publishTime>12/02/2021 10:29:36</publishTime>
+      <publishTime>04/02/2022 19:21:15</publishTime>
     </File>
     <File Include="Views/Master/NfcCode.cshtml">
       <publishTime>12/02/2021 10:29:36</publishTime>
@@ -10665,6 +10686,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Master/SubscriptionMaster.cshtml">
       <publishTime>12/02/2021 10:29:36</publishTime>
     </File>
+    <File Include="Views/Master/TransactionLimit.cshtml">
+      <publishTime>03/22/2022 11:10:25</publishTime>
+    </File>
+    <File Include="Views/Master/TransactionLimitList.cshtml">
+      <publishTime>03/22/2022 11:10:25</publishTime>
+    </File>
     <File Include="Views/NFC/NFCDevice.cshtml">
       <publishTime>12/18/2021 16:50:02</publishTime>
     </File>
@@ -10672,7 +10699,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/04/2022 17:01:11</publishTime>
     </File>
     <File Include="Views/NFC/Profile.cshtml">
-      <publishTime>03/05/2022 19:08:56</publishTime>
+      <publishTime>04/02/2022 19:21:15</publishTime>
     </File>
     <File Include="Views/NFC/ProfileUpdate.cshtml">
       <publishTime>12/18/2021 17:54:52</publishTime>
@@ -10687,13 +10714,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/02/2022 18:54:07</publishTime>
     </File>
     <File Include="Views/NFCProfile/EditProfileSetAction.cshtml">
-      <publishTime>03/03/2022 11:48:17</publishTime>
+      <publishTime>04/02/2022 19:21:15</publishTime>
+    </File>
+    <File Include="Views/NFCProfile/Generate.cshtml">
+      <publishTime>04/02/2022 19:21:15</publishTime>
     </File>
     <File Include="Views/NFCProfile/NFCDevice.cshtml">
       <publishTime>03/04/2022 11:35:00</publishTime>
     </File>
     <File Include="Views/NFCProfile/ProfileUpdate.cshtml">
-      <publishTime>03/07/2022 13:50:06</publishTime>
+      <publishTime>04/02/2022 19:21:15</publishTime>
     </File>
     <File Include="Views/NFCProfile/SetAction.cshtml">
       <publishTime>12/24/2021 11:50:29</publishTime>
@@ -10702,7 +10732,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/04/2022 11:10:51</publishTime>
     </File>
     <File Include="Views/Shared/UserLayout.cshtml">
-      <publishTime>01/13/2022 16:03:05</publishTime>
+      <publishTime>03/15/2022 10:45:45</publishTime>
     </File>
     <File Include="Views/Shared/_AdminLayout.cshtml">
       <publishTime>01/14/2022 11:15:46</publishTime>
@@ -10750,13 +10780,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/02/2021 10:29:36</publishTime>
     </File>
     <File Include="Views/Wallet/Wallet.cshtml">
-      <publishTime>02/25/2022 18:03:52</publishTime>
+      <publishTime>03/08/2022 17:21:56</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>10/29/2021 11:36:59</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/07/2022 14:00:04</publishTime>
+      <publishTime>04/02/2022 19:51:21</publishTime>
     </File>
   </ItemGroup>
 </Project>
