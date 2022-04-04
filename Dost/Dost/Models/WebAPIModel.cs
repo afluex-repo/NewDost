@@ -1557,8 +1557,20 @@ namespace Dost.Models
     }
     public class Url
     {
+        private string qRCodeText;
+
+        public Url(string qRCodeText)
+        {
+            this.qRCodeText = qRCodeText;
+        }
+
         public string Link { get; set; }
         public string Name { get; set; }
+
+        public static implicit operator string(Url v)
+        {
+            throw new NotImplementedException();
+        }
     }
     public class Aadhar
     {
