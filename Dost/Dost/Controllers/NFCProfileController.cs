@@ -1311,7 +1311,7 @@ namespace Dost.Controllers
                             {
                                 objProfile.Description = ds1.Tables[6].Rows[0]["Description"].ToString();
                                 objProfile.BannerImage = ds1.Tables[6].Rows[0]["BannerImage"].ToString();
-                            }
+                         }
                         }
                         else
                         {
@@ -1343,6 +1343,41 @@ namespace Dost.Controllers
             }
             return View(objProfile);
         }
+
+        public ActionResult GetAboutMe(string code)
+        {
+            UserAchievement objA = new UserAchievement();
+            NFCProfileModel model = new NFCProfileModel();
+            try
+            {
+                model.PK_UserId = Session["PK_UserId"].ToString();
+                model.Code = Crypto.DecryptNFC(code);
+
+                DataSet ds = model.GetNFCProfileData();
+
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow r in ds.Tables[0].Rows)
+                    {
+                        if (r["Status"].ToString() == "Active")
+                        {
+                            model.Result = "1";
+                            model.Description = r["Description"].ToString();
+                        }
+                    }
+                        
+                    
+                   // objA.Achievement = ds.Tables[5].Rows[0]["Achievement"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                model.Result = ex.Message;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult SaveSkill(string Skill, string PK_ProfileId)
         {
             UserSkill model = new UserSkill();
@@ -1515,8 +1550,8 @@ namespace Dost.Controllers
                     model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
                 }
             }
-            return RedirectToAction("EditProfileSetAction", "NFCProfile", new { id = Code });
-          //  return Json(model, JsonRequestBehavior.AllowGet);
+           // return RedirectToAction("EditProfileSetAction", "NFCProfile", new { id = Code });
+           return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         //[AcceptVerbs(HttpVerbs.Post)]
