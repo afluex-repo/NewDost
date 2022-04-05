@@ -1280,6 +1280,7 @@ namespace Dost.Controllers
                                 //    objProfile.lstTo = lstTo;
 
                                 //}
+                                objProfile.lstSkill = lstSkill;
                             }
                             if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[4].Rows.Count > 0)
                             {
@@ -1362,7 +1363,7 @@ namespace Dost.Controllers
                         if (r["Status"].ToString() == "Active")
                         {
                             model.Result = "1";
-                            model.Description = r["Description"].ToString();
+                            model.Description = r["Summary"].ToString();
                         }
                     }
                         

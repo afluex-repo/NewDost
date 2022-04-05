@@ -2540,6 +2540,9 @@
     <Content Include="images\profile\Untitled-6.jpg" />
     <Content Include="images\profile\Untitled-7.jpg" />
     <Content Include="images\qr.png" />
+    <Content Include="images\QrCode390344.jpg" />
+    <Content Include="images\QrCode892773.jpg" />
+    <Content Include="images\QrCode906958.jpg" />
     <Content Include="images\svg\btc.svg" />
     <Content Include="images\svg\btc1.svg" />
     <Content Include="images\svg\check.svg" />

@@ -473,7 +473,7 @@ namespace Dost.Controllers
             NFCModel model = new NFCModel();
             try
             {
-                model.LogId = Session["LoginId"].ToString(); 
+                //model.LogId = Session["LoginId"].ToString(); 
                 model.Code = Crypto.DecryptNFC(code);
 
                 DataSet ds = model.GetNFCProfileData();
