@@ -333,7 +333,7 @@
                                             <a href="#chats" data-toggle="tab" class="nav-link active show">Connect with me</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
+                                            <a href="#about-me" data-toggle="tab" class="nav-link" onclick="return aboutme();">About Me</a>
                                         </li>
 
                                     </ul>
@@ -481,7 +481,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary" onclick="return AddAchievement();">Add</button>
+                                                             <button type="button" class="btn btn-primary" onclick="return AddAchievement();">Add</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -524,7 +524,8 @@
                                                                                             @*<a href="javascript:void(0);" class="btn btn-info btn-xs light px-2">
                                                                                                     <i class="fa fa-pencil achiv"></i>
                                                                                                 </a>*@
-                                                                                            <a href="NFCProfile/DeleteAchievement?id=@item.Pk_AchievementId,Code=@Model.Code" class="ml-2 btn btn-xs px-2 light btn-danger">
+                                                                                            @*<a href="/NFCProfile/DeleteAchievement?id=@item.Pk_AchievementId&Code=@Model.Code" class="ml-2 btn btn-xs px-2 light btn-danger" >*@
+                                                                                            <a href="javascript:void(0)" class="ml-2 btn btn-xs px-2 light btn-danger" onclick="return DeleteAchivement(@item.Pk_AchievementId,'@Model.Code');">
                                                                                                 <i class="fa fa-trash-o achiv"></i>
                                                                                             </a>
                                                                                         </div>
@@ -1261,32 +1262,32 @@
             }
         });
     }
-    //function DeleteAchievement(id,code) {
-    //    debugger
-    //    $.ajax({
-    //        url: '/NFCProfile/DeleteAchievement',
-    //        type: "Post",
-    //        dataType: "JSON",
-    //        data: { Id: id, Code: code },
-    //        success: function (data) {
-    //            debugger;
-    //            if (data != null) {
-    //                if (data.Response == "1") {
-    //                    SuccessAlert(data.Message);
-    //                    $("#languageModalCenter").modal('hide');
-    //                    GetProfileData();
-    //                    //window.location.href = "/nfcprofile/editprofilesetaction?id=" + $("#Code").val();
-    //                }
-    //                else {
-    //                    ErrorAlert(data.Message);
-    //                    $("#languageModalCenter").modal('hide');
-    //                    GetProfileData();
-    //                    //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
-    //                }
-    //            }
-    //        }
-    //    });
-    //}
+    function DeleteAchivement(Id,code){
+        debugger
+        $.ajax({
+            url: '/NFCProfile/DeleteAchievement',
+            type: "Post",
+            dataType: "JSON",
+            data: { Id: Id, Code: code },
+            success: function (data) {
+                debugger;
+                if (data != null) {
+                    if (data.Response == "1") {
+                        SuccessAlert(data.Message);
+                        $("#languageModalCenter").modal('hide');
+                        GetProfileData();
+                        //window.location.href = "/nfcprofile/editprofilesetaction?id=" + $("#Code").val();
+                    }
+                    else {
+                        ErrorAlert(data.Message);
+                        $("#languageModalCenter").modal('hide');
+                        GetProfileData();
+                        //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
+                    }
+                }
+            }
+        });
+    }
 
     function AddAchievement() {
         $.ajax({
@@ -1313,7 +1314,8 @@
             }
         });
     }
-    function GetProfileData() {
+
+   function GetProfileData() {
         debugger;
         $.ajax({
             type: 'Get',
@@ -1634,4 +1636,31 @@
             ]
         });
     })
+</script>
+<script>
+        function aboutme() {
+            debugger;
+            var code = $("#Code").val();
+
+            $.ajax({
+                url: '/NFCProfile/GetAboutMe', type: 'post', dataType: 'json',
+                data: { 'code': code },
+                success: function (data) {
+                    debugger;
+                    $("#divload").css({ 'display': 'none' });
+                    if (data.Result == "1") {
+                        $('#EmailBodyHTML').val(data.Description);
+                        //var dd = $("#Description").val();
+                        //$('#Description1').summernote('code', data.Body);
+                        //$('#EmailBodyHTML1').val(data.Achievement);
+                        //var dd1 = $("#EmailBodyHTML1").val();
+                        $('#emailbody').summernote('code', data.Description);
+
+                    }
+                    else {
+                        alert(data.Result);
+                    }
+                }
+            });
+        }
 </script>
