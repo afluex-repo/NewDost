@@ -255,6 +255,7 @@ namespace Dost.Controllers
                         TempData["product"] = "check out successfully !";
 
                         obj1.NFCCode = ds.Tables[0].Rows[0]["NFCCode"].ToString();
+
                         obj1.URL = "https://dost.click/NFC/Profile?id=" + Crypto.EncryptNFC(ds.Tables[0].Rows[0]["NFCCode"].ToString());
                         QRCodeModel qrcode = new QRCodeModel();
                        

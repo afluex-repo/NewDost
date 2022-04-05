@@ -29,6 +29,10 @@ namespace Dost.Controllers
                 {
                     return RedirectToAction("Login", "Home");
                 }
+                else
+                { 
+                }
+
                 //if (Session["LoginId"] == null)
                 //{
                 //    return RedirectToAction("login_new", "home");
@@ -97,7 +101,7 @@ namespace Dost.Controllers
                                 DataSet ds2 = obj.InsertLog();
                                 if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
                                 {
-                                    if(ds2.Tables[0].Rows[0][0].ToString()=="1")
+                                    if (ds2.Tables[0].Rows[0][0].ToString() == "1")
                                     {
                                         objProfile.LogId = ds2.Tables[0].Rows[0]["LogId"].ToString();
                                     }
@@ -141,7 +145,7 @@ namespace Dost.Controllers
                                     Type = row["Type"].ToString(),
                                     IsWhatsApp = row["IsWhatsapp"].ToString(),
                                     IsPrimary = row["IsPrimary"].ToString(),
-                                    IsDisplay= Convert.ToBoolean(row["Display"])
+                                    IsDisplay = Convert.ToBoolean(row["Display"])
                                 });
                             }
 
@@ -195,7 +199,7 @@ namespace Dost.Controllers
                         }
                         if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[6].Rows.Count > 0)
                         {
-                           
+
                             objProfile.Description = ds1.Tables[6].Rows[0]["Description"].ToString();
                             objProfile.BannerImage = ds1.Tables[6].Rows[0]["BannerImage"].ToString();
                         }
@@ -236,6 +240,7 @@ namespace Dost.Controllers
                 //return Content("<script>window.location = 'http://www.example.com';</script>");
                 return Redirect(RedirectionLink);
             }
+        
             return View(objProfile);
         }
         public string GetDevice()
@@ -473,7 +478,7 @@ namespace Dost.Controllers
             NFCModel model = new NFCModel();
             try
             {
-                model.LogId = Session["LoginId"].ToString(); 
+                //model.LogId = Session["LoginId"].ToString(); 
                 model.Code = Crypto.DecryptNFC(code);
 
                 DataSet ds = model.GetNFCProfileData();

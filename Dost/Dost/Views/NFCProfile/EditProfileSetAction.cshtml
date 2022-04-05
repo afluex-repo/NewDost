@@ -385,12 +385,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="divskill">
+                                                <div id="divSkill">
                                                     @if (Model != null)
                                                     {
-                                                        if (Model.lstTo != null)
+                                                        if (Model.lstSkill != null)
                                                         {
-                                                            foreach (var item in Model.lstTo)
+                                                            foreach (var item in Model.lstSkill)
                                                             {
                                                                 <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">@item.Skill</a>
                                                             }
@@ -1222,13 +1222,13 @@
                 if (data != null) {
                     if (data.Response == "1") {
                         SuccessAlert(data.Message);
-                        $("#skillModalCenter").hide();
+                        $("#skillModalCenter").modal('hide');
                         //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
                         GetProfileData();
                     }
                     else {
                         ErrorAlert(data.Message);
-                        $("#skillModalCenter").hide();
+                        $("#skillModalCenter").modal('hide');
                         //window.location.href = "/NFCProfile/EditProfileSetAction?id=" + $("#Code").val();
                         GetProfileData();
                     }
@@ -1329,20 +1329,23 @@
                     debugger;
                     if (data.Result == "1") {
                         if (data.lstLanguage != null) {
+                            $("#divLang").html('');
                             for (var i = 0; i < data.lstLanguage.length; i++) {
-                                $("#divlang").append("<a href='javascript:void(0);' class='text-muted pr-3 f-s-16'><i class='flag-icon flag-icon-us'></i> " + data.lstLanguage[i].Language + "</a>")
+                                $("#divLang").append("<a href='javascript:void(0);' class='text-muted pr-3 f-s-16'><i class='flag-icon flag-icon-us'></i> " + data.lstLanguage[i].Language + "</a>")
                             }
                         }
                         if (data.lstSkill != null) {
+                            $("#divSkill").html('');
                             for (var i = 0; i < data.lstSkill.length; i++) {
-                                $("#divskill").append("<a href='javascript:void(0);' class='btn btn-primary light btn-xs mb-1'> " + data.lstSkill[i].Skill + "</a>")
+                                $("#divSkill").append("<a href='javascript:void(0);' class='btn btn-primary light btn-xs mb-1'>" + data.lstSkill[i].Skill + "</a>")
                             }
                         }
-                        //if (data.lstAchievement != null) {
-                        //    for (var i = 0; i < data.lstAchievement.length; i++) {
-                        //        $("#tblA").append("<a href='javascript:void(0);' class='btn btn-primary light btn-xs mb-1'> " + data.lstAchievement[i].Achievement + "</a>")
-                        //    }
-                        //}
+                        if (data.lstAchievement != null) {
+                            $("#tblA tr td").remove();
+                            for (var i = 0; i < data.lstAchievement.length; i++) {
+                                $("#tblA").append("<tr> <td><h6><i class='fa fa-star achiv'></i></h6></td><td><div class='media style-1'><div class='media-body'><span>" + data.lstAchievement[i].Achievement + "</span></div></div></td><td><div class='d-flex action-button'><a href='NFCProfile/DeleteAchievement?id="+data.lstAchievement[i].Pk_AchievementId+"&Code=' class='ml-2 btn btn-xs px-2 light btn-danger'><i class='fa fa-trash-o achiv'></i></a></div></td></tr>")
+                            }
+                        }
                     }
                     else {
 
@@ -1532,7 +1535,6 @@
 </script>
 <script>
     $(document).ready(function () {
-        GetProfileData();
         if ($("#ddlcall option:selected").val() != "0") {
             $("#phones").attr('checked', 'checked');
             $("#ddlcall").removeClass('d-none');
