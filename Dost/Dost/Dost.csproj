@@ -3846,6 +3846,7 @@
     <Folder Include="images\chat\" />
     <Folder Include="images\ProductImage\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\ShortURL\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

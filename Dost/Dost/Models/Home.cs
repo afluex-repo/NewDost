@@ -56,7 +56,14 @@ namespace Dost.Models
         public string ToDate { get;  set; }
         public string Status { get;  set; }
         public string Mode { get; set; }
-   
+        public DataSet CheckNFCCode()
+        {
+            SqlParameter[] para ={
+                new SqlParameter ("@NFCCode",Code)
+            };
+            DataSet ds = DBHelper.ExecuteQuery("CheckNFCCode", para);
+            return ds;
+        }
         #endregion
         #region Login
         public DataSet Login()

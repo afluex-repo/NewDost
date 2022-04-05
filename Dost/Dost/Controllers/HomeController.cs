@@ -42,9 +42,24 @@ namespace Dost.Controllers
             }
             return View();
         }
-        public ActionResult Login()
+        public ActionResult Login(string id)
         {
             Home model = new Home();
+            if (id !=null )
+            {
+                model.Code = Crypto.DecryptNFC(id);
+                DataSet ds = model.CheckNFCCode();
+                if(ds!=null && ds.Tables.Count>0 && ds.Tables[0].Rows.Count>0)
+                {
+                    return RedirectToAction("Profile", "NFC", new { id=id});
+                }
+                else
+                {
+                    return RedirectToAction("Lofin", "Home");
+                }
+               
+            }
+           
             if (Session["S_MobileNo"] != null)
             {
                 model.LoginId = Session["S_MobileNo"].ToString();
