@@ -321,3 +321,4 @@ D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Newtonsoft.Json.xml
 D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.Owin.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
