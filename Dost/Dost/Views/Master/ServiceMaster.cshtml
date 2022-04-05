@@ -81,8 +81,10 @@
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label>Service Icon</label>
-                                <img id="my_image" style="width:100px;height:100px;" />
-                                <input type="file" name="postedFile3" id="serviceicon" onchange="readURL3(this)" />
+                                <input type="file" name="postedFile3" id="ServiceIcon" onchange="loadFile_adhar(event)" />
+                                <img src="@Model.ServiceIcon" height="100" width="100" id="ServicesIcon" />
+                                @*<img id="postedFile3" style="width:100px;height:100px;" />
+                                <input type="file" name="postedFile3" id="serviceicon" onchange="readURL3(event)" />*@
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12">
@@ -139,14 +141,14 @@
                                                     @if (Item.IsActive == "True")
                                                     {
                                                         <td style="font-size: 10px; text-align:center">
-                                                            <a href="/AdminReports/InActive?Pk_ServiceId=@Item.Pk_ServiceId" style="align-content:center" class="btn btn-sm btn-danger">InActive</a>
+                                                            <a href="/Master/InActive?Pk_ServiceId=@Item.Pk_ServiceId" style="align-content:center" class="btn btn-sm btn-danger">InActive</a>
                                                         </td>
                                                     }
 
                                                     else
                                                     {
                                                         <td style="font-size: 10px; text-align:center">
-                                                            <a href="/AdminReports/Active?Pk_ServiceId=@Item.Pk_ServiceId" style="align-content:center" class="btn btn-sm btn-success">Active</a>
+                                                            <a href="/Master/Active?Pk_ServiceId=@Item.Pk_ServiceId" style="align-content:center" class="btn btn-sm btn-success">Active</a>
 
                                                         </td>
                                                     }
@@ -171,13 +173,19 @@
     </div>
 }
 <script>
-    function readURL3(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+ 
+    var loadFile_adhar = function (event) {
+        var image = document.getElementById('ServicesIcon');
+        image.src = URL.createObjectURL(event.target.files[0]);
+        $("#img").val(1);
+    };
 
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+        //if (input.files && input.files[0]) {
+        //    var reader = new FileReader();
+
+        //    reader.readAsDataURL(input.files[0]);
+       // }
+
 
 
 
@@ -198,7 +206,7 @@
             url: "/Master/UpdateServiceMaster",
             Type: "Get",
             DataType: "JSON",
-            data: { Pk_ServiceId: $("#Pk_ServiceId").val(),Service: $("#Service").val(), Fk_MainServiceTypeId: $("#Fk_MainServiceTypeId").val(),  Category: $("#Category").val(), ServiceUrl: $("#ServiceUrl").val() },
+            data: { Pk_ServiceId: $("#Pk_ServiceId").val(), Service: $("#Service").val(), Fk_MainServiceTypeId: $("#Fk_MainServiceTypeId").val(), Category: $("#Category").val(), ServiceUrl: $("#ServiceUrl").val(), ServiceIcon: $("#ServiceIcon").val() },
             success: function (data) {
                 alert(data.Result);
                 window.location.href = '@Url.Action("ServiceMaster", "AdminReports")';
@@ -221,12 +229,13 @@
         return true;
     }
 
-    function editService(Pk_ServiceId, Fk_MainServiceTypeId, Service,Category, ServiceUrl, ServiceIcon) {
+    function editService(Pk_ServiceId, Fk_MainServiceTypeId, Service, Category, ServiceUrl, ServiceIcon) {
+        debugger;
         $('#Pk_ServiceId').val(Pk_ServiceId);
         $('#Fk_MainServiceTypeId').val(Fk_MainServiceTypeId);
         $('#Category').val(Category);
         $('#ServiceUrl').val(ServiceUrl);
-        $("#my_image").attr("src", ServiceIcon);
+        $("#ServiceIcon").attr("src", ServiceIcon);
 
         $('#Service').val(Service);
         $('#btnSave').hide();
