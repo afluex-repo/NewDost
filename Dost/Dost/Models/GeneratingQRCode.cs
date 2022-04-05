@@ -14,6 +14,7 @@ namespace Dost.Models
             public string QRCodeText { get; set; }
             [Display(Name = "QRCode Image")]
             public string QRCodeImagePath { get; set; }
+            public string imagePath { get; set; }
 
         }
    
