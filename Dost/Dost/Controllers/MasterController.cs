@@ -352,12 +352,12 @@ namespace Dost.Controllers
                     obj.EventImage = r["EventImage"].ToString();
                     obj.BinaryPercent = r["BinaryPercentage"].ToString();
                     obj.ReferralPercent = r["ReferralPercentage"].ToString();
-                    obj.Catalyst = r["Catalyst"].ToString();
-                    obj.Blaze = r["Blaze"].ToString();
-                    obj.Maverick = r["Maverick"].ToString();
-                    obj.Maverick = r["Maverick"].ToString();
-                    obj.Symphony = r["Symphony"].ToString();
-                    obj.Brand = r["Brand"].ToString();
+                    //obj.Catalyst = r["Catalyst"].ToString();
+                   // obj.Blaze = r["Blaze"].ToString();
+                    //obj.Maverick = r["Maverick"].ToString();
+                    //obj.Maverick = r["Maverick"].ToString();
+                    //obj.Symphony = r["Symphony"].ToString();
+                    //obj.Brand = r["Brand"].ToString();
                     lstevent.Add(obj);
                 }
                 model.lst = lstevent;
@@ -1386,7 +1386,7 @@ namespace Dost.Controllers
         {
             #region Bind SeviceTyoe
             Master obj1 = new Master();
-
+            model.AddedBy = Session["Pk_AdminId"].ToString();
             int count = 0;
             List<SelectListItem> ddlServiceType = new List<SelectListItem>();
             DataSet ds1 = obj1.ServiceTypeMasterList();
@@ -1413,8 +1413,7 @@ namespace Dost.Controllers
                 {
                     if (file != null && file.ContentLength > 0)
                     {
-
-                        model.ServiceIcon = "/ServiceIcon/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                        model.ServiceIcon = "/images/ServiceIcon/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
                         file.SaveAs(Path.Combine(Server.MapPath(model.ServiceIcon)));
                     }
                 }
@@ -1426,8 +1425,6 @@ namespace Dost.Controllers
                     if (ds.Tables[0].Rows[0][0].ToString() == "1")
                     {
                         TempData["ServiceMaster"] = "Saved Successfully";
-
-
                     }
                     else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
                     {
@@ -1658,9 +1655,7 @@ namespace Dost.Controllers
                 ViewBag.ddlServiceType = ddlServiceType;
             }
             #endregion
-
-
-            try
+ try
             {
 
                 model.UpdatedBy = Session["Pk_AdminId"].ToString();

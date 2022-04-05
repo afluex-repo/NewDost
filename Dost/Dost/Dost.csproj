@@ -3845,6 +3845,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="images\chat\" />
     <Folder Include="images\ProductImage\" />
+    <Folder Include="images\ServiceIcon\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ShortURL\" />
   </ItemGroup>
