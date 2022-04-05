@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Xml;
 
+
 namespace Dost.Models
 {
     public class GoogleResponse
@@ -125,6 +126,6 @@ namespace Dost.Models
         }
     }
 
-
   
+
 }
