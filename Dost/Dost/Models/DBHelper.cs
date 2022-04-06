@@ -11,8 +11,8 @@ namespace Dost.Models
         {
             try
             {
-               connectionString = "Data Source= 23.111.171.42;Initial Catalog=DostNewDB;User Id=dostnewuser;Password=dost@123%!$;Integrated Security=false;";
-               // connectionString = "Data Source=23.111.171.42;Initial Catalog=dostdb;User Id=dostuser;Password=Pa$$w0rd@123;Integrated Security=false;";
+              // connectionString = "Data Source= 23.111.171.42;Initial Catalog=DostNewDB;User Id=dostnewuser;Password=dost@123%!$;Integrated Security=false;";
+                connectionString = "Data Source=23.111.171.42;Initial Catalog=dostdb;User Id=dostuser;Password=Pa$$w0rd@123;Integrated Security=false;";
             }
             catch (Exception)
             {

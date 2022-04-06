@@ -1107,7 +1107,7 @@ namespace Dost.Controllers
 
         public ActionResult CouponList()
         {
-            //Master model = new Master(); 
+           Master model = new Master(); 
             //List<Master> lstCoupon = new List<Master>();
             //DataSet ds = model.SelectCouponList();
             //if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -1127,7 +1127,27 @@ namespace Dost.Controllers
             //    }
             //    model.lstCoupon = lstCoupon;
             //}
-            return View();
+            List<Master> lstCoupon = new List<Master>();
+            DataSet ds = model.SelectCouponList();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Master obj = new Master();
+                    obj.PK_CouponId = r["PK_CouponId"].ToString();
+                    obj.CouponType = r["CouponType"].ToString();
+                    obj.Coupon = r["Coupon"].ToString();
+                    obj.Price = r["Price"].ToString();
+                    obj.ValidityDate = r["ValidityDate"].ToString();
+                    obj.RangeFrom = r["RangeFrom"].ToString();
+                    obj.RangeTo = r["RangeTo"].ToString();
+                    obj.CouponCode = r["CouponCode"].ToString();
+                    lstCoupon.Add(obj);
+                }
+                model.lstCoupon = lstCoupon;
+            }
+            return View(model);
+           
         }
 
 

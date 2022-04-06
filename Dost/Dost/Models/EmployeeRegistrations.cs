@@ -11,6 +11,7 @@ namespace Dost.Models
 {
     public class EmployeeRegistrations
     {
+        public string PkAdminID { get; set; }
         [Required]
         [Display(Name = "User Type")]
         public string UserType { get; set; }
@@ -70,8 +71,42 @@ namespace Dost.Models
         }
         public DataSet GetEmployeeData()
         {
+            SqlParameter[] para = {
+            new SqlParameter("@PK_AdminId",PkAdminID),
+            new SqlParameter("@Name", Name),
+            new SqlParameter("@LoginId", LoginId),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("GetEmployeeDetails",para);
+            return ds;
+        }
+         public DataSet DeleteRegistration()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@PkAdminid", PkAdminID),
+                new SqlParameter("@DeletedBy", CreatedBy)
 
-            DataSet ds = DBHelper.ExecuteQuery("GetEmployeeDetails");
+            };
+            DataSet ds = DBHelper.ExecuteQuery("DeleteRegisration", para);
+            return ds;
+        }
+
+        public DataSet UpdateRegistration()
+        {
+            SqlParameter[] para =
+            {
+               new SqlParameter("@Name", Name),
+            new SqlParameter("@Mobile", Mobile),
+            new SqlParameter("@Email", Email),
+            new SqlParameter("@Address", Address),
+            new SqlParameter("@DOB", DOB),
+            new SqlParameter("@Qualification", EducationQualififcation),
+            new SqlParameter("@FathName", FathersName),
+            new SqlParameter("@PK_AdminId", PkAdminID),
+            new SqlParameter("@Fk_BranchId", Fk_BranchId),
+            new SqlParameter("@CreatedBy", CreatedBy),
+            };
+            DataSet ds = DBHelper.ExecuteQuery("[Update_EmployeeRegistration]", para);
             return ds;
         }
     }

@@ -1,0 +1,121 @@
+﻿@model Dost.Models.Permission
+
+@{
+    ViewBag.Title = "SetPermission";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="#">
+                    Permission
+                </a>
+            </li>
+            <li class="active">
+                Set Permission
+            </li>
+
+        </ol>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("SetPermission", "Permission", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <span style="color: red">
+        @TempData["Permission"]
+    </span>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Permission
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Select User <span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.PK_AdminId, new SelectList(ViewBag.ddlemplist, "Value", "Text"), new { @class = "form-control" })
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Select Main Menu<span style="color: red">*</span></label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.PK_AdminId, new SelectList(ViewBag.ddlformtype, "Value", "Text"), new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="submit" id="btnDetails" class="btn btn-success" name="btnDetails" value="Get Details" onclick="return validate();" />
+                            @*<a class="btn btn-primary" href="/Permission/BannerList">Back To List</a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="~/scripts/jquery-1.7.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //var x = document.getElementsByName("IsAddFav");
+        //if (x == "true") {
+        //    $('#FavStatus').prop('checked', true);
+        //}
+        //else {
+        //    $('#FavStatus').prop('checked', false);
+        //}
+        @*if(@Model.BannerId=="" && @Model.BannerId==null)
+        {
+            $("#Trailer").val()=="";
+            $("#Description").val()=="";
+            $("#BannerTitle").val()=="";
+        }*@
+    });
+    function validate() {
+
+        $(".errortext").removeClass("errortext");
+        if ($('#BannerTitle').val() == '') {
+            $("#BannerTitle").addClass('errortext');
+            $('#BannerTitle').focus();
+            return false;
+        }
+        if ($('#Trailer').val() == '') {
+            $("#Trailer").addClass('errortext');
+            $('#Trailer').focus();
+            return false;
+        }
+        //    if ($('#Image').val() == '') {
+        //        $("#Image").addClass('errortext');
+        //        $('#Image').focus();
+        //        return false;
+        //}
+        if ($('#Description').val() == '') {
+            $("#Description").addClass('errortext');
+            $('#Description').focus();
+            return false;
+        }
+    }
+
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+

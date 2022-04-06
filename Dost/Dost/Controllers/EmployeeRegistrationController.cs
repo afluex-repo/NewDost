@@ -6,15 +6,31 @@ using System.Web.Mvc;
 using Dost.Models;
 using System.Data;
 using System.Data.SqlClient;
+using Dost.Filter;
+
 namespace Dost.Controllers
 {
     public class EmployeeRegistrationController : AdminBaseController
     {
         // GET: EmployeeRegistration
         #region Employee
-        public ActionResult EmployeeRegistration()
+        public ActionResult EmployeeRegistration(string Id)
         {
-
+            EmployeeRegistrations emp = new EmployeeRegistrations();
+            if (Id != null)
+            {
+                emp.PkAdminID = Id;
+                DataSet ds = emp.GetEmployeeData();
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    emp.Name = ds.Tables[0].Rows[0]["Name"].ToString();
+                    emp.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
+                    emp.Mobile = ds.Tables[0].Rows[0]["Contact"].ToString();
+                    emp.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                    emp.EducationQualififcation = ds.Tables[0].Rows[0]["EducationQualifiacation"].ToString();
+                    emp.PkAdminID = ds.Tables[0].Rows[0]["Pk_AdminId"].ToString();
+                }
+            }
 
 
             #region ddlUserType
@@ -30,7 +46,7 @@ namespace Dost.Controllers
             ViewBag.ddlUserType = ddlUserType;
             #endregion
 
-            return View();
+            return View(emp);
         }
         public ActionResult EmployeeDetails()
         {
@@ -48,6 +64,7 @@ namespace Dost.Controllers
                     Objload.Mobile = dr["Contact"].ToString();
                     Objload.Email = dr["Email"].ToString();
                     Objload.EducationQualififcation = dr["EducationQualifiacation"].ToString();
+                    Objload.PkAdminID= dr["Pk_AdminId"].ToString();
 
                     lst.Add(Objload);
                 }
@@ -101,5 +118,42 @@ namespace Dost.Controllers
             return Json(objregi, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        [HttpPost]
+        [ActionName("EmployeeRegistration")]
+        [OnAction(ButtonName = "btnUpdate")]
+        public ActionResult RegisterUpdate(EmployeeRegistrations model)
+        {
+            model.CreatedBy = Session["Pk_AdminId"].ToString();
+            DataSet ds = model.UpdateRegistration();
+            if(ds!=null && ds.Tables.Count>0 && ds.Tables[0].Rows.Count>0)
+            {
+                @TempData["EmployeeRegistration"] = "Registration Update Successfull";
+            }
+            else
+            {
+                @TempData["EmployeeRegistration"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+            }
+            return RedirectToAction("EmployeeDetails", "EmployeeRegistration");
+        }
+
+        public ActionResult DeleteRegistration(string ID)
+        {
+            EmployeeRegistrations model = new EmployeeRegistrations();
+            model.PkAdminID = ID;
+            model.CreatedBy= Session["Pk_AdminId"].ToString();
+            DataSet ds = model.DeleteRegistration();
+            if(ds!=null && ds.Tables.Count>0 && ds.Tables[0].Rows.Count>0)
+            {
+                 @TempData["EmployeeRegistration"] = "Registration Delete Successfull";
+            }
+            else
+            {
+                @TempData["EmployeeRegistration"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+            }
+            return RedirectToAction("EmployeeDetails", "EmployeeRegistration");
+        }
+
     }
+   
 }
