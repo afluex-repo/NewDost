@@ -11,7 +11,8 @@ namespace Dost.Models
     public class Master : Common
     {
         public DataTable dtImage { get; set; }
-
+        public string OldPassword { get; set; }
+        public string NewPassword { get; set; }
         public List<Master> lstBanner { get; set; }
 
         public List<Master> lst { get; set; }
@@ -526,7 +527,14 @@ namespace Dost.Models
 
         }
 
-
+        public DataSet UpdatePassword()
+        {
+            SqlParameter[] para = { new SqlParameter("@newPassword ",NewPassword ) ,
+                        new SqlParameter("@updatedby", UpdatedBy)
+                                  };
+            DataSet ds = DBHelper.ExecuteQuery("ChangepasswordAdmin", para);
+            return ds;
+        }
         public DataSet SavingServiceMaster()
         {
             SqlParameter[] para =
