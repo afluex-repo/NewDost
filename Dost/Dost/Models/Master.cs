@@ -12,6 +12,8 @@ namespace Dost.Models
     {
         public DataTable dtImage { get; set; }
         public string OldPassword { get; set; }
+        public string ConfirmPassword { get; set; }
+        
         public string NewPassword { get; set; }
         public List<Master> lstBanner { get; set; }
 

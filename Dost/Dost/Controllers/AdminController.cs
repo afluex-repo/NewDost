@@ -538,8 +538,8 @@ namespace Dost.Controllers
                 List<SelectListItem> ddlPasswordType = Common.BindPasswordType();
                
                 obj.UpdatedBy = Session["Pk_AdminId"].ToString();
-                obj.OldPassword = Crypto.Decrypt(obj.OldPassword);
-                obj.NewPassword = Crypto.Decrypt(obj.NewPassword);
+              //  obj.OldPassword = Crypto.Decrypt(obj.OldPassword);
+               // obj.NewPassword = Crypto.Decrypt(obj.NewPassword);
                 DataSet ds = obj.UpdatePassword();
                 if (ds != null && ds.Tables.Count > 0)
                 {
