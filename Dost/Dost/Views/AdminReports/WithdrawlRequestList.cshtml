@@ -30,7 +30,7 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                <table id="example3" class="table table-striped" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Sr No.</th>
@@ -87,11 +87,15 @@
 <script src="../vendor/jquery/jquery.min.js"></script>
 
 <script>
+    $.noConflict();
     $(document).ready(function () {
-        $('#dataTables-example').DataTable({
-            responsive: true
+        var table = $('#example3').DataTable({
+            lengthChange: false,
+            buttons: ['copy', 'excel', 'pdf', 'colvis']
         });
+
+        table.buttons().container()
+            .appendTo('#example_wrapper .col-md-6:eq(0)');
     });
 </script>
-
 
