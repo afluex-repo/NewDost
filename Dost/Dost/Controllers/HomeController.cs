@@ -12,6 +12,7 @@ using System.Net.Http;
 using BusinessLayer;
 using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace Dost.Controllers
 {
@@ -45,21 +46,26 @@ namespace Dost.Controllers
         public ActionResult Login(string id)
         {
             Home model = new Home();
-            if (id !=null )
+            if (id != null)
             {
-                model.Code = Crypto.DecryptNFC(id);
-                DataSet ds = model.CheckNFCCode();
-                if(ds!=null && ds.Tables.Count>0 && ds.Tables[0].Rows.Count>0)
+                id = Common.DecryptString(id);
+                DataSet ds1 = model.GetNFCCodeById(id);
+                if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
                 {
-                    return RedirectToAction("Profile", "NFC", new { id=id});
+                    model.Code = ds1.Tables[0].Rows[0]["Code"].ToString();
+                }
+                DataSet ds = model.CheckNFCCode();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    return RedirectToAction("Profile", "NFC", new { id = id });
                 }
                 else
                 {
                     return RedirectToAction("Lofin", "Home");
                 }
-               
+
             }
-           
+
             if (Session["S_MobileNo"] != null)
             {
                 model.LoginId = Session["S_MobileNo"].ToString();
@@ -94,7 +100,7 @@ namespace Dost.Controllers
                             Session["SponsorName"] = ds.Tables[0].Rows[0]["SponsorName"].ToString();
                             Session["Leg"] = ds.Tables[0].Rows[0]["Leg"].ToString();
                             Session["UserCode"] = ds.Tables[0].Rows[0]["UserCode"].ToString();
-                           // obj.NFCCCode= ds.Tables[0].Rows[0]["UserCode"].ToString();
+                            // obj.NFCCCode= ds.Tables[0].Rows[0]["UserCode"].ToString();
                             Session["User_Code"] = ds.Tables[0].Rows[0]["UserCode"].ToString().Remove(0, 2);
                             Session["JoiningDate"] = ds.Tables[0].Rows[0]["JoiningDate"].ToString();
                             Session["IsAcceptanceTNC"] = ds.Tables[0].Rows[0]["IsAcceptanceTNC"].ToString();
@@ -1025,16 +1031,22 @@ namespace Dost.Controllers
             }
             return device_info;
         }
-        public ActionResult NFCActivation()
+        public ActionResult NFCActivation(string Code)
         {
             NFCProfileModel model = new NFCProfileModel();
+            Home Modal = new Home();
             if (Session["LoginId"] == null)
             {
                 return RedirectToAction("Login", "home");
             }
+            if (Code != null && Code != "")
+            {
+                Session["NFCCode"]= Code;
+                Session["NFCActivated"] = "false";
+            }
             if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "" && Session["NFCActivated"] != null && Session["NFCActivated"].ToString() == "false")
             {
-                Home Modal = new Home();
+
                 Modal.Code = Session["NFCCode"].ToString();
                 model.DecryptedCode = Crypto.DecryptNFC(Session["NFCCode"].ToString());
                 DataSet ds = Modal.GetNFCAllotmentStatus();
@@ -1060,6 +1072,7 @@ namespace Dost.Controllers
             {
                 return RedirectToAction("Login", "home");
             }
+
             return View(model);
         }
         [HttpPost]
@@ -1080,7 +1093,7 @@ namespace Dost.Controllers
                         if (ds.Tables[0].Rows[0]["IsActivated"].ToString() != "" && Convert.ToBoolean(ds.Tables[0].Rows[0]["IsActivated"].ToString()) == false)
                         {
                             //Session["NFCCode"] = null;
-                            if (Session["NFCCode"]== null)
+                            if (Session["NFCCode"] == null)
                             {
                                 Session["NFCCode"] = Crypto.EncryptNFC(NFCCode);
                                 Session["NFCActivated"] = "false";
@@ -1183,5 +1196,41 @@ namespace Dost.Controllers
         {
             return View();
         }
+        public ActionResult ShortUrl()
+        {
+            Random _random = new Random();
+            // Size of the key, 6
+            HashSet<string> set = new HashSet<string>();
+            int clashes = 0;
+            for (int n = 0; n < 1000000; n++)
+            {
+                StringBuilder builder = new StringBuilder();
+
+                for (int i = 0; i < 7; i++)
+                {
+                    if (_random.NextDouble() > 0.5)
+                    {
+                        builder.Append((char)_random.Next(97, 123));
+                    }
+                    else
+                    {
+                        builder.Append(_random.Next(0, 9).ToString());
+                    }
+                }
+
+                if (set.Contains(builder.ToString()))
+                {
+                    clashes++;
+                    Console.WriteLine("clash: (" + n + ")" + builder.ToString());
+                }
+
+                set.Add(builder.ToString());
+                _random.Next();
+                //Console.Write(builder.ToString());
+            }
+
+            return Json(clashes, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

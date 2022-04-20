@@ -195,6 +195,7 @@ namespace Dost.Controllers
                 model.lst = lstUerProfile;
             }
             NFCModel objn = new NFCModel();
+           
             objn.Code = Crypto.DecryptNFC(model.Code);
             DataSet dsProfile = objn.GetNFCProfileData();
             //if (dsProfile != null && dsProfile.Tables.Count > 0 && dsProfile.Tables[0].Rows.Count > 0)
@@ -211,6 +212,10 @@ namespace Dost.Controllers
             //}
             if (dsProfile != null && dsProfile.Tables.Count > 1)
             {
+                if (dsProfile.Tables[0].Rows.Count > 0)
+                {
+                    model.enc = Common.EnryptString(dsProfile.Tables[0].Rows[0]["PK_NFCId"].ToString());
+                }
                 //    ViewBag.ProfilePic = dsProfile.Tables[1].Rows[0]["ProfilePic"].ToString();
                 if (dsProfile.Tables[1].Rows.Count > 0)
                 {
@@ -1006,9 +1011,11 @@ namespace Dost.Controllers
                     Master obj = new Master();
                     obj.Service = r["Service"].ToString();
                     obj.Color = r["ColorCode"].ToString();
+                    obj.EncCode = r["EncCode"].ToString();
                     obj.ServiceIcon = r["ServiceIcon"].ToString();
                     obj.Pk_ServiceId = r["PK_ServiceId"].ToString();
                     obj.PK_NFcId = Convert.ToInt32(r["PK_NFCId"]);
+                    obj.IsActive = r["IsActivated"].ToString();
                     lst.Add(obj);
                 }
                 model.lst = lst;

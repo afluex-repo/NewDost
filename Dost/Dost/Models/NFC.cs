@@ -112,6 +112,7 @@ namespace Dost.Models
         public string Body { get; set; }
         [AllowHtml]
         public string EmailBodyHTML { get; set; }
+        public string enc { get; set; }
         public DataSet SaveAboutMe()
         {
             SqlParameter[] para ={

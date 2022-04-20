@@ -63,7 +63,7 @@
                                     <input class="btn btn-success" type="submit" value="Search" name="Search" id="btnSearch" />
                                 </div>
                             </div>
-                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                            <table id="example3" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th>Sr No.</th>
@@ -126,4 +126,16 @@
     });
 </script>
 
+<script>
+$.noConflict();
+    $(document).ready(function () {
+        var table = $('#example3').DataTable({
+            lengthChange: false,
+            buttons: ['copy', 'excel', 'pdf', 'colvis']
+        });
+
+        table.buttons().container()
+            .appendTo('#example_wrapper .col-md-6:eq(0)');
+    });
+</script>
 

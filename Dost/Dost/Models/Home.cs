@@ -235,6 +235,12 @@ namespace Dost.Models
             DataSet ds = DBHelper.ExecuteQuery("GetNFCAllotmentStatus", para);
             return ds;
         }
+        public DataSet GetNFCCodeById(string id)
+        {
+            SqlParameter[] para = { new SqlParameter("@Code", id) };
+            DataSet ds = DBHelper.ExecuteQuery("GetNFCCodeById", para);
+            return ds;
+        }
         public DataSet GenerateNFCCode()
         {
             SqlParameter[] para = {

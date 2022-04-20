@@ -521,5 +521,44 @@ namespace Dost.Controllers
             }
             return RedirectToAction("ApproveUPI", "Admin");
         }
+        public ActionResult ChangePassword()
+        {
+            List<SelectListItem> ddlPasswordType = Common.BindPasswordType();
+            ViewBag.ddlPasswordType = ddlPasswordType;
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("ChangePassword")]
+        [OnAction(ButtonName = "btnUpdate")]
+        public ActionResult UpdatePassword(Master obj)
+        {
+            try
+            {
+                List<SelectListItem> ddlPasswordType = Common.BindPasswordType();
+               
+                obj.UpdatedBy = Session["Pk_AdminId"].ToString();
+              //  obj.OldPassword = Crypto.Decrypt(obj.OldPassword);
+               // obj.NewPassword = Crypto.Decrypt(obj.NewPassword);
+                DataSet ds = obj.UpdatePassword();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["ChangePassword"] = "Password updated successfully..";
+                    }
+                    else
+                    {
+                        TempData["ChangePasswordError"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ChangePasswordError"] = ex.Message;
+            }
+            return View(obj);
+        }
+
     }
 }

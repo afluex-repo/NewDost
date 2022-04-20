@@ -59,7 +59,10 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Banner Image</label>
                                 <div class="col-sm-4">
-                                    <input type="file" name="postedFile" id="Image" onclick="return hide();" />
+                                    <input type="file" name="postedFile" id="Image" onchange="loadFile_adhar(event)" />
+                                    @*<input type="file" name="Image" id="Image" onchange="loadFile_adhar(event)" />
+                                    <img src="@Model.Image" height="50" width="100" id="PanImage" />*@
+                                  
                                 </div>
                                 @if (Model.BannerImage != null && Model.BannerImage != "")
                                 {
@@ -124,6 +127,11 @@
             $("#Description").val()=="";
             $("#BannerTitle").val()=="";
         }
+        var loadFile_adhar = function (event) {
+            var image = document.getElementById('PanImage');
+            image.src = URL.createObjectURL(event.target.files[0]);
+            $("#img").val(1);
+        };
     });
     function validate() {
 

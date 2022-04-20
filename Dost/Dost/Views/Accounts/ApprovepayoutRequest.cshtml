@@ -39,7 +39,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 table-responsive">
-                        <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="example3" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Sr No.</th>
@@ -98,7 +98,18 @@
     <!-- partial -->
 </div>
 <!-- main-panel ends -->
+<script>
+    $.noConflict();
+    $(document).ready(function () {
+        var table = $('#example3').DataTable({
+            lengthChange: false,
+            buttons: ['copy', 'excel', 'pdf', 'colvis']
+        });
 
+        table.buttons().container()
+            .appendTo('#example_wrapper .col-md-6:eq(0)');
+    });
+</script>
 
 
 

@@ -717,7 +717,7 @@
                                             <div class="col-lg-10 col-md-10 col-sm-12 my-1 d-flex">
                                                 <div class="input-group input-group-sm copy">
                                                     @*<input id="txtcopy" type="text" class="form-control input-default" readonly value="https://dost.click/NFC/Profile?id=@Model.Code">*@
-                                                    <input id="txtcopy" type="text" class="form-control input-default" readonly value="https://dost.click?id=@Model.Code">
+                                                    <input id="txtcopy" type="text" class="form-control input-default" readonly value="https://dost.click?id=@Model.enc">
 
                                                     <button type="button" class="close h-100 ml-2">
                                                         <span><i class="fa fa-files-o"></i></span>
@@ -754,7 +754,7 @@
                                                                     {
                                                                         if (item.Content.Contains("6") || item.Content.Contains("7") || item.Content.Contains("9") || item.Content.Contains("8"))
                                                                         {
-                                                                            <a class="btn-social whatsapp" href="https://api.whatsapp.com/send?phone=91+@item.Content&text=https://dost.click?id=@Model.Code" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                                                                            <a class="btn-social whatsapp" href="https://api.whatsapp.com/send?phone=91+@item.Content&text=https://dost.click?id=@Model.enc" target="_blank"><i class="fa fa-whatsapp"></i></a>
                                                                         }
                                                                     }
                                                                 }

@@ -3151,6 +3151,7 @@
     <Compile Include="Controllers\AdminReportsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EmployeeRegistrationController.cs" />
+    <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Models\GoogleResponse.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
@@ -3179,6 +3180,7 @@
     <Compile Include="Models\NFC.cs" />
     <Compile Include="Models\NFCModel.cs" />
     <Compile Include="Models\Password.cs" />
+    <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\Shop.cs" />
@@ -3834,6 +3836,9 @@
     <Content Include="Views\Master\TransactionLimitList.cshtml" />
     <Content Include="Views\NFCProfile\Generate.cshtml" />
     <Content Include="Views\Shop\ShortURL.cshtml" />
+    <Content Include="Views\Permission\SetPermission.cshtml" />
+    <Content Include="Views\Admin\ChangePassword.cshtml" />
+    <Content Include="Views\AdminReports\KYCDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
