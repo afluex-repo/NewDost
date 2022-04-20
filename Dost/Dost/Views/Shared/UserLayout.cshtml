@@ -849,7 +849,13 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href='@Url.Action("NFCDevice","NFCProfile")'>Add NFC Device</a></li>
-                            <li><a href='@Url.Action("SetActionDashboard","NFCProfile")'>Set Action</a></li>
+                            @if (Session["UserNFCCode"] != null)
+                            {
+                                if (Session["UserNFCCode"].ToString() != "" && Session["UserNFCCode"].ToString() != "na")
+                                {
+                                    <li><a href='@Url.Action("SetActionDashboard","NFCProfile")'>Manage NFC Device</a></li>
+                                }
+                            }
                         </ul>
                     </li>
                     <li>
@@ -859,8 +865,6 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href='@Url.Action("ChangePassword","User")'>Change Password</a></li>
-                        </ul>
-                        <ul aria-expanded="false">
                             <li><a href='@Url.Action("SettransactionPassword","User")'>Set Transaction Password</a></li>
                         </ul>
                     </li>

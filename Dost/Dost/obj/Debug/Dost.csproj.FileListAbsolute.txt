@@ -219,20 +219,6 @@ E:\Divya\repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\Divya\repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.dll
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.dll
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.dll
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.dll
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Owin.dll
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\QRCoder.dll
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.Owin.dll
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.pdb
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.xml
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.xml
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.xml
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.xml
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Newtonsoft.Json.xml
-D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.Owin.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\ApplicationInsights.config
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\roslyn\csc.exe
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -253,7 +239,6 @@ E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Babel.Licensing.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\BitMiracle.LibTiff.NET.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\BouncyCastle.Crypto.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\DotNetZip.dll
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\IronBarCode.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\IronPdf.Pdfium.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\IronPdf.Pdfium.Domain.dll
@@ -272,20 +257,14 @@ E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.Web.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.dll
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.dll
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Web.Infrastructure.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\NativeLibraryLoader.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Newtonsoft.Json.dll
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Owin.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\PdfSharp.dll
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\QRCoder.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Swashbuckle.Core.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Helpers.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.dll
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.Owin.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Mvc.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Razor.dll
@@ -295,8 +274,6 @@ E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\WebActivator.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\zxing.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\zxing.presentation.dll
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.pdb
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\IronBarCode.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.DependencyCollector.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.ServerTelemetryChannel.xml
@@ -304,20 +281,44 @@ E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.Web.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.AI.WindowsServer.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.ApplicationInsights.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.xml
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.xml
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.xml
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Newtonsoft.Json.xml
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.xml
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.Owin.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Razor.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Deployment.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Webpages.Razor.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Helpers.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Mvc.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Net.Http.Formatting.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.xml
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.WebHost.xml
-E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.dll
 E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.pdb
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Owin.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.Owin.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Newtonsoft.Json.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\System.Web.Http.Owin.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\QRCoder.dll
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.pdb
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Owin.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\QRCoder.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.Owin.dll
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.pdb
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Gma.QrCodeNet.Encoding.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Host.HttpListener.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Microsoft.Owin.Hosting.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\Newtonsoft.Json.xml
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\bin\System.Web.Http.Owin.xml
+E:\reenaproject\Repository\Repository\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
+D:\Mona Afluex\Repositories\NewDost\Dost\Dost\obj\Debug\Dost.csprojResolveAssemblyReference.cache
