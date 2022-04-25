@@ -107,6 +107,7 @@ namespace Dost.Controllers
                             Session["IsDistributor"] = ds.Tables[0].Rows[0]["IsDistributor"].ToString();
                             Session["IsDistributorAplied"] = ds.Tables[0].Rows[0]["IsDistributorAplied"].ToString();
                             Session["IsInvoiceGenerated"] = ds.Tables[0].Rows[0]["IsInvoiceGenerated"].ToString();
+                            Session["IsAnyProduct"] = Convert.ToBoolean(ds.Tables[0].Rows[0]["IsAnyProduct"]);
                             TempData["LoginResponse"] = "Logged in";
                             obj.FormName = "UserDashBoard";
                             obj.ControllerName = "User";
@@ -1031,7 +1032,7 @@ namespace Dost.Controllers
             }
             return device_info;
         }
-        public ActionResult NFCActivation(string Code)
+        public ActionResult NFCActivation(string C)
         {
             NFCProfileModel model = new NFCProfileModel();
             Home Modal = new Home();
@@ -1039,9 +1040,9 @@ namespace Dost.Controllers
             {
                 return RedirectToAction("Login", "home");
             }
-            if (Code != null && Code != "")
+            if (C != null && C != "")
             {
-                Session["NFCCode"]= Code;
+                Session["NFCCode"]= C;
                 Session["NFCActivated"] = "false";
             }
             if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "" && Session["NFCActivated"] != null && Session["NFCActivated"].ToString() == "false")
