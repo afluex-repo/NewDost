@@ -107,7 +107,14 @@ namespace Dost.Controllers
                             Session["IsDistributor"] = ds.Tables[0].Rows[0]["IsDistributor"].ToString();
                             Session["IsDistributorAplied"] = ds.Tables[0].Rows[0]["IsDistributorAplied"].ToString();
                             Session["IsInvoiceGenerated"] = ds.Tables[0].Rows[0]["IsInvoiceGenerated"].ToString();
-                            Session["IsAnyProduct"] = Convert.ToBoolean(ds.Tables[0].Rows[0]["IsAnyProduct"]);
+                            if (ds.Tables[0].Rows[0]["IsAnyProduct"].ToString() != "0")
+                            {
+                                Session["IsAnyProduct"] = ds.Tables[0].Rows[0]["IsAnyProduct"].ToString();
+                            }
+                            else
+                            {
+                                Session["IsAnyProduct"] = null;
+                            }
                             TempData["LoginResponse"] = "Logged in";
                             obj.FormName = "UserDashBoard";
                             obj.ControllerName = "User";
@@ -1042,7 +1049,7 @@ namespace Dost.Controllers
             }
             if (C != null && C != "")
             {
-                Session["NFCCode"]= C;
+                Session["NFCCode"] = C;
                 Session["NFCActivated"] = "false";
             }
             if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "" && Session["NFCActivated"] != null && Session["NFCActivated"].ToString() == "false")

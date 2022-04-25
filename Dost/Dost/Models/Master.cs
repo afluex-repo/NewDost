@@ -93,6 +93,7 @@ namespace Dost.Models
         public string IsDeleted { get; set; }
         public string Color { get; set; }
         public string EncCode { get; set; }
+        public string DecCode { get; set; }
         public string UserCode { get; set; }
         public string LoginId { get; set; }
         public string Status { get; set; }
