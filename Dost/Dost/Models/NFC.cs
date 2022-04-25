@@ -147,7 +147,8 @@ namespace Dost.Models
         public DataSet GetNFCProfileData()
         {
             SqlParameter[] para ={
-                new SqlParameter ("@Fk_UerId",PK_UserId)
+                new SqlParameter ("@Fk_UerId",PK_UserId),
+                 new SqlParameter ("@NFCCode",DecryptedCode),
             };
             DataSet ds = DBHelper.ExecuteQuery("GetNFCProfileData_New", para);
             return ds;
@@ -236,6 +237,7 @@ namespace Dost.Models
                 new SqlParameter ("@Fk_UserId",PK_UserId),
                 new SqlParameter ("@ProfileName",ProfileName),
                 new SqlParameter ("@ProfileType",ProfileType),
+                new SqlParameter ("@NFCCode",DecryptedCode),
             };
             DataSet ds = DBHelper.ExecuteQuery("InsertProfileName", para);
             return ds;

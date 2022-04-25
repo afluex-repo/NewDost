@@ -851,10 +851,14 @@
                             <li><a href='@Url.Action("NFCDevice","NFCProfile")'>Add NFC Device</a></li>
                             @if (Session["UserNFCCode"] != null)
                             {
-                                if (Session["IsAnyProduct"].ToString() != "" && Session["IsAnyProduct"].ToString() != "na")
+                                if (Session["IsAnyProduct"] != null)
                                 {
-                                    <li><a href='@Url.Action("SetActionDashboard","NFCProfile")'>Manage NFC Device</a></li>
+                                    if (Session["IsAnyProduct"].ToString() != "" && Session["IsAnyProduct"].ToString() != "0")
+                                    {
+                                        <li><a href='@Url.Action("SetActionDashboard","NFCProfile")'>Manage NFC Device</a></li>
+                                    }
                                 }
+
                             }
                         </ul>
                     </li>

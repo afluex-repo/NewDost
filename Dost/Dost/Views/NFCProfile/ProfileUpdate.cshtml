@@ -518,7 +518,8 @@
                                                                     @Html.HiddenFor(x => x.Status)
                                                                     @Html.HiddenFor(x => x.Flag)
                                                                     @Html.HiddenFor(x => x.Pk_NfcProfileId)
-                                                                    @Html.HiddenFor(m => m.Code, new { @Value = @ViewBag.Id })
+                                                                    @Html.HiddenFor(m => m.Code)
+                                                                    @Html.HiddenFor(m => m.DecryptedCode)
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -717,7 +718,7 @@
                                             <div class="col-lg-10 col-md-10 col-sm-12 my-1 d-flex">
                                                 <div class="input-group input-group-sm copy">
                                                     @*<input id="txtcopy" type="text" class="form-control input-default" readonly value="https://dost.click/NFC/Profile?id=@Model.Code">*@
-                                                    <input id="txtcopy" type="text" class="form-control input-default" readonly value="https://dost.click?id=@Model.enc">
+                                                    <input id="txtcopy" type="text" class="form-control input-default" readonly value="http://dost.click?id=@Model.enc">
 
                                                     <button type="button" class="close h-100 ml-2">
                                                         <span><i class="fa fa-files-o"></i></span>
@@ -1114,6 +1115,7 @@
             fileData.append('Flag', 'Profile');
             fileData.append('ProfileName', $("#ProfileName").val());
             fileData.append('ProfileType', $('input[name="ProfileType"]:checked').val());
+            fileData.append('DecryptedCode', $('#DecryptedCode').val());
             $.ajax({
                 url: '/NFCProfile/ProfileUpdate',
                 type: "POST",
@@ -1135,7 +1137,7 @@
                     }
                     //GetProfilePersonalData();
                     $('#exampleModalCenter').modal('hide');
-                    window.location.href = "/NFCProfile/ProfileUpdate";
+                    window.location.href = "/NFCProfile/ProfileUpdate?EncCode=" + $('#Code').val();
                 },
                 error: function (err) {
                     ErrorAlert("Error while inserting data");
@@ -1143,7 +1145,7 @@
                     $('input[name="ProfileType"]:checked').val('false');
                     // GetProfilePersonalData();
                     $('#exampleModalCenter').modal('hide');
-                    window.location.href = "/NFCProfile/ProfileUpdate";
+                    window.location.href = "/NFCProfile/ProfileUpdate?EncCode=" + $('#Code').val();
                 }
             });
 
@@ -1288,7 +1290,7 @@
                         }
                         SuccessAlert(message);
                         $("#hdfProfile").val(ProfileId);
-                        window.location.href = "/NFCProfile/ProfileUpdate";
+                        window.location.href = "/NFCProfile/ProfileUpdate?EncCode=" + $('#Code').val();
                         //GetProfilePersonalData();
                     }
                     else {
@@ -1563,7 +1565,7 @@
                 else {
                     ErrorAlert(data.Message);
                 }
-                window.location.href = "/NFCProfile/ProfileUpdate";
+                window.location.href = "/NFCProfile/ProfileUpdate?EncCode=" + $('#Code').val();
             }
         })
     })
@@ -1711,7 +1713,7 @@
 
                         SuccessAlert(data.Message);
                         if (func == "Remove") {
-                            window.location.href = "/NFCProfile/ProfileUpdate";
+                            window.location.href = "/NFCProfile/ProfileUpdate?EncCode=" + $('#Code').val();
                         }
                     }
                     else {

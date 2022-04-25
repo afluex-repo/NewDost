@@ -21,7 +21,7 @@ namespace Dost.Controllers
     {
         // GET: NFCProfile
         // GET: NFC
-        public ActionResult ProfileUpdate()
+        public ActionResult ProfileUpdate(string EncCode)
         {
             //string url = "https://dost.click/NFC/Profile?id=H8eoDq2dRNnw2LmzMaZaJQ==";
             //MyURLShortener u = new MyURLShortener();
@@ -70,13 +70,19 @@ namespace Dost.Controllers
             }
 
             ViewBag.Mobile = Mobile;
-            if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "")
+            if (EncCode != null && EncCode != "")
+            {
+                model.Code = EncCode;
+            }
+            else if (Session["NFCCode"] != null && Session["NFCCode"].ToString() != "")
             {
                 model.Code = Session["NFCCode"].ToString();
             }
-            if (Session["UserNFCCode"].ToString() != "na")
+            else if (Session["UserNFCCode"].ToString() != "na")
             {
                 model.Code = Session["UserNFCCode"].ToString();
+            }
+            else {
             }
             #endregion
             #region SocialMedia
@@ -152,6 +158,7 @@ namespace Dost.Controllers
             string[] colorContact = { "#FF4C41", "#68CF29", "#51A6F5", "#eb8153", "#FFAB2D" };
             string[] colorRedirection = { "#eb8153", "#6418C3", "#FF4C90", "#68CF90", "#90A6F9", "#FFAB8D" };
             var i = 0;
+            model.DecryptedCode = Crypto.DecryptNFC(EncCode);
             DataSet ds = model.GetNFCProfileData();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -195,7 +202,7 @@ namespace Dost.Controllers
                 model.lst = lstUerProfile;
             }
             NFCModel objn = new NFCModel();
-           
+
             objn.Code = Crypto.DecryptNFC(model.Code);
             DataSet dsProfile = objn.GetNFCProfileData();
             //if (dsProfile != null && dsProfile.Tables.Count > 0 && dsProfile.Tables[0].Rows.Count > 0)
@@ -747,6 +754,7 @@ namespace Dost.Controllers
                     {
                         if (model.PK_ProfileId == null || model.PK_ProfileId == "")
                         {
+                            
                             DataSet ds = model.InsertProfileName();
                             if (ds != null && ds.Tables.Count > 0)
                             {
@@ -1016,6 +1024,7 @@ namespace Dost.Controllers
                     obj.Pk_ServiceId = r["PK_ServiceId"].ToString();
                     obj.PK_NFcId = Convert.ToInt32(r["PK_NFCId"]);
                     obj.IsActive = r["IsActivated"].ToString();
+                    obj.DecCode = r["Code"].ToString();
                     lst.Add(obj);
                 }
                 model.lst = lst;
@@ -1319,7 +1328,7 @@ namespace Dost.Controllers
                             {
                                 objProfile.Description = ds1.Tables[6].Rows[0]["Description"].ToString();
                                 objProfile.BannerImage = ds1.Tables[6].Rows[0]["BannerImage"].ToString();
-                         }
+                            }
                         }
                         else
                         {
@@ -1373,9 +1382,9 @@ namespace Dost.Controllers
                             model.Description = r["Summary"].ToString();
                         }
                     }
-                        
-                    
-                   // objA.Achievement = ds.Tables[5].Rows[0]["Achievement"].ToString();
+
+
+                    // objA.Achievement = ds.Tables[5].Rows[0]["Achievement"].ToString();
                 }
             }
             catch (Exception ex)
@@ -1558,8 +1567,8 @@ namespace Dost.Controllers
                     model.Message = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
                 }
             }
-           // return RedirectToAction("EditProfileSetAction", "NFCProfile", new { id = Code });
-           return Json(model, JsonRequestBehavior.AllowGet);
+            // return RedirectToAction("EditProfileSetAction", "NFCProfile", new { id = Code });
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         //[AcceptVerbs(HttpVerbs.Post)]
