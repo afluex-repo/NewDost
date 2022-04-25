@@ -851,7 +851,7 @@
                             <li><a href='@Url.Action("NFCDevice","NFCProfile")'>Add NFC Device</a></li>
                             @if (Session["UserNFCCode"] != null)
                             {
-                                if (Session["UserNFCCode"].ToString() != "" && Session["UserNFCCode"].ToString() != "na")
+                                if (Session["IsAnyProduct"].ToString() != "" && Session["IsAnyProduct"].ToString() != "na")
                                 {
                                     <li><a href='@Url.Action("SetActionDashboard","NFCProfile")'>Manage NFC Device</a></li>
                                 }
